@@ -7,7 +7,7 @@ const LoginPage = () => {
   return (
     <form onSubmit="Login">
       <div className="flex item-center justify-center h-screen bg-rose-50 sm:h-screen md:h-screen xs:h-screen w-screen">
-        <main className="flex flex-col item-center justify-center h-full lg:px-96 md:px-8 sm:px-12 xs:px-8">
+        <main className="flex flex-col item-center justify-center h-full lg:px-96 md:px-8 sm:px-12 xs:px-8 " >
           <div className="bg-gray-300 rounded-3xl ">
             <div className="mx-12">
               <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">Log In</h1>
