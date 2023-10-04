@@ -9,7 +9,7 @@ const LoginPage = () => {
       <div className="flex item-center justify-center h-screen bg-rose-50 sm:h-screen md:h-screen xs:h-screen w-screen">
         <main className="flex flex-col item-center justify-center h-full lg:px-96 md:px-8 sm:px-12 xs:px-8 " >
           <div className="justify-center items-center flex">
-          <img src={IMAGES.imgLogo} alt="logo" width={100} height={50} className="hover:bg-slate-100 hover:bg-rose-50"/>
+          <img src={IMAGES.imgLogo} alt="logo" width={100} height={50} className=" hover:bg-rose-50 hover:scale-75"/>
           <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
           </div>
           <div className="bg-gray-300 rounded-3xl ">
@@ -18,8 +18,8 @@ const LoginPage = () => {
 
               <div className="username mt-10 ">
                 <div className="flex pl-1">
-                  <BiUserCircle className="mt-2.5" />
-                  <label className="mt-1.5">Username</label>
+                  {/* <BiUserCircle className="mt-2.5" />
+                  <label className="mt-1.5">Username</label> */}
                   <div className="pl-1">
                     <input
                       className="username border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
@@ -32,8 +32,8 @@ const LoginPage = () => {
 
               <div className="passowrd mt-8 ">
                 <div className="flex pl-1 ">
-                  <RiLockPasswordLine className="mt-2.5" />
-                  <label className="mt-1.5">Password </label>
+                  {/* <RiLockPasswordLine className="mt-2.5" />
+                  <label className="mt-1.5">Password </label> */}
                   <div className="pl-1">
                     <input
                       className="password border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
@@ -44,7 +44,7 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <div className="mt-6 text-center justify-center bg-blue-700 rounded-2xl mx-20 hover:bg-blue-800">
+              <div className="mt-6 text-center justify-center bg-blue-700 rounded-xl mx-10 hover:bg-blue-800">
                 <button
                   type="submit"
                   className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg "
@@ -55,8 +55,8 @@ const LoginPage = () => {
 
               <div className="mt-10 text-center flex justify-center w-full">
                 <div className="flex">
-                  <button className="py-3 "> Forgot Password &#10072; </button>
-                  <button className="py-3 text-blue-700" type="Register">
+                  <button className="py-3 hover:text-blue-900"> Forgot Password &#10072; </button>
+                  <button className="py-3 text-blue-700 hover:text-blue-900" type="Register">
                     &#160;Register
                   </button>
                 </div>
@@ -64,13 +64,13 @@ const LoginPage = () => {
 
               <div className="flex justify-evenly px-3 py-3">
                 <button className="">
-                  <img src={IMAGES.imgFb} alt="my image" width={50} height={50} onClick={this} />
+                  <img src={IMAGES.imgFb} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
                 </button>
                 <button className="">
-                  <img src={IMAGES.imgGoogle} alt="my image" width={50} height={50} onClick={this} />
+                  <img src={IMAGES.imgGoogle} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
                 </button>
                 <button className=" ">
-                  <img src={IMAGES.imgPhone} alt="my image" width={50} height={50} onClick={this} />
+                  <img src={IMAGES.imgPhone} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
                 </button>
               </div>
             </div>

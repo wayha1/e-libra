@@ -10,7 +10,10 @@ const Navbar = () => {
       <div className="w-screen py-2 font-bold ">
         <div className="flex justify-between lg:mx-10 md:mx-10 sm:mx-4 xs:mx-4">
           <div className="lg:ml-32 md:ml-12 sm:ml-12 xs:ml-12 flex space-x-5 px-5">
-            <img src={require('./Logo.png')} alt="Logo" width={30} height={30}/>
+            <Link to={"/"} >
+              <img src={require('./Logo.png')} alt="Logo" width={30} height={30}/>
+            </Link>
+            
             <Link to={"/"} className="logo ml-20 whitespace-normal mt-1">
               Elibra
             </Link>

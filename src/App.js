@@ -14,7 +14,7 @@ import { Footer } from "./Footer/Footer";
 const App = ({ children }) => {
   return (
     <>
-     
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/help" element={<Help />}></Route>
