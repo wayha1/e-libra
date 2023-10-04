@@ -7,15 +7,15 @@ import { Link } from "react-router-dom";
 const LoginPage = () => {
   return (
     <form onSubmit="Login">
-      <div className="flex item-center justify-center h-screen bg-rose-50 sm:h-screen md:h-screen xs:h-screen w-screen">
+      <div className="flex item-center justify-center h-screen bg-sky-600 sm:h-screen md:h-screen xs:h-screen w-screen">
         <main className="flex flex-col item-center justify-center h-full lg:px-96 md:px-8 sm:px-12 xs:px-8 " >
           <div className="justify-center items-center flex">
-          <img src={IMAGES.imgLogo} alt="logo" width={100} height={50} className=" hover:bg-rose-50 hover:scale-75"/>
+          <img src={IMAGES.imgLogo} alt="logo" width={100} height={50} className=" hover:bg-sky-600 hover:scale-75"/>
           <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
           </div>
-          <div className="bg-gray-300 rounded-3xl ">
+          <div className="bg-white rounded-3xl ">
             <div className="mx-12">
-              <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">Log In</h1>
+              <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">LogIn</h1>
 
               <div className="username mt-10 ">
                 <div className="flex pl-1">
@@ -49,7 +49,7 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg ">
-                  Log In
+                  LogIn
                 </button>
               </div>
 
