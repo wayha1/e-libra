@@ -1,7 +1,8 @@
 import React from "react";
-import { BiUserCircle } from "react-icons/bi";
-import { RiLockPasswordLine } from "react-icons/ri";
+// import { BiUserCircle } from "react-icons/bi";
+// import { RiLockPasswordLine } from "react-icons/ri";
 import IMAGES from "./images";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   return (
@@ -47,8 +48,7 @@ const LoginPage = () => {
               <div className="mt-6 text-center justify-center bg-blue-700 rounded-xl mx-10 hover:bg-blue-800">
                 <button
                   type="submit"
-                  className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg "
-                >
+                  className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg ">
                   Log In
                 </button>
               </div>
@@ -56,13 +56,15 @@ const LoginPage = () => {
               <div className="mt-10 text-center flex justify-center w-full">
                 <div className="flex">
                   <button className="py-3 hover:text-blue-900"> Forgot Password &#10072; </button>
+                    <Link to={"/register"}>
                   <button className="py-3 text-blue-700 hover:text-blue-900" type="Register">
                     &#160;Register
                   </button>
+                    </Link>
                 </div>
               </div>
 
-              <div className="flex justify-evenly px-3 py-3">
+              <ul className="flex justify-between px-3 py-3">
                 <button className="">
                   <img src={IMAGES.imgFb} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
                 </button>
@@ -72,7 +74,7 @@ const LoginPage = () => {
                 <button className=" ">
                   <img src={IMAGES.imgPhone} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
                 </button>
-              </div>
+              </ul>
             </div>
           </div>
         </main>
