@@ -8,6 +8,10 @@ const LoginPage = () => {
     <form onSubmit="Login">
       <div className="flex item-center justify-center h-screen bg-rose-50 sm:h-screen md:h-screen xs:h-screen w-screen">
         <main className="flex flex-col item-center justify-center h-full lg:px-96 md:px-8 sm:px-12 xs:px-8 " >
+          <div className="justify-center items-center flex">
+          <img src={IMAGES.imgLogo} alt="logo" width={100} height={50} className="hover:bg-slate-100 hover:bg-rose-50"/>
+          <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
+          </div>
           <div className="bg-gray-300 rounded-3xl ">
             <div className="mx-12">
               <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">Log In</h1>
@@ -40,10 +44,10 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <div className="mt-6 text-center justify-center bg-blue-700 rounded-2xl mx-20 ">
+              <div className="mt-6 text-center justify-center bg-blue-700 rounded-2xl mx-20 hover:bg-blue-800">
                 <button
                   type="submit"
-                  className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg"
+                  className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg "
                 >
                   Log In
                 </button>
