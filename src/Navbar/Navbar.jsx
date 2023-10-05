@@ -3,7 +3,6 @@ import { BiUserCircle, BiSearchAlt2 } from "react-icons/bi";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import IMAGES from "../components/LoginPage/images";
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
@@ -27,10 +26,7 @@ const Navbar = () => {
               />
             </Link>
 
-            <Link
-              to={"/"}
-              className="logo ml-20 whitespace-normal mt-1 shadow-inner hover:shadow-full hover:scale-110"
-            >
+            <Link to={"/"} className="logo ml-20 whitespace-normal mt-1 hover:shadow-full hover:scale-110">
               Elibra
             </Link>
 
@@ -81,7 +77,7 @@ const Navbar = () => {
                 to="/"
                 className="flex items-center justify-center shadow-inner hover:shadow-full hover:scale-125"
               >
-                <img src={IMAGES.imgLogo} alt="Logo" width={50} height={50} />
+                <img src={require("./Logo.png")} alt="Logo" width={50} height={50} />
                 <span className="text-2xl font-semibold whitespace-nowrap text-black">E-Library</span>
               </Link>
               <div className="text-center ">
