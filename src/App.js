@@ -6,10 +6,10 @@ import Navbar from "./Navbar/Navbar";
 import AccountPage from './components/AccountPage/AccountPage';
 import CartPage from './components/Cartt/CartPage';
 import Contactpage from './components/Contact/Contactpage';
-import Help from "./components/Help/Help";
 import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 import { Footer } from "./Footer/Footer";
+import AboutUs from "./components/About Us/AboutUs";
 
 const App = ({ children }) => {
   return (
@@ -17,7 +17,7 @@ const App = ({ children }) => {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/help" element={<Help />}></Route>
+        <Route path="/aboutus" element={<AboutUs />}></Route>
         <Route path="/contact" element={<Contactpage />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>

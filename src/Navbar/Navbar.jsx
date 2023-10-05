@@ -26,8 +26,8 @@ const Navbar = () => {
               />
             </Link>
 
-            <Link to={"/"} className="logo ml-20 whitespace-normal mt-1 hover:shadow-full hover:scale-110">
-              Elibra
+            <Link to={"/"} className="logo uppercase ml-20 whitespace-nowrap mt-1 hover:shadow-full hover:scale-110">
+              E libra
             </Link>
 
             <div className="flex ">
@@ -41,9 +41,9 @@ const Navbar = () => {
             </div>
           </div>
 
-          <ul className="flex hidden md:flex">
-            <Link to={"/help"} className="help  px-5 hover:shadow-full hover:scale-110">
-              Help
+          <ul className="flex uppercase hidden md:flex">
+            <Link to={"/aboutus"} className="about-us whitespace-nowrap px-5 hover:shadow-full hover:scale-110">
+              About Us
             </Link>
 
             <Link to={"/contact"} className="Contact px-5 hover:shadow-full hover:scale-110">
@@ -83,8 +83,8 @@ const Navbar = () => {
               <div className="text-center ">
                 <ul className="uppercase p-4 ">
                   <li className=" border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
-                    <Link to={"/help"} className="font-bold ">
-                      Help
+                    <Link to={"/aboutus"} className="font-bold whitespace-nowrap">
+                      About Us
                     </Link>
                   </li>
                   <li className=" border-b border-b-slate-200 p-5  hover:shadow-full hover:scale-110">
