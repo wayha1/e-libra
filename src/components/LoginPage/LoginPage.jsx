@@ -1,85 +1,125 @@
-import React from "react";
-// import { BiUserCircle } from "react-icons/bi";
-// import { RiLockPasswordLine } from "react-icons/ri";
+import React, { useState, useEffect } from "react";
 import IMAGES from "./images";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
+import { auth, txtDB } from "../../firebase";
 
 const LoginPage = () => {
+  const [error, setError] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setpassword] = useState("");
+  const [data, setData] = useState([]);
+  const [authenticated, setauthenticated] = useState(
+    localStorage.getItem(localStorage.getItem("authenticated") || false)
+  );
+
+  const getData = async () => {
+    const valRef = collection(txtDB, `LogoData`);
+    const dataDb = await getDocs(valRef);
+    const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+    setData(allData);
+    console.log(dataDb);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(data, "datadata");
+
+  const navitage = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, username, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        localStorage.setItem("authenticated", true);
+        navitage("/");
+      })
+      .catch((error) => {
+        setError(true);
+      });
+  };
+
   return (
-    <form onSubmit="Login">
-      <div className="flex item-center justify-center h-screen bg-sky-600 sm:h-screen md:h-screen xs:h-screen w-screen">
-        <main className="flex flex-col item-center justify-center h-full lg:px-96 md:px-8 sm:px-12 xs:px-8 " >
-          <div className="justify-center items-center flex">
-          <img src={IMAGES.imgLogo} alt="logo" width={100} height={50} className=" hover:bg-sky-600 hover:scale-75"/>
+    <div className="Login">
+      <div className="flex flex-col items-center justify-center h-screen bg-sky-600">
+        <div className="flex items-center">
+          <img
+            src={IMAGES.imgLogo}
+            alt="logo"
+            width={100}
+            height={50}
+            className=" hover:bg-sky-600 hover:scale-75"
+          />
           <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
-          </div>
-          <div className="bg-white rounded-3xl ">
-            <div className="mx-12">
-              <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">LogIn</h1>
+        </div>
+        <form onSubmit={handleLogin}>
+          <main className=" flex-col items-center justify-center bg-white rounded-3xl h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[550px]">
+            <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">LogIn</h1>
 
-              <div className="username mt-10 ">
-                <div className="flex pl-1">
-                  {/* <BiUserCircle className="mt-2.5" />
-                  <label className="mt-1.5">Username</label> */}
-                  <div className="pl-1">
-                    <input
-                      className="username border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
-                      type="username"
-                      placeholder="username or email"
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="username mt-10 mx-[10%]">
+              <input
+                className="username border border-gray-600 rounded-lg text-gray-500 bg-gray-100 py-1 pl-5 w-full"
+                type="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="username or email"
+              />
 
-              <div className="passowrd mt-8 ">
-                <div className="flex pl-1 ">
-                  {/* <RiLockPasswordLine className="mt-2.5" />
-                  <label className="mt-1.5">Password </label> */}
-                  <div className="pl-1">
-                    <input
-                      className="password border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
-                      type="password"
-                      placeholder="password"
-                    />
-                  </div>
-                </div>
-              </div>
+              <input
+                className="mt-5 password border border-gray-600 rounded-lg text-gray-500 bg-gray-100 pl-5 py-1 w-full"
+                type="password"
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+                placeholder="password"
+              />
+            </div>
 
-              <div className="mt-6 text-center justify-center bg-blue-700 rounded-xl mx-10 hover:bg-blue-800">
-                <button
-                  type="submit"
-                  className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg ">
-                  LogIn
-                </button>
-              </div>
+            <div className="mt-8 justify-center w-full flex items-center flex-col">
+              {error && <span className="text-sm text-red-600 ">Wrong username or passowrd ! </span>}
+              <button
+                type="submit"
+                className=" bg-blue-700 rounded-xl hover:bg-blue-800 py-2 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg sm:w-[80%] w-[50%]"
+              >
+                LogIn
+              </button>
+            </div>
 
-              <div className="mt-10 text-center flex justify-center w-full">
-                <div className="flex">
-                  <button className="py-3 hover:text-blue-900"> Forgot Password &#10072; </button>
-                    <Link to={"/register"}>
+            <div className="mt-8 text-center flex justify-center w-full">
+              <div className="flex">
+                <button className="py-3 hover:text-blue-900"> Forgot Password &#10072; </button>
+                <Link to={"/register"}>
                   <button className="py-3 text-blue-700 hover:text-blue-900" type="Register">
                     &#160;Register
                   </button>
-                    </Link>
-                </div>
+                </Link>
               </div>
-
-              <ul className="flex justify-between px-3 py-3">
-                <button className="">
-                  <img src={IMAGES.imgFb} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
-                </button>
-                <button className="">
-                  <img src={IMAGES.imgGoogle} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
-                </button>
-                <button className=" ">
-                  <img src={IMAGES.imgPhone} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
-                </button>
-              </ul>
             </div>
-          </div>
-        </main>
+
+            <ul className="flex justify-between px-3 py-3 gap-4">
+              {data.map((value) => (
+                <div className="">
+                  <h1>{value.txtVal}</h1>
+                  <img
+                    src={value.imgUrl}
+                    alt="my image"
+                    width={50}
+                    height={50}
+                    onClick={this}
+                    className=" hover:shadow-full hover:scale-110 "
+                  />
+                </div>
+              ))}
+            </ul>
+          </main>
+        </form>
       </div>
-    </form>
+    </div>
   );
 };
 

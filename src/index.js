@@ -1,14 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import "firebase/compat/database";
 import App from "./App";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
     <App />
-  </BrowserRouter>,
+  </BrowserRouter>
+  </React.StrictMode>
+  
+  ,
 
   document.getElementById("root")
 );
