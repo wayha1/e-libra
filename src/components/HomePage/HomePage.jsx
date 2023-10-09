@@ -29,7 +29,6 @@ const HomePage = () => {
     getData();
     getHeader();
   }, []);
-  const slides = Array.from({ length: 1000 }).map((el, index) => `Slide ${index + 1}`);
 
   console.log(data, "datadata");
   console.log(header, "header");
@@ -39,20 +38,13 @@ const HomePage = () => {
     {/* Banner */}
       <section>
         <main>
-          <div>
-            <Swiper
-              spaceBetween={30}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
+          <div className="">
+            <Swiper pagination={{ clickable: true}} modules={[Pagination]} className="min-h-fit">
               <div className="Banner">
-                {data.map((data, index) => (
-                  <div className="bg-white-to-r from-gray-800 bg-cover bg-center w-full h-50% justify-center shadow-lg h-50%">
-                    <SwiperSlide className="flex justify-center items-center">
-                      <div className=" absolute backdrop-saturate-50 bg-white/30">
+                      {data.map((data) => (
+                  <SwiperSlide className=" justify-center shadow-lg flex items-center h-100%">
+                   
+                      <div className="absolute ">
                         <h1 className="text-4xl relative font-bold">{data.title}</h1>
                         <span className="relative">{data.decs} </span>
                       </div>
@@ -61,12 +53,12 @@ const HomePage = () => {
                         className="bg-center "
                         alt="Banner"
                         onClick={this}
-                        height="50%"
-                        width="50%"
-                      />
-                    </SwiperSlide>
-                  </div>
-                ))}
+                        height="100%"
+                        width="100%"
+                        />
+                    
+                  </SwiperSlide>
+                        ))}
               </div>
             </Swiper>
           </div>
