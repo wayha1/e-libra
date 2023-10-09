@@ -11,9 +11,9 @@ const AboutUs = () => {
 
   const handleUpload = (e) => {
     console.log(e.target.files[0]);
-    const imgs = ref(imgDB, `Logo/${v4()}`);
+    const imgs = ref(imgDB, `HomePage/${v4()}`);
     uploadBytes(imgs, e.target.files[0]).then(data=> {
-      console.log(data, "Logo")
+      console.log(data, "HomePage")
       getDownloadURL(data.ref).then(val=>{
         setImage(val)
       })
@@ -21,13 +21,13 @@ const AboutUs = () => {
   };
 
   const handleClick = async () => {
-    const valRef = collection(txtDB, `LogoData`)
+    const valRef = collection(txtDB, `HomePage`)
     await addDoc(valRef,{txtVal:txt,imgUrl:img})
     alert("Data added sucessfully")
   }
 
   const getData = async () => {
-    const valRef = collection(txtDB, `LogoData`)
+    const valRef = collection(txtDB, `HomePage`)
     const dataDb = await getDocs(valRef)
     const allData = dataDb.docs.map(val=>({...val.data(),id:val.id}))
     setData(allData)

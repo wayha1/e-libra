@@ -10,9 +10,6 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setpassword] = useState("");
   const [data, setData] = useState([]);
-  const [authenticated, setauthenticated] = useState(
-    localStorage.getItem(localStorage.getItem("authenticated") || false)
-  );
 
   const getData = async () => {
     const valRef = collection(txtDB, `LogoData`);
@@ -101,17 +98,17 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <ul className="flex justify-between px-3 py-3 gap-4">
+            <ul className="justify-center w-full flex items-center flex-col my-5">
               {data.map((value) => (
-                <div className="">
-                  <h1>{value.txtVal}</h1>
+                <div className="justify-between px-3 mt-5 flex bg-gray-400 rounded-xl hover:bg-gray-500 text-white shadow-xl  hover:shadow-lg w-[80%] sm:px-1">
+                  <h1 className="mt-1.5 whitespace-nowrap ">{value.txtVal}</h1>
                   <img
                     src={value.imgUrl}
                     alt="my image"
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     onClick={this}
-                    className=" hover:shadow-full hover:scale-110 "
+                    className="hover:shadow-full hover:scale-110 "
                   />
                 </div>
               ))}
