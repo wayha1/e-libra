@@ -12,19 +12,21 @@ import AboutUs from "./components/About Us/AboutUs";
 import { Footer } from "./Footer/Footer";
 
 const App = ({ children }) => {
+
   return (
     <>
-      <Navbar />
-      
-      <Routes>
+        : <Navbar />
+      <Routes >
         <Route path="/" element={<HomePage />}></Route>
         <Route path="aboutus" element={<AboutUs />}></Route>
         <Route path="/contact" element={<Contactpage />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/login" element={<LoginPage />} hideNavBar={true}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
       </Routes>
+     
+   
       {children} 
      
     </>

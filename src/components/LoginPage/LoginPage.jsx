@@ -43,7 +43,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="Login">
+    <div className="Login z-50">
       <div className="flex flex-col items-center justify-center h-screen bg-sky-600">
         <div className="flex items-center">
           <img

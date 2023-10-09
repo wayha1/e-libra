@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-gray-200 shadow-lg ">
+    <nav className="bg-white border-gray-200 shadow-lg z-10">
       <div className=" py-5 font-bold shadow-lg w-screen lg:w-sceen">
         <div className="flex justify-between lg:mx-10 md:mx-10 sm:mx-4 xs:mx-4">
           {/* Deskop Mode */}
