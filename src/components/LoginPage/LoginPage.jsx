@@ -98,17 +98,17 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <ul className="justify-center w-full flex items-center flex-col my-5">
+            <ul className="justify-center items-center flex flex-col my-5">
               {data.map((value) => (
-                <div className="justify-between px-3 mt-5 flex bg-gray-400 rounded-xl hover:bg-gray-500 text-white shadow-xl  hover:shadow-lg w-[80%] sm:px-1">
-                  <h1 className="mt-1.5 whitespace-nowrap ">{value.txtVal}</h1>
+                <div className="justify-between px-4 mt-5 flex bg-gray-400 rounded-xl hover:bg-gray-500 text-white shadow-xl hover:shadow-lg w-[80%] sm:px-1">
+                  <h1 className="mt-1.5 whitespace-nowrap "> {value.txtVal} </h1>
                   <img
                     src={value.imgUrl}
                     alt="my image"
                     width={40}
                     height={40}
                     onClick={this}
-                    className="hover:shadow-full hover:scale-110 "
+                    className="hover:shadow-full hover:scale-90 "
                   />
                 </div>
               ))}
