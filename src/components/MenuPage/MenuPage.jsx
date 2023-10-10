@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from './MenuPage.module.css'
 
 const MenuPage = () => {
   return (

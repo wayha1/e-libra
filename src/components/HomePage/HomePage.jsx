@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import HeadCategory from "../HeaderCategory/HeadCategory";
 import { collection, getDocs } from "firebase/firestore";
 import { txtDB } from "../../firebase";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -62,12 +63,13 @@ const HomePage = () => {
               </div>
             </Swiper>
           </div>
-          
         </main>
       </section>
-
+            <div className="my-0.25">
+              <HeadCategory />
+            </div>
       <section>
-      <div className="Header">
+      <div className="Header mt-3">
             {header.map((header) => (
               <span key={header.id} className="mt-10 text-2xl px-10 uppercase font-bold ">
                 {header.container}

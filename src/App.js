@@ -9,7 +9,12 @@ import Contactpage from './components/Contact/Contactpage';
 import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 import AboutUs from "./components/About Us/AboutUs";
+import AllgenBook from "./components/CategoryBook/AllgenBook";
 import { Footer } from "./Footer/Footer";
+import BacIIBook from "./components/CategoryBook/BacIIBook";
+import ComicBook from "./components/CategoryBook/ComicBook";
+import { NovelBook } from "./components/CategoryBook/NovelBook";
+import StudyBook from "./components/CategoryBook/StudyBook";
 
 const App = ({ children }) => {
 
@@ -25,9 +30,16 @@ const App = ({ children }) => {
         <Route path="/login" element={<LoginPage />} hideNavBar={true}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
       </Routes>
+      {children} 
+      <Routes>
+        <Route path="/allgen" element={<AllgenBook />}></Route>
+        <Route path="/bacII" element={<BacIIBook />}></Route>
+        <Route path="/comic" element={<ComicBook />}></Route>
+        <Route path="/novel" element={<NovelBook />}></Route>
+        <Route path="/study" element={<StudyBook />}></Route>
+      </Routes>
      
    
-      {children} 
      
     </>
   );
