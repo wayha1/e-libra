@@ -69,13 +69,13 @@ const Navbar = () => {
             <div
               className={
                 nav
-                  ? "fixed left-[-100%] bg-white"
-                  : "fixed left-0 top-0 w-[60%] h-full shadow-xl bg-white ease-in-out duration-500"
+                  ? "fixed left-[-100%] "
+                  : "fixed left-0 top-0 w-[60%] h-full shadow-xl bg-white ease-in-out duration-500 absolute"
               }
             >
               <Link
                 to="/"
-                className="flex items-center justify-center shadow-inner hover:shadow-full hover:scale-125"
+                className="flex items-center  justify-center shadow-inner hover:shadow-full hover:scale-125"
               >
                 <img src={require("./Logo.png")} alt="Logo" width={50} height={50} />
                 <span className="text-2xl font-semibold whitespace-nowrap text-black">E-Library</span>
