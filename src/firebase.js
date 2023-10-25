@@ -3,7 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore} from "firebase/firestore";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyBXuXYbnMvuzYmNJtGAGlxjPHWG04UiXVQ",
   authDomain: "e-libra-bcb05.firebaseapp.com",
@@ -20,5 +19,4 @@ const imgDB = getStorage(app);
 const db = getFirestore(app);
 
 export const auth = getAuth()
-
 export {imgDB,txtDB,db};

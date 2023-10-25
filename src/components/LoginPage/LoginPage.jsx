@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import IMAGES from "./images";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
@@ -44,14 +43,14 @@ const LoginPage = () => {
 
   return (
     <div className="Login z-50">
-      <div className="flex flex-col items-center justify-center h-screen bg-sky-600">
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-300">
         <div className="flex items-center">
           <img
-            src={IMAGES.imgLogo}
+             src={require("./Logo.png")}
             alt="logo"
             width={100}
             height={50}
-            className=" hover:bg-sky-600 hover:scale-75"
+            className=" hover:bg-gray-300 hover:scale-75"
           />
           <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
         </div>

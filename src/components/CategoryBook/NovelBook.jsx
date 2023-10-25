@@ -1,7 +1,11 @@
 import React from 'react'
 
-export const NovelBook = () => {
+const NovelBook = () => {
   return (
-    <div>NovelBook</div>
+    <div>
+      
+    </div>
   )
 }
+
+export default NovelBook

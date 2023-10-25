@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../../Navbar/Navbar";
 
 // Reusable FormField component
 const FormField = ({ id, type, label, placeholder, mb, value, onChange }) => (
@@ -16,6 +17,8 @@ const FormField = ({ id, type, label, placeholder, mb, value, onChange }) => (
 );
 const AccountPage = () => {
   return (
+   <div>
+     <Navbar />
     <div className="max-w-7xl mx-auto mt-10 md:mt-10">
       <div className="font-semibold text-black text-2xl md:text-4xl pb-10 pl-4 xl:pl-0">
         Account Setting
@@ -100,6 +103,7 @@ const AccountPage = () => {
         </div>
       </div>
     </div>
+   </div>
   )
 }
 

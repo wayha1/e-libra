@@ -3,6 +3,7 @@ import { imgDB, txtDB } from "../../firebase";
 import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { addDoc, collection, getDocs } from "firebase/firestore";
+import Navbar from "../../Navbar/Navbar";
 
 const AboutUs = () => {
   const [txt, setTxt] = useState("");
@@ -42,6 +43,7 @@ const AboutUs = () => {
 
   return (
     <div>
+       <Navbar />
       <input onChange={(e) => setTxt(e.target.value)} /><br />
       <input className="border border-gray-700" type="file" onChange={(e) => handleUpload(e)} /><br /><br />
       <button onClick={handleClick} >Add</button>

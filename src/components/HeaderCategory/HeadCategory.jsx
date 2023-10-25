@@ -1,20 +1,19 @@
-import React, { useState, useEffect, Children } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { txtDB } from "../../firebase";
+import { db } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 const HeadCategory = () => {
   const [head, setHead] = useState([]);
   const getHead = async () => {
-    const head = await getDocs(collection(txtDB, "HeadCategory"));
-    const allHead = head.docs.map((val) => ({ ...val.data() }));
+    const head = await getDocs(collection(db, "HeadCategory"));
+    const allHead = head.docs.map((val) => ({ ...val.data(), id: val.id }));
     setHead(allHead);
   };
   useEffect(() => {
     getHead();
   }, []);
 
-  console.log(head, "head");
 
   return (
     <section>

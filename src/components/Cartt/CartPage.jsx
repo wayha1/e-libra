@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from '../../Navbar/Navbar'
 
 
 const CartPage = () => {
   return (
-    <div className=''>
+    <div className=''> 
+    <Navbar />
       Hello world
     </div>
   )

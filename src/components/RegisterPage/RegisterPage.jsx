@@ -1,5 +1,4 @@
 import React from "react";
-import IMAGES from "../LoginPage/images";
 const RegisterPage = () => {
   return (
     <form onSubmit="Register">
@@ -73,7 +72,7 @@ const RegisterPage = () => {
                 </button>
               </div>
               <div>
-              <ul className="flex justify-between px-3 py-3">
+              {/* <ul className="flex justify-between px-3 py-3">
                 <button className="">
                   <img src={IMAGES.imgFb} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
                 </button>
@@ -83,7 +82,7 @@ const RegisterPage = () => {
                 <button className=" ">
                   <img src={IMAGES.imgPhone} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
                 </button>
-              </ul>
+              </ul> */}
               </div>
               </div>
             </div>
