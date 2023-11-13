@@ -4,19 +4,26 @@ import BodyHomepage from "./BodyHomepage";
 import "./HomePage.css";
 import "./Body.css";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, imgDB } from "../../firebase";
+import { getDownloadURL, ref } from "firebase/storage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Scrollbar, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Mymodal from "./Mymodal";
+
 
 const HomePage = () => {
   const [Banner, setBanner] = useState([]);
   const [Book, setBook] = useState([]);
   // const [BookData, setBookData] = useState([]);
 
+  const [showMymodal , setShowMyModal] = useState(false)
+  const [resume, setResume] = useState(null);
+
+  const handleClose = () => setShowMyModal(false);
   // how to import data from firebase
   const getBanner = async () => {
     const Banner = collection(db, "HomePage");
@@ -26,6 +33,10 @@ const HomePage = () => {
   };
 
   useEffect(() => {
+    getDownloadURL(ref(imgDB, 'ប្រធានប្រឡងឆមាសលើកទី១.pdf')).then((url) => {
+      setResume(url);
+      console.log(url)
+    })
     getBanner();
     // if (!Book) {
     // } else {
@@ -77,7 +88,7 @@ const HomePage = () => {
           >
             <div className="Banner w-fit h-full">
               {Banner.map((data, i) => (
-                <SwiperSlide className="justify-center shadow-lg flex items-center" key={i}>
+                <SwiperSlide className="justify-center shadow-lg flex items-center z-10" key={i}>
                   <div className="absolute lg:backdrop-blur-sm max-sm:backdrop-blur-sm md:backdrop-blur-md lg:py-10 lg:px-10 max-sm:py-8 max-sm:px-12 text-white">
                     {data.title && (
                       <h1 className="text-4xl relative font-bold max-sm:text-xl">{data.title}</h1>
@@ -194,6 +205,13 @@ const HomePage = () => {
             ))}
           </button>
         </div>
+
+        <button className="bg-blue-400 bg-opacity-40 btn btn-primary btn-md"
+         onClick={() => setShowMyModal(true)} > Open Modal</button>
+         
+           <Mymodal visible={showMymodal}
+            onClose={setShowMyModal} resume={resume} />
+      
       </section>
     </>
   );

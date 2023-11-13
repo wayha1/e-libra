@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 // import { Keyboard, Scrollbar, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-const BodyHomepage = () => {
+
+
+const BodyHomepage = ({visible}) => {
+
   const [Book, setBook] = useState([]);
   const [BookData, setBookData] = useState([]);
 
@@ -23,6 +25,7 @@ const BodyHomepage = () => {
     })
   );
 
+ 
   useEffect(() => {
     if (!Book) {
     } else {
@@ -57,6 +60,8 @@ const BodyHomepage = () => {
     }
   }, []);
 
+  
+
   return (
     <main>
       <Swiper slidesPerView={3} spaceBetween={10} className="min-h-fit">
@@ -80,15 +85,13 @@ const BodyHomepage = () => {
                     {data.decs}
                   </a>
                   <p class="mt-2 text-slate-500 ">{data.title}</p>
-                  <div className="flex mt-10">
+                  <div className="flex mt-10 mx-auto">
                     <button class="button">
-                      <span>Add to cart</span>
-                      <div class="cart">
+                      Add to cart
                         <svg viewBox="0 0 36 26">
                           <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
                           <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
                         </svg>
-                      </div>
                     </button>
 
                     <button className="border-solid border-2 border-indigo-600 rounded-full shadow-lg bg-blue-300">
@@ -147,9 +150,14 @@ const BodyHomepage = () => {
                 </div>
               </div>
             </div> */}
+
+            {/* <iframe src={data.PdfBook} width={100} height={100} /> */}
           </SwiperSlide>
         ))}
       </Swiper>
+
+   
+
     </main>
   );
 };
