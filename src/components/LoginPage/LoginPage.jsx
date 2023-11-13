@@ -13,9 +13,10 @@ const LoginPage = () => {
   const getData = async () => {
     const valRef = collection(txtDB, `LogoData`);
     const dataDb = await getDocs(valRef);
-    const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+    const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id })
+    );
     setData(allData);
-    console.log(dataDb);
+    
   };
 
   useEffect(() => {

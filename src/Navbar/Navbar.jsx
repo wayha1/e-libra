@@ -11,11 +11,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-gray-200 shadow-lg ">
-      <div className="py-5 font-bold shadow-lg w-screen lg:w-sceen">
-        <div className="flex justify-between lg:mx-10 md:mx-10 sm:mx-4 xs:mx-4">
-          {/* Deskop Mode */}
-          <div className="lg:ml-32 md:ml-12 sm:ml-12 xs:ml-12 flex space-x-5 px-auto py-auto">
+    <nav className="nav-bar w-screen ">
+      <div className="font-bold ">
+        {/* Deskop Mode */}
+        <div className="flex justify-between w-full lg:flex sm:flex md:flex ">
+          <div className="flex space-x-4">
             <Link to={"/"}>
               <img
                 src={require("./Logo.png")}
@@ -26,56 +26,65 @@ const Navbar = () => {
               />
             </Link>
 
-            <Link to={"/"} className="logo uppercase ml-20 whitespace-nowrap mt-1 hover:shadow-full hover:scale-110">
+            <Link
+              to={"/"}
+              className="logo uppercase whitespace-nowrap mt-2 hover:shadow-full hover:scale-110 "
+            >
               E libra
             </Link>
 
-            <div className="flex ">
+            <div class="relative ...">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        </div>
               <input
-                className="border rounded-xl border-gray-900 px-3 py-2 mx-3 h-8 shadow-xl shadow-inner hover:shadow-lg"
+                className="border w-52 md:w-44 sm:w-32 max-sm:w-32 px-3 mt-1 h-8 rounded-xl border-gray-900 shadow-xl shadow-inner hover:shadow-lg "
                 type="search"
-                placeholder="Search "
+                placeholder="Search"
                 id="search"
               />
-              <BiSearchAlt2 className="absolute flex mx-52 mt-2 " />
             </div>
           </div>
 
-          <ul className="flex uppercase hidden lg:flex">
-            <Link to={"/aboutus"} className="about-us whitespace-nowrap px-5 hover:shadow-full hover:scale-110">
-              About Us
-            </Link>
+          <div className="flex justify-end mt-2">
+            <ul className="flex uppercase hidden lg:flex justify-end">
+              <Link
+                to={"/aboutus"}
+                className="about-us whitespace-nowrap px-5 hover:shadow-full hover:scale-110"
+              >
+                About Us
+              </Link>
 
-            <Link to={"/contact"} className="Contact px-5 hover:shadow-full hover:scale-110">
-              Contact
-            </Link>
-            <Link to={"/account"} className="Account flex px-5 hover:shadow-full hover:scale-110">
-              {" "}
-              <BiUserCircle className="mt-1 -translate-x-2" to={"/account"} />
-              Account
-            </Link>
+              <Link to={"/contact"} className="Contact px-5 hover:shadow-full hover:scale-110">
+                Contact
+              </Link>
+              <Link to={"/account"} className="Account flex px-5 hover:shadow-full hover:scale-110">
+                {" "}
+                <BiUserCircle className="mt-1 -translate-x-2" to={"/account"} />
+                Account
+              </Link>
 
-            <Link to="/cart" className="Cart flex ps-5 space-x-4 hover:shadow-full hover:scale-110">
-              <BsCartPlus className="mt-1 -translate-x-2 " to="/cart" />
-              Cart
-            </Link>
-          </ul>
+              <Link to="/cart" className="Cart flex ps-5 space-x-4 hover:shadow-full hover:scale-110">
+                <BsCartPlus className="mt-1 -translate-x-2 " to="/cart" />
+                Cart
+              </Link>
+            </ul>
+          </div>
 
           {/* Mobile Mode */}
           <div className="dropdown_nav">
-            <div onClick={handleNav} className="block lg:hidden  ">
-              {nav ? <AiOutlineMenu size={25} /> : <AiOutlineClose size={25} />}
+            <div onClick={handleNav} className="block lg:hidden flex relative ">
+              {nav ? <AiOutlineMenu size={30} className="flex m-2" /> : <AiOutlineClose size={30} />}
             </div>
             <div
               className={
                 nav
                   ? "fixed left-[-100%] "
-                  : "fixed left-0 top-0 w-[60%] h-full shadow-xl bg-white ease-in-out duration-500 absolute"
+                  : "fixed left-0 top-0 w-[100%] h-full shadow-xl bg-white ease-in-out duration-500 absolute"
               }
             >
               <Link
                 to="/"
-                className="flex items-center  justify-center shadow-inner hover:shadow-full hover:scale-125"
+                className="flex items-center justify-center shadow-inner hover:shadow-full hover:scale-125"
               >
                 <img src={require("./Logo.png")} alt="Logo" width={50} height={50} />
                 <span className="text-2xl font-semibold whitespace-nowrap text-black">E-Library</span>

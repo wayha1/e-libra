@@ -18,7 +18,7 @@ const FormField = ({ id, type, label, placeholder, mb, value, onChange }) => (
 const AccountPage = () => {
   return (
    <div>
-     <Navbar />
+     {/* <Navbar /> */}
     <div className="max-w-7xl mx-auto mt-10 md:mt-10">
       <div className="font-semibold text-black text-2xl md:text-4xl pb-10 pl-4 xl:pl-0">
         Account Setting
