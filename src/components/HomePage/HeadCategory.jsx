@@ -22,7 +22,7 @@ const HeadCategory = () => {
 
   return (
     <section>
-      <div className="bg-gray-200 w-100% h-full lg:py-10 lg:px-5 lg:space-y-3 max-sm:w-100% lg:hover:bg-gray-300">
+      <div className="bg-white w-100% h-full lg:px-5 lg:space-y-3 max-sm:w-100% lg:hover:bg-gray-100">
         {head.map((link, index) => {
           return (
             <div className="flex " key={index}>
@@ -33,12 +33,12 @@ const HeadCategory = () => {
                   className=" hover:underline hover:text-cyan-800 whitespace-nowrap text-gray-500"
                 >
                   {link.headCategory && (
-                    <h1 className="xl:text-5xl lg:text-4xl md:text-2xl sm:text-md xs:text-md font-bold ">
+                    <h1 className="mt-2 xl:text-5xl lg:text-4xl md:text-2xl sm:text-md xs:text-md font-bold ">
                       {link.headCategory}
                     </h1>
                   )}
                   <div className="my-5 xl:text-xl lg:text-xl md:text-md sm:text-sm xs:text-sm font-medium font-sans line-clamp-6 grid-cols-6 ">
-                    {link.header && <a className="">{link.header}</a>}
+                    {link.header && <a className="text-center">{link.header}</a>}
                   </div>
                 </Link>
               </ul>
@@ -49,9 +49,12 @@ const HeadCategory = () => {
         {/* Mobile Mode */}
 
         <div className="flex md:w-full max-sm:w-100% h-fit lg:hidden ">
-        <div onClick={handleNav} className="md:block lg:hidden relative m-2 items-center flex">
-            {cate ? <AiOutlineDoubleRight size={30} className="relative items-center"/> 
-            : <AiOutlineClose  size={30} className="relative items-center "/>}
+          <div onClick={handleNav} className="md:block lg:hidden relative m-2 items-center flex">
+            {cate ? (
+              <AiOutlineDoubleRight size={30} className="relative items-center" />
+            ) : (
+              <AiOutlineClose size={30} className="relative items-center " />
+            )}
           </div>
           <div
             className={
@@ -61,12 +64,10 @@ const HeadCategory = () => {
                 md:w-100% md:justify-between sm:w-fit max-sm:w-fit"
             }
           >
-          <ul className="flex font-bold lg:hidden max-sm:w-fit text-center">
-            <Link
-              to={"/allGen"}
-              className="text-2xl hover:underline hover:text-cyan-800 text-gray-500 ">
-              All Category &nbsp; 
-            </Link>
+            <ul className="flex font-bold lg:hidden max-sm:w-fit text-center">
+              <Link to={"/allGen"} className="text-2xl hover:underline hover:text-cyan-800 text-gray-500 ">
+                All Category &nbsp;
+              </Link>
             </ul>
             <ul className="text- mt-1 space-x-3 max-sm:w-fit max-sm:flex max-sm:flex-wrap relative">
               <Link

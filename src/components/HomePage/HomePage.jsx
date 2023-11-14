@@ -23,6 +23,12 @@ const HomePage = () => {
   const [showMymodal , setShowMyModal] = useState(false)
   const [resume, setResume] = useState(null);
 
+  const [loader, setLaoder] = useState(false);
+  const downloadPDF =() => {
+    setLaoder(true);
+    
+  }
+
   const handleClose = () => setShowMyModal(false);
   // how to import data from firebase
   const getBanner = async () => {
@@ -33,7 +39,8 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getDownloadURL(ref(imgDB, 'ប្រធានប្រឡងឆមាសលើកទី១.pdf')).then((url) => {
+    getDownloadURL(ref(imgDB, 'ប្រធានប្រឡងឆមាសលើកទី១.pdf')).then((url) => 
+    {
       setResume(url);
       console.log(url)
     })
@@ -75,7 +82,7 @@ const HomePage = () => {
     <>
       {/* Banner */}
       <section>
-        <main className="w-screen flex h-fit bg-gray-200 bg-scroll">
+        <main className="w-screen flex h-fit bg-gray-200 bg-scroll ">
           {/* desktop mode */}
           <div className="flex max-lg:hidden">
             <HeadCategory />
@@ -205,11 +212,22 @@ const HomePage = () => {
             ))}
           </button>
         </div>
+        <button
+        onClick={downloadPDF}
+        disabled={!(loader === false)} 
+        >
+        {loader?(
+          <span>Downloading</span>
+        ):(
+          <span>Dowloaded</span>
+        )}
+
+        </button>
 
         <button className="bg-blue-400 bg-opacity-40 btn btn-primary btn-md"
          onClick={() => setShowMyModal(true)} > Open Modal</button>
          
-           <Mymodal visible={showMymodal}
+           <Mymodal className="w-full h-full" visible={showMymodal}
             onClose={setShowMyModal} resume={resume} />
       
       </section>
