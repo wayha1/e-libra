@@ -6,7 +6,6 @@ import { toolbarPlugin, ToolbarSlot } from "@react-pdf-viewer/toolbar";
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
-
 const Mymodal = ({ visible, onClose, resume }) => {
   const handleClose = () => {
     onClose()

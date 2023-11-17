@@ -114,7 +114,7 @@ const HomePage = () => {
             </div>
           </Swiper>
         </main>
-        <div className="flex lg:hidden w-screen bg-gray-200">
+        <div className="flex lg:hidden w-screen bg-white shadow-md">
           <HeadCategory />
         </div>
       </section>

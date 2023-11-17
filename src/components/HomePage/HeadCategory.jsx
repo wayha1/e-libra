@@ -22,23 +22,23 @@ const HeadCategory = () => {
 
   return (
     <section>
-      <div className="bg-white w-100% h-full lg:px-5 lg:space-y-3 max-sm:w-100% lg:hover:bg-gray-100">
+      <div className="bg-white w-100% h-full lg:px-5 lg:space-y-3 max-sm:w-100% lg:hover:bg-gray-100 lg:items-cennter lg:justify-center">
         {head.map((link, index) => {
           return (
-            <div className="flex " key={index}>
+            <div className="flex justify-center items-center hover:scale-125 hover:duration-300" key={index}>
               {/* desktop mode */}
               <ul className="flex hover:text-gray-300 max-lg:hidden">
                 <Link
                   to={link.Url}
-                  className=" hover:underline hover:text-cyan-800 whitespace-nowrap text-gray-500"
+                  className="hover:duration-200 hover:underline hover:text-cyan-800 whitespace-nowrap text-gray-500"
                 >
                   {link.headCategory && (
-                    <h1 className="mt-2 xl:text-5xl lg:text-4xl md:text-2xl sm:text-md xs:text-md font-bold ">
+                    <h1 className="mt-2 xl:text-4xl lg:text-3xl md:text-2xl sm:text-md xs:text-md font-bold ">
                       {link.headCategory}
                     </h1>
                   )}
-                  <div className="my-5 xl:text-xl lg:text-xl md:text-md sm:text-sm xs:text-sm font-medium font-sans line-clamp-6 grid-cols-6 ">
-                    {link.header && <a className="text-center">{link.header}</a>}
+                  <div className="my-3 xl:text-xl lg:text-xl md:text-md sm:text-sm xs:text-sm font-medium font-sans line-clamp-6 grid-cols-6 ">
+                    {link.header && <a className="text-center lg:flex">{link.header}</a>}
                   </div>
                 </Link>
               </ul>
@@ -59,7 +59,7 @@ const HeadCategory = () => {
           <div
             className={
               cate
-                ? "fixed left-[100%] duration-300 "
+                ? "fixed left-[100%]"
                 : "fixed left-[5%] md:flex whitespace-nowrap duration-200 relative \
                 md:w-100% md:justify-between sm:w-fit max-sm:w-fit"
             }
