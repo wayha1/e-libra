@@ -151,7 +151,7 @@ const HomePage = () => {
             </div>
           </div>
         </div> */}
-        <BodyHomepage />
+        <BodyHomepage onClick={() => setShowMyModal(true)}/>
         {/* <Swiper slidesPerView={3} spaceBetween={10} className="min-h-fit">
           {BookData.map((data) => (
             <SwiperSlide>
