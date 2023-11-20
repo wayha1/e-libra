@@ -7,27 +7,26 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, imgDB } from "../../firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, Scrollbar, Navigation, Pagination } from "swiper/modules";
+import { Keyboard, Scrollbar, Pagination, Navigation } from "swiper/modules";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md"; // Import your custom icons
 import "swiper/css";
 import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Mymodal from "./Mymodal";
 
-
 const HomePage = () => {
   const [Banner, setBanner] = useState([]);
   const [Book, setBook] = useState([]);
   // const [BookData, setBookData] = useState([]);
 
-  const [showMymodal , setShowMyModal] = useState(false)
+  const [showMymodal, setShowMyModal] = useState(false);
   const [resume, setResume] = useState(null);
 
   const [loader, setLaoder] = useState(false);
-  const downloadPDF =() => {
+  const downloadPDF = () => {
     setLaoder(true);
-    
-  }
+  };
 
   const handleClose = () => setShowMyModal(false);
   // how to import data from firebase
@@ -39,11 +38,10 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getDownloadURL(ref(imgDB, 'ប្រធានប្រឡងឆមាសលើកទី១.pdf')).then((url) => 
-    {
+    getDownloadURL(ref(imgDB, "ប្រធានប្រឡងឆមាសលើកទី១.pdf")).then((url) => {
       setResume(url);
-      console.log(url)
-    })
+      console.log(url);
+    });
     getBanner();
     // if (!Book) {
     // } else {
@@ -89,10 +87,19 @@ const HomePage = () => {
           </div>
           <Swiper
             scrollbar={true}
-            navigation={true}
+            navigation={{
+              nextEl: ".custom-next-button",
+              prevEl: ".custom-prev-button",
+            }}
             modules={[Keyboard, Scrollbar, Navigation, Pagination]}
-            className="mySwiper "
+            className="mySwiper"
           >
+            <div className="custom-next-button">
+            <MdNavigateNext />
+          </div>
+          <div className="custom-prev-button">
+            <MdNavigateBefore />
+          </div>
             <div className="Banner w-fit h-full">
               {Banner.map((data, i) => (
                 <SwiperSlide className="justify-center shadow-lg flex items-center z-10" key={i}>
@@ -113,6 +120,7 @@ const HomePage = () => {
               ))}
             </div>
           </Swiper>
+          
         </main>
         <div className="flex lg:hidden w-screen bg-white shadow-md">
           <HeadCategory />
@@ -151,7 +159,7 @@ const HomePage = () => {
             </div>
           </div>
         </div> */}
-        <BodyHomepage onClick={() => setShowMyModal(true)}/>
+        <BodyHomepage onClick={() => setShowMyModal(true)} />
         {/* <Swiper slidesPerView={3} spaceBetween={10} className="min-h-fit">
           {BookData.map((data) => (
             <SwiperSlide>
@@ -186,7 +194,7 @@ const HomePage = () => {
             </SwiperSlide>
           ))}
         </Swiper> */}
-          {/* <div className="w-full max-w-[26rem] shadow-lg">
+        {/* <div className="w-full max-w-[26rem] shadow-lg">
             <button className="flex-col items-center bg-gray-200 rounded-2xl ">
               <img
                 src={data.ImageBook}
@@ -212,24 +220,19 @@ const HomePage = () => {
             ))}
           </button>
         </div>
-        <button
-        onClick={downloadPDF}
-        disabled={!(loader === false)} 
-        >
-        {loader?(
-          <span>Downloading</span>
-        ):(
-          <span>Dowloaded</span>
-        )}
-
+        <button onClick={downloadPDF} disabled={!(loader === false)}>
+          {loader ? <span>Downloading</span> : <span>Dowloaded</span>}
         </button>
 
-        <button className="bg-blue-400 bg-opacity-40 btn btn-primary btn-md"
-         onClick={() => setShowMyModal(true)} > Open Modal</button>
-         
-           <Mymodal className="w-full h-full" visible={showMymodal}
-            onClose={setShowMyModal} resume={resume} />
-      
+        <button
+          className="bg-blue-400 bg-opacity-40 btn btn-primary btn-md"
+          onClick={() => setShowMyModal(true)}
+        >
+          {" "}
+          Open Modal
+        </button>
+
+        <Mymodal className="w-full h-full" visible={showMymodal} onClose={setShowMyModal} resume={resume} />
       </section>
     </>
   );
