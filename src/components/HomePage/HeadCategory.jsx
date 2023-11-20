@@ -22,29 +22,56 @@ const HeadCategory = () => {
 
   return (
     <section>
-      <div className="bg-white w-100% h-full lg:px-5 lg:space-y-3 max-sm:w-100% lg:hover:bg-gray-100 lg:items-cennter lg:justify-center">
-        {head.map((link, index) => {
-          return (
-            <div className="flex justify-center items-center hover:scale-125 hover:duration-300" key={index}>
-              {/* desktop mode */}
-              <ul className="flex hover:text-gray-300 max-lg:hidden">
-                <Link
-                  to={link.Url}
-                  className="hover:duration-200 hover:underline hover:text-cyan-800 whitespace-nowrap text-gray-500"
-                >
-                  {link.headCategory && (
-                    <h1 className="mt-2 xl:text-4xl lg:text-3xl md:text-2xl sm:text-md xs:text-md font-bold ">
-                      {link.headCategory}
-                    </h1>
-                  )}
-                  <div className="my-3 xl:text-xl lg:text-xl md:text-md sm:text-sm xs:text-sm font-medium font-sans line-clamp-6 grid-cols-6 ">
-                    {link.header && <a className="text-center lg:flex">{link.header}</a>}
-                  </div>
-                </Link>
-              </ul>
-            </div>
-          );
-        })}
+      <div className="flex w-fit m-2">
+        <div className="flex w-screen hover:duration-200 max-lg:hidden justify-evenly">
+          {/* desktop mode */}
+          <div className="uppercase">
+          <ul className="flex hover:text-gray-300 flex hover:scale-110">
+            <Link
+              to={"/allGen"}
+              className="whitespace-nowrap bg-white rounded-xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
+            >
+              <h1 className="xl:text-4xl lg:text-3xl">
+                All Category 
+              </h1>
+            </Link>
+          </ul>
+        </div>
+        <div className="flex">
+          <ul className="space-x-3 w-fit items-center mt-2 uppercase">
+            <Link
+              to={"/bacII"}
+              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+            >
+              BacII Exam
+            </Link>
+            <Link
+              to={"/comdy"}
+              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+            >
+              Comdy
+            </Link>
+            <Link
+              to={"/comic"}
+              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+            >
+              Comic Books
+            </Link>
+            <Link
+              to={"/novel"}
+              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+            >
+              Novel Books
+            </Link>
+            <Link
+              to={"/study"}
+              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+            >
+              Learning Book
+            </Link>
+          </ul>
+        </div>
+        </div>
 
         {/* Mobile Mode */}
 
@@ -59,17 +86,17 @@ const HeadCategory = () => {
           <div
             className={
               cate
-                ? "fixed left-[100%]"
+                ? "fixed left-[100%] "
                 : "fixed left-[5%] md:flex whitespace-nowrap duration-200 relative \
-                md:w-100% md:justify-between sm:w-fit max-sm:w-fit"
+                md:w-[80%] md:justify-between sm:w-[80%] max-sm:w-[80%]"
             }
           >
-            <ul className="flex font-bold lg:hidden max-sm:w-fit text-center">
-              <Link to={"/allGen"} className="text-2xl hover:underline hover:text-cyan-800 text-gray-500 ">
+            <ul className="flex font-bold lg:hidden max-sm:w-fit ">
+              <Link to={"/allGen"} className="text-2xl hover:text-cyan-800 text-gray-500 ">
                 All Category &nbsp;
               </Link>
             </ul>
-            <ul className="text- mt-1 space-x-3 max-sm:w-fit max-sm:flex max-sm:flex-wrap relative">
+            <ul className="mt-1 space-x-3 max-sm:w-fit max-sm:flex max-sm:flex-wrap relative">
               <Link
                 to={"/bacII"}
                 className="sm:text-sm md:text-md sm:text-sm xs:text-sm rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"

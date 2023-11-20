@@ -169,7 +169,7 @@ const AboutUs = () => {
           </section>
 
           <section id="OurGoal">
-            <div className="w-full bg-gray-50 h-[700px] flex items-center justify-center ">
+            <div className="w-full bg-gray-50 lg:h-[700px] flex items-center justify-center max-md:h-[500px]">
               {OurGoal.map((data) => (
                 <div class="">
                   <div class="relative w-full max-w-lg">
@@ -200,7 +200,7 @@ const AboutUs = () => {
             </div>
           </section>
           <div>
-            <h1>Camboidan Author</h1>
+            <h1 className="link link-underline link-underline-black text-center hover:decoration lg:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-110 hover:text-cyan-700 lg:text-5xl md:text-4xl sm:text-4xl xs:text-3xl">Camboidan Author</h1>
           </div>
 
           <section id="author">

@@ -1,35 +1,20 @@
 import React, { useState, useEffect } from "react";
 import HeadCategory from "./HeadCategory";
 import BodyHomepage from "./BodyHomepage";
-import "./HomePage.css";
-import "./Body.css";
 import { collection, getDocs } from "firebase/firestore";
-import { db, imgDB } from "../../firebase";
-import { getDownloadURL, ref } from "firebase/storage";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, Scrollbar, Pagination, Navigation } from "swiper/modules";
-import { MdNavigateNext, MdNavigateBefore } from "react-icons/md"; // Import your custom icons
-import "swiper/css";
-import "swiper/css/scrollbar";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { db } from "../../firebase";
+import { Link } from "react-router-dom";
+
 import Mymodal from "./Mymodal";
 
 const HomePage = () => {
   const [Banner, setBanner] = useState([]);
   const [Book, setBook] = useState([]);
+  const [isBannerHovered, setIsBannerHovered] = useState(false);
   // const [BookData, setBookData] = useState([]);
-
+  // const [resume, setResume] = useState(null);
   const [showMymodal, setShowMyModal] = useState(false);
-  const [resume, setResume] = useState(null);
 
-  const [loader, setLaoder] = useState(false);
-  const downloadPDF = () => {
-    setLaoder(true);
-  };
-
-  const handleClose = () => setShowMyModal(false);
-  // how to import data from firebase
   const getBanner = async () => {
     const Banner = collection(db, "HomePage");
     const dataBanner = await getDocs(Banner);
@@ -38,91 +23,62 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getDownloadURL(ref(imgDB, "ប្រធានប្រឡងឆមាសលើកទី១.pdf")).then((url) => {
-      setResume(url);
-      console.log(url);
-    });
     getBanner();
-    // if (!Book) {
-    // } else {
-    //   const getBooks = async () => {
-    //     try {
-    //       const contain = collection(db, "PopularSection");
-    //       const snapshot = await getDocs(contain);
-    //       const data = snapshot.docs.map((val) => ({ ...val.data(), id: val.id }));
-    //       setBook(data);
-    //       const bookDataPromises = data.map(async (elem) => {
-    //         try {
-    //           const BookPop = collection(db, `PopularSection/${elem.id}/BookPopular`);
-    //           const DataBooks = await getDocs(BookPop);
-    //           const BookData = DataBooks.docs.map((val) => ({
-    //             ...val.data(),
-    //             id: val.id,
-    //           }));
-    //           return BookData;
-    //         } catch (error) {
-    //           console.error(`Error fetching book data for ${elem.id}:`, error);
-    //           return null; // or some default value
-    //         }
-    //       });
-
-    //       const bookData = await Promise.all(bookDataPromises);
-    //       setBookData(bookData.flat()); // flatten the array
-    //     } catch (error) {
-    //       console.error("Error fetching popular section data:", error);
-    //     }
-    //   };
-    //   getBooks();
-    // }
   }, []);
 
   return (
     <>
       {/* Banner */}
-      <section>
-        <main className="w-screen flex h-fit bg-gray-200 bg-scroll ">
+      <section id="Banner">
+      <main className="z-10 flex">
           {/* desktop mode */}
-          <div className="flex max-lg:hidden">
-            <HeadCategory />
-          </div>
-          <Swiper
-            scrollbar={true}
-            navigation={{
-              nextEl: ".custom-next-button",
-              prevEl: ".custom-prev-button",
-            }}
-            modules={[Keyboard, Scrollbar, Navigation, Pagination]}
-            className="mySwiper"
-          >
-            <div className="custom-next-button">
-            <MdNavigateNext />
-          </div>
-          <div className="custom-prev-button">
-            <MdNavigateBefore />
-          </div>
-            <div className="Banner w-fit h-full">
-              {Banner.map((data, i) => (
-                <SwiperSlide className="justify-center shadow-lg flex items-center z-10" key={i}>
-                  <div className="absolute lg:backdrop-blur-sm max-sm:backdrop-blur-sm md:backdrop-blur-md lg:py-10 lg:px-10 max-sm:py-8 max-sm:px-12 text-white">
-                    {data.title && (
-                      <h1 className="text-4xl relative font-bold max-sm:text-xl">{data.title}</h1>
-                    )}
-                    {data.decs && <span className="relative max-sm:text-sm">{data.decs} </span>}
+          {Banner.map((data, i) => (
+            <div
+              key={i}
+              className="w-full h-full flex items-center justify-center relative"
+              onMouseEnter={() => setIsBannerHovered(true)}
+              onMouseLeave={() => setIsBannerHovered(false)}
+              onTouchStart={() => setIsBannerHovered(true)}
+              onTouchEnd={() => setIsBannerHovered(false)}
+            >
+              <div
+                className={`absolute w-full h-[80%] backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
+                  isBannerHovered ? "opacity-100" : "opacity-0"
+                } transition-opacity duration-300 items-center `}
+              >
+                <div className="flex items-center text-left max-lg:px-5 max-md:px-5 text-gray-100 h-full">
+                  <div className="m-5 text-white shadow-sm">
+                  {data.title && (
+                    <h1 className="font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
+                      {data.title}
+                    </h1>
+                  )}
+                  {data.decs && <h2 className="font-bold lg:text-xl max-lg:text-xs lg:w-3/4">{data.decs} </h2>}
+                  <button className="m-2 box-border h-12 w-18 p-2 bg-cyan-500 hover:bg-cyan-800 rounded-xl lg:translate-y-60 md:translate-y-52 max-sm:translate-y-16">
+                    <h1 className="whitespace-nowrap text-gray-300 text-sm font-bold">
+                      <Link to={"/allGen"}>
+                        All Category
+                      </Link>
+                    </h1>
+                  </button>
                   </div>
-
-                  <img
-                    src={data.ImageBanner}
-                    className="lg:h-[500px] w-100% object-cover max-sm:h-[300px] sm:h-[400px] "
-                    alt="ImageBanner"
-                    onClick={this}
-                  />
-                </SwiperSlide>
-              ))}
+                </div>
+              </div>
+              {data.ImageBanner && (
+                <img
+                  src={data.ImageBanner}
+                  className="flex lg:h-[900px] w-full max-md:h-[600px] max-sm:h-[500px]"
+                  alt=""
+                />
+              )}
             </div>
-          </Swiper>
-          
+          ))}
         </main>
-        <div className="flex lg:hidden w-screen bg-white shadow-md">
+
+        <div className="flex max-lg:hidden bg-gray-50 shadow-sm">
+          <HeadCategory />
+        </div>
+        <div className="mt-1 flex lg:hidden w-screen bg-white shadow-sm">
           <HeadCategory />
         </div>
       </section>
@@ -142,73 +98,8 @@ const HomePage = () => {
           </button>
         </div>
 
-        {/* <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-          <div class="md:flex">
-            <div class="md:shrink-0"></div>
-            <div class="p-8">
-              <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-                Company retreats
-              </div>
-              <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
-                Incredible accommodation for your team
-              </a>
-              <p class="mt-2 text-slate-500">
-                Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine?
-                We have a list of places to do just that.
-              </p>
-            </div>
-          </div>
-        </div> */}
         <BodyHomepage onClick={() => setShowMyModal(true)} />
-        {/* <Swiper slidesPerView={3} spaceBetween={10} className="min-h-fit">
-          {BookData.map((data) => (
-            <SwiperSlide>
-              <div class="max-w-md mx-auto bg-gray-200 rounded-xl shadow-md overflow-hidden md:max-w-2xl ml-20 ">
-                <div class="md:flex">
-                  <div class="md:shrink-0">
-                    <img
-                      src={data.ImageBook}
-                      alt="Book That Popular"
-                      className="h-48 w-full object-cover md:h-full md:w-48 bg-cover bg-center"
-                      onClick={this}
-                    />
-                  </div>
-                  <div class="p-8">
-                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-                      <p>{data.title}</p>
-                    </div>
-                    <a
-                      href="#"
-                      class="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
-                    >
-                      {data.decs}
-                    </a>
-                    <p class="mt-2 text-slate-500 ">{data.title}</p>
-                    <div className="flex mt-10">
-                    <button className="border-solid border-2 border-indigo-600 rounded-full shadow-lg bg-blue-300">Read now</button>
-                    <button className="border-solid border-2 border-indigo-600 rounded-full shadow-lg bg-blue-300">Add to Cart</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper> */}
-        {/* <div className="w-full max-w-[26rem] shadow-lg">
-            <button className="flex-col items-center bg-gray-200 rounded-2xl ">
-              <img
-                src={data.ImageBook}
-                className="rounded-2xl sm:w-[250px] lg:w-[300px] lg:h-[300px]"
-                onClick={this}
-              />
-              <span className=" flex items-center justify-between">
-                <h1 className="font-medium">{data.decs}</h1>
-                <p>{data.title}</p>
-              </span>
-              <button className="flex">Read now</button>
-              <button className="flex">Add to Cart</button>
-            </button>
-          </div> */}
+
         <div className="Header">
           <button>
             {Book.map((data, i) => (
@@ -220,11 +111,11 @@ const HomePage = () => {
             ))}
           </button>
         </div>
-        <button onClick={downloadPDF} disabled={!(loader === false)}>
+        {/* <button onClick={downloadPDF} disabled={!(loader === false)}>
           {loader ? <span>Downloading</span> : <span>Dowloaded</span>}
-        </button>
+        </button> */}
 
-        <button
+        {/* <button
           className="bg-blue-400 bg-opacity-40 btn btn-primary btn-md"
           onClick={() => setShowMyModal(true)}
         >
@@ -233,6 +124,7 @@ const HomePage = () => {
         </button>
 
         <Mymodal className="w-full h-full" visible={showMymodal} onClose={setShowMyModal} resume={resume} />
+       */}
       </section>
     </>
   );
