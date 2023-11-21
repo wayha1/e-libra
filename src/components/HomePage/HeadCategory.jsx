@@ -22,8 +22,8 @@ const HeadCategory = () => {
 
   return (
     <section>
-      <div className="flex w-fit m-2">
-        <div className="flex w-screen hover:duration-200 max-lg:hidden justify-evenly">
+      <div className="flex w-[100%] bg-gray-200 py-2">
+        <div className="flex w-[100%] hover:duration-200 max-lg:hidden justify-evenly">
           {/* desktop mode */}
           <div className="uppercase">
           <ul className="flex hover:text-gray-300 flex hover:scale-110">

@@ -67,7 +67,7 @@ const HomePage = () => {
               {data.ImageBanner && (
                 <img
                   src={data.ImageBanner}
-                  className="flex lg:h-[900px] w-full max-md:h-[600px] max-sm:h-[500px]"
+                  className="object-cover flex lg:h-[900px] w-full max-md:h-[600px] max-sm:h-[500px]"
                   alt=""
                 />
               )}
@@ -75,12 +75,10 @@ const HomePage = () => {
           ))}
         </main>
 
-        <div className="flex max-lg:hidden bg-gray-50 shadow-sm">
+        
           <HeadCategory />
-        </div>
-        <div className="mt-1 flex lg:hidden w-screen bg-white shadow-sm">
-          <HeadCategory />
-        </div>
+       
+
       </section>
 
       <section>

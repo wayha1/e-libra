@@ -138,7 +138,7 @@ const AboutUs = () => {
                   <div className="lg:py-4 lg:px-10 justify-between flex px-3">
                     <div key={i} className="flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full">
                       {data.title && (
-                        <h1 className="link link-underline link-underline-black text-center hover:decoration lg:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-125 hover:text-cyan-700 lg:text-6xl md:text-4xl sm:text-4xl xs:text-3xl">
+                        <h1 className="link link-underline link-underline-black text-center hover:decoration lg:text-4xl max-md:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-125 hover:text-cyan-700 lg:text-6xl md:text-4xl sm:text-4xl xs:text-3xl">
                           {data.title}
                         </h1>
                       )}
@@ -158,7 +158,7 @@ const AboutUs = () => {
                         <iframe
                           src={data.youtubeLink}
                           alt="youtubeVideo"
-                          className="lg:mt-10 lg:w-[500px] lg:h-[400px] md:w-[400px] md:h-[300px] "
+                          className="flex translate-y-36 lg:w-[500px] lg:h-[400px] md:w-[400px] md:h-[300px] "
                         />
                       </div>
                     )}
@@ -204,24 +204,23 @@ const AboutUs = () => {
           </div>
 
           <section id="author">
-            <div className="px-10 py-5">
+            <div className="lg:px-10 lg:py-5">
               {author.map((data, i) => (
                 <div key={i} className="">
                   <div
-                    className="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
+                    className="lg:w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
                     onClick={() => toggleExpansion(i)}
                   >
                     {data.imgAuth && <img src={data.imgAuth} alt="Author Image" width={500} height={200} />}
-
-                    {data.authName && <h2 className="font-bold text-lg mb-2 ">{data.authName}</h2>}
-                    {data.Gender && <p className="font-bold text-lg mb-2">{data.Gender}</p>}
-                    {data.DOB && <p>{data.DOB}</p>}
+                    {data.authName && <h2 className="font-bold text-xl m-1 auth-name">{data.authName}</h2>}
+                    {data.Gender && <p className="font-bold text-md m-1 auth-name">{data.Gender}</p>}
+                    {data.DOB && <p className="auth-name m-1">{data.DOB}</p>}
                     {expandedAuthors[i] && data.Decs && (
-                      <p className="text-sm text-gray-600">{data.Decs}</p>
+                      <p className="text-sm text-gray-600 auth-name ">{data.Decs}</p>
                     )}
                     <div className="m-2">
                       <button
-                        className="text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                        className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
                         onClick={(e) => {
                           e.stopPropagation(); // Prevents the click on the card from triggering the parent div's click event
                           toggleExpansion(i);

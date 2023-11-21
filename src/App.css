@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanuman&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Content&display=swap');
+
 header {
   text-align: center;
   font-size: 100px;
 }
 
 
+.book-title {
+  font-family: 'Hanuman', serif;
+}
+.book-decs {
+  font-family: 'Nokora', sans-serif;
+}

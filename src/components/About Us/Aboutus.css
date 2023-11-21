@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanuman&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Content&display=swap');
+
 .link-underline {
     border-bottom-width: 0;
     background-image: linear-gradient(transparent, transparent), linear-gradient(#ccc, #ccc);
@@ -17,4 +20,7 @@
     width: fit;
     background-size: 100% 3px;
     background-position: 100% 0 
+}
+.auth-name {
+    font-family: 'Hanuman', serif;
 }
