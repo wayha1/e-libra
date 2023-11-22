@@ -29,7 +29,7 @@ const HeadCategory = () => {
           <ul className="flex hover:text-gray-300 flex hover:scale-110">
             <Link
               to={"/allGen"}
-              className="whitespace-nowrap bg-white rounded-xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
+              className="border-double border-4 border-[#a3e635] whitespace-nowrap bg-white rounded-2xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
             >
               <h1 className="xl:text-4xl lg:text-3xl">
                 All Category 
@@ -41,31 +41,31 @@ const HeadCategory = () => {
           <ul className="space-x-3 w-fit items-center mt-2 uppercase">
             <Link
               to={"/bacII"}
-              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
             >
               BacII Exam
             </Link>
             <Link
               to={"/comdy"}
-              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
             >
               Comdy
             </Link>
             <Link
               to={"/comic"}
-              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
             >
               Comic Books
             </Link>
             <Link
               to={"/novel"}
-              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
             >
               Novel Books
             </Link>
             <Link
               to={"/study"}
-              className="text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
             >
               Learning Book
             </Link>
@@ -78,7 +78,7 @@ const HeadCategory = () => {
         <div className="flex md:w-full max-sm:w-100% h-fit lg:hidden ">
           <div onClick={handleNav} className="md:block lg:hidden relative m-2 items-center flex">
             {cate ? (
-              <AiOutlineDoubleRight size={30} className="relative items-center" />
+              <AiOutlineDoubleRight size={30} className="relative items-center " />
             ) : (
               <AiOutlineClose size={30} className="relative items-center " />
             )}
@@ -87,7 +87,7 @@ const HeadCategory = () => {
             className={
               cate
                 ? "fixed left-[100%] "
-                : "fixed left-[5%] md:flex whitespace-nowrap duration-200 relative \
+                : "fixed left-[5%] md:flex whitespace-nowrap duration-300 relative \
                 md:w-[80%] md:justify-between sm:w-[80%] max-sm:w-[80%]"
             }
           >

@@ -120,13 +120,13 @@ const AboutUs = () => {
 
           <section id="Our_Vision">
             {Container.map((data, i) => (
-              <div className="flex">
+              <div className="flex ">
                 {data.youtubeLink && (
-                  <div key={i} className="w-full md:hidden min-lg:hidden lg:hidden xl:hidden">
+                  <div key={i} className="w-full  md:hidden min-lg:hidden lg:hidden xl:hidden ">
                     <iframe
                       src={data.youtubeLink}
                       alt="youtubeVideo"
-                      className="max-lg:w-full max-lg:h-[350px] sm:w-full sm:h-[250px] max-sm:w-full max-sm:h-[200px] max-lg:px-10 max-lg:my-2"
+                      className="max-lg:w-full max-lg:h-[350px] sm:w-full sm:h-[250px] max-sm:w-full max-sm:h-[200px] max-lg:px-10 max-lg:m-2 "
                     />
                   </div>
                 )}
@@ -135,15 +135,15 @@ const AboutUs = () => {
             <div className="flex flex-col w-screen h-auto">
               <div className="w-full justify-between">
                 {Container.map((data, i) => (
-                  <div className="lg:py-4 lg:px-10 justify-between flex px-3">
-                    <div key={i} className="flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full">
+                  <div className="lg:py-4 lg:px-10 justify-between flex px-3 ">
+                    <div key={i} className="md:m-2 sm:m-5 max-sm:m-5 bg-gray-300 rounded-2xl shadow-xl p-2 flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full">
                       {data.title && (
                         <h1 className="link link-underline link-underline-black text-center hover:decoration lg:text-4xl max-md:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-125 hover:text-cyan-700 lg:text-6xl md:text-4xl sm:text-4xl xs:text-3xl">
                           {data.title}
                         </h1>
                       )}
                       {data.decs && (
-                        <span className="mt-2 indent-5 text-[#2C2B2B] text-xl font-medium">
+                        <span className="mt-2 indent-5 text-[#2C2B2B] text-xl font-small m-2 ">
                           <p>{data.decs[i]}</p>
                           <p>{data.decs[1]}</p>
                           <p>{data.decs[2]}</p>
@@ -158,7 +158,7 @@ const AboutUs = () => {
                         <iframe
                           src={data.youtubeLink}
                           alt="youtubeVideo"
-                          className="flex translate-y-36 lg:w-[500px] lg:h-[400px] md:w-[400px] md:h-[300px] "
+                          className="flex translate-y-36 lg:w-[500px] lg:h-[400px] md:w-[400px] md:h-[300px]  "
                         />
                       </div>
                     )}

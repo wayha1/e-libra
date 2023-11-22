@@ -3,29 +3,22 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import "../../App.css";
 import { BiChevronLeftCircle, BiChevronRightCircle } from "react-icons/bi";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const BodyHomepage = ({ visible }) => {
   const [Book, setBook] = useState([]);
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
 
-  const nextIcons = () => {
-    setCurrentData((prevIcons) => (prevIcons + 1) % BookData.length);
+  const slideNext = () => {
+    setCurrentData((prevIndex) => (prevIndex + 3) % BookData.length);
   };
 
-  const prevIcons = () => {
-    setCurrentData((prevIcons) => (prevIcons - 1 + BookData.length) % BookData.length);
+  const slidePrev = () => {
+    setCurrentData((prevIndex) => (prevIndex - 3 + BookData.length) % BookData.length);
   };
-
-  const handleSeeMoreClick = (index) => {
-    setExpandedIndex(index === expandedIndex ? null : index);
-  };
-
   useEffect(() => {
     const getBooks = async () => {
       try {
@@ -58,7 +51,18 @@ const BodyHomepage = ({ visible }) => {
     };
     getBooks();
   }, []);
+  const handleSeeMoreClick = (index) => {
+    setExpandedIndex(index);
+    openModal(BookData[index]);
+  };
+  const openModal = (book) => {
+    setSelectedBook(book);
+    setShowModal(true);
+  };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
   return (
     <>
       <section>
@@ -74,56 +78,50 @@ const BodyHomepage = ({ visible }) => {
           </button>
         ))}
         <div className="flex w-full bg-gray-100 items-center p-2 justify-between">
-          <button onClick={prevIcons} className="flex rounded-xl items-center bg-white hover:shadow-xl">
+          <button
+            onClick={() => slidePrev()}
+            className="flex rounded-2xl items-center bg-white hover:shadow-xl"
+          >
             <BiChevronLeftCircle className="text-cyan-700 text-3xl m-1" />
           </button>
-          <Swiper slidesPerView={3} spaceBetween={10} className="min-h-fit">
-            {BookData.map((data, i) => (
-              <SwiperSlide key={i}>
-                <div className="flex bg-gray-300 w-fit">
-                  <div className="flex shadow-xl overflow-hidden">
-                    {data.ImageBook && (
-                      <div className="flex">
-                        <img className="flex lg:w-[300px] lg:h-[100%]" src={data.ImageBook} alt="image-book" />
-                      </div>
+
+          <div className="flex gap-8 lg:w-full m-2">
+            {BookData.slice(currentData, currentData + 3).map((data, i) => (
+              <div key={i} className="lg:w-full">
+                <div className="flex rounded-xl bg-gray-200 lg:w-[320px] shadow-xl overflow-hidden">
+                  {data.ImageBook && (
+                    <div className="flex lg:w-[250px] lg:h-[250px]">
+                      <img src={data.ImageBook} alt="image-book" />
+                    </div>
+                  )}
+                  <div className="flex flex-col text-left lg:w-[200px] lg:h-fit">
+                    {data.title && (
+                      <h1 className="flex book-title font-bold lg:text-2xl whitespace-nowrap justify-center m-2">
+                        {data.title}
+                      </h1>
                     )}
-                    <div className="flex flex-col text-left w-[80%]">
-                      {data.title && (
-                        <h1 className="flex book-title font-bold lg:text-2xl whitespace-nowrap justify-center m-2">
-                          {data.title}
-                        </h1>
-                      )}
-                      {data.decs && (
-                        <div className="flex flex-col">
-                          <p
-                            className={`indent-3 p-1 flex book-decs text-md overflow-hidden ${
-                              expandedIndex === i ? '' : 'line-clamp-2'
-                            }`}
-                          >
-                            {data.decs}
-                          </p>
-                          <button
-                            className="text-cyan-500 cursor-pointer bg-white"
-                            onClick={() => handleSeeMoreClick(i)}
-                          >
-                            {expandedIndex === i ? 'See Less' : 'See More'}
-                          </button>
-                          {expandedIndex === i && (
-                            <div className="">
-                              <button onClick={this} className="text-cyan-500 cursor-pointer bg-white">
-                                <h1 className="">Read More</h1>
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      )}
+                    {data.decs && (
+                      <p className="indent-3 line-clamp-2 overflow-hidden lg:w-[150px] h-[50px]">
+                        {data.decs}
+                      </p>
+                    )}
+                    <div className="w-full flex items-center justify-center lg:mt-5">
+                      <button
+                        className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                        onClick={() => handleSeeMoreClick(currentData + i)}
+                      >
+                        See More
+                      </button>
                     </div>
                   </div>
                 </div>
-              </SwiperSlide>
+              </div>
             ))}
-          </Swiper>
-          <button onClick={nextIcons} className="flex rounded-xl items-center bg-white hover:shadow-xl">
+          </div>
+          <button
+            onClick={() => slideNext()}
+            className="flex rounded-2xl items-center bg-white hover:shadow-xl"
+          >
             <BiChevronRightCircle className="text-cyan-700 text-3xl m-1" />
           </button>
         </div>
