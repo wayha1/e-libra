@@ -26,51 +26,49 @@ const HeadCategory = () => {
         <div className="flex w-[100%] hover:duration-200 max-lg:hidden justify-evenly">
           {/* desktop mode */}
           <div className="uppercase">
-          <ul className="flex hover:text-gray-300 flex hover:scale-110">
-            <Link
-              to={"/allGen"}
-              className="border-double border-4 border-[#a3e635] whitespace-nowrap bg-white rounded-2xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
-            >
-              <h1 className="xl:text-4xl lg:text-3xl">
-                All Category 
-              </h1>
-            </Link>
-          </ul>
-        </div>
-        <div className="flex">
-          <ul className="space-x-3 w-fit items-center mt-2 uppercase">
-            <Link
-              to={"/bacII"}
-              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
-            >
-              BacII Exam
-            </Link>
-            <Link
-              to={"/comdy"}
-              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
-            >
-              Comdy
-            </Link>
-            <Link
-              to={"/comic"}
-              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
-            >
-              Comic Books
-            </Link>
-            <Link
-              to={"/novel"}
-              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
-            >
-              Novel Books
-            </Link>
-            <Link
-              to={"/study"}
-              className="border-double border-4 border-[#a3e635] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
-            >
-              Learning Book
-            </Link>
-          </ul>
-        </div>
+            <ul className="flex hover:text-gray-300 flex hover:scale-110">
+              <Link
+                to={"/allGen"}
+                className="border-double border-4 border-[#AAACA6] whitespace-nowrap bg-white rounded-2xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
+              >
+                <h1 className="xl:text-4xl lg:text-3xl">All Category</h1>
+              </Link>
+            </ul>
+          </div>
+          <div className="flex">
+            <ul className="space-x-3 w-fit items-center mt-2 uppercase">
+              <Link
+                to={"/bacII"}
+                className="border-double border-4 border-[#AAACA6] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              >
+                BacII Exam
+              </Link>
+              <Link
+                to={"/comdy"}
+                className="border-double border-4 border-[#AAACA6] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              >
+                Comdy
+              </Link>
+              <Link
+                to={"/comic"}
+                className="border-double border-4 border-[#AAACA6] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              >
+                Comic Books
+              </Link>
+              <Link
+                to={"/novel"}
+                className="border-double border-4 border-[#AAACA6] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              >
+                Novel Books
+              </Link>
+              <Link
+                to={"/study"}
+                className="border-double border-4 border-[#AAACA6] text-xl hover:shadow-xl px-2 py-2 hover:scale-110 rounded-2xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
+              >
+                Learning Book
+              </Link>
+            </ul>
+          </div>
         </div>
 
         {/* Mobile Mode */}
