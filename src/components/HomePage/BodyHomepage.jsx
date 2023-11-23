@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import "../../App.css";
@@ -8,9 +8,10 @@ const BodyHomepage = ({ visible }) => {
   const [Book, setBook] = useState([]);
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
-  const [expandedIndex, setExpandedIndex] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const Showdata = useRef(null);
+  // const [expandedIndex, setExpandedIndex] = useState(null);
+  // const [selectedBook, setSelectedBook] = useState(null);
 
   const slideNext = () => {
     setCurrentData((prevIndex) => (prevIndex + 3) % BookData.length);
@@ -19,6 +20,24 @@ const BodyHomepage = ({ visible }) => {
   const slidePrev = () => {
     setCurrentData((prevIndex) => (prevIndex - 3 + BookData.length) % BookData.length);
   };
+
+  // const toggleSeeMore = (index) => {
+  //   if (currentData.length.value && !currentData.lengthvalue.contains(BookData.value)){
+
+  //   }
+
+  //   openModal(BookData[index]);
+  // };
+
+  // const openModal = (book) => {
+  //   setSelectedBook(book);
+  //   setShowMore(true);
+  // };
+
+  const closeModal = () => {
+    setOpenModal(false);
+  };
+
   useEffect(() => {
     const getBooks = async () => {
       try {
@@ -51,18 +70,7 @@ const BodyHomepage = ({ visible }) => {
     };
     getBooks();
   }, []);
-  const handleSeeMoreClick = (index) => {
-    setExpandedIndex(index);
-    openModal(BookData[index]);
-  };
-  const openModal = (book) => {
-    setSelectedBook(book);
-    setShowModal(true);
-  };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
   return (
     <>
       <section>
@@ -77,39 +85,42 @@ const BodyHomepage = ({ visible }) => {
             </div>
           </button>
         ))}
-        <div className="mx-6 flex items-center justify-center">
-          <div className="flex w-full bg-gray-100 items-center p-4 justify-between ">
+        <div className=" flex items-center justify-center bg-gray-100  z-10">
+          <div className="w-full flex items-center justify-between px-2 relative">
             <button
               onClick={() => slidePrev()}
               className="flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262]"
             >
-              <BiChevronLeftCircle className="text-cyan-700 text-3xl m-2" />
+              <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>
 
-            <div className="flex gap-8 lg:w-full m-4">
-              {BookData.slice(currentData, currentData + 3).map((data, i) => (
-                <div key={i} className="lg:w-full">
-                  <div className="flex rounded-xl bg-gray-200 lg:w-[400px] shadow-xl overflow-hidden">
+            <div className="flex gap-x-8 w-full overflow-hidden p-3 ">
+              {BookData.slice(currentData, currentData + (window.innerWidth < 800 ? 2 : 3)).map((data, i) => (
+                <div key={i} className="hover:shadow-xl" useRef="showData">
+                  <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden  duration-300">
                     {data.ImageBook && (
-                      <div className="flex lg:w-[250px] lg:h-[250px]">
-                        <img src={data.ImageBook} alt="image-book" />
-                      </div>
+                      <img
+                        src={data.ImageBook}
+                        alt="image-book"
+                        className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px]"
+                      />
                     )}
-                    <div className="flex flex-col text-left lg:w-[200px] lg:h-fit">
+                    <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
                       {data.title && (
-                        <h1 className="flex book-title font-bold lg:text-2xl whitespace-nowrap justify-center m-2">
+                        <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
                           {data.title}
                         </h1>
                       )}
+
                       {data.decs && (
-                        <p className="indent-3 line-clamp-2 overflow-hidden lg:w-[150px] h-[50px]">
-                          {data.decs}
-                        </p>
+                        <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">{data.decs}</p>
                       )}
-                      <div className="w-full flex items-center justify-center lg:mt-5">
+                      <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
                         <button
-                          className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                          onClick={() => handleSeeMoreClick(currentData + i)}
+                          className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                          onClick={() => {
+                            setOpenModal(true);
+                          }}
                         >
                           See More
                         </button>
@@ -123,11 +134,56 @@ const BodyHomepage = ({ visible }) => {
               onClick={() => slideNext()}
               className="flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262]"
             >
-              <BiChevronRightCircle className="text-cyan-700 text-3xl m-2 " />
+              <BiChevronRightCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>
           </div>
         </div>
       </section>
+
+      {/* Modal book */}
+      {openModal && (
+        <div className="z-30">
+          <div
+            className="w-[90%] h-[80%] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            closeModal={setOpenModal}
+            data={currentData}
+            ref={Showdata}
+          >
+            <button className="close-button" onClick={closeModal} ShowId="true">
+              X
+            </button>
+            <div className="flex gap-x-8 w-full overflow-hidden p-3">
+              {BookData.filter((book, index) => index === currentData).map((data, i) => (
+                <div key={i} className="hover:shadow-xl">
+                  <div className="flex">
+                    {data.ImageBook && (
+                      <img
+                        src={data.ImageBook}
+                        alt="image-book"
+                        className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px]"
+                      />
+                    )}
+                    <div>Index: {i}</div>
+                    {data.id}
+                    <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
+                      {data.title && (
+                        <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2">
+                          {data.title}
+                        </h1>
+                      )}
+
+                      {data.decs && (
+                        <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">{data.decs}</p>
+                      )}
+                      <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

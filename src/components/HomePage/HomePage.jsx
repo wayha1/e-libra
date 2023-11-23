@@ -96,7 +96,7 @@ const HomePage = () => {
           </button>
         </div>
 
-        <BodyHomepage onClick={() => setShowMyModal(true)} />
+        <BodyHomepage className="z-30" />
 
         <div className="Header">
           <button>

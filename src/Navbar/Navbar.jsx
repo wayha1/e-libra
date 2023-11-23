@@ -71,9 +71,9 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Mode */}
-          <div className="dropdown_nav z-50">
-            <div onClick={handleNav} className="block lg:hidden flex relative ">
-              {nav ? <AiOutlineMenu size={30} className="flex m-2" /> : <AiOutlineClose size={30} />}
+          <div className="dropdown_nav z-50 w-fit">
+            <div onClick={handleNav} className="block lg:hidden relative w-fit -translate-x-4">
+              {nav ? <AiOutlineMenu size={30} className="flex m-2" /> : <AiOutlineClose size={30} className="flex m-2"/>}
             </div>
             <div
               className={

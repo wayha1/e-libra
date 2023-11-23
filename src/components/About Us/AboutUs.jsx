@@ -71,7 +71,6 @@ const AboutUs = () => {
               console.log(GoalData);
             });
           });
-
         }
       };
       getData();
@@ -126,7 +125,7 @@ const AboutUs = () => {
                     <iframe
                       src={data.youtubeLink}
                       alt="youtubeVideo"
-                      className="max-lg:w-full max-lg:h-[350px] sm:w-full sm:h-[250px] max-sm:w-full max-sm:h-[200px] max-lg:px-10 max-lg:m-2 "
+                      className="flex max-lg:w-full max-lg:h-[350px] sm:w-full sm:h-[250px] max-sm:w-full max-sm:h-[200px] max-lg:px-10 max-lg:m-2 "
                     />
                   </div>
                 )}
@@ -136,9 +135,12 @@ const AboutUs = () => {
               <div className="w-full justify-between">
                 {Container.map((data, i) => (
                   <div className="lg:py-4 lg:px-10 justify-between flex px-3 ">
-                    <div key={i} className="md:m-2 sm:m-5 max-sm:m-5 bg-gray-300 rounded-2xl shadow-xl p-2 flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full">
+                    <div
+                      key={i}
+                      className="md:m-2 sm:m-5 max-sm:m-5 bg-gray-300 rounded-2xl shadow-xl p-2 flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full"
+                    >
                       {data.title && (
-                        <h1 className="link link-underline link-underline-black text-center hover:decoration lg:text-4xl max-md:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-125 hover:text-cyan-700 lg:text-6xl md:text-4xl sm:text-4xl xs:text-3xl">
+                        <h1 className="whitespace-nowrap link link-underline link-underline-black text-center hover:decoration lg:text-4xl max-md:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-125 hover:text-cyan-700 lg:text-6xl md:text-4xl sm:text-4xl xs:text-3xl">
                           {data.title}
                         </h1>
                       )}
@@ -158,7 +160,7 @@ const AboutUs = () => {
                         <iframe
                           src={data.youtubeLink}
                           alt="youtubeVideo"
-                          className="flex translate-y-36 lg:w-[500px] lg:h-[400px] md:w-[400px] md:h-[300px]  "
+                          className="flex translate-y-36 xl:w-[500px] lg:w-[450px] lg:h-[400px] md:w-[400px] md:h-[300px]  xl:-translate-x-24"
                         />
                       </div>
                     )}
@@ -169,30 +171,38 @@ const AboutUs = () => {
           </section>
 
           <section id="OurGoal">
-            <div className="w-full bg-gray-50 lg:h-[700px] flex items-center justify-center max-md:h-[500px]">
+            <div className="w-full bg-gray-50 lg:h-[700px] max-lg:h-[500px] max-sm:h-[700px] flex items-center justify-center">
               {OurGoal.map((data) => (
                 <div class="">
-                  <div class="relative w-full max-w-lg">
-                    <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-                    <div class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-                    <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-                    <h1 className="text-center text-4xl">{data.title}</h1>
-                    <div>
-                      <h2 className="text-4xl">{data.titleContain}</h2>
-                    </div>
-
-                    <div className="flex-col">
-                      <ul className="list-disc text-2xl justify-between">
-                        <li className="">
-                          <h2 className=" ">{data.decs[0]}</h2>
-                        </li>
-                        <li className="">
-                          <h2 className="">{data.decs[1]}</h2>
-                        </li>
-                        <li className="">
-                          <h2 className="">{data.decs[2]}</h2>
-                        </li>
-                      </ul>
+                  <div class="relative w-full max-sm:w-60% max-w-lg">
+                    <div class="absolute top-0 -left-4 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div class="absolute top-0 -right-4 max-sm:-right-1 max-sm:-translate-x-3 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                    <div class="absolute -bottom-8 left-20 max-sm:left-2 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                    <div className="text-gray-500 ">
+                      <h1 className="lg:mb-10 text-center text-4xl whitespace-nowrap max-sm:text-xl m-2 font-bold font-serif">
+                        {data.title}
+                      </h1>
+                      <div className="">
+                        <h2 className="text-2xl max-sm:text-[20px] font-mono font-bold ">
+                          {data.titleContain}
+                        </h2>
+                      </div>
+                      <div className="flex-col m-1">
+                        {data.decs && (
+                          <ul className="list-disc text-xl justify-between">
+                            <li className="">
+                              <h2 className=" ">{data.decs[0]}</h2>
+                            </li>
+                            <li className="">
+                              <h2 className="">{data.decs[1]}</h2>
+                            </li>
+                            <li className="">
+                              <h2 className="">{data.decs[2]}</h2>
+                            </li>
+                           
+                          </ul>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -200,15 +210,17 @@ const AboutUs = () => {
             </div>
           </section>
           <div>
-            <h1 className="link link-underline link-underline-black text-center hover:decoration lg:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-110 hover:text-cyan-700 lg:text-5xl md:text-4xl sm:text-4xl xs:text-3xl">Camboidan Author</h1>
+            <h1 className="whitespace-nowrap link link-underline link-underline-black m-5 text-center hover:decoration lg:text-4xl max-lg:text-2xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-110 hover:text-cyan-700 sm:text-3xl xs:text-3xl">
+              Camboidan Author
+            </h1>
           </div>
 
           <section id="author">
-            <div className="lg:px-10 lg:py-5">
+            <div className="lg:px-10 lg:py-5 max-lg:p-5">
               {author.map((data, i) => (
-                <div key={i} className="">
+                <div key={i} className="p-2">
                   <div
-                    className="lg:w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
+                    className="lg:w-60 max-lg:w-44 p-2 bg-white rounded-2xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
                     onClick={() => toggleExpansion(i)}
                   >
                     {data.imgAuth && <img src={data.imgAuth} alt="Author Image" width={500} height={200} />}
