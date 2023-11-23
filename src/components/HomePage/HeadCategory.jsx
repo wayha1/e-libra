@@ -31,7 +31,7 @@ const HeadCategory = () => {
                 to={"/allGen"}
                 className="border-double border-4 border-[#AAACA6] whitespace-nowrap bg-white rounded-2xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
               >
-                <h1 className="xl:text-4xl lg:text-3xl">All Category</h1>
+                <h1 className="xl:text-3xl lg:text-2xl">All Category</h1>
               </Link>
             </ul>
           </div>
