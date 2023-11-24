@@ -158,7 +158,7 @@ const BodyHomepage = ({ visible }) => {
 
       {/* Modal book */}
       {openModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center max-sm:translate-y-40 lg:translate-y-12">
+        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center max-sm:translate-y-40 lg:translate-y-12 transition-opacity z-50">
           <div className="flex-shrink-0 w-full h-full ">
             <div
               className="w-[90%] h-[80%] max-sm:h-[60%] bg-gray-100 rounded-2xl mx-auto my-8 relative"

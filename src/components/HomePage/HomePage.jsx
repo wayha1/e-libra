@@ -97,7 +97,8 @@ const HomePage = () => {
         </div>
 
         <BodyHomepage className="z-30" />
-
+        <BodyHomepage className="z-30" />
+        <BodyHomepage className="z-30" />
         <div className="Header">
           <button>
             {Book.map((data, i) => (
