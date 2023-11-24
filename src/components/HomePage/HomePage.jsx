@@ -29,7 +29,7 @@ const HomePage = () => {
   return (
     <>
       {/* Banner */}
-      <section id="Banner">
+      <section id="Banner ">
       <main className="z-10 flex">
           {/* desktop mode */}
           {Banner.map((data, i) => (

@@ -2,23 +2,35 @@ import React, { useState, useEffect, useRef } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import "../../App.css";
-import { BiChevronLeftCircle, BiChevronRightCircle } from "react-icons/bi";
+import {
+  BiChevronLeftCircle,
+  BiChevronRightCircle,
+  BiXCircle,
+  BiBookmarkPlus,
+  BiBookReader,
+  BiSolidCartAdd,
+} from "react-icons/bi";
 
 const BodyHomepage = ({ visible }) => {
   const [Book, setBook] = useState([]);
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
   const [openModal, setOpenModal] = useState(false);
-  const Showdata = useRef(null);
+  const Showdata = useState(0);
+
+  const showSpecificModal = (index) => {
+    setCurrentData(index);
+    setOpenModal(true);
+  };
   // const [expandedIndex, setExpandedIndex] = useState(null);
   // const [selectedBook, setSelectedBook] = useState(null);
 
   const slideNext = () => {
-    setCurrentData((prevIndex) => (prevIndex + 3) % BookData.length);
+    setCurrentData((prevIndex) => (prevIndex + 1) % BookData.length);
   };
 
   const slidePrev = () => {
-    setCurrentData((prevIndex) => (prevIndex - 3 + BookData.length) % BookData.length);
+    setCurrentData((prevIndex) => (prevIndex - 1 + BookData.length) % BookData.length);
   };
 
   // const toggleSeeMore = (index) => {
@@ -39,6 +51,7 @@ const BodyHomepage = ({ visible }) => {
   };
 
   useEffect(() => {
+    Showdata.current = BookData.length;
     const getBooks = async () => {
       try {
         const contain = collection(db, "PopularSection");
@@ -95,8 +108,11 @@ const BodyHomepage = ({ visible }) => {
             </button>
 
             <div className="flex gap-x-8 w-full overflow-hidden p-3 ">
-              {BookData.slice(currentData, currentData + (window.innerWidth < 800 ? 2 : 3)).map((data, i) => (
-                <div key={i} className="hover:shadow-xl" useRef="showData">
+              {BookData.slice(
+                currentData,
+                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 3)
+              ).map((data, i) => (
+                <div key={i} className="hover:shadow-xl">
                   <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden  duration-300">
                     {data.ImageBook && (
                       <img
@@ -118,7 +134,7 @@ const BodyHomepage = ({ visible }) => {
                       <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
                         <button
                           className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                          onClick={() => {
+                          onClick={(e) => {
                             setOpenModal(true);
                           }}
                         >
@@ -142,44 +158,110 @@ const BodyHomepage = ({ visible }) => {
 
       {/* Modal book */}
       {openModal && (
-        <div className="z-30">
-          <div
-            className="w-[90%] h-[80%] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            closeModal={setOpenModal}
-            data={currentData}
-            ref={Showdata}
-          >
-            <button className="close-button" onClick={closeModal} ShowId="true">
-              X
-            </button>
-            <div className="flex gap-x-8 w-full overflow-hidden p-3">
-              {BookData.filter((book, index) => index === currentData).map((data, i) => (
-                <div key={i} className="hover:shadow-xl">
-                  <div className="flex">
-                    {data.ImageBook && (
-                      <img
-                        src={data.ImageBook}
-                        alt="image-book"
-                        className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px]"
-                      />
+        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center max-sm:translate-y-40 lg:translate-y-12">
+          <div className="flex-shrink-0 w-full h-full ">
+            <div
+              className="w-[90%] h-[80%] max-sm:h-[60%] bg-gray-100 rounded-2xl mx-auto my-8 relative"
+              ref={Showdata}
+            >
+              <div className="flex h-[60%]">
+                {BookData.filter((book, index) => index === currentData).map((data, i) => (
+                  <div key={i} className="flex w-[100%] h-[100%] relative ">
+                    {data.ImageBook[i] && (
+                      <div className="bg-no-repeat bg-left flex justify-center lg:w-[50%] max-sm:w-[100%] max-sm:p-1 lg:p-5">
+                        <img
+                          src={data.ImageBook}
+                          alt="image-book"
+                          className="w-[80%] h-[100%] max-sm:h-[50%] max-sm:w-[100%] rounded-md shadow-xl items-center "
+                        />
+                      </div>
                     )}
-                    <div>Index: {i}</div>
-                    {data.id}
-                    <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
+                    <button className="absolute top-0 right-0 p-4">
+                      <BiXCircle className="text-[40px] text-gray-500" onClick={closeModal} />
+                    </button>
+
+                    <div className="w-[50%] flex flex-col overflow-hidden">
                       {data.title && (
-                        <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2">
+                        <h1 className="flex book-title font-bold text-gray-700 lg:text-5xl lg:translate-y-12 max-sm:text-sm whitespace-nowrap justify-center">
                           {data.title}
                         </h1>
                       )}
-
-                      {data.decs && (
-                        <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">{data.decs}</p>
+                      {data.author && (
+                        <h1 className="hover:text-cyan-800 flex book-decs font-bold text-gray-500 lg:text-xl lg:translate-y-12 mt-1 max-sm:text-sm whitespace-nowrap ">
+                          Author By : {data.author}
+                        </h1>
                       )}
-                      <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4"></div>
+
+                      {data.decs && <p className="lg:text-xl lg:translate-y-14 ">{data.decs}</p>}
+                      {data.price && (
+                        <div className="lg:mt-20 flex w-fit book-decs ">
+                          <h1 className="flex lg:text-4xl underline">Price :</h1>
+                          <h2 className="flex text-gray-700 lg:text-5xl ml-5">{data.price}</h2>
+                        </div>
+                      )}
+
+                      <div className="lg:gap-x-5 flex lg:mt-10">
+                        <button
+                          className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800"
+                          onClick={() => this}
+                        >
+                          <BiBookmarkPlus className="lg:text-2xl" />
+                          Add to Playlist
+                        </button>
+                        <button className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800">
+                          <BiBookReader className="lg:text-2xl" />
+                          Read Now
+                        </button>
+                        <button className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800">
+                          <BiSolidCartAdd className="lg:text-2xl" />
+                          Add to cart
+                        </button>
+                      </div>
                     </div>
                   </div>
+                ))}
+              </div>
+              <div>
+                <div className="text-3xl px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
+                  <h1> Recommendation </h1>
                 </div>
-              ))}
+                <div className="mt-10 flex gap-x-8 w-full overflow-hidden p-3 ">
+                  {BookData.slice(
+                    currentData,
+                    currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 3)
+                  ).map((data, i) => (
+                    <div key={i} className="hover:shadow-xl">
+                      <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden  duration-300">
+                        {data.ImageBook && (
+                          <img
+                            src={data.ImageBook}
+                            alt="image-book"
+                            className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px]"
+                          />
+                        )}
+                        <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
+                          {data.title && (
+                            <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
+                              {data.title}
+                            </h1>
+                          )}
+
+                          {data.decs && (
+                            <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">
+                              {data.decs}
+                            </p>
+                          )}
+                          <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
+                            <button className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700">
+                              See More
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
