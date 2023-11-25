@@ -16,6 +16,7 @@ const BodyHomepage = ({ visible }) => {
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [readBook, setReadBook] = useState(false);
   const Showdata = useState(0);
 
   const showSpecificModal = (index) => {
@@ -49,7 +50,9 @@ const BodyHomepage = ({ visible }) => {
   const closeModal = () => {
     setOpenModal(false);
   };
-
+  const closeBook = () => {
+    setReadBook(false);
+  };
   useEffect(() => {
     Showdata.current = BookData.length;
     const getBooks = async () => {
@@ -68,6 +71,7 @@ const BodyHomepage = ({ visible }) => {
               id: bookDoc.id,
               PdfUrl: bookDoc.data().PdfUrl,
             }));
+            console.log(BookData);
             return BookData;
           } catch (error) {
             console.error(`Error fetching book data for ${elem.id}:`, error);
@@ -156,26 +160,44 @@ const BodyHomepage = ({ visible }) => {
         </div>
       </section>
 
+      {readBook && (
+        <div className="fixed inset-0 z-50 max-sm:translate-y-40 transition-opacity ">
+          <div className="w-full h-full items-center justify-center">
+            <div className="fixed lg:w-[95%] lg:h-[95%] bg-gray-100 rounded-2xl mx-auto  relative">
+              {BookData.filter((book, index) => index === currentData).map((data, i) => (
+                <div className="flex h-full w-full relative ">
+                  <iframe key={i} src={data.PdfBook} className="w-full h-full" />
+                </div>
+              ))}
+              <button className="absolute top-0 right-0 p-4">
+                <BiXCircle className="text-[40px] text-gray-700" onClick={closeBook} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Modal book */}
-      {openModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center max-sm:translate-y-40 lg:translate-y-12 transition-opacity z-50">
-          <div className="flex-shrink-0 w-full h-full ">
+      {openModal && !readBook && (
+        <div className="fixed inset-0 z-50 max-sm:translate-y-40 transition-opacity ">
+          <div className="w-full h-full items-center justify-center">
             <div
-              className="w-[90%] h-[80%] max-sm:h-[60%] bg-gray-100 rounded-2xl mx-auto my-8 relative"
+              className="fixed lg:w-[90%] lg:h-[90%] w-[90%] h-[80%] max-sm:h-[60%] bg-gray-100 rounded-2xl mx-auto my-8 relative"
               ref={Showdata}
             >
-              <div className="flex h-[60%]">
+              <div className="flex w-[100%] h-[60%] ">
                 {BookData.filter((book, index) => index === currentData).map((data, i) => (
-                  <div key={i} className="flex w-[100%] h-[100%] relative ">
+                  <div key={i} className="flex h-[100%] relative ">
                     {data.ImageBook[i] && (
                       <div className="bg-no-repeat bg-left flex justify-center lg:w-[50%] max-sm:w-[100%] max-sm:p-1 lg:p-5">
                         <img
                           src={data.ImageBook}
                           alt="image-book"
-                          className="w-[80%] h-[100%] max-sm:h-[50%] max-sm:w-[100%] rounded-md shadow-xl items-center "
+                          className="w-[80%] h-[100%] max-sm:h-[100%] max-sm:w-[100%] rounded-md shadow-xl items-center "
                         />
                       </div>
                     )}
+
                     <button className="absolute top-0 right-0 p-4">
                       <BiXCircle className="text-[40px] text-gray-500" onClick={closeModal} />
                     </button>
@@ -194,13 +216,13 @@ const BodyHomepage = ({ visible }) => {
 
                       {data.decs && <p className="lg:text-xl lg:translate-y-14 ">{data.decs}</p>}
                       {data.price && (
-                        <div className="lg:mt-20 flex w-fit book-decs ">
+                        <div className="lg:mt-16 flex w-fit book-decs ">
                           <h1 className="flex lg:text-4xl underline">Price :</h1>
                           <h2 className="flex text-gray-700 lg:text-5xl ml-5">{data.price}</h2>
                         </div>
                       )}
 
-                      <div className="lg:gap-x-5 flex lg:mt-10">
+                      <div className="lg:gap-x-5 flex lg:mt-3">
                         <button
                           className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800"
                           onClick={() => this}
@@ -208,7 +230,12 @@ const BodyHomepage = ({ visible }) => {
                           <BiBookmarkPlus className="lg:text-2xl" />
                           Add to Playlist
                         </button>
-                        <button className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800">
+                        <button
+                          onClick={(e) => {
+                            setReadBook(true);
+                          }}
+                          className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800"
+                        >
                           <BiBookReader className="lg:text-2xl" />
                           Read Now
                         </button>
@@ -225,10 +252,10 @@ const BodyHomepage = ({ visible }) => {
                 <div className="text-3xl px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
                   <h1> Recommendation </h1>
                 </div>
-                <div className="mt-10 flex gap-x-8 w-full overflow-hidden p-3 ">
+                <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 absolute">
                   {BookData.slice(
                     currentData,
-                    currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 3)
+                    currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 4)
                   ).map((data, i) => (
                     <div key={i} className="hover:shadow-xl">
                       <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden  duration-300">
@@ -236,7 +263,7 @@ const BodyHomepage = ({ visible }) => {
                           <img
                             src={data.ImageBook}
                             alt="image-book"
-                            className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px]"
+                            className="flex lg:w-[100px] lg:h-[150px] xl:w-[150px] xl:h-[200px] max-lg:w-[80px] max-lg:h-[100px] max-sm:w-[60px] max-sm:h-[100px]"
                           />
                         )}
                         <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
