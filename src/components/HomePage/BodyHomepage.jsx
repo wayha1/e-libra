@@ -164,9 +164,9 @@ const BodyHomepage = ({ visible }) => {
       </section>
       {/* Modal book */}
       {openModal && !readBook && (
-        <div className="fixed inset-0 transition-opacity z-40 overflow-y-auto">
-          <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-8 max-sm:translate-y-40">
-            <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-md:w-[90%] max-sm:h-fit max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
+ <div className="fixed inset-0 transition-opacity z-40 overflow-y-auto h-screen">
+  <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-8 max-sm:translate-y-40">
+    <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-md:w-[90%] max-sm:h-fit max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
               <div className="max-sm:flex max-sm:flex-col w-[100%] lg:h-[60%] md:h-[70%] max-md:h-[50%] max-sm:h-[70%] max-sm:w-full">
                 {BookData.filter((data, index) => index == currentData).map((data, i) => (
                   <div
@@ -207,18 +207,18 @@ const BodyHomepage = ({ visible }) => {
                       <div className="flex flex-col ">
                         {data.price && (
                           <div className="flex w-fit book-decs md:m-3 max-sm:m-3">
-                            <h1 className="flex lg:text-4xl md:text-3xl max-sm:text-3xl hover:underline">
+                            <h1 className="whitespace-nowrap flex lg:text-4xl md:text-3xl max-md:text-2xl max-sm:text-3xl hover:underline">
                               Price :
                             </h1>
-                            <h2 className="whitespace-nowrap flex font-bold text-red-800 lg:text-5xl md:text-4xl max-sm:text-4xl ml-5">
+                            <h2 className="whitespace-nowrap flex font-bold text-red-800 lg:text-5xl md:text-4xl max-md:text-4xl max-sm:text-4xl ml-5">
                               {data.price}
                             </h2>
                           </div>
                         )}
 
-                        <div className="lg:gap-x-2 flex lg:mt-3 md:gap-x-5 max-sm:gap-x-1 text-xl justify-center max-sm:text-md">
+                        <div className="lg:gap-x-2 flex lg:mt-3 md:gap-x-5 max-md:gap-x-5 max-sm:gap-x-1 text-xl justify-center max-sm:text-md">
                           <button
-                            className="gap-x-1 p-1 lg:w-52 max-sm:w-32 rounded-xl bg-gray-500 flex items-center justify-center text-white whitespace-nowrap hover:bg-gray-800"
+                            className="gap-x-1 lg:p-1 lg:w-52 max-sm:w-32 rounded-xl bg-gray-500 flex items-center text-white whitespace-nowrap hover:bg-gray-800"
                             onClick={() => this}
                           >
                             <BiBookmarkPlus className="lg:text-2xl md:text-3xl " />
@@ -243,41 +243,45 @@ const BodyHomepage = ({ visible }) => {
                   </div>
                 ))}
               </div>
-              <div className="text-3xl md:mt-7 px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
-                <h1> Recommendation </h1>
-              </div>
-              <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40 justify-center">
-                {BookData.slice(
-                  currentData,
-                  currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 800 ? 3 : 4)
-                ).map((data, i) => (
-                  <div key={i} className="hover:shadow-xl ">
-                    <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden duration-300 ">
-                      {data.ImageBook && (
-                        <img
-                          src={data.ImageBook}
-                          alt="image-book"
-                          className="flex lg:w-[100px] lg:h-[150px] xl:w-[150px] xl:h-[200px] max-lg:w-[80px] max-lg:h-[100px] max-sm:w-[60px] max-sm:h-[100px]"
-                        />
-                      )}
-                      <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
-                        {data.title && (
-                          <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
-                            {data.title}
-                          </h1>
+              <div>
+                <div className="text-3xl max-lg:mt-7 md:mt-28 px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
+                  <h1> Recommendation </h1>
+                </div>
+                <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40 justify-center">
+                  {BookData.slice(
+                    currentData,
+                    currentData + (window.innerWidth < 400 ? 1 : window.innerWidth < 800 ? 2 : 4)
+                  ).map((data, i) => (
+                    <div key={i} className="hover:shadow-xl ">
+                      <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden duration-300 ">
+                        {data.ImageBook && (
+                          <img
+                            src={data.ImageBook}
+                            alt="image-book"
+                            className="flex lg:w-[100px] lg:h-[150px] xl:w-[150px] xl:h-[200px] max-lg:w-[80px] max-lg:h-[100px] max-sm:w-[60px] max-sm:h-[100px]"
+                          />
                         )}
-                        {data.decs && (
-                          <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">{data.decs}</p>
-                        )}
-                        <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
-                          <button className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700">
-                            See More
-                          </button>
+                        <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
+                          {data.title && (
+                            <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
+                              {data.title}
+                            </h1>
+                          )}
+                          {data.decs && (
+                            <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">
+                              {data.decs}
+                            </p>
+                          )}
+                          <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
+                            <button className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700">
+                              See More
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
