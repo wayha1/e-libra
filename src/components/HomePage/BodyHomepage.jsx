@@ -165,7 +165,7 @@ const BodyHomepage = ({ visible }) => {
       {/* Modal book */}
       {openModal && !readBook && (
         <div className="fixed inset-0 transition-opacity z-40">
-          <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-12 max-sm:translate-y-40">
+          <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-8 max-sm:translate-y-40">
             <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-sm:h-[90%] max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
               <div className="w-[100%] lg:h-[60%] md:h-full max-sm:h-[70%] max-sm:w-full">
                 {BookData.filter((data, index) => index == currentData).map((data, i) => (
