@@ -114,7 +114,7 @@ const BodyHomepage = ({ visible }) => {
             <div className="flex gap-x-8 w-full overflow-hidden p-3 ">
               {BookData.slice(
                 currentData,
-                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 3)
+                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 800 ? 2 : 3)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl">
                   <div className="flex rounded-xl bg-white shadow-xl overflow-hidden  duration-300">
@@ -164,21 +164,21 @@ const BodyHomepage = ({ visible }) => {
       </section>
       {/* Modal book */}
       {openModal && !readBook && (
-        <div className="fixed inset-0 transition-opacity z-40">
+        <div className="fixed inset-0 transition-opacity z-40 overflow-y-auto">
           <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-8 max-sm:translate-y-40">
-            <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-sm:h-[90%] max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
-              <div className="w-[100%] lg:h-[60%] md:h-full max-sm:h-[70%] max-sm:w-full">
+            <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-md:w-[90%] max-sm:h-fit max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
+              <div className="max-sm:flex max-sm:flex-col w-[100%] lg:h-[60%] md:h-[70%] max-md:h-[50%] max-sm:h-[70%] max-sm:w-full">
                 {BookData.filter((data, index) => index == currentData).map((data, i) => (
                   <div
                     key={i}
-                    className="lg:flex h-[100%] md:h-full max-sm:w-[100%] max-sm:h-[80%] relative "
+                    className="lg:flex lg:h-[100%] md:h-[100%] max-sm:w-[100%] max-sm:h-[70%] relative "
                   >
                     {data.ImageBook && (
-                      <div className="bg-no-repeat bg-left flex lg:justify-center max-sm:justify-center md:justify-center lg:w-[50%] lg:h-[100%] max-sm:w-[100%] md:h-[50%] md:w-[100%] max-sm:h-[80%] lg:p-5 max-sm:p-2">
+                      <div className="bg-no-repeat bg-left flex lg:justify-center max-sm:justify-center md:justify-center lg:w-[50%] lg:h-[100%] max-sm:w-[100%] md:h-[60%] md:w-[100%] max-md:h-[50%] max-md:w-[100%] max-sm:h-[80%] lg:p-5 max-sm:p-2">
                         <img
                           src={data.ImageBook}
                           alt="image-book"
-                          className="lg:w-[80%] lg:h-[100%] md:h-[100%] md:w-[90%] max-sm:h-[100%] max-sm:w-[90%] rounded-md shadow-xl lg:items-center hover:scale-90 hover:duration-200"
+                          className="lg:w-[80%] lg:h-[100%] md:h-[100%] md:w-[90%] max-md:w-[100%] max-sm:h-[100%] max-sm:w-[90%] rounded-md shadow-xl lg:items-center hover:scale-90 hover:duration-200"
                         />
                       </div>
                     )}
@@ -189,49 +189,53 @@ const BodyHomepage = ({ visible }) => {
                       />
                     </button>
 
-                    <div className="lg:w-[50%] max-sm:w-[95%] md:w-full flex flex-col overflow-hidden ">
+                    <div className="lg:w-[50%] md:indent-8 md:w-[100%] max-md:w-[100%] md:p-2 max-sm:p-2 max-sm:w-[95%] overflow-hidden ">
                       {data.title && (
-                        <h1 className="flex book-title font-bold text-gray-700 lg:text-5xl lg:translate-y-12 max-sm:text-2xl whitespace-nowrap justify-center">
+                        <h1 className="flex book-title font-bold text-gray-700 lg:text-5xl md:text-5xl lg:translate-y-12 max-sm:text-3xl whitespace-nowrap justify-center">
                           {data.title}
                         </h1>
                       )}
                       {data.author && (
-                        <h1 className="hover:text-cyan-800 flex book-decs font-bold text-gray-500 lg:text-xl lg:translate-y-12 mt-1 max-sm:text-sm whitespace-nowrap max-sm:ml-2">
+                        <h1 className="hover:text-cyan-800 flex book-decs font-bold text-gray-500 lg:text-xl lg:translate-y-12 mt-1 md:text-lg max-sm:text-sm whitespace-nowrap max-sm:ml-2">
                           Author By : {data.author}
                         </h1>
                       )}
 
                       {data.decs && (
-                        <p className="lg:text-xl lg:translate-y-14 max-sm:text-sm ">{data.decs}</p>
+                        <p className="lg:text-xl lg:mt-12 md:text-xl max-sm:text-sm ">{data.decs}</p>
                       )}
-                      <div className="h-fit lg:translate-y-44">
+                      <div className="flex flex-col ">
                         {data.price && (
-                          <div className="flex w-fit book-decs ">
-                            <h1 className="flex lg:text-4xl hover:underline">Price :</h1>
-                            <h2 className="flex font-bold text-red-800 lg:text-5xl ml-5">{data.price}</h2>
+                          <div className="flex w-fit book-decs md:m-3 max-sm:m-3">
+                            <h1 className="flex lg:text-4xl md:text-3xl max-sm:text-3xl hover:underline">
+                              Price :
+                            </h1>
+                            <h2 className="whitespace-nowrap flex font-bold text-red-800 lg:text-5xl md:text-4xl max-sm:text-4xl ml-5">
+                              {data.price}
+                            </h2>
                           </div>
                         )}
 
-                        <div className="lg:gap-x-2 flex lg:mt-3 ">
+                        <div className="lg:gap-x-2 flex lg:mt-3 md:gap-x-5 max-sm:gap-x-1 text-xl justify-center max-sm:text-md">
                           <button
-                            className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800"
+                            className="gap-x-1 p-1 lg:w-52 max-sm:w-32 rounded-xl bg-gray-500 flex items-center justify-center text-white whitespace-nowrap hover:bg-gray-800"
                             onClick={() => this}
                           >
-                            <BiBookmarkPlus className="lg:text-2xl" />
+                            <BiBookmarkPlus className="lg:text-2xl md:text-3xl " />
                             Add to Playlist
                           </button>
                           <button
                             onClick={(e) => {
                               setReadBook(true);
                             }}
-                            className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800"
+                            className="gap-x-1 p-1 lg:w-52 max-sm:w-32 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800"
                           >
-                            <BiBookReader className="lg:text-2xl" />
+                            <BiBookReader className="lg:text-2xl md:text-3xl " />
                             Read Now
                           </button>
-                          <button className="gap-x-1 p-1 lg:w-52 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800">
-                            <BiSolidCartAdd className="lg:text-2xl" />
-                            Add to cart
+                          <button className="gap-x-1 p-1 lg:w-52 max-sm:w-32 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800">
+                            <BiSolidCartAdd className="lg:text-2xl md:text-3xl " />
+                            Add to Cart
                           </button>
                         </div>
                       </div>
@@ -239,14 +243,13 @@ const BodyHomepage = ({ visible }) => {
                   </div>
                 ))}
               </div>
-
-              <div className="text-3xl px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
+              <div className="text-3xl md:mt-7 px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
                 <h1> Recommendation </h1>
               </div>
-              <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40">
+              <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40 justify-center">
                 {BookData.slice(
                   currentData,
-                  currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 4)
+                  currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 800 ? 3 : 4)
                 ).map((data, i) => (
                   <div key={i} className="hover:shadow-xl ">
                     <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden duration-300 ">
