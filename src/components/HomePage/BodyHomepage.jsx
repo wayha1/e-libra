@@ -174,7 +174,7 @@ const BodyHomepage = ({ visible }) => {
                     className="lg:flex h-[100%] md:h-full max-sm:w-[100%] max-sm:h-[80%] relative "
                   >
                     {data.ImageBook && (
-                      <div className="bg-no-repeat bg-left flex lg:justify-center max-sm:justify-center md:justify-center lg:w-[50%] max-sm:w-[100%] md:h-[50%] md:w-[100%] max-sm:h-[80%] lg:p-5 max-sm:p-2">
+                      <div className="bg-no-repeat bg-left flex lg:justify-center max-sm:justify-center md:justify-center lg:w-[50%] lg:h-[100%] max-sm:w-[100%] md:h-[50%] md:w-[100%] max-sm:h-[80%] lg:p-5 max-sm:p-2">
                         <img
                           src={data.ImageBook}
                           alt="image-book"
@@ -246,7 +246,7 @@ const BodyHomepage = ({ visible }) => {
               <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40">
                 {BookData.slice(
                   currentData,
-                  currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 3)
+                  currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 770 ? 2 : 4)
                 ).map((data, i) => (
                   <div key={i} className="hover:shadow-xl ">
                     <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden duration-300 ">
