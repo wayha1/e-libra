@@ -125,6 +125,7 @@ const HomePage = () => {
           ))}
         </div>
       </section>
+      <BodyHomepage className="z-30" />
     </>
   );
 };

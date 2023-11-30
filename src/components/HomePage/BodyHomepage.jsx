@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import "../../App.css";
@@ -18,7 +18,6 @@ const BodyHomepage = () => {
   const [detailIndex, setDetailIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [readBook, setReadBook] = useState(false);
-  const showData = useRef(0);
 
   const slideNext = () => {
     const lastIndex = BookData.length - 1;
@@ -26,14 +25,12 @@ const BodyHomepage = () => {
   };
 
   const slidePrev = () => {
-    const lastIndex = BookData.length - 1;
     setCurrentData((prevIndex) =>
       prevIndex === 0 ? prevIndex : (prevIndex - 1 + BookData.length) % BookData.length
     );
   };
   const closeModal = () => {
     setOpenModal(false);
-    // setCurrentData(0);
   };
   const closeBook = () => {
     setReadBook(false);
@@ -113,7 +110,7 @@ const BodyHomepage = () => {
                     {data.ImageBook && (
                       <img
                         onClick={(e) => {
-                          handleSeeMoreClick(i);
+                          handleSeeMoreClick(currentData + i);
                         }}
                         src={data.ImageBook}
                         alt="image-book"
@@ -134,7 +131,6 @@ const BodyHomepage = () => {
                         <button
                           className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
                           onClick={(e) => {
-                            setOpenModal(true);
                             handleSeeMoreClick(currentData + i);
                           }}
                         >
@@ -166,7 +162,6 @@ const BodyHomepage = () => {
               <div className="max-sm:flex max-sm:flex-col w-[100%] lg:h-[60%] md:h-[70%] max-md:h-[50%] max-sm:h-[70%] max-sm:w-full">
                 {BookData.filter((data, index) => index == detailIndex).map((data, i) => (
                   <div
-                    ref={showData}
                     key={i}
                     className="lg:flex lg:h-[100%] md:h-[100%] max-sm:w-[100%] max-sm:h-[70%] relative "
                   >
@@ -174,7 +169,7 @@ const BodyHomepage = () => {
                       <div className="bg-no-repeat bg-left flex lg:justify-center max-sm:justify-center md:justify-center lg:w-[50%] lg:h-[100%] max-sm:w-[100%] md:h-[60%] md:w-[100%] max-md:h-[50%] max-md:w-[100%] max-sm:h-[80%] lg:p-5 max-sm:p-2">
                         <img
                           src={data.ImageBook}
-                          alt="image-book"
+                          alt="img-book"
                           className="lg:w-[80%] lg:h-[100%] md:h-[100%] md:w-[90%] max-md:w-[100%] max-sm:h-[100%] max-sm:w-[90%] rounded-md shadow-xl lg:items-center hover:scale-90 hover:duration-200"
                         />
                       </div>
