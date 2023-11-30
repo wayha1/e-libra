@@ -4,22 +4,35 @@ import BodyHomepage from "./BodyHomepage";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
-
-import Mymodal from "./Mymodal";
-
 const HomePage = () => {
   const [Banner, setBanner] = useState([]);
-  const [Book, setBook] = useState([]);
+  const [Promotion, setPromotion] = useState([]);
   const [isBannerHovered, setIsBannerHovered] = useState(false);
-  // const [BookData, setBookData] = useState([]);
-  // const [resume, setResume] = useState(null);
-  const [showMymodal, setShowMyModal] = useState(false);
 
   const getBanner = async () => {
     const Banner = collection(db, "HomePage");
     const dataBanner = await getDocs(Banner);
     const allBanner = dataBanner.docs.map((val) => ({ ...val.data(), id: val.id }));
     setBanner(allBanner);
+
+    const promotionData = allBanner.map(async (elem) => {
+      try {
+        const BookPop = collection(db, `HomePage/${elem.id}/BodyPromo`);
+        const DataBooks = await getDocs(BookPop);
+        const BookData = DataBooks.docs.map((bookDoc) => ({
+          ...bookDoc.data(),
+          id: bookDoc.id,
+        }));
+        console.log(BookData);
+        return BookData;
+      } catch (error) {
+        console.error(`Error fetching book data for ${elem.id}:`, error);
+        return null;
+      }
+    });
+
+    const bookData = await Promise.all(promotionData);
+    setPromotion(bookData.flat());
   };
 
   useEffect(() => {
@@ -30,7 +43,7 @@ const HomePage = () => {
     <>
       {/* Banner */}
       <section id="Banner ">
-      <main className="z-10 flex">
+        <main className="z-10 flex">
           {/* desktop mode */}
           {Banner.map((data, i) => (
             <div
@@ -48,19 +61,19 @@ const HomePage = () => {
               >
                 <div className="flex items-center text-left max-lg:px-5 max-md:px-5 text-gray-100 h-full">
                   <div className="m-5 text-white shadow-sm">
-                  {data.title && (
-                    <h1 className="font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
-                      {data.title}
-                    </h1>
-                  )}
-                  {data.decs && <h2 className="font-bold lg:text-xl max-lg:text-xs lg:w-3/4">{data.decs} </h2>}
-                  <button className="m-2 box-border h-12 w-18 p-2 bg-cyan-500 hover:bg-cyan-800 rounded-xl lg:translate-y-60 md:translate-y-52 max-sm:translate-y-16">
-                    <h1 className="whitespace-nowrap text-gray-300 text-sm font-bold">
-                      <Link to={"/allGen"}>
-                        All Category
-                      </Link>
-                    </h1>
-                  </button>
+                    {data.title && (
+                      <h1 className="font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
+                        {data.title}
+                      </h1>
+                    )}
+                    {data.decs && (
+                      <h2 className="font-bold lg:text-xl max-lg:text-xs lg:w-3/4">{data.decs} </h2>
+                    )}
+                    <button className="m-2 box-border h-12 w-18 p-2 bg-cyan-500 hover:bg-cyan-800 rounded-xl lg:translate-y-60 md:translate-y-52 max-sm:translate-y-16">
+                      <h1 className="whitespace-nowrap text-gray-300 text-sm font-bold">
+                        <Link to={"/allGen"}>All Category</Link>
+                      </h1>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -74,56 +87,43 @@ const HomePage = () => {
             </div>
           ))}
         </main>
-
-        
-          <HeadCategory />
-       
-
+        <HeadCategory />
       </section>
 
-      <section>
+      <section id="body-header">
         <div className="Header">
-          <button>
-            {Book.map((data, i) => (
-              <div className="" key={i}>
-                {data.container && (
-                  <h1 className="text-3xl px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
-                    {data.container}
+          <BodyHomepage className="z-30" />
+          <BodyHomepage className="z-30" />
+          <BodyHomepage className="z-30" />
+        </div>
+      </section>
+
+      <section id="body-popular">
+        <div className="my-2">
+          {Promotion.map((data, i) => (
+            <div key={i} className="bg-rose-100 w-full h-[350px] flex">
+              <div className="text-left w-[50%] backdrop-blur-sm">
+                {data.title && (
+                  <h1 className="lg:text-6xl font-mono font-bold text-end mt-20 text-gray-500 hover:text-cyan-700">
+                    {data.title}
                   </h1>
                 )}
-              </div>
-            ))}
-          </button>
-        </div>
-
-        <BodyHomepage className="z-30" />
-        <BodyHomepage className="z-30" />
-        <BodyHomepage className="z-30" />
-        <div className="Header">
-          <button>
-            {Book.map((data, i) => (
-              <div className="" key={i}>
-                {data.headCate && (
-                  <h1 className="text-3xl px-10 uppercase font-bold flex lg:py-3">{data.headCate}</h1>
+                {data.decs && (
+                  <h2 className="lg:text-xl mt-2 font-mono font-bold text-center text-gray-700 font-sans hover:text-cyan-800 hover:duration-200">
+                    {data.decs}{" "}
+                  </h2>
                 )}
               </div>
-            ))}
-          </button>
+
+              <div className="flex w-[50%] items-center justify-center p-4">
+                <img
+                  src={data.imagePromo}
+                  className="flex w-[90%] h-[100%] hover:scale-105 duration-200 bg-cover"
+                />
+              </div>
+            </div>
+          ))}
         </div>
-        {/* <button onClick={downloadPDF} disabled={!(loader === false)}>
-          {loader ? <span>Downloading</span> : <span>Dowloaded</span>}
-        </button> */}
-
-        {/* <button
-          className="bg-blue-400 bg-opacity-40 btn btn-primary btn-md"
-          onClick={() => setShowMyModal(true)}
-        >
-          {" "}
-          Open Modal
-        </button>
-
-        <Mymodal className="w-full h-full" visible={showMymodal} onClose={setShowMyModal} resume={resume} />
-       */}
       </section>
     </>
   );

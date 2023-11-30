@@ -120,6 +120,9 @@ const BodyHomepage = ({ visible }) => {
                   <div className="flex rounded-xl bg-white shadow-xl overflow-hidden  duration-300">
                     {data.ImageBook && (
                       <img
+                      onClick={(e) => {
+                        handleSeeMoreClick(currentData + i);
+                      }}
                         src={data.ImageBook}
                         alt="image-book"
                         className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px] shadow-lg"
