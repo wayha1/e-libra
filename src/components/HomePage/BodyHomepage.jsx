@@ -160,7 +160,7 @@ const BodyHomepage = () => {
           <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-8 max-sm:translate-y-40">
             <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-md:w-[90%] max-sm:h-fit max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
               <div className="max-sm:flex max-sm:flex-col w-[100%] lg:h-[60%] md:h-[70%] max-md:h-[50%] max-sm:h-[70%] max-sm:w-full">
-                {BookData.filter((data, index) => index == detailIndex).map((data, i) => (
+                {BookData.filter((data, index) => index === detailIndex).map((data, i) => (
                   <div
                     key={i}
                     className="lg:flex lg:h-[100%] md:h-[100%] max-sm:w-[100%] max-sm:h-[70%] relative "
@@ -286,7 +286,10 @@ const BodyHomepage = () => {
             <div className="fixed w-[95%] h-[95%] bg-gray-100 rounded-2xl mx-auto lg:translate-y-10 max-md:translate-y-12 sm:translate-y-10 max-sm:-translate-y-28 relative z-30">
               {BookData.filter((book, index) => index === detailIndex).map((data, i) => (
                 <div className="flex h-full w-full relative ">
-                  <iframe key={i} src={data.PdfBook} className="w-full h-full" />
+                  <iframe key={i} 
+                  src={data.PdfBook} 
+                  alt="pdf-book"
+                  className="w-full h-full" />
                 </div>
               ))}
               <button className="absolute -top-10 right-0 p-0">
