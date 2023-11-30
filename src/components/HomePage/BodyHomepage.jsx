@@ -291,8 +291,8 @@ const BodyHomepage = () => {
                   {data.PdfBook ? (
                     <iframe key={i} src={data.PdfBook} alt="pdf-book" className="w-full h-full" />
                   ) : (
-                    <div className="flex items-center justify-center w-full h-full">
-                      <p className="text-gray-600">Loading... Book not yet uploaded.</p>
+                    <div className="flex items-center justify-center w-full h-full ">
+                      <p className="text-gray-600 text-5xl font-medium">Book not yet uploaded! </p>
                     </div>
                   )}
                 </div>

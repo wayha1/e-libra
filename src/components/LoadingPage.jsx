@@ -22,9 +22,15 @@ const LoadingPage = () => {
           aria-label="Loading Spinner"
           data-testid="loader"
         ></ClipLoader>
-        <h1 className={`lg:text-5xl text-gray-600 font-semibold tracking-wide font-serif  ml-4 ${isLoading ? "animate-pulse" : ""}`}>
-          Welcome E-libra
+        <div className={`flex lg:text-5xl text-gray-600 font-semibold tracking-wide font-mono  ml-4 ${isLoading ? "animate-pulse" : ""}`}>
+        <h1 className="flex mt-10">
+          E-libra
         </h1>
+        <img src={require("./LoginPage/Logo.png")}
+            alt="logo"
+            width={100}
+            height={100} />
+        </div>
       </div>
     </div>
   );
