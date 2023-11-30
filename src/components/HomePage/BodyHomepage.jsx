@@ -11,16 +11,14 @@ import {
   BiSolidCartAdd,
 } from "react-icons/bi";
 
-const BodyHomepage = ({ visible }) => {
+const BodyHomepage = () => {
   const [Book, setBook] = useState([]);
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
   const [detailIndex, setDetailIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [readBook, setReadBook] = useState(false);
-  const dataShowDetail = null;
   const showData = useRef(0);
-  const [seeMoreClicked, setSeeMoreClicked] = useState(false);
 
   const slideNext = () => {
     const lastIndex = BookData.length - 1;
@@ -42,15 +40,8 @@ const BodyHomepage = ({ visible }) => {
   };
 
   const handleSeeMoreClick = (index) => {
-    // setCurrentData(index);
-    // dataShowDetail =  BookData.map((data, index) => {})
     setDetailIndex(index);
     setOpenModal(true);
-    // if (index !== 2 && index !== 3) {
-    // } else {
-    //   setCurrentData(index);
-    //   setOpenModal(true);
-    // }
   };
 
   useEffect(() => {
