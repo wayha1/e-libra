@@ -15,41 +15,42 @@ const BodyHomepage = ({ visible }) => {
   const [Book, setBook] = useState([]);
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
+  const [detailIndex, setDetailIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [readBook, setReadBook] = useState(false);
+  const dataShowDetail = null;
+  const showData = useRef(0);
   const [seeMoreClicked, setSeeMoreClicked] = useState(false);
 
   const slideNext = () => {
-    if (!seeMoreClicked) {
-      const lastIndex = BookData.length - 1;
-      setCurrentData((prevIndex) =>
-        prevIndex === lastIndex ? prevIndex : (prevIndex + 1) % BookData.length
-      );
-    }
+    const lastIndex = BookData.length - 1;
+    setCurrentData((prevIndex) => (prevIndex === lastIndex ? prevIndex : (prevIndex + 1) % BookData.length));
   };
 
   const slidePrev = () => {
-    if (!seeMoreClicked) {
-      const lastIndex = BookData.length - 1;
-      setCurrentData((prevIndex) =>
-        prevIndex === 0 ? prevIndex : (prevIndex - 1 + BookData.length) % BookData.length
-      );
-    }
+    const lastIndex = BookData.length - 1;
+    setCurrentData((prevIndex) =>
+      prevIndex === 0 ? prevIndex : (prevIndex - 1 + BookData.length) % BookData.length
+    );
   };
   const closeModal = () => {
     setOpenModal(false);
+    // setCurrentData(0);
   };
   const closeBook = () => {
     setReadBook(false);
   };
+
   const handleSeeMoreClick = (index) => {
-    if (index !== 2 && index !== 3) {
-      setCurrentData(index);
-      setOpenModal(true);
-    } else {
-      setCurrentData(index);
-      setOpenModal(true);
-    }
+    // setCurrentData(index);
+    // dataShowDetail =  BookData.map((data, index) => {})
+    setDetailIndex(index);
+    setOpenModal(true);
+    // if (index !== 2 && index !== 3) {
+    // } else {
+    //   setCurrentData(index);
+    //   setOpenModal(true);
+    // }
   };
 
   useEffect(() => {
@@ -120,9 +121,9 @@ const BodyHomepage = ({ visible }) => {
                   <div className="flex rounded-xl bg-white shadow-xl overflow-hidden  duration-300">
                     {data.ImageBook && (
                       <img
-                      onClick={(e) => {
-                        handleSeeMoreClick(currentData + i);
-                      }}
+                        onClick={(e) => {
+                          handleSeeMoreClick(i);
+                        }}
                         src={data.ImageBook}
                         alt="image-book"
                         className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px] shadow-lg"
@@ -142,6 +143,7 @@ const BodyHomepage = ({ visible }) => {
                         <button
                           className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
                           onClick={(e) => {
+                            setOpenModal(true);
                             handleSeeMoreClick(currentData + i);
                           }}
                         >
@@ -167,12 +169,13 @@ const BodyHomepage = ({ visible }) => {
       </section>
       {/* Modal book */}
       {openModal && !readBook && (
- <div className="fixed inset-0 transition-opacity z-40 overflow-y-auto h-screen">
-  <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-8 max-sm:translate-y-40">
-    <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-md:w-[90%] max-sm:h-fit max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
+        <div className="fixed inset-0 transition-opacity z-40 overflow-y-auto h-screen">
+          <div className="w-full h-full items-center overflow-h-auto justify-center lg:translate-y-8 max-sm:translate-y-40">
+            <div className="lg:w-[full] lg:h-[90%] md:w-[90%] md:h-[90%] md:h-[90%] md:w-[90%] max-md:w-[90%] max-sm:h-fit max-sm:w-[95%] bg-white shadow-lg rounded-2xl mx-auto relative md:translate-y-12 max-md:translate-y-12 sm:translate-y-12 max-sm:-translate-y-28">
               <div className="max-sm:flex max-sm:flex-col w-[100%] lg:h-[60%] md:h-[70%] max-md:h-[50%] max-sm:h-[70%] max-sm:w-full">
-                {BookData.filter((data, index) => index == currentData).map((data, i) => (
+                {BookData.filter((data, index) => index == detailIndex).map((data, i) => (
                   <div
+                    ref={showData}
                     key={i}
                     className="lg:flex lg:h-[100%] md:h-[100%] max-sm:w-[100%] max-sm:h-[70%] relative "
                   >
@@ -252,8 +255,8 @@ const BodyHomepage = ({ visible }) => {
                 </div>
                 <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40 justify-center">
                   {BookData.slice(
-                    currentData,
-                    currentData + (window.innerWidth < 400 ? 1 : window.innerWidth < 800 ? 2 : 4)
+                    detailIndex,
+                    detailIndex + (window.innerWidth < 400 ? 1 : window.innerWidth < 800 ? 2 : 4)
                   ).map((data, i) => (
                     <div key={i} className="hover:shadow-xl ">
                       <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden duration-300 ">
@@ -295,7 +298,7 @@ const BodyHomepage = ({ visible }) => {
         <div className="fixed inset-0 z-50 max-sm:translate-y-40 transition-opacity ">
           <div className="w-full h-full items-center justify-center">
             <div className="fixed w-[95%] h-[95%] bg-gray-100 rounded-2xl mx-auto lg:translate-y-10 max-md:translate-y-12 sm:translate-y-10 max-sm:-translate-y-28 relative z-30">
-              {BookData.filter((book, index) => index === currentData).map((data, i) => (
+              {BookData.filter((book, index) => index === detailIndex).map((data, i) => (
                 <div className="flex h-full w-full relative ">
                   <iframe key={i} src={data.PdfBook} className="w-full h-full" />
                 </div>
