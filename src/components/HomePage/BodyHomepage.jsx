@@ -56,7 +56,6 @@ const BodyHomepage = () => {
             const BookData = DataBooks.docs.map((bookDoc) => ({
               ...bookDoc.data(),
               id: bookDoc.id,
-              PdfUrl: bookDoc.data().PdfUrl,
             }));
             return BookData;
           } catch (error) {
