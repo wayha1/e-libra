@@ -194,7 +194,9 @@ const BodyHomepage = () => {
                       )}
 
                       {data.decs && (
-                        <p className="lg:text-xl lg:mt-12 md:text-xl max-sm:text-sm ">{data.decs}</p>
+                        <p className="lg:text-xl lg:mt-12 md:text-xl max-sm:text-sm max-h-[200px] overflow-y-auto">
+                          {data.decs}
+                        </p>
                       )}
                       <div className="flex flex-col ">
                         {data.price && (
@@ -236,7 +238,7 @@ const BodyHomepage = () => {
                 ))}
               </div>
               <div>
-                <div className="text-3xl max-lg:mt-7 md:mt-28 px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
+                <div className="text-3xl  max-lg:mt-7 md:mt-6 px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
                   <h1> Recommendation </h1>
                 </div>
                 <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40 justify-center">
@@ -286,10 +288,13 @@ const BodyHomepage = () => {
             <div className="fixed w-[95%] h-[95%] bg-gray-100 rounded-2xl mx-auto lg:translate-y-10 max-md:translate-y-12 sm:translate-y-10 max-sm:-translate-y-28 relative z-30">
               {BookData.filter((book, index) => index === detailIndex).map((data, i) => (
                 <div className="flex h-full w-full relative ">
-                  <iframe key={i} 
-                  src={data.PdfBook} 
-                  alt="pdf-book"
-                  className="w-full h-full" />
+                  {data.PdfBook ? (
+                    <iframe key={i} src={data.PdfBook} alt="pdf-book" className="w-full h-full" />
+                  ) : (
+                    <div className="flex items-center justify-center w-full h-full">
+                      <p className="text-gray-600">Loading... Book not yet uploaded.</p>
+                    </div>
+                  )}
                 </div>
               ))}
               <button className="absolute -top-10 right-0 p-0">

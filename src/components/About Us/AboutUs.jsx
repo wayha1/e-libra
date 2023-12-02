@@ -3,6 +3,7 @@ import "./Aboutus.css";
 import HoverVideoPlayer from "react-hover-video-player";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import LoadingPage from "../LoadingPage";
 
 const AboutUs = () => {
   const [Banner, setBanner] = useState([]);
@@ -11,6 +12,7 @@ const AboutUs = () => {
   const [author, setAuthor] = useState([]);
   const [isHovering, setIsHovering] = useState(false);
   const [expandedAuthors, setExpandedAuthors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleExpansion = (index) => {
     setExpandedAuthors((prevExpandedAuthors) => {
@@ -36,51 +38,41 @@ const AboutUs = () => {
     }));
     setAuthor(dataAuthor);
   };
-  useEffect(() => {
-    if (!Banner) {
-      return null;
-    } else {
-      getAuthor();
+  const fetchData = async () => {
+    try {
+      const bannerData = await getDocs(collection(db, "Aboutus"));
+      setBanner(bannerData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
-      const getData = async () => {
-        const Banner = collection(db, "Aboutus");
-        const snapshot = await getDocs(Banner);
-        const data = snapshot.docs.map((val) => ({
-          ...val.data(),
-          id: val.id,
-        }));
-        setBanner(data);
-        for (const elem of data) {
-          data.map(async (elem) => {
-            const contain = collection(db, `Aboutus/${elem.id}/container`);
-            const Containers = await getDocs(contain);
-            const ContainerData = Containers.docs.map((val) => ({
-              ...val.data(),
-              id: val.id,
-            }));
-            setContainer(ContainerData);
-            console.log(ContainerData);
-            data.map(async (elem) => {
-              const OurGoal = collection(db, `Aboutus/${elem.id}/Goal`);
-              const Goals = await getDocs(OurGoal);
-              const GoalData = Goals.docs.map((val) => ({
-                ...val.data(),
-                id: val.id,
-              }));
-              setGoal(GoalData);
-              console.log(GoalData);
-            });
-          });
-        }
-      };
-      getData();
+      for (const elem of bannerData.docs) {
+        const contain = collection(db, `Aboutus/${elem.id}/container`);
+        const Containers = await getDocs(contain);
+        const ContainerData = Containers.docs.map((val) => ({ ...val.data(), id: val.id }));
+        setContainer(ContainerData);
+
+        const OurGoal = collection(db, `Aboutus/${elem.id}/Goal`);
+        const Goals = await getDocs(OurGoal);
+        const GoalData = Goals.docs.map((val) => ({ ...val.data(), id: val.id }));
+        setGoal(GoalData);
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false); // Set loading to false when data fetching is complete
     }
+  };
+  useEffect(() => {
+    getAuthor();
+    fetchData();
   }, []);
 
   return (
-    <div>
-      {/* <Navbar /> */}
-      <>
+    <>
+      {isLoading ? (
+        <LoadingPage />
+      ) : (
+        // Navbar
         <main className="w-screen bg-gray-50">
           <section id="banner ">
             {Banner.map((data) => (
@@ -199,7 +191,6 @@ const AboutUs = () => {
                             <li className="">
                               <h2 className="">{data.decs[2]}</h2>
                             </li>
-                           
                           </ul>
                         )}
                       </div>
@@ -247,8 +238,8 @@ const AboutUs = () => {
             </div>
           </section>
         </main>
-      </>
-    </div>
+      )}
+    </>
   );
 };
 
