@@ -64,15 +64,15 @@ const BacIIBook = () => {
   };
 
   return (
-    <section className="container mx-auto mt-8">
+    <section className="container mx-auto mt-8 mb-10">
       <div className="ml-20 mb-8">
         <h1 className="text-4xl uppercase font-bold hover:text-cyan-800 rounded-xl">
           BacII
         </h1>
       </div>
-      <div className="flex flex-wrap gap-4 justify-center">
+      <div className="grid grid-cols-4 grid-rows-2 justify-items-center justify-center gap-4">
         {currentItems.map((item, index) => (
-          <div key={index} className="max-w-xs mx-2 mb-4">
+          <div key={index} className="mb-4">
             <img
               src={item.img}
               alt={`Bacll-${index}`}
