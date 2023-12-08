@@ -65,7 +65,7 @@ const BacIIBook = () => {
 
   return (
     <section className="container mx-auto mt-8 mb-10">
-      <div className="ml-20 mb-8">
+      <div className="ml-10 mb-8">
         <h1 className="text-4xl uppercase font-bold hover:text-cyan-800 rounded-xl">
           BacII
         </h1>
