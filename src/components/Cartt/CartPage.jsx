@@ -19,10 +19,10 @@ const CartPage = () => {
         console.error("Error fetching cart items:", error);
       }
     };
-
+  
     fetchCartItems();
   }, []);
-
+  
   const handleIncrease = async (itemId) => {
     // Use the updatedCart directly to get the new quantity
     const updatedCart = cartItems.map((item) =>
@@ -76,7 +76,8 @@ const CartPage = () => {
       console.error("Error deleting document:", error);
     }
   };
-  
+
+  const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);  
 
 
   return (
@@ -106,7 +107,7 @@ const CartPage = () => {
                 Decrease
               </button>
               <button
-                className="bg-red-500 text-white px-4 py-2"
+                className="bg-red-500 text-white px-4 py-2 active:bg-blue-700"
                 onClick={() => handleDelete(item.id)}
               >
                 Delete
@@ -115,7 +116,7 @@ const CartPage = () => {
           </div>
         </div>
       ))}
-      {/* <p className="text-xl font-semibold mt-4">Total Price: {total} {'រៀល'}</p> */}
+      <p className="text-xl font-semibold mt-4">Total Price: {total} {'រៀល'}</p>
     </div>
   );
 };
