@@ -6,15 +6,16 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
+
   const handleNav = () => {
     setNav(!nav);
   };
 
   return (
-    <nav className="nav-bar w-screen ">
-      <div className="font-bold ">
-        {/* Deskop Mode */}
-        <div className="flex justify-between w-full lg:flex sm:flex md:flex ">
+    <nav className="nav-bar w-screen">
+      <div className="font-bold">
+        {/* Desktop Mode */}
+        <div className="flex justify-between w-full lg:flex sm:flex md:flex">
           <div className="flex space-x-4">
             <Link to={"/"}>
               <img
@@ -28,16 +29,17 @@ const Navbar = () => {
 
             <Link
               to={"/"}
-              className="logo uppercase whitespace-nowrap mt-2 hover:shadow-full hover:scale-110 "
+              className="logo uppercase whitespace-nowrap mt-2 hover:shadow-full hover:scale-110"
             >
               E libra
             </Link>
 
-            <div class="relative ...">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        </div>
+            <div className="relative ...">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                {/* Adjusted indentation here */}
+              </div>
               <input
-                className="border w-52 md:w-44 sm:w-32 max-sm:w-32 px-3 mt-1 h-8 rounded-xl border-gray-900 shadow-xl shadow-inner hover:shadow-lg "
+                className="border w-52 md:w-44 sm:w-32 max-sm:w-32 px-3 mt-1 h-8 rounded-xl border-gray-900 shadow-xl shadow-inner hover:shadow-lg"
                 type="search"
                 placeholder="Search"
                 id="search"
@@ -54,16 +56,28 @@ const Navbar = () => {
                 About Us
               </Link>
 
-              <Link to={"/contact"} className="Contact px-5 hover:shadow-full hover:scale-110">
+              <Link
+                to={"/contact"}
+                className="Contact px-5 hover:shadow-full hover:scale-110"
+              >
                 Contact
               </Link>
-              <Link to={"/account"} className="Account flex px-5 hover:shadow-full hover:scale-110">
+              <Link
+                to={"/account"}
+                className="Account flex px-5 hover:shadow-full hover:scale-110"
+              >
                 {" "}
-                <BiUserCircle className="mt-1 -translate-x-2" to={"/account"} />
+                <BiUserCircle
+                  className="mt-1 -translate-x-2"
+                  to={"/account"}
+                />
                 Account
               </Link>
 
-              <Link to="/cart" className="Cart flex ps-5 space-x-4 hover:shadow-full hover:scale-110">
+              <Link
+                to="/cart"
+                className="Cart flex ps-5 space-x-4 hover:shadow-full hover:scale-110"
+              >
                 <BsCartPlus className="mt-1 -translate-x-2 " to="/cart" />
                 Cart
               </Link>
@@ -72,8 +86,15 @@ const Navbar = () => {
 
           {/* Mobile Mode */}
           <div className="dropdown_nav z-50 w-fit h-full">
-            <div onClick={handleNav} className="block lg:hidden relative w-fit -translate-x-4">
-              {nav ? <AiOutlineMenu size={30} className="flex m-2" /> : <AiOutlineClose size={30} className="flex m-2"/>}
+            <div
+              onClick={handleNav}
+              className="block lg:hidden relative w-fit -translate-x-4"
+            >
+              {nav ? (
+                <AiOutlineMenu size={30} className="flex m-2" />
+              ) : (
+                <AiOutlineClose size={30} className="flex m-2" />
+              )}
             </div>
             <div
               className={
@@ -86,13 +107,23 @@ const Navbar = () => {
                 to="/"
                 className="flex items-center justify-center shadow-inner hover:shadow-full hover:scale-125"
               >
-                <img src={require("./Logo.png")} alt="Logo" width={50} height={50} />
-                <span className="text-2xl font-semibold whitespace-nowrap text-black">E-Library</span>
+                <img
+                  src={require("./Logo.png")}
+                  alt="Logo"
+                  width={50}
+                  height={50}
+                />
+                <span className="text-2xl font-semibold whitespace-nowrap text-black">
+                  E-Library
+                </span>
               </Link>
               <div className="text-center ">
                 <ul className="uppercase p-4 ">
                   <li className=" border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
-                    <Link to={"/aboutus"} className="font-bold whitespace-nowrap">
+                    <Link
+                      to={"/aboutus"}
+                      className="font-bold whitespace-nowrap"
+                    >
                       About Us
                     </Link>
                   </li>
