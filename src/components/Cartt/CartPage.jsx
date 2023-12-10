@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, imgDB } from "../../firebase";
+import { deleteObject, ref } from "firebase/storage";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selectItems, setSelectItems] = useState(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -14,15 +19,16 @@ const CartPage = () => {
           id: doc.id,
           ...doc.data(),
         }));
+        console.log(data);
         setCartItems(data);
       } catch (error) {
         console.error("Error fetching cart items:", error);
       }
     };
-  
+
     fetchCartItems();
-  }, []);
-  
+  }, [cartItems]);
+
   const handleIncrease = async (itemId) => {
     // Use the updatedCart directly to get the new quantity
     const updatedCart = cartItems.map((item) =>
@@ -61,24 +67,47 @@ const CartPage = () => {
     }
   };
 
-  const handleDelete = async (itemId) => {
+  const handleDelete = async (itemId, ImageBook) => {
+    if (loading) return;
+    setSelectItems({ itemId, ImageBook });
+    setShowConfirmationModal(true);
+    setDeleteSuccess(false);
+    // try {
+    //   const itemDoc = doc(db, "Sample", itemId);
+    //   await deleteDoc(itemDoc);
+    //   alert("Item deleted from cart!");
+
+    //   console.log("Removing item from local state");
+    //   setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    // } catch (error) {
+    //   console.error("Error deleting document:", error);
+    // }
+  };
+  const confirmDelete = async () => {
+    setLoading(true);
+    console.log("Deleting:", selectItems);
     try {
-      //console.log("Deleting item from Firestore");
-      // Delete item from Firestore
-      const itemDoc = doc(db, "Sample", itemId);
-      await deleteDoc(itemDoc);
-      alert('Item deleted from cart!');
-  
-      console.log("Removing item from local state");
-      // Remove the item from local state
-      setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+      const itemsRef = doc(db, "Sample", selectItems.itemId);
+      const ImageRef = ref(imgDB, selectItems.ImageBook);
+
+      await deleteDoc(itemsRef);
+      console.log("Document deleted from Firestore");
+
+      await deleteObject(ImageRef);
+      console.log("Image deleted from Storage");
+
+      setDeleteSuccess(true);
+      setCartItems((prevItems) => prevItems.filter((item) => item.id !== selectItems.itemId));
+      console.log("Delete success!");
     } catch (error) {
-      console.error("Error deleting document:", error);
+      console.error("Error Deleting Document", error.message);
+    } finally {
+      setLoading(false);
+      setShowConfirmationModal(false);
     }
   };
 
-  const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);  
-
+  const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);
 
   return (
     <div className="container mx-auto mt-10">
@@ -108,7 +137,7 @@ const CartPage = () => {
               </button>
               <button
                 className="bg-red-500 text-white px-4 py-2 active:bg-blue-700"
-                onClick={() => handleDelete(item.id)}
+                onClick={() => handleDelete(item.id, item.ImageBook)}
               >
                 Delete
               </button>
@@ -116,7 +145,27 @@ const CartPage = () => {
           </div>
         </div>
       ))}
-      <p className="text-xl font-semibold mt-4">Total Price: {total} {'រៀល'}</p>
+      <p className="text-xl font-semibold mt-4">
+        Total Price: {total} {"រៀល"}
+      </p>
+      {showConfirmationModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
+          <div className="bg-white p-4 rounded-md">
+            <p className="text-xl font-semibold mb-4">Are you sure you want to delete this item?</p>
+            <div className="flex justify-end">
+              <button className="bg-red-500 text-white px-4 py-2 mr-2" onClick={confirmDelete}>
+                Yes, delete
+              </button>
+              <button
+                className="bg-gray-500 text-white px-4 py-2"
+                onClick={() => setShowConfirmationModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
