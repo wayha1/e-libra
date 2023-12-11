@@ -16,7 +16,7 @@ const AllgenBook = () => {
     { id: 7, name: "Mathematics" },
   ]);
 
-  const [showButtons, setShowButtons] = useState(true);
+  // Set "All Categories" as the initial active component
   const [activeComponent, setActiveComponent] = useState("All Categories");
 
   const handleComponentChange = (component) => {
@@ -25,6 +25,10 @@ const AllgenBook = () => {
 
   const handleGoBack = () => {
     window.location.href = "/";
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
   const toggleButtons = () => {
@@ -52,22 +56,23 @@ const AllgenBook = () => {
     }
   };
 
+  // Use useEffect to handle initial loading behavior
   useEffect(() => {
-    // Initialization logic
+    // You can add any additional initialization logic here
+    // For example, load data or perform actions on component mount
   }, []);
 
   return (
     <div className="w-screen h-[1200px] flex bg-gray-50">
-      <div className={`flex flex-col mt-1 w-[300px] ${showButtons ? "" : "hidden"}`}>
-        <button
+      <div className="flex flex-col mt-1 w-[300px]">
+      <button
           className="ml-5 p-2 bg-blue-800 text-white text-lg shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px]"
           onClick={handleGoBack}
         >
           Back to Homepage
         </button>
-        <p className="mt-10 text-center text-cyan-600 text-3xl p-2 font-sans uppercase font-bold">
-          Categories
-        </p>
+        <p className="mt-10 text-center text-cyan-600 text-3xl p-2 font-sans uppercase font-bold">Categories</p>
+
         <ul className="mt-10">
           {categories.map((category) => (
             <li key={category.id} className="flex">
@@ -82,29 +87,20 @@ const AllgenBook = () => {
             </li>
           ))}
         </ul>
-      </div>
-
-      {/* Buttons for hiding and showing */}
-      <div className="fixed top-5 right-5 z-10">
-        {showButtons ? (
-          <button
-            className="p-2 bg-red-500 text-white text-lg shadow-lg font-semibold rounded-full cursor-pointer"
-            onClick={toggleButtons}
-          >
-            Hide
-          </button>
-        ) : (
-          <button
-            className="p-2 bg-green-500 text-white text-lg shadow-lg font-semibold rounded-full cursor-pointer"
-            onClick={toggleButtons}
-          >
-            Open
-          </button>
-        )}
+        
       </div>
 
       {/* Content Section */}
-      <div className="flex-grow bg-gray-200">{renderContent()}</div>
+      <div id="contentSection" className="flex-grow bg-gray-200 overflow-y-auto">
+        {renderContent()}
+        {/* Go to Top Button */}
+        <button
+          className="fixed bottom-8 right-8 p-3 bg-blue-500 text-white rounded-full"
+          onClick={scrollToTop}
+        >
+          Go to Top
+        </button>
+      </div>
     </div>
   );
 };
