@@ -45,7 +45,7 @@ const BodyHomepage = () => {
     try {
       // Check if PdfUrl is present in the book object and has a valid value
       if (book) {
-        const sampleCollection = collection(db, "Sample"); // Replace "Sample" with your actual collection name
+        const sampleCollection = collection(db, "addtoCart"); // Replace "Sample" with your actual collection name
         await addDoc(sampleCollection, book);
         console.log("Book added to cart:", book);
       } else {
