@@ -27,7 +27,7 @@ const CartPage = () => {
     };
 
     fetchCartItems();
-  }, [cartItems]);
+  }, [deleteSuccess]);
 
   const handleIncrease = async (itemId) => {
     // Use the updatedCart directly to get the new quantity
@@ -67,37 +67,23 @@ const CartPage = () => {
     }
   };
 
-  const handleDelete = async (itemId, ImageBook) => {
+  const handleDelete = async (itemId) => {
     if (loading) return;
-    setSelectItems({ itemId, ImageBook });
+    setSelectItems({ itemId });
     setShowConfirmationModal(true);
     setDeleteSuccess(false);
-    // try {
-    //   const itemDoc = doc(db, "Sample", itemId);
-    //   await deleteDoc(itemDoc);
-    //   alert("Item deleted from cart!");
-
-    //   console.log("Removing item from local state");
-    //   setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-    // } catch (error) {
-    //   console.error("Error deleting document:", error);
-    // }
   };
-  const confirmDelete = async () => {
+  const confirmDelete = async (itemId) => {
     setLoading(true);
-    console.log("Deleting:", selectItems);
+    console.log("Deleting:", selectItems.itemId); // Use itemId directly
     try {
       const itemsRef = doc(db, "Sample", selectItems.itemId);
-      const ImageRef = ref(imgDB, selectItems.ImageBook);
-
+  
       await deleteDoc(itemsRef);
       console.log("Document deleted from Firestore");
-
-      await deleteObject(ImageRef);
-      console.log("Image deleted from Storage");
-
+  
       setDeleteSuccess(true);
-      setCartItems((prevItems) => prevItems.filter((item) => item.id !== selectItems.itemId));
+      alert("Delete success! ");
       console.log("Delete success!");
     } catch (error) {
       console.error("Error Deleting Document", error.message);
@@ -137,7 +123,7 @@ const CartPage = () => {
               </button>
               <button
                 className="bg-red-500 text-white px-4 py-2 active:bg-blue-700"
-                onClick={() => handleDelete(item.id, item.ImageBook)}
+                onClick={() => handleDelete(item.id)}
               >
                 Delete
               </button>

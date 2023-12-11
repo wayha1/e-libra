@@ -31,9 +31,9 @@ const AllgenBook = () => {
     window.scrollTo({ top: 0, behavior: "auto" });
   };
 
-  const toggleButtons = () => {
-    setShowButtons((prevShowButtons) => !prevShowButtons);
-  };
+  // const toggleButtons = () => {
+  //   setShowButtons((prevShowButtons) => !prevShowButtons);
+  // };
 
   const renderContent = () => {
     switch (activeComponent) {
