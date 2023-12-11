@@ -66,7 +66,7 @@ const CartPage = () => {
       setCartItems(updatedCartItems);
 
       setDeleteSuccess(true);
-      alert("Delete success!");
+      alert("Delete success items!");
     } catch (error) {
       console.error("Error Deleting Document", error.message);
     } finally {
