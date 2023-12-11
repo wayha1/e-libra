@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { db, imgDB } from "../../firebase";
-import { deleteObject, ref } from "firebase/storage";
+import { db } from "../../firebase";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectItems, setSelectItems] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   useEffect(() => {
@@ -27,7 +25,7 @@ const CartPage = () => {
     };
 
     fetchCartItems();
-  }, [deleteSuccess]);
+  }, [cartItems]);
 
   const handleIncrease = async (itemId) => {
     // Use the updatedCart directly to get the new quantity
@@ -69,21 +67,35 @@ const CartPage = () => {
 
   const handleDelete = async (itemId) => {
     if (loading) return;
-    setSelectItems({ itemId });
+    setSelectItems({ itemId, ImageBook });
     setShowConfirmationModal(true);
     setDeleteSuccess(false);
+    // try {
+    //   const itemDoc = doc(db, "Sample", itemId);
+    //   await deleteDoc(itemDoc);
+    //   alert("Item deleted from cart!");
+
+    //   console.log("Removing item from local state");
+    //   setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    // } catch (error) {
+    //   console.error("Error deleting document:", error);
+    // }
   };
   const confirmDelete = async (itemId) => {
     setLoading(true);
-    console.log("Deleting:", selectItems.itemId); // Use itemId directly
+    console.log("Deleting:", selectItems);
     try {
       const itemsRef = doc(db, "Sample", selectItems.itemId);
-  
+      const ImageRef = ref(imgDB, selectItems.ImageBook);
+
       await deleteDoc(itemsRef);
       console.log("Document deleted from Firestore");
-  
+
+      await deleteObject(ImageRef);
+      console.log("Image deleted from Storage");
+
       setDeleteSuccess(true);
-      alert("Delete success! ");
+      setCartItems((prevItems) => prevItems.filter((item) => item.id !== selectItems.itemId));
       console.log("Delete success!");
     } catch (error) {
       console.error("Error Deleting Document", error.message);
@@ -92,6 +104,24 @@ const CartPage = () => {
       setShowConfirmationModal(false);
     }
   };
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const sample = collection(db, "Sample");
+        const snapshot = await getDocs(sample);
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log(data);
+        setCartItems(data);
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+
+    fetchCartItems();
+  }, [deleteSuccess]);
 
   const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);
 
@@ -139,7 +169,10 @@ const CartPage = () => {
           <div className="bg-white p-4 rounded-md">
             <p className="text-xl font-semibold mb-4">Are you sure you want to delete this item?</p>
             <div className="flex justify-end">
-              <button className="bg-red-500 text-white px-4 py-2 mr-2" onClick={confirmDelete}>
+              <button
+                className="bg-red-500 text-white px-4 py-2 mr-2"
+                onClick={() => confirmDelete(selectedItemId)}
+              >
                 Yes, delete
               </button>
               <button
