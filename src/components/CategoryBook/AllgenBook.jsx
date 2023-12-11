@@ -15,6 +15,8 @@ const AllgenBook = () => {
     { id: 6, name: "Science" },
     { id: 7, name: "Mathematics" },
   ]);
+
+  // Set "All Categories" as the initial active component
   const [activeComponent, setActiveComponent] = useState("All Categories");
 
   const handleComponentChange = (component) => {
@@ -29,7 +31,10 @@ const AllgenBook = () => {
     window.scrollTo({ top: 0, behavior: "auto" });
   };
 
-  // Render content based on the active component
+  const toggleButtons = () => {
+    setShowButtons((prevShowButtons) => !prevShowButtons);
+  };
+
   const renderContent = () => {
     switch (activeComponent) {
       case "All Categories":
@@ -50,20 +55,23 @@ const AllgenBook = () => {
         );
     }
   };
-  useEffect(() => {}, []);
+
+  // Use useEffect to handle initial loading behavior
+  useEffect(() => {
+    // You can add any additional initialization logic here
+    // For example, load data or perform actions on component mount
+  }, []);
 
   return (
     <div className="w-screen h-[1200px] flex bg-gray-50">
       <div className="flex flex-col mt-1 w-[300px]">
-        <button
+      <button
           className="ml-5 p-2 bg-blue-800 text-white text-lg shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px]"
           onClick={handleGoBack}
         >
           Back to Homepage
         </button>
-        <p className="mt-10 text-center text-cyan-600 text-3xl p-2 font-sans uppercase font-bold">
-          Categories
-        </p>
+        <p className="mt-10 text-center text-cyan-600 text-3xl p-2 font-sans uppercase font-bold">Categories</p>
 
         <ul className="mt-10">
           {categories.map((category) => (
@@ -79,6 +87,7 @@ const AllgenBook = () => {
             </li>
           ))}
         </ul>
+        
       </div>
 
       {/* Content Section */}

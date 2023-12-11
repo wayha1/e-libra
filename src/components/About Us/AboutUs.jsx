@@ -207,7 +207,7 @@ const AboutUs = () => {
           </div>
 
           <section id="author">
-            <div className="lg:px-10 lg:py-5 max-lg:p-5">
+            <div className="lg:px-10 lg:py-5 max-lg:p-5 flex">
               {author.map((data, i) => (
                 <div key={i} className="p-2">
                   <div
