@@ -18,6 +18,7 @@ const BodyHomepage = () => {
   const [detailIndex, setDetailIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [readBook, setReadBook] = useState(false);
+  const [addedItems, setAddedItems] = useState([]);
 
   const slideNext = () => {
     const lastIndex = BookData.length - 1;
@@ -40,20 +41,9 @@ const BodyHomepage = () => {
     setDetailIndex(index);
     setOpenModal(true);
   };
-
-  const addToCart = async (book) => {
-    try {
-      // Check if PdfUrl is present in the book object and has a valid value
-      if (book) {
-        const sampleCollection = collection(db, "addtoCart"); // Replace "Sample" with your actual collection name
-        await addDoc(sampleCollection, book);
-        console.log("Book added to cart:", book);
-      } else {
-        console.error("PdfUrl is missing or invalid in the book object:", book);
-      }
-    } catch (error) {
-      console.error("Error adding book to cart:", error);
-    }
+  
+  const handleAddToCartClick = (data) => {
+    addToCart(data);
   };
 
   useEffect(() => {
@@ -87,6 +77,35 @@ const BodyHomepage = () => {
     };
     getBooks();
   }, []);
+
+  const addToCart = async (book) => {
+    try {
+      const cartsCollectionRef = collection(db, "addtoCart");
+  
+      // Check if the item is already in the cart
+      const querySnapshot = await getDocs(cartsCollectionRef);
+      const isItemInCart = querySnapshot.docs.some((doc) => {
+        const cartItem = doc.data();
+        return cartItem.id === book.id; // Assuming 'id' is a unique identifier for the item
+      });
+  
+      if (!isItemInCart) {
+        // If not in the cart, add it
+        await addDoc(cartsCollectionRef, book);
+  
+        // Update the added items list
+        setAddedItems((prevItems) => [...prevItems, book.id]);
+  
+        alert("Item added to cart!");
+      } else {
+        // If already in the cart, show a message or handle as needed
+        alert("Item already added to cart!");
+      }
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
+  };
+  
 
   return (
     <>
@@ -242,12 +261,14 @@ const BodyHomepage = () => {
                             Read Now
                           </button>
                           <button
-                            className="gap-x-1 lg:p-1 lg:w-52 max-sm:w-32 active:bg-blue-600 rounded-xl bg-gray-500 flex items-center text-white whitespace-nowrap hover:bg-gray-800"
-                            onClick={() => addToCart(data)}
+                            className="gap-x-1 lg:p-1 lg:w-52 max-sm:w-32 rounded-xl active:bg-blue-500
+                             bg-gray-500 flex items-center text-white whitespace-nowrap hover:bg-gray-800"
+                            onClick={() => handleAddToCartClick(data)}
                           >
                             <BiSolidCartAdd className="lg:text-2xl md:text-3xl " />
                             Add to Cart
                           </button>
+
                         </div>
                       </div>
                     </div>

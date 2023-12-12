@@ -9,6 +9,7 @@ const CartPage = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [selectedItemDetails, setSelectedItemDetails] = useState(null);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const handleIncrease = async (itemId) => {
     const updatedCart = cartItems.map((item) =>
@@ -68,9 +69,18 @@ const CartPage = () => {
     }
   };
 
-  const handleImageClick = (item) => {
-    // Set the details of the selected item when the image is clicked
-    setSelectedItemDetails(item);
+  const handleImageClick = (item, event) => {
+    // Check if the clicked element is a button
+    const isButton = event.target.tagName.toLowerCase() === 'button';
+  
+    // Toggle selection only if the clicked element is not a button
+    if (!isButton) {
+      setSelectedItems((prevSelectedItems) =>
+        prevSelectedItems.includes(item.id)
+          ? prevSelectedItems.filter((id) => id !== item.id)
+          : [...prevSelectedItems, item.id]
+      );
+    }
   };
 
   const closeModal = () => {
@@ -108,14 +118,15 @@ const CartPage = () => {
       <h1 className="text-4xl font-bold mb-6">Cart Items</h1>
 
       {cartItems.map((item) => (
-        <div key={item.id} className="flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 bg-gray-100">
-          <img 
-          src={item.ImageBook} 
-          alt="Book" 
-          className="w-30 h-40 ml-3" 
-          onClick={() => handleImageClick(item)}
-          />
-
+        <div key={item.id}
+          className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 bg-gray-100 ${
+          selectedItems.includes(item.id) ? "bg-black" : ""}`}
+          onClick={(event) => handleImageClick(item, event)}>
+        <img
+          src={item.ImageBook}
+          alt="Book"
+          className={`w-30 h-40 ml-3 ${
+            selectedItems.includes(item.id) ? "border-4 border-green-500" : ""}`}/>
           <div className="flex-grow ml-3">
             <div className="flex justify-between items-center">
               <div>
@@ -124,10 +135,14 @@ const CartPage = () => {
                 <p className="text-gray-500">Quantity: {item.quantity || 1}</p>
               </div>
 
-              <div className="flex space-x-2 mr-3">
+              <div className="flex flex-col space-x-2 mr-3">
+                <div>
                 <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-full"
-                  onClick={() => handleIncrease(item.id)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-full mr-3"
+                  onClick={() => {
+                    handleIncrease(item.id);
+                  }}
+                  
                 >
                   +
                 </button>
@@ -137,16 +152,15 @@ const CartPage = () => {
                 >
                   -
                 </button>
-              </div>
-            </div>
-
-            <div className="flex mt-2">
+                </div>
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded-full"
+                className="bg-red-500 text-white px-4 py-2 mt-3 rounded-full flex-col"
                 onClick={() => handleDelete(item.id)}
-              >
+                >
                 Delete
               </button>
+                
+              </div>
             </div>
           </div>
         </div>
