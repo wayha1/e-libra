@@ -63,7 +63,7 @@ const AllgenBook = () => {
   }, []);
 
   return (
-    <div className="w-screen h-[1200px] flex bg-gray-50">
+    <div className="w-screen h-[550px] flex bg-gray-50">
       <div className="flex flex-col mt-1 w-[300px]">
       <button
           className="ml-5 p-2 bg-blue-800 text-white text-lg shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px]"

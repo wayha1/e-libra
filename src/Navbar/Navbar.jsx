@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="nav-bar w-screen">
+    <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-200 rounded-md shadow-lg">
       <div className="font-bold">
         {/* Desktop Mode */}
         <div className="flex justify-between w-full lg:flex sm:flex md:flex">
