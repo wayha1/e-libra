@@ -63,8 +63,8 @@ const AllgenBook = () => {
   }, []);
 
   return (
-    <div className="w-screen h-[550px] flex bg-gray-50">
-      <div className="flex flex-col mt-1 w-[300px]">
+    <div className="h-fit flex bg-gray-50 overflow-y-auto">
+      <div className="flex flex-col mt-1 w-[25%]">
       <button
           className="ml-5 p-2 bg-blue-800 text-white text-lg shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px]"
           onClick={handleGoBack}
@@ -91,7 +91,7 @@ const AllgenBook = () => {
       </div>
 
       {/* Content Section */}
-      <div id="contentSection" className="flex-grow bg-gray-200 overflow-y-auto">
+      <div id="contentSection" className=" overflow-y-auto h-[1050px] w-[75%] bg-gray-100">
         {renderContent()}
         {/* Go to Top Button */}
         <button
