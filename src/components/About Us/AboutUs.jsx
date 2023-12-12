@@ -206,18 +206,18 @@ const AboutUs = () => {
             </h1>
           </div>
 
-          <section id="author">
-            <div className="lg:px-10 lg:py-5 max-lg:p-5 flex">
+          <section id="author"  className="">
+            <div className="lg:px-10 lg:py-5 max-lg:p-5 grid grid-cols-4">
               {author.map((data, i) => (
                 <div key={i} className="p-2">
                   <div
                     className="lg:w-60 max-lg:w-44 p-2 bg-white rounded-2xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
                     onClick={() => toggleExpansion(i)}
                   >
-                    {data.imgAuth && <img src={data.imgAuth} alt="Author Image" width={500} height={200} />}
-                    {data.authName && <h2 className="font-bold text-xl m-1 auth-name">{data.authName}</h2>}
-                    {data.Gender && <p className="font-bold text-md m-1 auth-name">{data.Gender}</p>}
-                    {data.DOB && <p className="auth-name m-1">{data.DOB}</p>}
+                    {data.imgAuth && <img src={data.imgAuth} alt="Author Image"  className="w-[500px] h-[200px] mb-3"/>}
+                    {data.authName && <h2 className="font-bold text-xl mb-3 m-1 auth-name">{data.authName}</h2>}
+                    {data.Gender && <p className="font-bold text-md m-1 auth-name mb-3">{data.Gender}</p>}
+                    {data.DOB && <p className="auth-name m-1 mb-3">{data.DOB}</p>}
                     {expandedAuthors[i] && data.Decs && (
                       <p className="text-sm text-gray-600 auth-name ">{data.Decs}</p>
                     )}
@@ -229,7 +229,7 @@ const AboutUs = () => {
                           toggleExpansion(i);
                         }}
                       >
-                        Author Detail
+                        {expandedAuthors[i] ? "See Less" : "Author Detail"}
                       </button>
                     </div>
                   </div>
