@@ -6,7 +6,7 @@ import StudyBook from "./StudyBook";
 
 const AllCategory = () => {
   return (
-    <div className="h-full overflow-y-auto">
+    <div className=" ">
       <h2 className="text-5xl font-bold mb-4 mt-8 ml-5 uppercase">All Categories</h2>
       <div className="p-2">
         <div className="">

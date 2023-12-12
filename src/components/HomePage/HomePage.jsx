@@ -68,7 +68,7 @@ const HomePage = () => {
                   onTouchEnd={() => setIsBannerHovered(false)}
                 >
                   <div
-                    className={`absolute w-full h-[80%] backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
+                    className={`absolute w-full h-full backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
                       isBannerHovered ? "opacity-100" : "opacity-0"
                     } transition-opacity duration-300 items-center `}
                   >
