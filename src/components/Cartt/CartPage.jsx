@@ -8,7 +8,7 @@ const CartPage = () => {
   const [loading, setLoading] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
-  const [selectedItemDetails, setSelectedItemDetails] = useState(null);
+  // const [selectedItemDetails, setSelectedItemDetails] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleIncrease = async (itemId) => {
@@ -83,10 +83,10 @@ const CartPage = () => {
     }
   };
 
-  const closeModal = () => {
-    // Close the modal by resetting the selected item details
-    setSelectedItemDetails(null);
-  };
+  // const closeModal = () => {
+  //   // Close the modal by resetting the selected item details
+  //   setSelectedItemDetails(null);
+  // };
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -114,13 +114,14 @@ const CartPage = () => {
   const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto mt-10 z-30">
       <h1 className="text-4xl font-bold mb-6">Cart Items</h1>
 
       {cartItems.map((item) => (
         <div key={item.id}
-          className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 bg-gray-100 ${
-          selectedItems.includes(item.id) ? "bg-black" : ""}`}
+        className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
+          selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
+        }`}        
           onClick={(event) => handleImageClick(item, event)}>
         <img
           src={item.ImageBook}
@@ -187,7 +188,7 @@ const CartPage = () => {
         </div>
       )}
       {/* Modal for image click */}
-      {selectedItemDetails && (
+      {/* {selectedItemDetails && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="bg-white p-4 rounded-md">
             <div className="flex items-center mb-4">
@@ -212,7 +213,7 @@ const CartPage = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
