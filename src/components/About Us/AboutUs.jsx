@@ -9,7 +9,7 @@ const AboutUs = () => {
   const [Banner, setBanner] = useState([]);
   const [Container, setContainer] = useState([]);
   const [OurGoal, setGoal] = useState([]);
-  const [author, setAuthor] = useState([]);
+  const [author, setAuthor] = useState([]);a
   const [isHovering, setIsHovering] = useState(false);
   const [expandedAuthors, setExpandedAuthors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

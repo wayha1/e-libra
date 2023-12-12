@@ -43,8 +43,6 @@ const App = ({ children }) => {
         <Route path="/study" element={<StudyBook />}></Route>
       </Routes>
       
-      {/* <Routes>
-      </Routes> */}
     </>
   );
 };
