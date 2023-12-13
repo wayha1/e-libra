@@ -67,6 +67,19 @@ const AboutUs = () => {
     fetchData();
   }, []);
 
+  // State to track the number of authors to display initially
+  const [visibleAuthors, setVisibleAuthors] = useState(8); // Adjust the number as needed
+
+  // Function to load all authors
+  const loadAllAuthors = () => {
+    setVisibleAuthors(author.length);
+  };
+
+  // Function to go back to the initial view
+  const goBack = () => {
+    setVisibleAuthors(8); // Adjust the number as needed
+  };
+
   return (
     <>
       {isLoading ? (
@@ -208,7 +221,7 @@ const AboutUs = () => {
 
           <section id="author"  className="">
             <div className="lg:px-10 lg:py-5 max-lg:p-5 grid grid-cols-4">
-              {author.map((data, i) => (
+              {author.slice(0, visibleAuthors).map((data, i) => (
                 <div key={i} className="p-2">
                   <div
                     className="lg:w-60 max-lg:w-44 p-2 bg-white rounded-2xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
@@ -235,6 +248,23 @@ const AboutUs = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="text-center mt-4">
+              {visibleAuthors < author.length ? (
+                <button
+                  className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                  onClick={loadAllAuthors}
+                >
+                  See More
+                </button>
+              ) : (
+                <button
+                  className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                  onClick={goBack}
+                >
+                  Back
+                </button>
+              )}
             </div>
           </section>
         </main>
