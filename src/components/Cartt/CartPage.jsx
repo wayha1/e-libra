@@ -114,9 +114,8 @@ const CartPage = () => {
   const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);
 
   return (
-    <div className="container mx-auto mt-10 z-30">
+    <div className="container mx-auto mt-10 z-20 overflow-y-auto h-[1000px]">
       <h1 className="text-4xl font-bold mb-6">Cart Items</h1>
-
       {cartItems.map((item) => (
         <div key={item.id}
         className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${

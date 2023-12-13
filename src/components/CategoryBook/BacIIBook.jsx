@@ -7,7 +7,7 @@ const BacIIBook = () => {
   const [bacBooks, setBacBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   
-  const itemsPerPage = 8; // Number of items to display per page
+  const itemsPerPage = 8; 
 
   useEffect(() => {
     const getBacData = async () => {
@@ -39,7 +39,7 @@ const BacIIBook = () => {
       }
     };
     getBacData();
-  }, []);
+  }, [bacData]);
 
   // Calculate the indexes for the current page
   const indexOfLastItem = currentPage * itemsPerPage;
