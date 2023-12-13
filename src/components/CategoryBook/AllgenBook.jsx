@@ -7,13 +7,13 @@ import NovelBook from "./NovelBook";
 
 const AllgenBook = () => {
   const [categories, setCategories] = useState([
-    { id: 1, name: "All Categories" },
-    { id: 2, name: "BacII" },
-    { id: 3, name: "Comic" },
-    { id: 4, name: "Study" },
-    { id: 5, name: "Novel" },
-    { id: 6, name: "Science" },
-    { id: 7, name: "Mathematics" },
+    { id: 1, name: "All Categories", path: "/allgen" },
+    { id: 2, name: "BacII", path: "/bacII" },
+    { id: 3, name: "Comic", path: "/comic" },
+    { id: 4, name: "Study", path: "/study" },
+    { id: 5, name: "Novel", path: "/novel" },
+    { id: 6, name: "Science", path: "/science" },
+    { id: 7, name: "Mathematics", path: "/math" },
   ]);
 
   // Set "All Categories" as the initial active component
@@ -31,10 +31,6 @@ const AllgenBook = () => {
     window.scrollTo({ top: 0, behavior: "auto" });
   };
 
-  // const toggleButtons = () => {
-  //   setShowButtons((prevShowButtons) => !prevShowButtons);
-  // };
-
   const renderContent = () => {
     switch (activeComponent) {
       case "All Categories":
@@ -49,14 +45,13 @@ const AllgenBook = () => {
         return <NovelBook />;
       default:
         return (
-          <div className="text-center text-2xl font-medium ">
+          <div className="text-center text-2xl font-medium">
             No content available for : {activeComponent}
           </div>
         );
     }
   };
 
-  // Use useEffect to handle initial loading behavior
   useEffect(() => {
     // You can add any additional initialization logic here
     // For example, load data or perform actions on component mount
@@ -65,13 +60,15 @@ const AllgenBook = () => {
   return (
     <div className="h-fit flex bg-gray-50 overflow-y-auto">
       <div className="flex flex-col mt-1 w-[25%]">
-      <button
+        <button
           className="ml-5 p-2 bg-blue-800 text-white text-lg shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px]"
           onClick={handleGoBack}
         >
           Back to Homepage
         </button>
-        <p className="mt-10 text-center text-cyan-600 text-3xl p-2 font-sans uppercase font-bold">Categories</p>
+        <p className="mt-10 text-center text-cyan-600 text-3xl p-2 font-sans uppercase font-bold">
+          Categories
+        </p>
 
         <ul className="mt-10">
           {categories.map((category) => (
@@ -87,7 +84,6 @@ const AllgenBook = () => {
             </li>
           ))}
         </ul>
-        
       </div>
 
       {/* Content Section */}
