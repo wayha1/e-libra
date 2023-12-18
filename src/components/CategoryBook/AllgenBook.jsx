@@ -1,4 +1,6 @@
+// AllgenBook.js
 import React, { useState, useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import BacIIBook from "./BacIIBook";
 import AllCategory from "./AllCategory";
 import ComicBook from "./ComicBook";
@@ -8,12 +10,12 @@ import NovelBook from "./NovelBook";
 const AllgenBook = () => {
   const [categories, setCategories] = useState([
     { id: 1, name: "All Categories", path: "/allgen" },
-    { id: 2, name: "BacII", path: "/bacII" },
-    { id: 3, name: "Comic", path: "/comic" },
-    { id: 4, name: "Study", path: "/study" },
-    { id: 5, name: "Novel", path: "/novel" },
-    { id: 6, name: "Science", path: "/science" },
-    { id: 7, name: "Mathematics", path: "/math" },
+    { id: 2, name: "BacII", path: "/allgen/bacII" },
+    { id: 3, name: "Comic", path: "/allgen/comic" },
+    { id: 4, name: "Study", path: "/allgen/study" },
+    { id: 5, name: "Novel", path: "/allgen/novel" },
+    { id: 6, name: "Science", path: "/allgen/science" },
+    { id: 7, name: "Mathematics", path: "/allgen/math" },
   ]);
 
   // Set "All Categories" as the initial active component
@@ -45,9 +47,7 @@ const AllgenBook = () => {
         return <NovelBook />;
       default:
         return (
-          <div className="text-center text-2xl font-medium">
-            No content available for : {activeComponent}
-          </div>
+          <div className="text-center text-2xl font-medium">No content available for : {activeComponent}</div>
         );
     }
   };
@@ -73,14 +73,15 @@ const AllgenBook = () => {
         <ul className="mt-10">
           {categories.map((category) => (
             <li key={category.id} className="flex">
-              <span
+              <Link
+                to={category.path}
                 className={`${
                   activeComponent === category.name ? "bg-blue-700 text-white" : "bg-gray-300"
                 } w-full h-[50px] border text-center font-medium text-xl p-2 uppercase cursor-pointer`}
                 onClick={() => handleComponentChange(category.name)}
               >
                 {category.name}
-              </span>
+              </Link>
             </li>
           ))}
         </ul>
@@ -88,7 +89,13 @@ const AllgenBook = () => {
 
       {/* Content Section */}
       <div id="contentSection" className=" overflow-y-auto h-[1050px] w-[75%] bg-gray-100">
-        {renderContent()}
+        <Routes>
+          <Route path="/" element={<AllCategory />} />
+          <Route path="/bacII" element={<BacIIBook />} />
+          <Route path="/comic" element={<ComicBook />} />
+          <Route path="/study" element={<StudyBook />} />
+          <Route path="/novel" element={<NovelBook />} />
+        </Routes>
         {/* Go to Top Button */}
         <button
           className="fixed bottom-8 right-8 p-3 bg-blue-500 text-white rounded-full"

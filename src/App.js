@@ -1,12 +1,5 @@
 import * as React from "react";
 import "./App.css";
-// import { createRoot } from "react-dom/client";
-// import { createBrowserRouter,
-//    BrowserRouter, 
-//    RouterProvider,
-//    Route,
-//    Link, } from "react-router-dom";
-// import Navbar from "./Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 import HomePage from "./components/HomePage/HomePage";
@@ -26,7 +19,7 @@ import { Footer } from "./Footer/Footer";
 const App = ({ children }) => {
   return (
     <>
-        {/* <Navbar /> */}
+      {/* <Navbar /> */}
       <Routes>
         {children}
         <Route path="/" element={<HomePage />}></Route>
@@ -36,13 +29,12 @@ const App = ({ children }) => {
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/allgen" element={<AllgenBook />}></Route>
-        <Route path="/bacII" element={<BacIIBook />}></Route>
+        <Route path="/allgen/*" element={<AllgenBook />} />
+        {/* <Route path="/allGen/bacII" element={<BacIIBook />}></Route>
         <Route path="/comic" element={<ComicBook />}></Route>
         <Route path="/novel" element={<NovelBook />}></Route>
-        <Route path="/study" element={<StudyBook />}></Route>
+        <Route path="/study" element={<StudyBook />}></Route> */}
       </Routes>
-      
     </>
   );
 };
