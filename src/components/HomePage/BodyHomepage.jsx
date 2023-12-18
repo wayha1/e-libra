@@ -16,6 +16,8 @@ const BodyHomepage = () => {
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
   const [detailIndex, setDetailIndex] = useState(0);
+
+  const [recommendedBooks, setRecommendedBooks] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [readBook, setReadBook] = useState(false);
   const [addedItems, setAddedItems] = useState([]);
@@ -40,8 +42,19 @@ const BodyHomepage = () => {
   const handleSeeMoreClick = (index) => {
     setDetailIndex(index);
     setOpenModal(true);
+    recommendationBook(index);
   };
-  
+
+  const recommendationBook = (index) => {
+    const lastIndex = BookData.length - 1;
+    const recommendedBooks =
+      index === lastIndex
+        ? [] 
+        : BookData.slice(index + 1, lastIndex + 1);
+    setRecommendedBooks(recommendedBooks);
+    console.log("Clicked Index:", index);
+    console.log("Recommended Books:", recommendedBooks);
+  };
   const handleAddToCartClick = (data) => {
     addToCart(data);
   };
@@ -76,26 +89,26 @@ const BodyHomepage = () => {
       }
     };
     getBooks();
-  }, []);
+  }, [recommendedBooks]);
 
   const addToCart = async (book) => {
     try {
       const cartsCollectionRef = collection(db, "addtoCart");
-  
+
       // Check if the item is already in the cart
       const querySnapshot = await getDocs(cartsCollectionRef);
       const isItemInCart = querySnapshot.docs.some((doc) => {
         const cartItem = doc.data();
         return cartItem.id === book.id; // Assuming 'id' is a unique identifier for the item
       });
-  
+
       if (!isItemInCart) {
         // If not in the cart, add it
         await addDoc(cartsCollectionRef, book);
-  
+
         // Update the added items list
         setAddedItems((prevItems) => [...prevItems, book.id]);
-  
+
         alert("Item added to cart!");
       } else {
         // If already in the cart, show a message or handle as needed
@@ -105,7 +118,6 @@ const BodyHomepage = () => {
       console.error("Error adding item to cart:", error);
     }
   };
-  
 
   return (
     <>
@@ -165,6 +177,7 @@ const BodyHomepage = () => {
                           className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
                           onClick={(e) => {
                             handleSeeMoreClick(currentData + i);
+                            recommendationBook(recommendedBooks + i );
                           }}
                         >
                           See More
@@ -268,7 +281,6 @@ const BodyHomepage = () => {
                             <BiSolidCartAdd className="lg:text-2xl md:text-3xl " />
                             Add to Cart
                           </button>
-
                         </div>
                       </div>
                     </div>
@@ -276,43 +288,48 @@ const BodyHomepage = () => {
                 ))}
               </div>
               <div>
-                <div className="text-3xl  max-lg:mt-7 md:mt-6 px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
-                  <h1> Recommendation </h1>
+                {/* recommendation */}
+                <div className="text-3xl max-lg:mt-7 md:mt-6 px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800">
+                  <h1>Recommendation</h1>
                 </div>
                 <div className="mt-2 flex gap-x-8 w-full overflow-hidden p-3 z-40 justify-center">
-                  {BookData.slice(
-                    detailIndex,
-                    detailIndex + (window.innerWidth < 400 ? 1 : window.innerWidth < 800 ? 2 : 4)
-                  ).map((data, i) => (
-                    <div key={i} className="hover:shadow-xl ">
-                      <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden duration-300 ">
-                        {data.ImageBook && (
-                          <img
-                            src={data.ImageBook}
-                            alt="image-book"
-                            className="flex lg:w-[100px] lg:h-[150px] xl:w-[150px] xl:h-[200px] max-lg:w-[80px] max-lg:h-[100px] max-sm:w-[60px] max-sm:h-[100px]"
-                          />
-                        )}
-                        <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
-                          {data.title && (
-                            <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
-                              {data.title}
-                            </h1>
+                  {recommendedBooks.length > 0 ? (
+                    recommendedBooks.map((data, i) => (
+                      <div key={i} className="hover:shadow-xl">
+                        <div className="flex rounded-xl bg-gray-200 shadow-xl overflow-hidden duration-300">
+                          {data.ImageBook && (
+                            <img
+                              src={data.ImageBook}
+                              alt="image-book"
+                              className="flex lg:w-[100px] lg:h-[150px] xl:w-[150px] xl:h-[200px] max-lg:w-[80px] max-lg:h-[100px] max-sm:w-[60px] max-sm:h-[100px]"
+                            />
                           )}
-                          {data.decs && (
-                            <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">
-                              {data.decs}
-                            </p>
-                          )}
-                          <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
-                            <button className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700">
-                              See More
-                            </button>
+                          <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
+                            {data.title && (
+                              <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2">
+                                {data.title}
+                              </h1>
+                            )}
+                            {data.decs && (
+                              <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">
+                                {data.decs}
+                              </p>
+                            )}
+                            <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
+                              <button
+                                className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                                onClick={() => handleSeeMoreClick(detailIndex + i + 1)}
+                              >
+                                See More
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <p>No recommended books available.</p>
+                  )}
                 </div>
               </div>
             </div>
