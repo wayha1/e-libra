@@ -49,7 +49,7 @@ const BodyHomepage = () => {
     const lastIndex = BookData.length - 1;
     const recommendedBooks =
       index === lastIndex
-        ? [] // If it's the last index, no recommended books
+        ? [] 
         : BookData.slice(index + 1, lastIndex + 1);
     setRecommendedBooks(recommendedBooks);
     console.log("Clicked Index:", index);
@@ -177,7 +177,7 @@ const BodyHomepage = () => {
                           className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
                           onClick={(e) => {
                             handleSeeMoreClick(currentData + i);
-                            recommendationBook(recommendedBooks + i - detailIndex);
+                            recommendationBook(recommendedBooks + i );
                           }}
                         >
                           See More
