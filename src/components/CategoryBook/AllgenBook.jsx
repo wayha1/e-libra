@@ -52,25 +52,22 @@ const AllgenBook = () => {
     }
   };
 
-  useEffect(() => {
-    // You can add any additional initialization logic here
-    // For example, load data or perform actions on component mount
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="h-fit flex bg-gray-50 overflow-y-auto">
       <div className="flex flex-col mt-1 w-[25%]">
         <button
-          className="ml-5 p-2 bg-blue-800 text-white text-lg shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px]"
+          className="bg-blue-800 text-white shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px] justify-end"
           onClick={handleGoBack}
         >
-          Back to Homepage
+          BacktoHomepage
         </button>
-        <p className="mt-10 text-center text-cyan-600 text-3xl p-2 font-sans uppercase font-bold">
-          Categories
+        <p className="text-gray-700 whitespace-nowrap md:text-2xl lg:text-3xl text-center py-4">
+          មាតិកាទាំងមូល
         </p>
 
-        <ul className="mt-10">
+        <ul className="">
           {categories.map((category) => (
             <li key={category.id} className="flex">
               <Link

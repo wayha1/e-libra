@@ -47,10 +47,7 @@ const BodyHomepage = () => {
 
   const recommendationBook = (index) => {
     const lastIndex = BookData.length - 1;
-    const recommendedBooks =
-      index === lastIndex
-        ? [] 
-        : BookData.slice(index + 1, lastIndex + 1);
+    const recommendedBooks = index === lastIndex ? [] : BookData.slice(index + 1, lastIndex + 1);
     setRecommendedBooks(recommendedBooks);
     console.log("Clicked Index:", index);
     console.log("Recommended Books:", recommendedBooks);
@@ -133,7 +130,7 @@ const BodyHomepage = () => {
             </div>
           </button>
         ))}
-        <div className=" flex items-center justify-center bg-gray-100  z-10">
+        <div className=" flex items-center justify-center bg-gray-100 z-10">
           <div className="w-full flex items-center justify-between px-2 relative">
             <button
               onClick={() => slidePrev()}
@@ -145,13 +142,13 @@ const BodyHomepage = () => {
               <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>
 
-            <div className="flex gap-x-8 w-full overflow-hidden p-3 ">
+            <div className="flex gap-x-8 w-full overflow-hidden p-3 items-center justify-center">
               {BookData.slice(
                 currentData,
-                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 800 ? 2 : 3)
+                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 900 ? 2 : 3)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl">
-                  <div className="flex rounded-xl bg-white shadow-xl overflow-hidden  duration-300">
+                  <div className="flex rounded-xl bg-white shadow-xl overflow-hidden duration-300">
                     {data.ImageBook && (
                       <img
                         onClick={(e) => {
@@ -162,7 +159,7 @@ const BodyHomepage = () => {
                         className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px] shadow-lg"
                       />
                     )}
-                    <div className="flex flex-col text-left lg:w-[170px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
+                    <div className="flex flex-col text-left lg:w-[180px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
                       {data.title && (
                         <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
                           {data.title}
@@ -177,7 +174,7 @@ const BodyHomepage = () => {
                           className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
                           onClick={(e) => {
                             handleSeeMoreClick(currentData + i);
-                            recommendationBook(recommendedBooks + i );
+                            recommendationBook(recommendedBooks + i);
                           }}
                         >
                           See More

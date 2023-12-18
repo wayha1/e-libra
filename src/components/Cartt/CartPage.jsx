@@ -71,8 +71,8 @@ const CartPage = () => {
 
   const handleImageClick = (item, event) => {
     // Check if the clicked element is a button
-    const isButton = event.target.tagName.toLowerCase() === 'button';
-  
+    const isButton = event.target.tagName.toLowerCase() === "button";
+
     // Toggle selection only if the clicked element is not a button
     if (!isButton) {
       setSelectedItems((prevSelectedItems) =>
@@ -93,16 +93,17 @@ const CartPage = () => {
       try {
         const sample = collection(db, "addtoCart");
         const snapshot = await getDocs(sample);
-        setCartItems(snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        })))
+        setCartItems(
+          snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))
+        );
         // const data = snapshot.docs.map((doc) => ({
         //   ...doc.data(),
         //   id: doc.id,
         // }));
         // console.log(data);
-        
       } catch (error) {
         console.error("Error fetching cart items:", error);
       }
@@ -117,16 +118,18 @@ const CartPage = () => {
     <div className="container mx-auto mt-10 z-20 overflow-y-auto h-[1000px]">
       <h1 className="text-4xl font-bold mb-6">Cart Items</h1>
       {cartItems.map((item) => (
-        <div key={item.id}
-        className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
-          selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
-        }`}        
-          onClick={(event) => handleImageClick(item, event)}>
-        <img
-          src={item.ImageBook}
-          alt="Book"
-          className={`w-30 h-40 ml-3 ${
-            selectedItems.includes(item.id) ? "border-4 border-green-500" : ""}`}/>
+        <div
+          key={item.id}
+          className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
+            selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
+          }`}
+          onClick={(event) => handleImageClick(item, event)}
+        >
+          <img
+            src={item.ImageBook}
+            alt="Book"
+            className={`w-30 h-40 ml-3 ${selectedItems.includes(item.id) ? "border-4 border-green-500" : ""}`}
+          />
           <div className="flex-grow ml-3">
             <div className="flex justify-between items-center">
               <div>
@@ -135,31 +138,29 @@ const CartPage = () => {
                 <p className="text-gray-500">Quantity: {item.quantity || 1}</p>
               </div>
 
-              <div className="flex flex-col space-x-2 mr-3">
+              <div className="flex flex-col space-y-2 mr-3">
                 <div>
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-full mr-3"
-                  onClick={() => {
-                    handleIncrease(item.id);
-                  }}
-                  
-                >
-                  +
-                </button>
-                <button
-                  className="bg-yellow-500 text-white px-4 py-2 rounded-full"
-                  onClick={() => handleDecrease(item.id)}
-                >
-                  -
-                </button>
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-full mr-2"
+                    onClick={() => {
+                      handleIncrease(item.id);
+                    }}
+                  >
+                    +
+                  </button>
+                  <button
+                    className="bg-gray-500 text-white px-4 py-2 rounded-full"
+                    onClick={() => handleDecrease(item.id)}
+                  >
+                    -
+                  </button>
                 </div>
-              <button
-                className="bg-red-500 text-white px-4 py-2 mt-3 rounded-full flex-col"
-                onClick={() => handleDelete(item.id)}
+                <button
+                  className="bg-red-600 text-white rounded-xl p-1"
+                  onClick={() => handleDelete(item.id)}
                 >
-                Delete
-              </button>
-                
+                  Clear
+                </button>
               </div>
             </div>
           </div>
@@ -173,7 +174,10 @@ const CartPage = () => {
           <div className="bg-white p-4 rounded-md">
             <p className="text-xl font-semibold mb-4">Are you sure you want to delete this item?</p>
             <div className="flex justify-end">
-              <button className="bg-red-500 text-white active:bg-blue-400 px-4 py-2 rounded-full" onClick={confirmDelete}>
+              <button
+                className="bg-red-500 text-white active:bg-blue-400 px-4 py-2 rounded-full"
+                onClick={confirmDelete}
+              >
                 Yes, delete
               </button>
               <button

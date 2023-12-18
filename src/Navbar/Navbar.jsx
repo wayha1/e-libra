@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-200 rounded-md shadow-lg">
       <div className="">
         {/* Desktop Mode */}
-        <div className="flex justify-between w-full lg:flex sm:flex md:flex">
+        <div className="flex justify-evenly w-full lg:flex sm:flex md:flex">
           <div className="flex space-x-4">
             <Link to={"/"}>
               <img
