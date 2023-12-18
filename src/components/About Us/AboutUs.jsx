@@ -13,14 +13,25 @@ const AboutUs = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [expandedAuthors, setExpandedAuthors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [expandedDetails, setExpandedDetails] = useState([]);
+  // Add state variable for expanded author details
+  const [expandedAuthorDetails, setExpandedAuthorDetails] = useState([]);
+
 
   const toggleExpansion = (index) => {
-    setExpandedAuthors((prevExpandedAuthors) => {
-      const newExpandedAuthors = [...prevExpandedAuthors];
-      newExpandedAuthors[index] = !newExpandedAuthors[index];
-      return newExpandedAuthors;
+    setExpandedDetails((prevExpandedDetails) => {
+      const newExpandedDetails = [...prevExpandedDetails];
+      newExpandedDetails[index] = !newExpandedDetails[index];
+      return newExpandedDetails;
+    });
+
+    setExpandedAuthorDetails((prevExpandedAuthorDetails) => {
+      const newExpandedAuthorDetails = [...prevExpandedAuthorDetails];
+      newExpandedAuthorDetails[index] = !newExpandedAuthorDetails[index];
+      return newExpandedAuthorDetails;
     });
   };
+  
 
   const handleMouseOver = () => {
     setIsHovering(false);
@@ -63,12 +74,13 @@ const AboutUs = () => {
     }
   };
   useEffect(() => {
+    setExpandedDetails(Array(author.length).fill(false));
     getAuthor();
     fetchData();
   }, []);
 
   // State to track the number of authors to display initially
-  const [visibleAuthors, setVisibleAuthors] = useState(8); // Adjust the number as needed
+  const [visibleAuthors, setVisibleAuthors] = useState(6); // Adjust the number as needed
 
   // Function to load all authors
   const loadAllAuthors = () => {
@@ -77,7 +89,7 @@ const AboutUs = () => {
 
   // Function to go back to the initial view
   const goBack = () => {
-    setVisibleAuthors(8); // Adjust the number as needed
+    setVisibleAuthors(6); // Adjust the number as needed
   };
 
   return (
@@ -219,31 +231,36 @@ const AboutUs = () => {
             </h1>
           </div>
 
-          <section id="author"  className="">
-            <div className="lg:px-10 lg:py-5 max-lg:p-5 grid grid-cols-4">
+          <section id="author"   className="w-full max-auto">
+            <div className="lg:p-2 max-lg:p-5 grid grid-cols-3 gap-4">
               {author.slice(0, visibleAuthors).map((data, i) => (
                 <div key={i} className="p-2">
                   <div
-                    className="lg:w-60 max-lg:w-44 p-2 bg-white rounded-2xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
+                    className="lg:w-92 max-lg:w-44 p-2 bg-white rounded-2xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
                     onClick={() => toggleExpansion(i)}
                   >
-                    {data.imgAuth && <img src={data.imgAuth} alt="Author Image"  className="w-[500px] h-[200px] mb-3"/>}
+                    {data.imgAuth && <img src={data.imgAuth} alt="Author Image" 
+                    onClick={(e) => e.stopPropagation()} 
+                    className="w-[600px] h-[250px] mb-3 "/>}
                     {data.authName && <h2 className="font-bold text-xl mb-3 m-1 auth-name">{data.authName}</h2>}
                     {data.Gender && <p className="font-bold text-md m-1 auth-name mb-3">{data.Gender}</p>}
                     {data.DOB && <p className="auth-name m-1 mb-3">{data.DOB}</p>}
-                    {expandedAuthors[i] && data.Decs && (
+                    {expandedDetails[i] ? (
                       <p className="text-sm text-gray-600 auth-name ">{data.Decs}</p>
+                    ) : (
+                      <p className="text-sm text-gray-600 auth-name line-clamp-3">{data.Decs}</p>
                     )}
                     <div className="m-2">
-                      <button
-                        className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevents the click on the card from triggering the parent div's click event
-                          toggleExpansion(i);
-                        }}
-                      >
-                        {expandedAuthors[i] ? "See Less" : "Author Detail"}
-                      </button>
+                    <button
+                      className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevents the click on the card from triggering the parent div's click event
+                        toggleExpansion(i);
+                      }}
+                    >
+                      {expandedDetails[i] ? "See Less" : "Author Detail"}
+                    </button>
+
                     </div>
                   </div>
                 </div>
