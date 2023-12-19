@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { BiXCircle, BiBookmarkPlus, BiBookReader, BiSolidCartAdd } from "react-icons/bi";
+import { BiBookReader, BiSolidCartAdd } from "react-icons/bi";
 
 const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) => {
   const { bookId } = useParams();
@@ -29,30 +29,24 @@ const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) 
   console.log("Book ID:", selectedBook.id);
 
   return (
-    <div className="w-screen h-[1010px]">
-      <div className="max-sm:flex max-sm:flex-col w-[100%] lg:h-[80%] md:h-[70%] max-md:h-[50%] max-sm:h-[70%] max-sm:w-full">
-        <div
-          key={selectedBook.id}
-          className="lg:flex lg:h-[100%] md:h-[100%] max-sm:w-[100%] max-sm:h-[70%] relative "
-        >
-          {selectedBook.img && (
-            <div className="bg-no-repeat bg-left flex lg:justify-center max-sm:justify-center md:justify-center lg:w-[50%] lg:h-[100%] max-sm:w-[100%] md:h-[60%] md:w-[100%] max-md:h-[50%] max-md:w-[100%] max-sm:h-[80%] lg:p-5 max-sm:p-2">
-              <img
-                src={selectedBook.img}
-                alt="img-book"
-                className="lg:w-[80%] lg:h-[100%] md:h-[100%] md:w-[90%] max-md:w-[100%] max-sm:h-[100%] max-sm:w-[90%] rounded-md shadow-xl lg:items-center hover:scale-90 hover:duration-200"
-              />
-            </div>
-          )}
-          {/* <button className="absolute top-0 right-0 lg:p-4 max-sm:-translate-x-2">
-            <BiXCircle className="text-[40px] max-sm:text-[30px] text-gray-500" onClick={closeBook} />
-          </button> */}
-
-          <div className="lg:w-[50%] md:indent-8 md:w-[100%] max-md:w-[100%] md:p-2 max-sm:p-2 max-sm:w-[95%] overflow-hidden ">
+    <div className="w-screen h-[1010px] ">
+      <div className="">
+        <div key={selectedBook.id} className="">
+          <div className="overflow-hidden ">
             {selectedBook.title && (
-              <h1 className="flex book-title font-bold text-gray-700 lg:text-5xl md:text-5xl lg:translate-y-12 max-sm:text-3xl whitespace-nowrap justify-center">
+              <h1 className="m-10 flex book-title font-bold text-gray-700 lg:text-5xl md:text-5xl max-sm:text-3xl whitespace-nowrap justify-center ">
+                {"រឿង : "}
                 {selectedBook.title}
               </h1>
+            )}
+            {selectedBook.img && (
+              <div className="flex bg-green-200 p-4 rounded-md items-center h-[500px] ">
+                <img
+                  src={selectedBook.img}
+                  alt="img-book"
+                  className="flex rounded-md w-[300px] h-[400px] object-cover"
+                />
+              </div>
             )}
             {selectedBook.author && (
               <h1 className="hover:text-cyan-800 flex book-decs font-bold text-gray-500 lg:text-xl lg:translate-y-12 mt-1 md:text-lg max-sm:text-sm whitespace-nowrap max-sm:ml-2">
