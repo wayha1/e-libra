@@ -271,24 +271,10 @@ const AboutUs = () => {
                 </div>
               ))}
             </div>
-            <div className="text-end py-2 px-7 decoration-300">
-              <button className="ease-in-out rounded-sm text-gray-100 bg-blue-600 px-6 py-1  hover:bg-blue-700">
+            <div className="text-end py-3 px-7 decoration-300">
+              <button className="ease-in-out rounded-sm text-gray-100 bg-blue-600 px-6 py-1.5 hover:bg-blue-700">
                 <Link to={"/author"}>View All Author</Link>
               </button>
-              {/* {visibleAuthors < author.length ? (
-                <button
-                  className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                  onClick={loadAllAuthors}
-                >
-                  See More
-                </button>
-              ) : (
-                <button
-                  className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                >
-                  Back
-                </button>
-              )} */}
             </div>
           </section>
         </main>

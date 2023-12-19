@@ -34,9 +34,9 @@ const Navbar = () => {
               E libra
             </Link>
 
-            <div className="relative ...">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 {/* Adjusted indentation here */}
+            {/* <div className="relative ...">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               </div>
               <input
                 className="border w-52 md:w-44 sm:w-32 max-sm:w-32 px-3 mt-1 h-8 rounded-xl border-gray-900 shadow-xl shadow-inner hover:shadow-lg"
@@ -44,7 +44,7 @@ const Navbar = () => {
                 placeholder="Search"
                 id="search"
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="flex justify-end mt-2">

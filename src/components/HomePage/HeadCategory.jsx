@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
 import { AiOutlineClose, AiOutlineDoubleRight } from "react-icons/ai";
 
 const HeadCategory = () => {
@@ -9,16 +7,6 @@ const HeadCategory = () => {
   const handleNav = () => {
     setNav(!cate);
   };
-
-  const [head, setHead] = useState([]);
-  const getHead = async () => {
-    const head = await getDocs(collection(db, "HeadCategory"));
-    const allHead = head.docs.map((val) => ({ ...val.data(), id: val.id }));
-    setHead(allHead);
-  };
-  useEffect(() => {
-    getHead();
-  }, []);
 
   return (
     <section>
@@ -31,7 +19,7 @@ const HeadCategory = () => {
                 to={"/allgen"}
                 className="border-2 border-[#AAACA6] whitespace-nowrap bg-white rounded-xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
               >
-                <h1 className="xl:text-2xl lg:text-xl">All Category</h1>
+                <h1 className="xl:text-2xl lg:text-xl">មាតិកាទាំងអស់</h1>
               </Link>
             </ul>
           </div>
@@ -41,31 +29,31 @@ const HeadCategory = () => {
                 to={"/allgen/bacII"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
-                BacII Exam
+                បាក់ឌុប
               </Link>
               <Link
                 to={"/allgen/comdy"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
-                Comdy
+                កំប្លែង
               </Link>
               <Link
                 to={"/allgen/comic"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
-                Comic Books
+                គំនូរជិវចល
               </Link>
               <Link
                 to={"/allgen/novel"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
-                Novel Books
+                ប្រលោមលោក
               </Link>
               <Link
                 to={"/allgen/study"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
-                Learning Book
+                ចំណេះដឹងទូទៅ
               </Link>
             </ul>
           </div>
@@ -91,7 +79,7 @@ const HeadCategory = () => {
           >
             <ul className="flex font-bold lg:hidden max-sm:w-fit ">
               <Link to={"/allgen"} className="text-2xl hover:text-cyan-800 text-gray-500 ">
-                All Category &nbsp;
+                មាតិកាទាំងអស់ &nbsp;
               </Link>
             </ul>
             <ul className="mt-1 space-x-3 max-sm:w-fit max-sm:flex max-sm:flex-wrap relative">
@@ -99,31 +87,31 @@ const HeadCategory = () => {
                 to={"/allgen/bacII"}
                 className="sm:text-sm md:text-md sm:text-sm xs:text-sm rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
-                BacII Exam
+                បាក់ឌុប
               </Link>
               <Link
                 to={"/allgen/comdy"}
                 className=" md:text-md sm:text-sm xs:text-sm  hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
-                Comdy
+                កំប្លែង
               </Link>
               <Link
                 to={"/allgen/comic"}
                 className=" md:text-md sm:text-sm xs:text-sm hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
-                Comic Books
+                គំនូរជិវចល
               </Link>
               <Link
                 to={"/allgen/novel"}
                 className=" md:text-md sm:text-sm xs:text-sm hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
-                Novel Books
+                ប្រលោមលោក
               </Link>
               <Link
                 to={"/allgen/study"}
                 className=" md:text-md sm:text-sm xs:text-sm hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
-                Learning Book
+                ចំណេះដឹងទូទៅ
               </Link>
             </ul>
           </div>
