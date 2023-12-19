@@ -19,7 +19,7 @@ const HomePage = () => {
       const allBanner = dataBanner.docs.map((val) => ({ ...val.data(), id: val.id }));
       setBanner(allBanner);
 
-      const promotionData = allBanner.map(async (elem) => {
+      const promotionDataPromises = allBanner.map(async (elem) => {
         try {
           const BookPop = collection(db, `HomePage/${elem.id}/BodyPromo`);
           const DataBooks = await getDocs(BookPop);
@@ -27,7 +27,6 @@ const HomePage = () => {
             ...bookDoc.data(),
             id: bookDoc.id,
           }));
-          console.log(BookData);
           return BookData;
         } catch (error) {
           console.error(`Error fetching book data for ${elem.id}:`, error);
@@ -35,7 +34,7 @@ const HomePage = () => {
         }
       });
 
-      const bookData = await Promise.all(promotionData);
+      const bookData = await Promise.all(promotionDataPromises);
       setPromotion(bookData.flat());
     } catch (error) {
       console.error("Error fetching banner data:", error);
@@ -43,7 +42,6 @@ const HomePage = () => {
       setIsLoading(false); // Set loading to false when data fetching is complete
     }
   };
-
   useEffect(() => {
     getBanner();
   }, []);
@@ -56,44 +54,42 @@ const HomePage = () => {
         <>
           {/* Banner */}
           <section id="Banner ">
-            <main className="z-10 flex">
+            <main className="z-10 flex w-full h-[900px] bg-gray-100">
               {/* desktop mode */}
               {Banner.map((data, i) => (
                 <div
                   key={i}
-                  className="w-full h-full flex items-center justify-center relative"
+                  className="flex relative items-center justify-center w-[100%]"
                   onMouseEnter={() => setIsBannerHovered(true)}
                   onMouseLeave={() => setIsBannerHovered(false)}
                   onTouchStart={() => setIsBannerHovered(true)}
                   onTouchEnd={() => setIsBannerHovered(false)}
                 >
                   <div
-                    className={`absolute w-full h-full backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
-                      isBannerHovered ? "opacity-100" : "opacity-0"
-                    } transition-opacity duration-300 items-center `}
+                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
+                      isBannerHovered ? "opacity-150" : "opacity-0"
+                    } transition-opacity duration-300 h-full w-[80%]`}
                   >
-                    <div className="flex items-center text-left max-lg:px-5 max-md:px-5 text-gray-100 h-full">
-                      <div className="m-5 text-white shadow-sm">
+                    <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[40%]">
+                      <div className="text-cyan-600 text-center bg-shadow-sm px-5">
                         {data.title && (
-                          <h1 className="font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
+                          <h1 className="mt-10 font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
                             {data.title}
                           </h1>
                         )}
-                        {data.decs && (
-                          <h2 className="font-bold lg:text-xl max-lg:text-xs lg:w-3/4">{data.decs} </h2>
-                        )}
-                        <button className="m-2 box-border h-12 w-18 p-2 bg-cyan-500 hover:bg-cyan-800 rounded-xl lg:translate-y-60 md:translate-y-52 max-sm:translate-y-16">
-                          <h1 className="whitespace-nowrap text-gray-300 text-sm font-bold">
-                            <Link to={"/allGen"}>All Category</Link>
-                          </h1>
-                        </button>
+                        {data.decs && <h2 className="lg:text-xl max-lg:text-xs ">{data.decs}</h2>}
                       </div>
                     </div>
+                    <button className="m-2 h-12 w-18 px-4 py-2 bg-cyan-600 rounded-md lg:translate-y-52 md:translate-y-52 max-md:translate-y-52 max-sm:translate-y-52">
+                      <h1 className="whitespace-nowrap text-gray-200 text-md">
+                        <Link to={"/allgen"}>All Category</Link>
+                      </h1>
+                    </button>
                   </div>
                   {data.ImageBanner && (
                     <img
                       src={data.ImageBanner}
-                      className="object-cover flex lg:h-[900px] w-full max-md:h-[600px] max-sm:h-[500px]"
+                      className="w-[80%] lg:h-[600px] max-md:h-[600px] max-sm:h-[500px]"
                       alt=""
                     />
                   )}
@@ -121,7 +117,7 @@ const HomePage = () => {
                     )}
                     {data.decs && (
                       <h2 className="lg:text-xl max-sm:text-md mt-2 font-mono font-bold text-center text-gray-700 font-sans hover:text-cyan-800 hover:duration-200">
-                        {data.decs}{" "}
+                        {data.decs}
                       </h2>
                     )}
                   </div>
@@ -136,9 +132,9 @@ const HomePage = () => {
               ))}
             </div>
           </section>
+          {/* <BodyHomepage className="z-30" />
           <BodyHomepage className="z-30" />
-          <BodyHomepage className="z-30" />
-          <BodyHomepage className="z-30" />
+          <BodyHomepage className="z-30" /> */}
         </>
       )}
     </>

@@ -103,7 +103,7 @@ const AboutUs = () => {
             {Banner.map((data) => (
               <div key={data.id} className="flex items-center justify-center py-1 relative">
                 <div
-                  className="sm:w-[1000px] sm:h-300px xs:w-[1000px] md:w-[2000px] lg:w-[2500px] xl:w-[3000px] w-full aspect-video h-fit"
+                  className="sm:w-[1000px] sm:h-300px xs:w-[1000px] md:w-[1500px] lg:w-[1500px] xl:w-[2000px] w-full aspect-video h-fit"
                   onMouseOver={() => setTimeout(() => handleMouseOver(), 500)}
                   onMouseOut={handleMouseOut}
                 >
