@@ -39,37 +39,22 @@ const Navbar = () => {
                 className="hidden md:flex hover:shadow-full hover:scale-110"
               />
             </Link>
-            <Link
-              to={"/"}
-              className="uppercase whitespace-nowrap hover:shadow-full hover:scale-110"
-            >
+            <Link to={"/"} className="uppercase whitespace-nowrap hover:shadow-full hover:scale-110">
               E-libra
             </Link>
           </div>
 
           <div className="flex items-center space-x-4 mr-10">
-            <Link
-              to={"/allgen"}
-              className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
-            >
+            <Link to={"/allgen"} className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110">
               Category Book
             </Link>
-            <Link
-              to={"/aboutus"}
-              className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
-            >
+            <Link to={"/aboutus"} className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110">
               About Us
             </Link>
-            <Link
-              to={"/author"}
-              className="px-4 py-2 hover:shadow-full hover:scale-110"
-            >
+            <Link to={"/author"} className="px-4 py-2 hover:shadow-full hover:scale-110">
               Author
             </Link>
-            <Link
-              to="/cart"
-              className="px-4 py-2 hover:shadow-full flex hover:scale-110"
-            >
+            <Link to="/cart" className="px-4 py-2 hover:shadow-full flex hover:scale-110">
               <BsCartPlus className="mt-1 -translate-x-2" />
               Cart
             </Link>
@@ -83,10 +68,7 @@ const Navbar = () => {
                 className="h-14 w-18 object-cover border-4 border-gray-400 cursor-pointer rounded-full"
               />
               {open && (
-                <div
-                  ref={menuRef}
-                  className="bg-gray-200 p-4 w-52 shadow-lg absolute -left-14 top-20"
-                >
+                <div ref={menuRef} className="bg-gray-200 p-4 w-52 shadow-lg absolute -left-14 top-20">
                   <ul>
                     {Menus.map((menu) => (
                       <Link
@@ -98,7 +80,7 @@ const Navbar = () => {
                             window.location.href = "/account";
                           }
                         }}
-                        className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100"
+                        className="flex flex-col p-2 text-lg cursor-pointer rounded hover:bg-blue-100"
                       >
                         {menu}
                       </Link>
