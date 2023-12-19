@@ -16,7 +16,6 @@ const BodyHomepage = () => {
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
   const [detailIndex, setDetailIndex] = useState(0);
-
   const [recommendedBooks, setRecommendedBooks] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [readBook, setReadBook] = useState(false);
@@ -26,12 +25,12 @@ const BodyHomepage = () => {
     const lastIndex = BookData.length - 1;
     setCurrentData((prevIndex) => (prevIndex === lastIndex ? prevIndex : (prevIndex + 1) % BookData.length));
   };
-
   const slidePrev = () => {
     setCurrentData((prevIndex) =>
       prevIndex === 0 ? prevIndex : (prevIndex - 1 + BookData.length) % BookData.length
     );
   };
+
   const closeModal = () => {
     setOpenModal(false);
   };
@@ -50,10 +49,6 @@ const BodyHomepage = () => {
     const recommendedBooks = index === lastIndex ? [] : BookData.slice(index + 1, lastIndex + 1);
     setRecommendedBooks(recommendedBooks);
     console.log("Clicked Index:", index);
-    console.log("Recommended Books:", recommendedBooks);
-  };
-  const handleAddToCartClick = (data) => {
-    addToCart(data);
   };
 
   useEffect(() => {
@@ -81,29 +76,33 @@ const BodyHomepage = () => {
 
         const bookData = await Promise.all(bookDataPromises);
         setBookData(bookData.flat());
+        // if (bookData.length > 0) {
+        //   setSliceScreen(bookData[0]);
+        //   console.log(bookData[0]);
+        // }
       } catch (error) {
         console.error("Error fetching popular section data:", error);
       }
     };
-    getBooks();
-  }, [recommendedBooks]);
 
+    getBooks();
+  }, []);
+
+  const handleAddToCartClick = (data) => {
+    addToCart(data);
+  };
   const addToCart = async (book) => {
     try {
       const cartsCollectionRef = collection(db, "addtoCart");
-
-      // Check if the item is already in the cart
       const querySnapshot = await getDocs(cartsCollectionRef);
       const isItemInCart = querySnapshot.docs.some((doc) => {
         const cartItem = doc.data();
-        return cartItem.id === book.id; // Assuming 'id' is a unique identifier for the item
+        return cartItem.id === book.id;
       });
 
       if (!isItemInCart) {
-        // If not in the cart, add it
         await addDoc(cartsCollectionRef, book);
 
-        // Update the added items list
         setAddedItems((prevItems) => [...prevItems, book.id]);
 
         alert("Item added to cart!");
@@ -142,7 +141,7 @@ const BodyHomepage = () => {
               <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>
 
-            <div className="flex gap-x-8 w-full overflow-hidden p-3 items-center justify-center">
+            <div className="flex gap-x-4 overflow-hidden p-3 items-center justify-center">
               {BookData.slice(
                 currentData,
                 currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 900 ? 2 : 3)
@@ -188,9 +187,9 @@ const BodyHomepage = () => {
             <button
               onClick={() => slideNext()}
               className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${
-                currentData === BookData.length - 1 ? "cursor-not-allowed opacity-50" : ""
+                currentData === BookData.length - 3 ? "cursor-not-allowed opacity-50" : ""
               }`}
-              disabled={currentData === BookData.length - 1}
+              disabled={currentData === BookData.length - 3}
             >
               <BiChevronRightCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>

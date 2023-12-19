@@ -56,7 +56,7 @@ const Navbar = () => {
                 About Us
               </Link>
 
-              <Link to={"/contact"} className="Contact px-5 hover:shadow-full hover:scale-110">
+              <Link to={"/author"} className="Contact px-5 hover:shadow-full hover:scale-110">
                 Author
               </Link>
               <Link to={"/account"} className="Account flex px-5 hover:shadow-full hover:scale-110">
@@ -103,7 +103,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li className=" border-b border-b-slate-200 p-5  hover:shadow-full hover:scale-110">
-                    <Link to={"/contact"} className="font-bold ">
+                    <Link to={"/author"} className="font-bold ">
                       Author
                     </Link>
                   </li>
