@@ -100,7 +100,7 @@ const AboutUs = () => {
         <main className="w-screen bg-gray-50">
           <section id="banner ">
             {Banner.map((data) => (
-              <div key={data.id} className="flex items-center justify-center py-1 relative">
+              <div key={data.id} className="flex items-center justify-center relative">
                 <div
                   className="aspect-video "
                   onMouseOver={() => setTimeout(() => handleMouseOver(), 500)}
@@ -110,20 +110,21 @@ const AboutUs = () => {
                     <HoverVideoPlayer
                       videoSrc={data.ImgBanner}
                       alt="Gif Banner"
-                      className="relative z-10 object-cover bg-repeat "
+                      className="relative z-10 object-cover bg-repeat"
                       overlayTransitionDuration={300}
                       autoPlay={!isHovering}
                       loop={!isHovering}
                       muted
-                      width={800}
-                      height={1000}
+                      width={1000}
+                      height={1200}
                       preload="auto"
+                      playbackRate={0.5} // Adjust the value to your desired playback rate (0.5 means half-speed)
                     />
                   )}
                 </div>
                 {isHovering && (
-                  <div className="absolute text-white w-full text-center backdrop-blur-xl z-20 lg:px-10 lg:py-20 max-sm:px-2 max-sm:py-2">
-                    <h1 className="font-bold uppercase lg:text-8xl md:text-6xl sm:text-6xl xs:text=4xl 2xs:text-4xl">
+                  <div className="absolute text-gray-500 w-full text-center backdrop-blur-lg z-20 lg:px-10 lg:py-40 max-sm:px-2 max-sm:py-2">
+                    <h1 className="font-bold h-full  uppercase lg:text-8xl md:text-6xl sm:text-6xl xs:text=4xl 2xs:text-4xl">
                       {data.txtBanner}
                     </h1>
                     <span className="font-bold lg:text-xl max-lg:text-xs">{data.decs}</span>
