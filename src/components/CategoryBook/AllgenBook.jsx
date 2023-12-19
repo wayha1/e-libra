@@ -59,7 +59,7 @@ const AllgenBook = () => {
         </ul>
       </div>
 
-      <div id="contentSection" className="overflow-y-auto h-[1015px] w-[75%] bg-gray-100">
+      <div id="contentSection" className="overflow-y-auto h-[1015px] w-full bg-gray-100">
         <Routes>
           <Route path="/bacII" element={<BacIIBook />} />
           <Route path="/comic" element={<ComicBook />} />
