@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import BacIIBook from "./BacIIBook";
 import AllCategory from "./AllCategory";
 import ComicBook from "./ComicBook";
@@ -17,35 +17,17 @@ const categories = [
 ];
 
 const AllgenBook = () => {
+  const location = useLocation();
   const [activeComponent, setActiveComponent] = useState("មាតិកាទាំងអស់");
 
-  const handleComponentChange = (component) => {
-    setActiveComponent(component);
-  };
+  useEffect(() => {
+    const path = location.pathname.split("/")[2];
+    const component = categories.find((category) => category.path.split("/")[2] === path)?.name;
+    setActiveComponent(component || "មាតិកាទាំងអស់");
+  }, [location]);
 
   const handleGoBack = () => {
     window.location.href = "/";
-  };
-
-  const renderContent = () => {
-    switch (activeComponent) {
-      case "មាតិកាទាំងអស់":
-        return <AllCategory />;
-      case "បាក់ឌុប":
-        return <BacIIBook />;
-      case "កំប្លែង":
-        return <ComicBook />;
-      case "ចំណេះដឹងទូទៅ":
-        return <StudyBook />;
-      case "ប្រលោមលោក":
-        return <NovelBook />;
-      default:
-        return (
-          <div className="text-center text-2xl font-medium">
-            No content available for : {activeComponent}
-          </div>
-        );
-    }
   };
 
   return (
@@ -68,7 +50,6 @@ const AllgenBook = () => {
                 className={`${
                   activeComponent === category.name ? "bg-blue-700 text-white" : "bg-gray-300"
                 } w-full h-[50px] text-lg cursor-pointer duration-300 border p-2`}
-                onClick={() => handleComponentChange(category.name)}
               >
                 {category.name}
               </Link>
@@ -77,14 +58,18 @@ const AllgenBook = () => {
         </ul>
       </div>
 
-      {/* Content Section */}
-      <div id="contentSection" className=" overflow-y-auto h-[1015px] w-[75%] bg-gray-100">
+      <div id="contentSection" className="overflow-y-auto h-[1015px] w-[75%] bg-gray-100">
         <Routes>
-          <Route path="/" element={<AllCategory />} />
           <Route path="/bacII" element={<BacIIBook />} />
           <Route path="/comic" element={<ComicBook />} />
           <Route path="/study" element={<StudyBook />} />
           <Route path="/novel" element={<NovelBook />} />
+          <Route path="/" element={<AllCategory />} />
+          {/* Add a default route for pages that are not matched */}
+          <Route
+            path="*"
+            element={<div className="text-center text-2xl font-medium">Page is working on</div>}
+          />
         </Routes>
       </div>
     </div>
