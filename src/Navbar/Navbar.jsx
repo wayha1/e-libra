@@ -64,7 +64,6 @@ const Navbar = () => {
                 <BiUserCircle className="mt-1 -translate-x-2" to={"/account"} />
                 Account
               </Link>
-
               <Link to="/cart" className="Cart flex ps-5 space-x-4 hover:shadow-full hover:scale-110">
                 <BsCartPlus className="mt-1 -translate-x-2 " to="/cart" />
                 Cart
