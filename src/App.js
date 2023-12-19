@@ -9,7 +9,7 @@ import RegisterPage from "./components/RegisterPage/RegisterPage";
 import AboutUs from "./components/About Us/AboutUs";
 import AllgenBook from "./components/CategoryBook/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
-import BookDetail from "./components/HomePage/BookDetail";
+import { Footer } from "./Footer/Footer";
 
 const App = ({ children }) => {
   return (
@@ -25,7 +25,6 @@ const App = ({ children }) => {
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/allgen/*" element={<AllgenBook />} />
-        <Route path="/book-detail" element={<BookDetail />} />
         {/* <Route path="/allGen/bacII" element={<BacIIBook />}></Route>
         <Route path="/comic" element={<ComicBook />}></Route>
         <Route path="/novel" element={<NovelBook />}></Route>

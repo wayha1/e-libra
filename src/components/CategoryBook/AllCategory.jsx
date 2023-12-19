@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'; // Change this line
 const AllCategory = () => {
   const [allBooks, setAllBooks] = useState([]);
   const navigate = useNavigate(); // Change this line
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +42,12 @@ const AllCategory = () => {
     fetchData();
   }, []);
 
-  const handleReadNowClick = () => {
+  const handleReadNowClick = (book) => {
+    // Store the selected book information in the state
+    setSelectedBook(book);
+
     // Navigate to the SeeAll component when "Read Now" is clicked
-    navigate('/see-all'); // Change this line
+    navigate('/see-all' , { state: { selectedBook: book } }); // Change this line
   };
 
   return (
@@ -59,7 +63,7 @@ const AllCategory = () => {
             <p className="text-lg font-semibold">{book.title}</p>
             <p className="text-gray-500">${book.price}</p>
             <button
-              onClick={handleReadNowClick}
+              onClick={() => handleReadNowClick(book)} 
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Read now
