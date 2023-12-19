@@ -9,8 +9,7 @@ import RegisterPage from "./components/RegisterPage/RegisterPage";
 import AboutUs from "./components/About Us/AboutUs";
 import AllgenBook from "./components/CategoryBook/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
-import { Footer } from "./Footer/Footer";
-import { BookDetail } from "./components/HomePage/BookDetail";
+import BookDetail from "./components/HomePage/BookDetail";
 
 const App = ({ children }) => {
   return (
