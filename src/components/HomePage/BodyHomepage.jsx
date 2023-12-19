@@ -62,7 +62,7 @@ const BodyHomepage = ({ selectedBook }) => {
 
         const bookDataPromises = data.map(async (elem) => {
           try {
-            const BookPop = collection(db, `Books/${elem.id}/BacII`);
+            const BookPop = collection(db, `Books/${elem.id}/KhmerBook`);
             const DataBooks = await getDocs(BookPop);
             const BookData = DataBooks.docs.map((bookDoc) => ({
               ...bookDoc.data(),
