@@ -54,7 +54,7 @@ const HomePage = () => {
         <>
           {/* Banner */}
           <section id="Banner ">
-            <main className="z-10 flex w-full h-[800px]  bg-gray-100">
+            <main className="z-10 flex w-full h-[900px] bg-gray-100">
               {/* desktop mode */}
               {Banner.map((data, i) => (
                 <div
@@ -73,7 +73,7 @@ const HomePage = () => {
                     <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[40%]">
                       <div className="text-cyan-600 text-center bg-shadow-sm px-5">
                         {data.title && (
-                          <h1 className="font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
+                          <h1 className="mt-10 font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
                             {data.title}
                           </h1>
                         )}
@@ -82,7 +82,7 @@ const HomePage = () => {
                     </div>
                     <button className="m-2 h-12 w-18 px-4 py-2 bg-cyan-600 rounded-md lg:translate-y-52 md:translate-y-52 max-md:translate-y-52 max-sm:translate-y-52">
                       <h1 className="whitespace-nowrap text-gray-200 text-md">
-                        <Link to={"/allGen"}>All Category</Link>
+                        <Link to={"/allgen"}>All Category</Link>
                       </h1>
                     </button>
                   </div>

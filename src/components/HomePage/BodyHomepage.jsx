@@ -10,6 +10,7 @@ import {
   BiBookReader,
   BiSolidCartAdd,
 } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const BodyHomepage = () => {
   const [Book, setBook] = useState([]);
@@ -118,18 +119,16 @@ const BodyHomepage = () => {
     <>
       <section>
         {Book.map((data, i) => (
-          <button key={i}>
-            <div className="" key={i}>
+          <div className="p-2" key={i}>
+            <button>
               {data.container && (
-                <h1 className="text-4xl px-10 uppercase font-bold flex lg:py-3 hover:text-cyan-800 rounded-xl">
-                  {data.container}
-                </h1>
+                <h1 className="p-3 text-4xl uppercase font-bold hover:text-cyan-800">{data.container}</h1>
               )}
-            </div>
-          </button>
+            </button>
+          </div>
         ))}
-        <div className=" flex items-center justify-center bg-gray-100 z-10">
-          <div className="w-full flex items-center justify-between px-2 relative">
+        <div className="bg-gray-100 z-10">
+          <div className="flex items-center justify-between relative p-2 h-[400px]">
             <button
               onClick={() => slidePrev()}
               className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${
@@ -140,13 +139,13 @@ const BodyHomepage = () => {
               <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>
 
-            <div className="flex gap-x-4 overflow-hidden p-3 items-center justify-center">
+            <div className="flex gap-x-4 p-1 ">
               {BookData.slice(
                 currentData,
                 currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 900 ? 2 : 3)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl">
-                  <div className="flex rounded-xl bg-white shadow-xl overflow-hidden duration-300">
+                  <div className="flex bg-white items-center shadow-lg h-[300px]">
                     {data.ImageBook && (
                       <img
                         onClick={(e) => {
@@ -154,28 +153,28 @@ const BodyHomepage = () => {
                         }}
                         src={data.ImageBook}
                         alt="image-book"
-                        className="flex lg:w-[200px] lg:h-[250px] xl:w-[250px] xl:h-[300px] max-lg:w-[150px] max-lg:h-[200px] max-sm:w-[150px] max-sm:h-[180px] shadow-lg"
+                        className="w-[200px] h-full"
                       />
                     )}
-                    <div className="flex flex-col text-left lg:w-[180px] lg:h-full xl:w-[200px] max-lg:w-[150px] max-sm:w-[120px] overflow-hidden">
+                    <div className="flex flex-col w-[150px] overflow-hidden">
                       {data.title && (
-                        <h1 className="flex book-title font-bold lg:text-2xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
+                        <h1 className="flex book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
                           {data.title}
                         </h1>
                       )}
 
                       {data.decs && (
-                        <p className="indent-3 line-clamp-2 overflow-hidden max-sm:text-xs">{data.decs}</p>
+                        <p className="p-1 line-clamp-2 overflow-hidden max-sm:text-xs">{data.decs}</p>
                       )}
                       <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
                         <button
                           className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                          onClick={(e) => {
-                            handleSeeMoreClick(currentData + i);
-                            recommendationBook(recommendedBooks + i);
-                          }}
+                          // onClick={(e) => {
+                          //   handleSeeMoreClick(currentData + i);
+                          //   recommendationBook(recommendedBooks + i);
+                          // }}
                         >
-                          See More
+                          <Link to={"/book-detail"}>See More</Link>
                         </button>
                       </div>
                     </div>

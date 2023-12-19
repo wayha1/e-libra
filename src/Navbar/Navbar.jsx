@@ -74,9 +74,9 @@ const Navbar = () => {
 
           {/* Mobile Mode */}
           <div className="dropdown_nav z-50 w-fit h-full">
-            <div onClick={handleNav} className="block lg:hidden relative w-fit -translate-x-4">
+            <div onClick={handleNav} className="block lg:hidden translate-x-5">
               {nav ? (
-                <AiOutlineMenu size={30} className="flex m-2" />
+                <AiOutlineMenu size={30} className="flex m-2 " />
               ) : (
                 <AiOutlineClose size={30} className="flex m-2" />
               )}
@@ -85,7 +85,7 @@ const Navbar = () => {
               className={
                 nav
                   ? "fixed left-[-100%] "
-                  : "fixed left-0 top-0 w-[80%] h-screen shadow-xl bg-white ease-in-out duration-500 absolute"
+                  : "fixed left-0 top-0 w-[70%] h-screen shadow-xl bg-white ease-in-out duration-500 absolute"
               }
             >
               <Link

@@ -28,7 +28,7 @@ const HeadCategory = () => {
           <div className="uppercase">
             <ul className="flex hover:text-gray-300 flex hover:shadow-xl =">
               <Link
-                to={"/allGen"}
+                to={"/allgen"}
                 className="border-2 border-[#AAACA6] whitespace-nowrap bg-white rounded-xl shadow-xl px-1 py-1 text-gray-500 font-bold lg:text-3xl hover:text-cyan-700 "
               >
                 <h1 className="xl:text-2xl lg:text-xl">All Category</h1>
@@ -38,31 +38,31 @@ const HeadCategory = () => {
           <div className="flex jusify-center items-center">
             <ul className="space-x-4 w-fit items-center ">
               <Link
-                to={"/allGen/bacII"}
+                to={"/allgen/bacII"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
                 BacII Exam
               </Link>
               <Link
-                to={"/allGen/comdy"}
+                to={"/allgen/comdy"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
                 Comdy
               </Link>
               <Link
-                to={"/allGen/comic"}
+                to={"/allgen/comic"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
                 Comic Books
               </Link>
               <Link
-                to={"/allGen/novel"}
+                to={"/allgen/novel"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
                 Novel Books
               </Link>
               <Link
-                to={"/allGen/study"}
+                to={"/allgen/study"}
                 className="border-2 border-[#AAACA6] text-xl px-1 py-1 hover:scale-110 rounded-xl hover:text-cyan-700 whitespace-nowrap text-gray-500 font-bold bg-white shadow-md"
               >
                 Learning Book
@@ -90,37 +90,37 @@ const HeadCategory = () => {
             }
           >
             <ul className="flex font-bold lg:hidden max-sm:w-fit ">
-              <Link to={"/allGen"} className="text-2xl hover:text-cyan-800 text-gray-500 ">
+              <Link to={"/allgen"} className="text-2xl hover:text-cyan-800 text-gray-500 ">
                 All Category &nbsp;
               </Link>
             </ul>
             <ul className="mt-1 space-x-3 max-sm:w-fit max-sm:flex max-sm:flex-wrap relative">
               <Link
-                to={"/allGen/bacII"}
+                to={"/allgen/bacII"}
                 className="sm:text-sm md:text-md sm:text-sm xs:text-sm rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
                 BacII Exam
               </Link>
               <Link
-                to={"/allGen/comdy"}
+                to={"/allgen/comdy"}
                 className=" md:text-md sm:text-sm xs:text-sm  hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
                 Comdy
               </Link>
               <Link
-                to={"/allGen/comic"}
+                to={"/allgen/comic"}
                 className=" md:text-md sm:text-sm xs:text-sm hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
                 Comic Books
               </Link>
               <Link
-                to={"/allGen/novel"}
+                to={"/allgen/novel"}
                 className=" md:text-md sm:text-sm xs:text-sm hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
                 Novel Books
               </Link>
               <Link
-                to={"/allGen/study"}
+                to={"/allgen/study"}
                 className=" md:text-md sm:text-sm xs:text-sm hover:shadow-full hover:scale-110 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
               >
                 Learning Book
