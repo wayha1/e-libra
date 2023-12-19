@@ -1,13 +1,13 @@
 import React from "react";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 export const Footer = () => {
   return (
-    <main className="flex h-full justify-evenly text-center bg-gray-200 whitespace-nowrap py-5">
+    <main className="flex h-full justify-evenly text-center bg-[#54743540] whitespace-nowrap py-5">
       <section className="Logo flex items-center px-3 space-y-5 max-sm:hidden">
         <div>
-          <img src={require("./Logo.png")} alt="logo" width={50} height={50}/>
+          <img src={require("./Logo.png")} alt="logo" width={50} height={50} />
         </div>
       </section>
 
