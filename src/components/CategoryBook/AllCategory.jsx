@@ -1,9 +1,12 @@
+// AllCategory.jsx
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { useNavigate } from 'react-router-dom'; // Change this line
 
 const AllCategory = () => {
   const [allBooks, setAllBooks] = useState([]);
+  const navigate = useNavigate(); // Change this line
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +41,11 @@ const AllCategory = () => {
     fetchData();
   }, []);
 
+  const handleReadNowClick = () => {
+    // Navigate to the SeeAll component when "Read Now" is clicked
+    navigate('/see-all'); // Change this line
+  };
+
   return (
     <div className="h-full overflow-y-auto">
       <h2 className="text-5xl font-bold mb-4 mt-8 ml-5 uppercase">All Categories</h2>
@@ -50,6 +58,12 @@ const AllCategory = () => {
             <p>{book.category}</p>
             <p className="text-lg font-semibold">{book.title}</p>
             <p className="text-gray-500">${book.price}</p>
+            <button
+              onClick={handleReadNowClick}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Read now
+            </button>
           </div>
         ))}
       </div>
