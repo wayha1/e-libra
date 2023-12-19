@@ -132,9 +132,9 @@ const HomePage = () => {
               ))}
             </div>
           </section>
+          {/* <BodyHomepage className="z-30" />
           <BodyHomepage className="z-30" />
-          <BodyHomepage className="z-30" />
-          <BodyHomepage className="z-30" />
+          <BodyHomepage className="z-30" /> */}
         </>
       )}
     </>

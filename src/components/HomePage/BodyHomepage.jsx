@@ -48,7 +48,6 @@ const BodyHomepage = () => {
     const lastIndex = BookData.length - 1;
     const recommendedBooks = index === lastIndex ? [] : BookData.slice(index + 1, lastIndex + 1);
     setRecommendedBooks(recommendedBooks);
-    console.log("Clicked Index:", index);
   };
 
   useEffect(() => {
