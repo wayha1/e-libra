@@ -10,6 +10,7 @@ import AboutUs from "./components/About Us/AboutUs";
 import AllgenBook from "./components/CategoryBook/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
 import BookDetail from "./components/HomePage/BookDetail";
+import SeeAll from "./components/CategoryBook/SeeAll";
 
 const App = ({ children }) => {
   return (
@@ -26,6 +27,7 @@ const App = ({ children }) => {
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/allgen/*" element={<AllgenBook />} />
         <Route path="/book-detail/:bookId" element={<BookDetail />} />
+        <Route path="/allgen/see-all" element={<SeeAll />}></Route>
         {/* <Route path="/allGen/bacII" element={<BacIIBook />}></Route>
         <Route path="/comic" element={<ComicBook />}></Route>
         <Route path="/novel" element={<NovelBook />}></Route>

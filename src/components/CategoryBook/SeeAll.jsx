@@ -51,7 +51,7 @@ function SeeAll() {
           </div>
         </div>
       </div>
-      <p className=''>{selectedBook.decs}</p>
+      <p className='indent-8 w-70'>{selectedBook.decs}</p>
       {/* Add a button to go back to AllCategory */}
       <Link to="/allgen" className="text-blue-500 hover:underline mt-4 w-50">
         Back to All Categories
