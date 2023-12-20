@@ -5,6 +5,7 @@ import AllCategory from "./AllCategory";
 import ComicBook from "./ComicBook";
 import StudyBook from "./StudyBook";
 import NovelBook from "./NovelBook";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const categories = [
   { id: 1, name: "មាតិកាទាំងអស់", path: "/allgen" },
@@ -32,12 +33,12 @@ const AllgenBook = () => {
 
   return (
     <div className="flex bg-gray-50 overflow-y-auto">
-      <div className="flex flex-col mt-5 w-[25%]">
+      <div className="flex flex-col mt-5 w-[20%]">
         <button
-          className="mt-5 bg-blue-700 text-white shadow-lg font-semibold rounded-l-3xl cursor-pointer w-[180px] justify-end"
+          className="ml-4 rounded-l-3xl flex w-20 bg-blue-600 text-white text-center space-x-2 px-2 "
           onClick={handleGoBack}
         >
-          Back to Homepage
+          <MdKeyboardBackspace className="flex mt-1" /> <h1 className="flex">Back</h1>
         </button>
         <p className="mt-10 bg-white shadow-sm p-4 text-gray-600 whitespace-nowrap md:text-2xl lg:text-3xl text-center">
           មាតិកាទាំងមូល
@@ -48,7 +49,7 @@ const AllgenBook = () => {
               <Link
                 to={category.path}
                 className={`${
-                  activeComponent === category.name ? "bg-blue-700 text-white" : "bg-gray-300"
+                  activeComponent === category.name ? "bg-gray-600 text-white" : "bg-gray-300"
                 } w-full h-[50px] text-lg cursor-pointer duration-300 border p-2`}
               >
                 {category.name}
