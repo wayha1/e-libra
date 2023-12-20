@@ -29,6 +29,9 @@ const App = ({ children }) => {
         <Route path="/book-detail/:bookId" element={<BookDetail />} />
         <Route path="/allgen/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/bacll/see-all" element={<SeeAll />}></Route>
+        <Route path="/allgen/comic/see-all" element={<SeeAll />}></Route>
+        <Route path="/allgen/novel/see-all" element={<SeeAll />}></Route>
+        <Route path="/allgen/study/see-all" element={<SeeAll />}></Route>
         {/* <Route path="/allGen/bacII" element={<BacIIBook />}></Route>
         <Route path="/comic" element={<ComicBook />}></Route>
         <Route path="/novel" element={<NovelBook />}></Route>
