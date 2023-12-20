@@ -190,6 +190,10 @@ const CartPage = () => {
           </div>
         </div>
       )}
+      <div className="w-full ">
+        <button className="flex">Pay now</button>
+      </div>
+
       {/* Modal for image click */}
       {/* {selectedItemDetails && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
