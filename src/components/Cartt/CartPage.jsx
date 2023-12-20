@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 // import { db } from "../../firebase";
 import { db } from "../../firebase";
+import { CiCreditCard1 } from "react-icons/ci";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -166,9 +167,14 @@ const CartPage = () => {
           </div>
         </div>
       ))}
-      <p className="flex justify-end mb-5 text-xl font-semibold mt-4">
-        Total Price: {total} {"រៀល"}
-      </p>
+      <div className="flex justify-end mb-5 text-xl font-semibold mt-5 space-y-5">
+        <div className="flex-col  space-x-3">
+          Total Price: {total} {"រៀល"}
+          <button className="flex bg-blue-500 px-3 py-2 text-white rounded-lg shadow-lg border-2 hover:bg-blue-600">
+            <CiCreditCard1 className="flex mt-[5px]" /> Pay now
+          </button>
+        </div>
+      </div>
       {showConfirmationModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="bg-white p-4 rounded-md">
@@ -190,9 +196,6 @@ const CartPage = () => {
           </div>
         </div>
       )}
-      <div className="w-full ">
-        <button className="flex">Pay now</button>
-      </div>
 
       {/* Modal for image click */}
       {/* {selectedItemDetails && (

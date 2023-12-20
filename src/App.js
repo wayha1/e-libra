@@ -20,7 +20,7 @@ const App = ({ children }) => {
         {children}
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="aboutus" element={<AboutUs />}></Route>
+        <Route path="/aboutus" element={<AboutUs />}></Route>
         <Route path="/author" element={<AuthorPage />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
