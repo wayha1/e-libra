@@ -45,10 +45,12 @@ const Navbar = () => {
 
           <div className="flex items-center">
             <ul className="flex uppercase hidden lg:flex ">
+              <Link to={"/allgen"} className="whitespace-nowrap px-5 hover:shadow-full hover:scale-110">
+                Category Book
+              </Link>
               <Link to={"/aboutus"} className="whitespace-nowrap px-5 hover:shadow-full hover:scale-110">
                 About Us
               </Link>
-
               <Link to={"/author"} className="px-5 hover:shadow-full hover:scale-110">
                 Author
               </Link>
