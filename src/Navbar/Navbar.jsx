@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BiUserCircle, BiSearchAlt2 } from "react-icons/bi";
+import { BiUserCircle } from "react-icons/bi";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -12,31 +12,27 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-200 rounded-md shadow-lg">
+    <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-100 shadow-sm">
       <div className="">
         {/* Desktop Mode */}
         <div className="flex justify-evenly w-full lg:flex sm:flex md:flex">
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 items-center">
             <Link to={"/"}>
               <img
                 src={require("./Logo.png")}
                 alt="Logo"
                 width={40}
                 height={40}
-                className="hidden md:flex shadow-inner hover:shadow-full hover:scale-110"
+                className="hidden md:flex  hover:shadow-full hover:scale-110"
               />
             </Link>
-
-            <Link
-              to={"/"}
-              className="logo uppercase whitespace-nowrap mt-2 hover:shadow-full hover:scale-110"
-            >
-              E libra
+            <Link to={"/"} className="uppercase whitespace-nowrap  hover:shadow-full hover:scale-110">
+              E-libra
             </Link>
 
-            <div className="relative ...">
+            {/* Adjusted indentation here */}
+            {/* <div className="relative ...">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                {/* Adjusted indentation here */}
               </div>
               <input
                 className="border w-52 md:w-44 sm:w-32 max-sm:w-32 px-3 mt-1 h-8 rounded-xl border-gray-900 shadow-xl shadow-inner hover:shadow-lg"
@@ -44,27 +40,26 @@ const Navbar = () => {
                 placeholder="Search"
                 id="search"
               />
-            </div>
+            </div> */}
           </div>
 
-          <div className="flex justify-end mt-2">
-            <ul className="flex uppercase hidden lg:flex justify-end">
-              <Link
-                to={"/aboutus"}
-                className="about-us whitespace-nowrap px-5 hover:shadow-full hover:scale-110"
-              >
+          <div className="flex items-center">
+            <ul className="flex uppercase hidden lg:flex ">
+              <Link to={"/allgen"} className="whitespace-nowrap px-5 hover:shadow-full hover:scale-110">
+                Category Book
+              </Link>
+              <Link to={"/aboutus"} className="whitespace-nowrap px-5 hover:shadow-full hover:scale-110">
                 About Us
               </Link>
-
-              <Link to={"/author"} className="Contact px-5 hover:shadow-full hover:scale-110">
+              <Link to={"/author"} className="px-5 hover:shadow-full hover:scale-110">
                 Author
               </Link>
-              <Link to={"/account"} className="Account flex px-5 hover:shadow-full hover:scale-110">
+              <Link to={"/account"} className="flex px-5 hover:shadow-full hover:scale-110">
                 {" "}
                 <BiUserCircle className="mt-1 -translate-x-2" to={"/account"} />
                 Account
               </Link>
-              <Link to="/cart" className="Cart flex ps-5 space-x-4 hover:shadow-full hover:scale-110">
+              <Link to="/cart" className="flex ps-5 space-x-4 hover:shadow-full hover:scale-110">
                 <BsCartPlus className="mt-1 -translate-x-2 " to="/cart" />
                 Cart
               </Link>

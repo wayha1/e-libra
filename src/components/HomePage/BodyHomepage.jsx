@@ -124,7 +124,7 @@ const BodyHomepage = ({ selectedBook }) => {
         </div>
 
         <div className="bg-gray-50 z-10">
-          <div className="flex items-center justify-between relative p-2 h-[400px]">
+          <div className="flex items-center justify-between relative px-7 p-2 h-[400px]">
             <button
               onClick={() => slidePrev()}
               className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${

@@ -4,6 +4,7 @@ import HoverVideoPlayer from "react-hover-video-player";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import LoadingPage from "../LoadingPage";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   const [Banner, setBanner] = useState([]);
@@ -16,7 +17,6 @@ const AboutUs = () => {
   const [expandedDetails, setExpandedDetails] = useState([]);
   // Add state variable for expanded author details
   const [expandedAuthorDetails, setExpandedAuthorDetails] = useState([]);
-
 
   const toggleExpansion = (index) => {
     setExpandedDetails((prevExpandedDetails) => {
@@ -31,7 +31,6 @@ const AboutUs = () => {
       return newExpandedAuthorDetails;
     });
   };
-  
 
   const handleMouseOver = () => {
     setIsHovering(false);
@@ -101,9 +100,9 @@ const AboutUs = () => {
         <main className="w-screen bg-gray-50">
           <section id="banner ">
             {Banner.map((data) => (
-              <div key={data.id} className="flex items-center justify-center py-1 relative">
+              <div key={data.id} className="flex items-center justify-center relative">
                 <div
-                  className="sm:w-[1000px] sm:h-300px xs:w-[1000px] md:w-[1500px] lg:w-[1500px] xl:w-[2000px] w-full aspect-video h-fit"
+                  className="aspect-video "
                   onMouseOver={() => setTimeout(() => handleMouseOver(), 500)}
                   onMouseOut={handleMouseOut}
                 >
@@ -111,20 +110,21 @@ const AboutUs = () => {
                     <HoverVideoPlayer
                       videoSrc={data.ImgBanner}
                       alt="Gif Banner"
-                      className="relative z-10 w-full h-full object-cover bg-repeat "
-                      overlayTransitionDuration={400}
+                      className="relative z-10 object-cover bg-repeat"
+                      overlayTransitionDuration={300}
                       autoPlay={!isHovering}
                       loop={!isHovering}
                       muted
-                      width={2000}
+                      width={1000}
                       height={1200}
                       preload="auto"
+                      playbackRate={0.5} // Adjust the value to your desired playback rate (0.5 means half-speed)
                     />
                   )}
                 </div>
                 {isHovering && (
-                  <div className="absolute text-white w-full text-center backdrop-blur-2xl z-20 lg:px-10 lg:py-20 max-sm:px-2 max-sm:py-2">
-                    <h1 className="font-bold uppercase lg:text-8xl md:text-6xl sm:text-6xl xs:text=4xl 2xs:text-4xl">
+                  <div className="absolute text-gray-500 w-full text-center backdrop-blur-lg z-20 lg:px-10 lg:py-40 max-sm:px-2 max-sm:py-2">
+                    <h1 className="font-bold h-full  uppercase lg:text-8xl md:text-6xl sm:text-6xl xs:text=4xl 2xs:text-4xl">
                       {data.txtBanner}
                     </h1>
                     <span className="font-bold lg:text-xl max-lg:text-xs">{data.decs}</span>
@@ -227,22 +227,29 @@ const AboutUs = () => {
           </section>
           <div>
             <h1 className="whitespace-nowrap link link-underline link-underline-black m-5 text-center hover:decoration lg:text-4xl max-lg:text-2xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-110 hover:text-cyan-700 sm:text-3xl xs:text-3xl">
-              Camboidan Author
+              អ្នកនិពន្ធ កម្ពុជា
             </h1>
           </div>
 
-          <section id="author"   className="w-full max-auto">
+          <section id="author" className="w-full max-auto">
             <div className="lg:p-2 max-lg:p-5 grid grid-cols-3 gap-4">
               {author.slice(0, visibleAuthors).map((data, i) => (
                 <div key={i} className="p-2">
                   <div
-                    className="lg:w-92 max-lg:w-44 p-2 bg-white rounded-2xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
+                    className="lg:w-92 max-lg:w-44 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
                     onClick={() => toggleExpansion(i)}
                   >
-                    {data.imgAuth && <img src={data.imgAuth} alt="Author Image" 
-                    onClick={(e) => e.stopPropagation()} 
-                    className="w-[600px] h-[250px] mb-3 "/>}
-                    {data.authName && <h2 className="font-bold text-xl mb-3 m-1 auth-name">{data.authName}</h2>}
+                    {data.imgAuth && (
+                      <img
+                        src={data.imgAuth}
+                        alt="Author Image"
+                        onClick={(e) => e.stopPropagation()}
+                        className="w-[600px] h-[250px] mb-3 "
+                      />
+                    )}
+                    {data.authName && (
+                      <h2 className="font-bold text-xl mb-3 m-1 auth-name">{data.authName}</h2>
+                    )}
                     {data.Gender && <p className="font-bold text-md m-1 auth-name mb-3">{data.Gender}</p>}
                     {data.DOB && <p className="auth-name m-1 mb-3">{data.DOB}</p>}
                     {expandedDetails[i] ? (
@@ -251,37 +258,24 @@ const AboutUs = () => {
                       <p className="text-sm text-gray-600 auth-name line-clamp-3">{data.Decs}</p>
                     )}
                     <div className="m-2">
-                    <button
-                      className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevents the click on the card from triggering the parent div's click event
-                        toggleExpansion(i);
-                      }}
-                    >
-                      {expandedDetails[i] ? "See Less" : "Author Detail"}
-                    </button>
-
+                      <button
+                        className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevents the click on the card from triggering the parent div's click event
+                          toggleExpansion(i);
+                        }}
+                      >
+                        {expandedDetails[i] ? "See Less" : "Author Detail"}
+                      </button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="text-center mt-4">
-              {visibleAuthors < author.length ? (
-                <button
-                  className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                  onClick={loadAllAuthors}
-                >
-                  See More
-                </button>
-              ) : (
-                <button
-                  className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                  onClick={goBack}
-                >
-                  Back
-                </button>
-              )}
+            <div className="text-end py-3 px-7 decoration-300">
+              <button className="ease-in-out rounded-sm text-gray-100 bg-blue-600 px-6 py-1.5 hover:bg-blue-700">
+                <Link to={"/author"}>View All Author</Link>
+              </button>
             </div>
           </section>
         </main>

@@ -89,7 +89,7 @@ const HomePage = () => {
                   {data.ImageBanner && (
                     <img
                       src={data.ImageBanner}
-                      className="w-[80%] lg:h-[600px] max-md:h-[600px] max-sm:h-[500px]"
+                      className="w-[80%] lg:h-[600px] max-md:h-[600px] max-sm:h-[500px] rounded-xl shadow-lg"
                       alt=""
                     />
                   )}
@@ -132,9 +132,7 @@ const HomePage = () => {
               ))}
             </div>
           </section>
-          {/* <BodyHomepage className="z-30" />
-          <BodyHomepage className="z-30" />
-          <BodyHomepage className="z-30" /> */}
+          
         </>
       )}
     </>
