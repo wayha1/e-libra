@@ -137,7 +137,7 @@ const BodyHomepage = ({ selectedBook }) => {
               }`}
               disabled={currentData === 0}
             >
-              <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 " />
+              <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 ml-10" />
             </button>
 
             <div className="flex gap-x-20 xl:gap-x-10">

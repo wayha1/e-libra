@@ -77,11 +77,14 @@ const AllCategory = () => {
   const currentBooks = allBooks.slice(indexOfFirstBook, indexOfLastBook);
 
   const renderBooks = currentBooks.map((book, index) => (
-    <button key={index} className="text-gray-700 bg-gray-100 shadow-sm rounded-md w-full h-[300px]">
+    <button
+      key={index}
+      className="text-gray-700 bg-gray-100 shadow-sm rounded-md w-[200px] h-[300px] mx-4 my-2"
+    >
       <img
         src={book.img}
         alt={book.title}
-        className="w-[200px] h-[250px]"
+        className="w-[200px] h-[250px] hover:scale-95  "
         onClick={() => handleReadNowClick(book)}
       />
       <div className="text-center">
