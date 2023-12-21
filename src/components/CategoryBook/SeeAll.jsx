@@ -63,6 +63,7 @@ function SeeAll() {
               <p className="text-white mb-3">ថ្ងៃខែឆ្នាំកំណើត:</p>
             </div>
 
+
             {/* Right-aligned values */}
             <div className="text-right">
               <p className="text-white mb-3">{selectedBook.price} KHR</p>
