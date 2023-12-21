@@ -74,7 +74,7 @@ const BodyHomepage = ({ selectedBook }) => {
               ...bookDoc.data(),
               id: bookDoc.id,
             }));
-            
+
             return KhmerBooks;
           } catch (error) {
             console.error(`Error fetching book data for ${elem.id}:`, error);
@@ -145,7 +145,7 @@ const BodyHomepage = ({ selectedBook }) => {
                 currentData,
                 currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 900 ? 2 : 4)
               ).map((data, i) => (
-                <div key={i} className="hover:shadow-xl  w-full">
+                <div key={i} className="hover:shadow-xl w-full">
                   <div className="flex flex-col bg-white items-center shadow-lg h-[250px] w-[200px]">
                     {data.img && (
                       <img
@@ -154,7 +154,7 @@ const BodyHomepage = ({ selectedBook }) => {
                         }}
                         src={data.img}
                         alt="image-book"
-                        className="w-[200px] h-[250px]"
+                        className="w-[200px] h-[250px] hover:scale-110 duration-300"
                       />
                     )}
 

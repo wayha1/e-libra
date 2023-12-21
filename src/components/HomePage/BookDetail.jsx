@@ -37,49 +37,49 @@ const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) 
               </h1>
             )}
             {selectedBook.img && (
-              <div className="flex bg-green-700 p-4 justify-center rounded-lg items-center h-[500px]">
+              <div className="flex bg-gray-200 p-4 justify-center rounded-lg items-center h-[500px]">
                 <img
                   src={selectedBook.img}
                   alt="img-book"
                   className="flex rounded-md w-[300px] h-[400px] object-cover"
                 />
                 <div className="grid items-center ml-7">
-                <button
-                  className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
+                  <button
+                    className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
                   font-bold py-2 mb-7 px-4 rounded-lg shadow-lg"
-                  onClick={() => handleAddToCartClick(selectedBook)}
-                >
-                  Add to Cart
-                </button>
+                    onClick={() => handleAddToCartClick(selectedBook)}
+                  >
+                    Add to Cart
+                  </button>
 
-                {selectedBook.price && (
-                  <div className="flex mt-3 mb-5 space-x-20">
-                    <div className="text-white">តម្លៃ:</div>
-                    <div className="text-white">{selectedBook.price}</div>
-                  </div>
-                )}
+                  {selectedBook.price && (
+                    <div className="flex mt-3 mb-5 space-x-20">
+                      <div className="text-gray-600">តម្លៃ:</div>
+                      <div className="text-gray-600">{selectedBook.price}</div>
+                    </div>
+                  )}
 
-                {selectedBook.authorId && (
-                  <div className="flex mt-3 mb-5 space-x-20">
-                    <div className="text-white">អ្នកនិពន្ធ:</div>
-                    <div className="text-white">{selectedBook.authorId}</div>
-                  </div>
-                )}
+                  {selectedBook.authorId && (
+                    <div className="flex mt-3 mb-5 space-x-20">
+                      <div className="text-gray-600">អ្នកនិពន្ធ:</div>
+                      <div className="text-gray-600">{selectedBook.authorId}</div>
+                    </div>
+                  )}
 
-                {selectedBook.type && (
-                  <div className="flex mt-3 mb-5 space-x-20">
-                    <div className="text-white">ប្រភេទ:</div>
-                    <div className="text-white">{selectedBook.type}</div>
-                  </div>
-                )}
+                  {selectedBook.type && (
+                    <div className="flex mt-3 mb-5 space-x-20">
+                      <div className="text-gray-600">ប្រភេទ:</div>
+                      <div className="text-gray-600">{selectedBook.type}</div>
+                    </div>
+                  )}
 
-                {selectedBook.date && (
-                  <div className="flex mt-3 space-x-20">
-                    <div className="text-white">ថ្ងៃខែឆ្នាំ:</div>
-                    <div className="text-white">{selectedBook.date}</div>
-                  </div>
-                )}
-              </div>
+                  {selectedBook.date && (
+                    <div className="flex mt-3 space-x-20">
+                      <div className="text-gray-600">ថ្ងៃខែឆ្នាំ:</div>
+                      <div className="text-gray-600">{selectedBook.date}</div>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
             {selectedBook.decs && (
