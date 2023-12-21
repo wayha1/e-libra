@@ -232,11 +232,11 @@ const AboutUs = () => {
           </div>
 
           <section id="author" className="w-full max-auto">
-            <div className="lg:p-2 max-lg:p-5 grid grid-cols-3 gap-4">
+            <div className="lg:p-2 max-lg:p-5 grid grid-cols-3 mx-20">
               {author.slice(0, visibleAuthors).map((data, i) => (
-                <div key={i} className="p-2">
+                <div key={i} className="px-24 py-5">
                   <div
-                    className="lg:w-92 max-lg:w-44 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
+                    className="lg:w-72 max-lg:w-44 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
                     onClick={() => toggleExpansion(i)}
                   >
                     {data.imgAuth && (
@@ -244,7 +244,7 @@ const AboutUs = () => {
                         src={data.imgAuth}
                         alt="Author Image"
                         onClick={(e) => e.stopPropagation()}
-                        className="w-[600px] h-[250px] mb-3 "
+                        className="w-[300px] h-[250px] mb-3 "
                       />
                     )}
                     {data.authName && (

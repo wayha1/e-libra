@@ -23,14 +23,19 @@ const Navbar = () => {
   const handleMenuItemClick = () => {
     setOpen(false);
   };
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // You can change this to "auto" for an instant scroll
+    });
+  };
   return (
     <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-100 shadow-sm">
       <div className="container mx-auto">
         {/* Desktop Mode */}
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-4">
-            <Link to={"/"}>
+            <Link to={"/"} onClick={scrollToTop}>
               <img
                 src={require("./Logo.png")}
                 alt="Logo"
@@ -39,13 +44,21 @@ const Navbar = () => {
                 className="hidden md:flex hover:shadow-full hover:scale-110"
               />
             </Link>
-            <Link to={"/"} className="uppercase whitespace-nowrap hover:shadow-full hover:scale-110">
+            <Link
+              to={"/"}
+              onClick={scrollToTop}
+              className="uppercase whitespace-nowrap hover:shadow-full hover:scale-110"
+            >
               E-libra
             </Link>
           </div>
 
           <div className="flex items-center space-x-4 mr-10">
-            <Link to={"/allgen"} className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110">
+            <Link
+              to={"/allgen"}
+              onClick={scrollToTop}
+              className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
+            >
               Category Book
             </Link>
             <Link to={"/aboutus"} className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110">

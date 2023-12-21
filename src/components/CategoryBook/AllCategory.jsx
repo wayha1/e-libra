@@ -37,15 +37,26 @@ const AllCategory = () => {
         }));
 
         // Fetch the data for NovelBook category
-        const NovelQuery = query(collection(db, "Books", "All_Genre", "GeneralBook"));
+        const NovelQuery = query(collection(db, "Books", "All_Genre", "NovelBook"));
         const NovelDocs = await getDocs(NovelQuery);
         const NovelBook = NovelDocs.docs.map((doc) => ({
           ...doc.data(),
           category: "NovelBook",
         }));
+        // Fetch the data for KhmerBook category
+        const KhmerQuery = query(collection(db, "Books", "All_Genre", "KhmerBook"));
+        const KhmerDocs = await getDocs(KhmerQuery);
+        const KhmerBook = KhmerDocs.docs.map((doc) => ({
+          ...doc.data(),
+          category: "KhmerBook",
+        }));
 
         // Combine both sets of books into a single array
-        setAllBooks([...bacIIBooks, ...comicBooks, ...GeneralBook, ...NovelBook]);
+        const combinedBooks = [...bacIIBooks, ...comicBooks, ...GeneralBook, ...NovelBook, ...KhmerBook];
+
+        const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
+
+        setAllBooks(sortedBooks);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

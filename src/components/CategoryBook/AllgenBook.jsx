@@ -10,11 +10,12 @@ import { MdKeyboardBackspace } from "react-icons/md";
 const categories = [
   { id: 1, name: "មាតិកាទាំងអស់", path: "/allgen" },
   { id: 2, name: "បាក់ឌុប", path: "/allgen/bacII" },
-  { id: 3, name: "កំប្លែង", path: "/allgen/comic" },
-  { id: 4, name: "ចំណេះដឹងទូទៅ", path: "/allgen/study" },
+  { id: 3, name: "កំប្លែង", path: "/allgen/comdy" },
+  { id: 4, name: "គំនូរជីវចល", path: "/allgen/comic" },
   { id: 5, name: "ប្រលោមលោក", path: "/allgen/novel" },
-  { id: 6, name: "Science", path: "/allgen/science" },
-  { id: 7, name: "Mathematics", path: "/allgen/math" },
+  { id: 6, name: "ចំណេះដឹងទូទៅ", path: "/allgen/study" },
+  { id: 7, name: "Science", path: "/allgen/science" },
+  { id: 8, name: "Mathematics", path: "/allgen/math" },
 ];
 
 const AllgenBook = () => {
