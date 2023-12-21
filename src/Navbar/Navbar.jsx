@@ -61,13 +61,25 @@ const Navbar = () => {
             >
               Category Book
             </Link>
-            <Link to={"/aboutus"} className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110">
+            <Link
+              to={"/aboutus"}
+              onClick={scrollToTop}
+              className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
+            >
               About Us
             </Link>
-            <Link to={"/author"} className="px-4 py-2 hover:shadow-full hover:scale-110">
+            <Link
+              to={"/author"}
+              onClick={scrollToTop}
+              className="px-4 py-2 hover:shadow-full hover:scale-110"
+            >
               Author
             </Link>
-            <Link to="/cart" className="px-4 py-2 hover:shadow-full flex hover:scale-110">
+            <Link
+              to="/cart"
+              onClick={scrollToTop}
+              className="px-4 py-2 hover:shadow-full flex hover:scale-110"
+            >
               <BsCartPlus className="mt-1 -translate-x-2" />
               Cart
             </Link>
@@ -88,6 +100,7 @@ const Navbar = () => {
                         key={menu}
                         onClick={() => {
                           handleMenuItemClick();
+                          scrollToTop();
                           if (menu === "Setting") {
                             // Navigate to the AccountPage when "Setting" is clicked
                             window.location.href = "/account";

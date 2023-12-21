@@ -115,16 +115,14 @@ const BodyHomepage = ({ selectedBook }) => {
   return (
     <>
       <section>
-        <div className="p-2">
-          <button>
-            <h1 className="p-5 underline text-4xl uppercase font-bold hover:text-cyan-800">
-              {"ពេញនិយមឥឡូវ​នេះ"}
-            </h1>
+        <div className="w-full py-2">
+          <button className="p-5 w-full text-center underline text-3xl uppercase font-bold hover:text-cyan-800">
+            {"ពេញនិយម ឥឡូវ​នេះ"}
           </button>
         </div>
 
-        <div className="bg-gray-50 z-10">
-          <div className="flex items-center justify-between relative px-7 p-2 h-[400px]">
+        <div className="bg-gray-100 z-10">
+          <div className="flex items-center justify-between relative px-7 h-[400px]">
             <button
               onClick={() => slidePrev()}
               className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${
@@ -135,13 +133,13 @@ const BodyHomepage = ({ selectedBook }) => {
               <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>
 
-            <div className="flex gap-x-5 xl:gap-x-10">
+            <div className="flex gap-x-20 xl:gap-x-10">
               {BookData.slice(
                 currentData,
-                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 900 ? 2 : 3)
+                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 900 ? 2 : 4)
               ).map((data, i) => (
-                <div key={i} className="hover:shadow-xl">
-                  <div className="flex bg-white items-center shadow-lg h-[300px]">
+                <div key={i} className="hover:shadow-xl  w-full">
+                  <div className="flex flex-col bg-white items-center shadow-lg h-[250px] w-[200px]">
                     {data.img && (
                       <img
                         onClick={(e) => {
@@ -149,30 +147,15 @@ const BodyHomepage = ({ selectedBook }) => {
                         }}
                         src={data.img}
                         alt="image-book"
-                        className="w-[200px] h-full"
+                        className="w-[200px] h-[250px]"
                       />
                     )}
-                    <div className="flex flex-col w-[150px] overflow-hidden ">
-                      {data.title && (
-                        <h1 className="flex book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
-                          {data.title}
-                        </h1>
-                      )}
 
-                      {data.decs && (
-                        <p className="p-1 line-clamp-2 overflow-hidden max-sm:text-xs">{data.decs}</p>
-                      )}
-                      <div className="w-full flex items-center justify-center lg:mt-5 max-md:mt-3 max-sm:p-4">
-                        <button className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700">
-                          <button
-                            className="flex whitespace-nowrap ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
-                            onClick={() => handleSeeMoreClick(i)}
-                          >
-                            See More
-                          </button>
-                        </button>
-                      </div>
-                    </div>
+                    {data.title && (
+                      <h1 className="book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
+                        {data.title}
+                      </h1>
+                    )}
                   </div>
                 </div>
               ))}
@@ -180,9 +163,9 @@ const BodyHomepage = ({ selectedBook }) => {
             <button
               onClick={() => slideNext()}
               className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${
-                currentData === BookData.length - 3 ? "cursor-not-allowed opacity-50" : ""
+                currentData === BookData.length - 4 ? "cursor-not-allowed opacity-50" : ""
               }`}
-              disabled={currentData === BookData.length - 3}
+              disabled={currentData === BookData.length - 4}
             >
               <BiChevronRightCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>

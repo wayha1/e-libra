@@ -106,7 +106,7 @@ const HomePage = () => {
           </section>
 
           <section id="body-popular">
-            <div className="my-2">
+            <div className="my-2 mt-10">
               {Promotion.map((data, i) => (
                 <div key={i} className="bg-rose-100 w-full h-[350px] flex">
                   <div className="text-left w-[50%] backdrop-blur-sm">
