@@ -62,13 +62,20 @@ const BodyHomepage = ({ selectedBook }) => {
 
         const bookDataPromises = data.map(async (elem) => {
           try {
+            const KhmerBook = collection(db, `Books/${elem.id}/KhmerBook`);
+            const KhmerBookData = await getDocs(KhmerBook);
+            const KhmerBooks = KhmerBookData.docs.map((bookDoc) => ({
+              ...bookDoc.data(),
+              id: bookDoc.id,
+            }));
             const BookPop = collection(db, `Books/${elem.id}/KhmerBook`);
             const DataBooks = await getDocs(BookPop);
             const BookData = DataBooks.docs.map((bookDoc) => ({
               ...bookDoc.data(),
               id: bookDoc.id,
             }));
-            return BookData;
+            
+            return KhmerBooks;
           } catch (error) {
             console.error(`Error fetching book data for ${elem.id}:`, error);
             return null;
