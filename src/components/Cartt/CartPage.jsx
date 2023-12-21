@@ -105,6 +105,8 @@ const CartPage = () => {
 
   const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);
 
+  
+
   return (
     <div className="container mx-auto mt-10 z-20 overflow-y-auto h-[1000px]">
       <h1 className="text-4xl font-bold mb-6">Cart Items</h1>
