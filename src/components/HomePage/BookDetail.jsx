@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
 import { BiBookReader, BiSolidCartAdd } from "react-icons/bi";
+import { db } from "../../firebase";
 
 const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) => {
   const { bookId } = useParams();
   const location = useLocation();
   const [selectedBook, setSelectedBook] = useState(null);
+  //const [addedToCart, setAddedToCart] = useState([]);
 
   useEffect(() => {
     if (location.state && location.state.selectedBook) {
@@ -24,6 +27,31 @@ const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) 
   if (!selectedBook) {
     return <div>No book found for the given ID.</div>;
   }
+
+  const handleAddToCart = async (selectedBook) => {
+    try {
+      const cartsCollectionRef = collection(db, "addtoCart");
+
+      // Check if the item is already in the cart
+      const querySnapshot = await getDocs(cartsCollectionRef);
+      const isItemInCart = querySnapshot.docs.some((doc) => {
+        const cartItem = doc.data();
+        return cartItem.title === selectedBook.title; // Assuming 'title' is a unique identifier for the item
+      });
+
+      if (!isItemInCart) {
+        // If not in the cart, add it
+        await addDoc(cartsCollectionRef, selectedBook);
+
+        alert('Item added to cart!');
+      } else {
+        // If already in the cart, show a message or handle as needed
+        alert('Item already added to cart!');
+      }
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+  };
 
   return (
     <div className="w-screen h-[1010px]">
@@ -45,12 +73,12 @@ const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) 
                 />
                 <div className="grid items-center ml-7">
                 <button
-                  className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
-                  font-bold py-2 mb-7 px-4 rounded-lg shadow-lg"
-                  onClick={() => handleAddToCartClick(selectedBook)}
-                >
-                  Add to Cart
-                </button>
+                    className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
+                    font-bold py-2 mb-7 px-4 rounded-lg shadow-lg"
+                    onClick={() => handleAddToCart(selectedBook)}
+                  >
+                    Add to Cart
+                  </button>
 
                 {selectedBook.price && (
                   <div className="flex mt-3 mb-5 space-x-20">

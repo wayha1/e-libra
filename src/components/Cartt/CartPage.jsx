@@ -84,11 +84,6 @@ const CartPage = () => {
     }
   };
 
-  // const closeModal = () => {
-  //   // Close the modal by resetting the selected item details
-  //   setSelectedItemDetails(null);
-  // };
-
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -100,11 +95,6 @@ const CartPage = () => {
             id: doc.id,
           }))
         );
-        // const data = snapshot.docs.map((doc) => ({
-        //   ...doc.data(),
-        //   id: doc.id,
-        // }));
-        // console.log(data);
       } catch (error) {
         console.error("Error fetching cart items:", error);
       }
@@ -127,7 +117,7 @@ const CartPage = () => {
           onClick={(event) => handleImageClick(item, event)}
         >
           <img
-            src={item.ImageBook}
+            src={item.img}
             alt="Book"
             className={`w-30 h-40 ml-3 ${selectedItems.includes(item.id) ? "border-4 border-green-500" : ""}`}
           />
@@ -197,33 +187,6 @@ const CartPage = () => {
         </div>
       )}
 
-      {/* Modal for image click */}
-      {/* {selectedItemDetails && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="bg-white p-4 rounded-md">
-            <div className="flex items-center mb-4">
-              <img 
-                src={selectedItemDetails.ImageBook} 
-                alt="Book" 
-                className="w-30 h-40 mr-3" 
-              />
-              <div>
-                <p className="text-xl font-semibold">{selectedItemDetails.title}</p>
-                <p className="text-gray-500">Quantity: {selectedItemDetails.quantity || 1}</p>
-              </div>
-            </div>
-            <p className="text-gray-500">{selectedItemDetails.price}</p>
-            <div className="flex justify-end">
-              <button
-                className="bg-blue-500 text-white active:bg-blue-400 px-4 py-2 rounded-full"
-                onClick={closeModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };
