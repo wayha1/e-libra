@@ -4,7 +4,7 @@ import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
 import { BiBookReader, BiSolidCartAdd } from "react-icons/bi";
 import { db } from "../../firebase";
 
-const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) => {
+const BookDetail = ({ bookData, closeBook, setReadBook }) => {
   const { bookId } = useParams();
   const location = useLocation();
   const [selectedBook, setSelectedBook] = useState(null);
@@ -75,7 +75,7 @@ const BookDetail = ({ bookData, closeBook, handleAddToCartClick, setReadBook }) 
                 <button
                   className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
                   font-bold py-2 mb-7 px-4 rounded-lg shadow-lg"
-                  onClick={() => handleAddToCartClick(selectedBook)}
+                  onClick={() => handleAddToCart(selectedBook)}
                 >
                   Add to Cart
                 </button>
