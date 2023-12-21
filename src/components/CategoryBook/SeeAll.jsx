@@ -22,7 +22,7 @@ function SeeAll() {
   return (
     <div className="mt-8 mx-auto text-center">
       <div className="flex mb-6">
-      {/* <Link
+        {/* <Link
         to="/allgen"
         className="text-blue-500 pl-5 hover:underline mt-4 w-50 
         bg-gray-200 py-2 px-4 rounded-full ml-3"
@@ -32,9 +32,7 @@ function SeeAll() {
 
         {/* Title */}
         {/* <h2 className="text-3xl font-bold mb-4">Book Details</h2> */}
-        <p className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5">
-          {selectedBook.title}
-        </p>
+        <p className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5">{selectedBook.title}</p>
       </div>
 
       {/* Book details container */}
@@ -48,8 +46,10 @@ function SeeAll() {
 
         <div className="grid items-center">
           {/* Button: Add to Cart */}
-          <button className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
-          font-bold py-2 mb-4 px-4 rounded-lg shadow-lg">
+          <button
+            className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
+          font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
+          >
             Add to Cart
           </button>
 
@@ -73,9 +73,7 @@ function SeeAll() {
           </div>
         </div>
       </div>
-      <p className="text-lg text-gray-700 leading-relaxed mt-4 mb-4 pl-8 pr-8">
-        {selectedBook.decs}
-      </p>
+      <p className=" text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10">{selectedBook.decs}</p>
 
       {/* Add a button to go back to AllCategory */}
     </div>

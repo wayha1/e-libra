@@ -3,7 +3,6 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom"; // Change this line
 
-
 //js
 
 const ComicBook = () => {
@@ -21,10 +20,10 @@ const ComicBook = () => {
         const snapshot = await getDocs(contain);
         const data = snapshot.docs.map((val) => ({ ...val.data(), id: val.id }));
         setBacData(data);
-       
+
         const bookDataPromises = data.map(async (elem) => {
           try {
-            const BookPop = collection(db, `Books/${elem.id}/BacII`);
+            const BookPop = collection(db, `Books/${elem.id}/Comic`);
             const DataBooks = await getDocs(BookPop);
             const BookData = DataBooks.docs.map((bookDoc) => ({
               ...bookDoc.data(),
@@ -80,30 +79,26 @@ const ComicBook = () => {
   return (
     <section className="container mx-auto mt-8 mb-10">
       <div className="ml-10 mb-8">
-        <h1 className="text-4xl uppercase font-bold hover:text-cyan-800 rounded-xl">
-          {" "}
-          Comic{" "}
-        </h1>
+        <h1 className="text-4xl uppercase font-bold hover:text-cyan-800 rounded-xl"> Comic </h1>
       </div>
       <div className="grid grid-cols-4 grid-rows-2 justify-items-center justify-center">
-      {currentItems.map((item, index) => (
-        <div key={index} className="mb-4">
-          <img src={item.img} alt={`Bacll-${index}`} className="w-48 h-58 rounded-lg" />
-          <div className="mt-2">
-            <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-            <p className="text-sm mb-2">{item.price}</p>
+        {currentItems.map((item, index) => (
+          <div key={index} className="mb-4">
+            <img src={item.img} alt={`Bacll-${index}`} className="w-48 h-58 rounded-lg" />
+            <div className="mt-2">
+              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+              <p className="text-sm mb-2">{item.price}</p>
+            </div>
+            {/* Add your other Bacll-related content here */}
+            {/* Add your other Bacll-related content here */}
+            <button
+              onClick={() => handleReadNowClick(item)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Read now
+            </button>
           </div>
-          {/* Add your other Bacll-related content here */}
-          {/* Add your other Bacll-related content here */}
-          <button
-            onClick={() => handleReadNowClick(item)}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Read now
-          </button>
-        </div>
-      ))}
-
+        ))}
       </div>
       {/* Pagination controls */}
       <div className="flex justify-center mt-4">
@@ -112,14 +107,14 @@ const ComicBook = () => {
           className="mx-2 px-3 py-1 rounded-full bg-gray-300"
           disabled={currentPage === 1}
         >
-          {'<'}
+          {"<"}
         </button>
         {Array.from({ length: Math.ceil(bacBooks.length / itemsPerPage) }).map((_, index) => (
           <button
             key={index}
             onClick={() => paginate(index + 1)}
             className={`mx-2 px-3 py-1 rounded-full ${
-              currentPage === index + 1 ? 'bg-cyan-500 text-white' : 'bg-gray-300'
+              currentPage === index + 1 ? "bg-cyan-500 text-white" : "bg-gray-300"
             }`}
           >
             {index + 1}
@@ -130,7 +125,7 @@ const ComicBook = () => {
           className="mx-2 px-3 py-1 rounded-full bg-gray-300"
           disabled={currentPage === Math.ceil(bacBooks.length / itemsPerPage)}
         >
-          {'>'}
+          {">"}
         </button>
       </div>
     </section>

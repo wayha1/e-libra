@@ -64,7 +64,7 @@ const AllCategory = () => {
       <h2 className="text-center font-mono underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
         មាតិកា ទាំងអស់
       </h2>
-      <div className="gap-x-5 gap-y-10 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 mx-20 my-5">
+      <div className="gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 mx-20 my-5">
         {allBooks.map((book, index) => (
           <button key={index} className="text-gray-700 p-1 bg-gray-100 shadow-sm rounded-md">
             <img
