@@ -22,7 +22,6 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
         setSelectedBook(null);
       }
     }
-    console.log(selectedBook);
   }, [bookData, bookId, location.state]);
 
   if (!selectedBook) {
@@ -50,7 +49,9 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
   };
 
   const handleReadNow = () => {
-    navigate("/bookview", { state: { pages: selectedBook.pages } });
+    const pdfPages = selectedBook.BookPdf || [];
+    navigate("/bookview", { state: { pages: { BookPdf: pdfPages } } });
+    console.log(pdfPages);
   };
 
   return (
