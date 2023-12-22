@@ -17,8 +17,8 @@ const categories = [
   { id: 4, name: "គំនូរជីវចល", path: "/allgen/comic" },
   { id: 5, name: "ប្រលោមលោក", path: "/allgen/novel" },
   { id: 6, name: "ចំណេះដឹងទូទៅ", path: "/allgen/study" },
-  { id: 7, name: "Science", path: "/allgen/science" },
-  { id: 8, name: "Mathematics", path: "/allgen/math" },
+  { id: 7, name: "វិទ្យាសាស្រ្ត", path: "/allgen/science" },
+  { id: 8, name: "គណិតវិទ្យា", path: "/allgen/math" },
 ];
 const Sidebar = ({ handleGoBack, activeComponent }) => (
   <div className="flex flex-col mt-5 w-[20%]">
