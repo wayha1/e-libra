@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, doc, setDoc, query, where, orderBy } from "firebase/firestore";
 import { db, imgDB } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 export const AuthorPage = () => {
   const [authorList, setAuthorList] = useState([]);
@@ -18,6 +19,9 @@ export const AuthorPage = () => {
   const [fullAuthorList, setFullAuthorList] = useState([]);
   const [maleAuthorList, setMaleAuthorList] = useState([]);
   const [femaleAuthorList, setFemaleAuthorList] = useState([]);
+
+  const [selectedBook, setSelectedBook] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const value = collection(db, "Author");
@@ -42,6 +46,12 @@ export const AuthorPage = () => {
     };
     getAuthors();
   }, []);
+
+  const handleReadNowClick = (author) => {
+    setSelectedBook(author);
+    navigate("/authorInfo", { state: { selectedBook: author } });
+  };
+
   return (
     <section>
       <div className="w-full h-[1010px] bg-gray-100 overflow-y-auto">
@@ -64,6 +74,7 @@ export const AuthorPage = () => {
                         src={author.imgAuth}
                         alt={author.authName}
                         className="w-[200px] h-[200px] rounded-full"
+                        onClick={() => handleReadNowClick(author)}
                       />
                       <p className="py-2 text-xl font-bold font-title">{author.authName}</p>
                     </div>

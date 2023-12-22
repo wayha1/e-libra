@@ -97,6 +97,7 @@ const AllCategory = () => {
     setFilteredBooks(allBooks);
     setCurrentPage(1);
   };
+  
 
   return (
     <div className="z-20 overflow-y-auto">
