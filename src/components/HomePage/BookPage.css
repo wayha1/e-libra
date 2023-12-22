@@ -3,7 +3,7 @@
 }
 
 .react-pdf__Page__textContent {
-  display: none;
+  display: none !important;
 }
 
 .react-pdf__Page__annotations {
