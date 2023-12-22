@@ -11,7 +11,7 @@ const HeadCategory = () => {
   return (
     <section>
       <div className="flex w-[100%] bg-gray-200 py-2">
-        <div className="flex w-[100%] hover:duration-200 max-lg:hidden justify-evenly">
+        <div className="flex w-[100%] hover:duration-200 max-lg:hidden justify-evenly book-style">
           {/* desktop mode */}
           <div className="uppercase">
             <ul className="flex hover:text-gray-300 flex hover:shadow-xl =">

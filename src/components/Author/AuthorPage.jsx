@@ -43,7 +43,9 @@ export const AuthorPage = () => {
         <LoadingPage />
       ) : (
         <div className="w-full h-[980px] bg-gray-100 overflow-y-auto">
-          <h1 className="text-center text-5xl py-16 font-bold text-green-800 underline">មាតិកា អ្នកនិពន្ធ</h1>
+          <h1 className="text-center text-5xl py-16 font-bold text-green-800 underline book-title">
+            មាតិកា អ្នកនិពន្ធ
+          </h1>
           <div className="px-40 py-5">
             <div className="grid grid-cols-3 space-y-5 items-center justify-center ">
               {authorList.length > 0 && (
@@ -64,7 +66,7 @@ export const AuthorPage = () => {
                           className="w-[200px] h-[200px] rounded-full"
                           onClick={() => handleReadNowClick(author)}
                         />
-                        <p className="py-2 text-xl font-bold font-title">{author.authName}</p>
+                        <p className="py-2 text-xl font-bold book-decs">{author.authName}</p>
                       </div>
                     </div>
                   ))}

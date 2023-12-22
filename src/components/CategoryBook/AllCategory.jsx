@@ -97,11 +97,10 @@ const AllCategory = () => {
     setFilteredBooks(allBooks);
     setCurrentPage(1);
   };
-  
 
   return (
     <div className="z-20 overflow-y-auto">
-      <h2 className="text-center font-mono underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
         មាតិកា ទាំងអស់
       </h2>
       <div className="flex mb-4 pr-4 w-full justify-end">

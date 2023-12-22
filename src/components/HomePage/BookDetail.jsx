@@ -82,28 +82,28 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
                   </button>
 
                   {selectedBook.price && (
-                    <div className="flex mt-3 mb-5 space-x-20">
+                    <div className="flex mt-3 mb-5 space-x-20 book-decs">
                       <div className="text-gray-600">តម្លៃ:</div>
                       <div className="text-gray-600">{selectedBook.price}</div>
                     </div>
                   )}
 
                   {selectedBook.authorId && (
-                    <div className="flex mt-3 mb-5 space-x-20">
+                    <div className="flex mt-3 mb-5 space-x-20 book-decs">
                       <div className="text-gray-600">អ្នកនិពន្ធ:</div>
                       <div className="text-gray-600">{selectedBook.authorId}</div>
                     </div>
                   )}
 
                   {selectedBook.type && (
-                    <div className="flex mt-3 mb-5 space-x-20">
+                    <div className="flex mt-3 mb-5 space-x-20 book-decs">
                       <div className="text-gray-600">ប្រភេទ:</div>
                       <div className="text-gray-600">{selectedBook.type}</div>
                     </div>
                   )}
 
                   {selectedBook.date && (
-                    <div className="flex mt-3 space-x-20">
+                    <div className="flex mt-3 space-x-20 book-decs">
                       <div className="text-gray-600">ថ្ងៃខែឆ្នាំ:</div>
                       <div className="text-gray-600">{selectedBook.date}</div>
                     </div>
@@ -112,7 +112,7 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
               </div>
             )}
             {selectedBook.decs && (
-              <p className="text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10">
+              <p className="text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10 book-style">
                 {selectedBook.decs}
               </p>
             )}

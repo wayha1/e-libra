@@ -21,7 +21,7 @@ const categories = [
   { id: 8, name: "គណិតវិទ្យា", path: "/allgen/math" },
 ];
 const Sidebar = ({ handleGoBack, activeComponent }) => (
-  <div className="flex flex-col mt-5 w-[20%]">
+  <div className="flex flex-col mt-5 w-[20%] book-title">
     <button
       className="ml-4 rounded-l-3xl flex w-20 bg-blue-600 text-white text-center space-x-2 px-2 "
       onClick={handleGoBack}

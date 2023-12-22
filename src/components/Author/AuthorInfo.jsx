@@ -1,6 +1,6 @@
 // AuthorInfo.js
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function AuthorInfo() {
   const location = useLocation();
@@ -20,42 +20,41 @@ function AuthorInfo() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-4 mt-8 mb-8">
-      <div className="flex items-center justify-center h-full mb-6 ">
-        <p className="text-5xl text-green-500">អ្នកនិពន្ធ</p>
-      </div>
-
-      <img src={imgAuth} alt={authName} className="w-[500px] h-[500px] mx-auto mb-4 rounded-lg shadow-lg" />
-      <div className='flex justify-center space-x-20'>
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded-full focus:outline-none mb-2 
-          transition-all duration-300 ease-in-out transform hover:scale-105 active:bg-blue-600"
-          onClick={togglePersonalityVisibility}
-        >
-          Personality
-        </button>
-
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-full focus:outline-none mb-2 transition-all duration-300 ease-in-out
-        transform hover:scale-105 active:bg-blue-600"
-        onClick={togglePersonalityVisibility}
-        >
-          Work Detail
-        </button>
-      </div>
-
-      {showPersonality && (
-        <div className="p-4 rounded-md bg-gray-100">
-          <h2 className="text-2xl font-bold mb-2">ឈ្មោះ: {authName}</h2>
-          <p className="mb-2">ភេទ: {Gender}</p>
-          <p className="mb-2">ថ្ងៃខែឆ្នាំកំណើត: {DOB}</p>
-
-          {showFullDecs ? (
-            <p>{Decs}</p>
-          ) : (
-            <p className="mb-2">{Decs}</p>
-          )}
+    <div className="w-full h-[970px] overflow-y-auto">
+      <div className="max-w-5xl mx-auto p-4 mt-8 mb-8 ">
+        <div className="flex items-center justify-center h-full mb-6 ">
+          <p className="text-center text-5xl py-16 font-bold text-green-800 book-title">អ្នកនិពន្ធ</p>
         </div>
-      )}
+
+        <img src={imgAuth} alt={authName} className="w-[500px] h-[500px] mx-auto mb-4 rounded-lg shadow-lg" />
+        <div className="flex justify-center space-x-20">
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded-full focus:outline-none mb-2 
+          transition-all duration-300 ease-in-out transform hover:scale-105 active:bg-blue-600"
+            onClick={togglePersonalityVisibility}
+          >
+            Personality
+          </button>
+
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded-full focus:outline-none mb-2 transition-all duration-300 ease-in-out
+        transform hover:scale-105 active:bg-blue-600"
+            onClick={togglePersonalityVisibility}
+          >
+            Work Detail
+          </button>
+        </div>
+
+        {showPersonality && (
+          <div className="p-4 rounded-md bg-gray-100">
+            <h2 className="text-2xl font-bold mb-2 book-title">ឈ្មោះ: {authName}</h2>
+            <p className="mb-2 book-title ">ភេទ: {Gender}</p>
+            <p className="mb-2 book-title ">ថ្ងៃខែឆ្នាំកំណើត: {DOB}</p>
+
+            {showFullDecs ? <p>{Decs}</p> : <p className="mb-2 book-decs">{Decs}</p>}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

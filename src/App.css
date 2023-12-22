@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanuman&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Content&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Moul&family=Noto+Serif+Khmer:wght@500&display=swap');
 
 header {
   text-align: center;
@@ -10,6 +11,12 @@ header {
 .book-title {
   font-family: 'Hanuman', serif;
 }
+
 .book-decs {
   font-family: 'Content', sans-serif;
+}
+
+.book-style {
+  font-family: 'Moul', serif;
+  font-family: 'Noto Serif Khmer', serif;
 }

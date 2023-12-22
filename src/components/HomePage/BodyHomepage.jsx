@@ -123,9 +123,9 @@ const BodyHomepage = ({ selectedBook }) => {
     <>
       <section>
         <div className="w-full py-2">
-          <button className="p-5 w-full text-center underline text-3xl uppercase font-bold hover:text-cyan-800">
+          <h1 className="p-5 w-full text-center underline text-3xl uppercase font-bold hover:text-cyan-800 book-style">
             {"ពេញនិយម ឥឡូវ​នេះ"}
-          </button>
+          </h1>
         </div>
 
         <div className="bg-gray-100 z-10">
