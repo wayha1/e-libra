@@ -55,7 +55,7 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
   };
 
   return (
-    <div className="w-screen h-[1010px]">
+    <div className="w-screen h-[1010px] overflow-y-auto">
       <div>
         <div key={selectedBook.id}>
           <div className="overflow-hidden">

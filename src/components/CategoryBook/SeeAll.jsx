@@ -1,7 +1,7 @@
 // SeeAll.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 function SeeAll() {
@@ -36,18 +36,18 @@ function SeeAll() {
         // If not in the cart, add it
         await addDoc(cartsCollectionRef, selectedBook);
 
-        alert('Item added to cart!');
+        alert("Item added to cart!");
       } else {
         // If already in the cart, show a message or handle as needed
-        alert('Item already added to cart!');
+        alert("Item already added to cart!");
       }
     } catch (error) {
-      console.error('Error adding item to cart:', error);
+      console.error("Error adding item to cart:", error);
     }
   };
 
   return (
-    <div className="mt-8 mx-auto text-center">
+    <div className="mt-8 mx-auto h-[940px] overflow-y-auto">
       <div className="flex mb-6">
         {/* <Link
         to="/allgen"
@@ -59,11 +59,13 @@ function SeeAll() {
 
         {/* Title */}
         {/* <h2 className="text-3xl font-bold mb-4">Book Details</h2> */}
-        <p className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5">{selectedBook.title}</p>
+        <p className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5 text-center">
+          {selectedBook.title}
+        </p>
       </div>
 
       {/* Book details container */}
-      <div className="flex bg-green-700 p-4 rounded-md items-center justify-center w-full h-[400px]">
+      <div className="flex bg-gray-200 p-4 rounded-md items-center justify-center w-full h-[400px]">
         {/* Book image on the left */}
         <img
           src={selectedBook.img}
@@ -73,9 +75,9 @@ function SeeAll() {
 
         <div className="grid items-center">
           {/* Button: Add to Cart or Free */}
-          {selectedBook.price === 'free' ? (
+          {selectedBook.price === "free" ? (
             <button
-              className="bg-green-300 text-white font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
+              className="bg-green-300 text-gray-600 font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
               disabled // Disable the button for free items
             >
               Read
@@ -94,18 +96,18 @@ function SeeAll() {
           <div className="flex space-x-20">
             {/* Left-aligned labels */}
             <div className="text-left">
-              <p className="text-white mb-3">តម្លៃ:</p>
-              <p className="text-white mb-3">អ្នកនិពន្ធ: </p>
-              <p className="text-white mb-3">ប្រភេទ:</p>
-              <p className="text-white mb-3">ថ្ងៃខែឆ្នាំកំណើត:</p>
+              <p className="text-gray-600 mb-3">តម្លៃ:</p>
+              <p className="text-gray-600 mb-3">អ្នកនិពន្ធ: </p>
+              <p className="text-gray-600 mb-3">ប្រភេទ:</p>
+              <p className="text-gray-600 mb-3">ថ្ងៃខែឆ្នាំកំណើត:</p>
             </div>
 
             {/* Right-aligned values */}
             <div className="text-right">
-              <p className="text-white mb-3">{selectedBook.price} KHR</p>
-              <p className="text-white mb-3">{selectedBook.authorId}</p>
-              <p className="text-white mb-3">{selectedBook.type}</p>
-              <p className="text-white mb-3">{selectedBook.date}</p>
+              <p className="text-gray-600 mb-3">{selectedBook.price} KHR</p>
+              <p className="text-gray-600 mb-3">{selectedBook.authorId}</p>
+              <p className="text-gray-600 mb-3">{selectedBook.type}</p>
+              <p className="text-gray-600 mb-3">{selectedBook.date}</p>
             </div>
           </div>
         </div>
