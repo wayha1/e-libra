@@ -1,69 +1,52 @@
-// AllCategory.jsx
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useNavigate } from "react-router-dom"; // Change this line
+import { useNavigate } from "react-router-dom";
 
 const AllCategory = () => {
   const [allBooks, setAllBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 8;
-  const navigate = useNavigate();
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+  const booksPerPage = 8;
+
+  const fetchData = async () => {
+    try {
+      // Fetch the data for all categories
+      const bacIIQuery = query(collection(db, "Books", "All_Genre", "bacII"));
+      const comicQuery = query(collection(db, "Books", "All_Genre", "Comics"));
+      const GeneralQuery = query(collection(db, "Books", "All_Genre", "GeneralBook"));
+      const NovelQuery = query(collection(db, "Books", "All_Genre", "NovelBook"));
+      const KhmerQuery = query(collection(db, "Books", "All_Genre", "KhmerBook"));
+
+      const [bacIIDocs, comicDocs, GeneralDocs, NovelDocs, KhmerDocs] = await Promise.all([
+        getDocs(bacIIQuery),
+        getDocs(comicQuery),
+        getDocs(GeneralQuery),
+        getDocs(NovelQuery),
+        getDocs(KhmerQuery),
+      ]);
+
+      const bacIIBooks = bacIIDocs.docs.map((doc) => ({ ...doc.data(), category: "bacII" }));
+      const comicBooks = comicDocs.docs.map((doc) => ({ ...doc.data(), category: "Comics" }));
+      const GeneralBook = GeneralDocs.docs.map((doc) => ({ ...doc.data(), category: "GeneralBook" }));
+      const NovelBook = NovelDocs.docs.map((doc) => ({ ...doc.data(), category: "NovelBook" }));
+      const KhmerBook = KhmerDocs.docs.map((doc) => ({ ...doc.data(), category: "KhmerBook" }));
+
+      const combinedBooks = [...bacIIBooks, ...comicBooks, ...GeneralBook, ...NovelBook, ...KhmerBook];
+
+      const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
+
+      setAllBooks(sortedBooks);
+      setFilteredBooks(sortedBooks); // Initialize filteredBooks with all books
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch the data for BacII category
-        const bacIIQuery = query(collection(db, "Books", "All_Genre", "bacII"));
-        const bacIIDocs = await getDocs(bacIIQuery);
-        const bacIIBooks = bacIIDocs.docs.map((doc) => ({
-          ...doc.data(),
-          category: "bacII",
-        }));
-
-        // Fetch the data for Comic category
-        const comicQuery = query(collection(db, "Books", "All_Genre", "Comics"));
-        const comicDocs = await getDocs(comicQuery);
-        const comicBooks = comicDocs.docs.map((doc) => ({
-          ...doc.data(),
-          category: "Comics",
-        }));
-
-        // Fetch the data for GeneralBook category
-        const GeneralQuery = query(collection(db, "Books", "All_Genre", "GeneralBook"));
-        const GeneralDocs = await getDocs(GeneralQuery);
-        const GeneralBook = GeneralDocs.docs.map((doc) => ({
-          ...doc.data(),
-          category: "GeneralBook",
-        }));
-
-        // Fetch the data for NovelBook category
-        const NovelQuery = query(collection(db, "Books", "All_Genre", "NovelBook"));
-        const NovelDocs = await getDocs(NovelQuery);
-        const NovelBook = NovelDocs.docs.map((doc) => ({
-          ...doc.data(),
-          category: "NovelBook",
-        }));
-        // Fetch the data for KhmerBook category
-        const KhmerQuery = query(collection(db, "Books", "All_Genre", "KhmerBook"));
-        const KhmerDocs = await getDocs(KhmerQuery);
-        const KhmerBook = KhmerDocs.docs.map((doc) => ({
-          ...doc.data(),
-          category: "KhmerBook",
-        }));
-
-        // Combine both sets of books into a single array
-        const combinedBooks = [...bacIIBooks, ...comicBooks, ...GeneralBook, ...NovelBook, ...KhmerBook];
-
-        const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
-
-        setAllBooks(sortedBooks);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -74,7 +57,7 @@ const AllCategory = () => {
 
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = allBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
 
   const renderBooks = currentBooks.map((book, index) => (
     <button
@@ -84,7 +67,7 @@ const AllCategory = () => {
       <img
         src={book.img}
         alt={book.title}
-        className="w-[200px] h-[250px] hover:scale-95  "
+        className="w-[200px] h-[250px] hover:scale-95"
         onClick={() => handleReadNowClick(book)}
       />
       <div className="text-center">
@@ -96,14 +79,50 @@ const AllCategory = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleSearch = async () => {
+    try {
+      const searchResult = allBooks.filter((book) =>
+        book.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setFilteredBooks(searchResult);
+      setCurrentPage(1);
+    } catch (error) {
+      console.error("Error searching for books:", error.message);
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    setFilteredBooks(allBooks);
+    setCurrentPage(1);
+  };
+
   return (
     <div className="z-20 overflow-y-auto">
       <h2 className="text-center font-mono underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
         មាតិកា ទាំងអស់
       </h2>
-      <div className="h-[750px] gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 mx-20 my-5">
+      <div className="flex mb-4 pr-4 w-full justify-end">
+        <input
+          type="text"
+          placeholder="Search Book"
+          className="p-2 border rounded-md mr-2"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button className="p-2 bg-blue-500 text-white rounded-md" onClick={handleSearch}>
+          Search
+        </button>
+        <button className="p-2 bg-gray-500 text-white rounded-md ml-2" onClick={handleClearSearch}>
+          Clear
+        </button>
+      </div>
+
+      <div className="h-[700px] gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 mx-20 my-5">
         {renderBooks}
       </div>
+
       <div className="flex justify-center my-4">
         <button
           onClick={() => paginate(currentPage - 1)}
