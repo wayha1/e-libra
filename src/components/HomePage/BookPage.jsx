@@ -28,13 +28,14 @@ const BookPage = () => {
     <div className="flex h-[1000px] justify-center items-center relative">
       <Document file={pages.BookPdf} onLoadSuccess={() => setCurrentPage(1)}>
         <Page pageNumber={currentPage} className="flex" />
+        
       </Document>
 
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 flex justify-between mb-8">
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
-          className="bg-gray-600 text-white px-4 py-2 rounded-md"
+          className="bg-gray-600 text-white px-4 py-2 rounded-md "
         >
           Prev Page
         </button>
@@ -50,7 +51,7 @@ const BookPage = () => {
   );
 
   return (
-    <div className="flex h-[1000px] justify-center items-center bg-gray-50">
+    <div className="flex h-[1000px] justify-center items-center bg-gray-600">
       {pages.BookPdf && renderPdf()}
     </div>
   );

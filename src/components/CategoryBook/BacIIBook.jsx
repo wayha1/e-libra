@@ -73,6 +73,8 @@ const BacIIBook = () => {
     navigate("/allgen/bacll/see-all", { state: { selectedBook: item } }); // Change this line
   };
 
+  
+
   return (
     <section className="container mx-auto mt-8 mb-10">
       <div className="ml-10 mb-8">
@@ -80,19 +82,24 @@ const BacIIBook = () => {
       </div>
       <div className="grid grid-cols-4 grid-rows-2 justify-items-center justify-center gap-4">
         {currentItems.map((item, index) => (
-          <div key={index} className="mb-4">
-            <img src={item.img} alt={`Bacll-${index}`} className="w-48 h-58 rounded-lg" />
-            <div className="mt-2">
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-sm mb-2">{item.price}</p>
+          <div key={index} className="mb-4 bg-gray-100">
+            <img 
+            src={item.img} 
+            alt={`Bacll-${index}`} 
+            className="w-[200px] h-[250px] hover:scale-95 " 
+            onClick={() => handleReadNowClick(item)}
+            />
+            <div className="text-center">
+              <h3 className="text-xl font-title font-bold whitespace-nowrap overflow-hidden">{item.title}</h3>
+              <p className="text-md">{item.price}</p>
             </div>
-            {/* Add your other Bacll-related content here */}
+            {/* Add your other Bacll-related content here
             <button
               onClick={() => handleReadNowClick(item)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Read now
-            </button>
+            </button> */}
           </div>
         ))}
       </div>
