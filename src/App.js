@@ -12,6 +12,7 @@ import { AuthorPage } from "./components/Author/AuthorPage";
 import BookDetail from "./components/HomePage/BookDetail";
 import SeeAll from "./components/CategoryBook/SeeAll";
 import AuthorInfo from "./components/Author/AuthorInfo";
+import BookPage from "./components/HomePage/BookPage";
 
 const App = ({ children }) => {
   return (
@@ -32,10 +33,8 @@ const App = ({ children }) => {
         <Route path="/allgen/novel/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/study/see-all" element={<SeeAll />}></Route>
         <Route path="/authorInfo" element={<AuthorInfo />}></Route>
-        {/* <Route path="/allGen/bacII" element={<BacIIBook />}></Route>
-        <Route path="/comic" element={<ComicBook />}></Route>
-        <Route path="/novel" element={<NovelBook />}></Route>
-        <Route path="/study" element={<StudyBook />}></Route> */}
+        <Route path="/bookview" element={<BookPage />}></Route>
+        <Route path="/book-detail/:bookId/" element={<BookDetail />}></Route>
       </Routes>
     </>
   );
