@@ -1,16 +1,13 @@
-// SeeAll.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { collection, doc, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 function SeeAll() {
-  // Access the location to get the state passed from the AllCategory component
   const location = useLocation();
   const selectedBook = location.state?.selectedBook;
 
   if (!selectedBook) {
-    // Handle the case where there is no selected book
     return (
       <div>
         <p>No book selected.</p>
@@ -24,21 +21,17 @@ function SeeAll() {
   const handleAddToCart = async (selectedBook) => {
     try {
       const cartsCollectionRef = collection(db, "addtoCart");
-
-      // Check if the item is already in the cart
       const querySnapshot = await getDocs(cartsCollectionRef);
       const isItemInCart = querySnapshot.docs.some((doc) => {
         const cartItem = doc.data();
-        return cartItem.title === selectedBook.title; // Assuming 'title' is a unique identifier for the item
+        return cartItem.title === selectedBook.title;
       });
 
       if (!isItemInCart) {
-        // If not in the cart, add it
         await addDoc(cartsCollectionRef, selectedBook);
 
         alert("Item added to cart!");
       } else {
-        // If already in the cart, show a message or handle as needed
         alert("Item already added to cart!");
       }
     } catch (error) {
