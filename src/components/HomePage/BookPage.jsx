@@ -49,14 +49,14 @@ const BookPage = () => {
           <button
             onClick={handlePreviousPage}
             disabled={currentPage <= 1}
-            className="bg-gray-600 text-white px-4 py-2 rounded-md"
+            className="bg-white text-gray-700 px-4 py-2 rounded-md"
           >
             Prev Page
           </button>
           <button
             onClick={handleNextPage}
             disabled={currentPage + 1 > totalPages}
-            className="bg-gray-600 text-white px-4 py-2 rounded-md"
+            className="bg-white text-gray-700 px-4 py-2 rounded-md"
           >
             Next Page
           </button>
