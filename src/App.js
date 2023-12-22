@@ -11,29 +11,25 @@ import AllgenBook from "./components/CategoryBook/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
 import BookDetail from "./components/HomePage/BookDetail";
 import SeeAll from "./components/CategoryBook/SeeAll";
-import AuthorInfo from "./components/Author/AuthorInfo";
 
 const App = ({ children }) => {
   return (
     <>
-      {/* <Navbar /> */}
       <Routes>
         {children}
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/aboutus" element={<AboutUs />}></Route>
         <Route path="/author" element={<AuthorPage />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/allgen/*" element={<AllgenBook />} />
-        <Route path="/book-detail/:bookId" element={<BookDetail />} />
         <Route path="/allgen/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/bacll/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/comic/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/novel/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/study/see-all" element={<SeeAll />}></Route>
-        <Route path="/authorInfo" element={<AuthorInfo />}></Route>
         {/* <Route path="/allGen/bacII" element={<BacIIBook />}></Route>
         <Route path="/comic" element={<ComicBook />}></Route>
         <Route path="/novel" element={<NovelBook />}></Route>
