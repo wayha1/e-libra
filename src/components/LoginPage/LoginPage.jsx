@@ -13,10 +13,8 @@ const LoginPage = () => {
   const getData = async () => {
     const valRef = collection(txtDB, `LogoData`);
     const dataDb = await getDocs(valRef);
-    const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id })
-    );
+    const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
     setData(allData);
-    
   };
 
   useEffect(() => {
@@ -43,20 +41,21 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="Login z-50">
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-300">
-        <div className="flex items-center">
+    <div className="z-40 h-[980px] bg-gray-100">
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex items-center ">
           <img
-             src={require("./Logo.png")}
+            src={require("./Logo.png")}
             alt="logo"
-            width={100}
+            width={50}
             height={50}
-            className=" hover:bg-gray-300 hover:scale-75"
+            className=" hover:bg-gray-100 hover:scale-75"
           />
           <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
         </div>
+
         <form onSubmit={handleLogin}>
-          <main className=" flex-col items-center justify-center bg-white rounded-3xl h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[550px]">
+          <main className="flex-col items-center justify-center bg-white rounded-3xl h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[550px]">
             <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">LogIn</h1>
 
             <div className="username mt-10 mx-[10%]">
