@@ -15,8 +15,6 @@ const LoadingPage = () => {
       <div className="flex w-full h-full justify-center items-center">
         {isLoading ? (
           <div className="flex flex-col lg:text-5xl text-gray-600 font-semibold tracking-wide font-mono ml-4 animate-pulse">
-            <p className="loader"></p>
-
             <img
               src={require("./LoginPage/Logo.png")}
               alt="logo"
@@ -24,6 +22,7 @@ const LoadingPage = () => {
               height={120}
               className="items-center"
             />
+            <p className="loader"></p>
           </div>
         ) : (
           <div className="flex lg:text-5xl text-gray-600 font-semibold tracking-wide font-mono ml-4">
