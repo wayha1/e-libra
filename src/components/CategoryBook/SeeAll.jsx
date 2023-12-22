@@ -1,6 +1,8 @@
 // SeeAll.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
+import { db } from "../../firebase";
 
 function SeeAll() {
   // Access the location to get the state passed from the AllCategory component
@@ -18,6 +20,31 @@ function SeeAll() {
       </div>
     );
   }
+
+  const handleAddToCart = async (selectedBook) => {
+    try {
+      const cartsCollectionRef = collection(db, "addtoCart");
+
+      // Check if the item is already in the cart
+      const querySnapshot = await getDocs(cartsCollectionRef);
+      const isItemInCart = querySnapshot.docs.some((doc) => {
+        const cartItem = doc.data();
+        return cartItem.title === selectedBook.title; // Assuming 'title' is a unique identifier for the item
+      });
+
+      if (!isItemInCart) {
+        // If not in the cart, add it
+        await addDoc(cartsCollectionRef, selectedBook);
+
+        alert('Item added to cart!');
+      } else {
+        // If already in the cart, show a message or handle as needed
+        alert('Item already added to cart!');
+      }
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+  };
 
   return (
     <div className="mt-8 mx-auto text-center">
@@ -45,13 +72,23 @@ function SeeAll() {
         />
 
         <div className="grid items-center">
-          {/* Button: Add to Cart */}
-          <button
-            className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
-          font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
-          >
-            Add to Cart
-          </button>
+          {/* Button: Add to Cart or Free */}
+          {selectedBook.price === 'free' ? (
+            <button
+              className="bg-green-300 text-white font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
+              disabled // Disable the button for free items
+            >
+              Read
+            </button>
+          ) : (
+            <button
+              className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
+                font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
+              onClick={() => handleAddToCart(selectedBook)}
+            >
+              Add to Cart
+            </button>
+          )}
 
           {/* Book information on the right */}
           <div className="flex space-x-20">

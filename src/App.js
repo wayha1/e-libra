@@ -11,7 +11,8 @@ import AllgenBook from "./components/CategoryBook/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
 import BookDetail from "./components/HomePage/BookDetail";
 import SeeAll from "./components/CategoryBook/SeeAll";
-import BookPage from "./components/HomePage/BookPage";
+import AuthorInfo from "./components/Author/AuthorInfo";
+
 const App = ({ children }) => {
   return (
     <>
@@ -30,8 +31,11 @@ const App = ({ children }) => {
         <Route path="/allgen/comic/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/novel/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/study/see-all" element={<SeeAll />}></Route>
-        <Route path="/book-detail/:bookId" element={<BookDetail />} />
-        <Route path="/bookview" element={<BookPage />} />
+        <Route path="/authorInfo" element={<AuthorInfo />}></Route>
+        {/* <Route path="/allGen/bacII" element={<BacIIBook />}></Route>
+        <Route path="/comic" element={<ComicBook />}></Route>
+        <Route path="/novel" element={<NovelBook />}></Route>
+        <Route path="/study" element={<StudyBook />}></Route> */}
       </Routes>
     </>
   );
