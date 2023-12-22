@@ -23,7 +23,7 @@ const ComicBook = () => {
 
         const bookDataPromises = data.map(async (elem) => {
           try {
-            const BookPop = collection(db, `Books/${elem.id}/Comics`);
+            const BookPop = collection(db, `Books/${elem.id}/Comic`);
             const DataBooks = await getDocs(BookPop);
             const BookData = DataBooks.docs.map((bookDoc) => ({
               ...bookDoc.data(),
@@ -77,10 +77,10 @@ const ComicBook = () => {
   };
 
   return (
-    <section className="container mx-auto mt-8 mb-10">
-      <div className="ml-10 mb-8">
-        <h1 className="text-4xl uppercase font-bold hover:text-cyan-800 rounded-xl"> Comic </h1>
-      </div>
+    <section className="z-20 container mx-auto mt-8 mb-10">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+        សៀវភៅ ជីវចល
+      </h2>
       <div className="grid grid-cols-4 grid-rows-2 justify-items-center justify-center">
         {currentItems.map((item, index) => (
           <div key={index} className="mb-4">
