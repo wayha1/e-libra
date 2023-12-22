@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-// import { db } from "../../firebase";
 import { db } from "../../firebase";
 import { CiCreditCard1 } from "react-icons/ci";
+import LoadingPage from "../LoadingPage";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Introduce the loading state
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
-  // const [selectedItemDetails, setSelectedItemDetails] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleIncrease = async (itemId) => {
@@ -71,10 +70,7 @@ const CartPage = () => {
   };
 
   const handleImageClick = (item, event) => {
-    // Check if the clicked element is a button
     const isButton = event.target.tagName.toLowerCase() === "button";
-
-    // Toggle selection only if the clicked element is not a button
     if (!isButton) {
       setSelectedItems((prevSelectedItems) =>
         prevSelectedItems.includes(item.id)
@@ -87,6 +83,7 @@ const CartPage = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
+        setLoading(true);
         const sample = collection(db, "addtoCart");
         const snapshot = await getDocs(sample);
         setCartItems(
@@ -97,74 +94,83 @@ const CartPage = () => {
         );
       } catch (error) {
         console.error("Error fetching cart items:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCartItems();
   }, [showConfirmationModal]);
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + parseFloat(item.price) * (item.quantity || 1),
-    0
-  );
+  const total = cartItems.reduce((acc, item) => acc + parseFloat(item.price) * (item.quantity || 1), 0);
 
   return (
-    <div className="container mx-auto mt-10 z-20 overflow-y-auto h-[1000px]">
-      <h1 className="text-4xl font-bold mb-6">Cart Items</h1>
-      {cartItems.map((item) => (
-        <div
-          key={item.id}
-          className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
-            selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
-          }`}
-          onClick={(event) => handleImageClick(item, event)}
-        >
-          <img
-            src={item.img}
-            alt="Book"
-            className={`w-30 h-40 ml-3 ${selectedItems.includes(item.id) ? "border-4 border-green-500" : ""}`}
-          />
-          <div className="flex-grow ml-3">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-xl font-bold">{item.title}</h2>
-                <p className="text-gray-500">{item.price}</p>
-                <p className="text-gray-500">Quantity: {item.quantity || 1}</p>
-              </div>
+    <div className="overflow-y-auto z-20 ">
+      {loading ? (
+        <LoadingPage /> // Show LoadingPage while data is being fetched
+      ) : (
+        <>
+          <div className="mx-auto mt-10 px-10 py-4 h-[950px]">
+            {cartItems.map((item) => (
+              <div
+                key={item.id}
+                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
+                  selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
+                }`}
+                onClick={(event) => handleImageClick(item, event)}
+              >
+                <img
+                  src={item.img}
+                  alt="Book"
+                  className={`w-30 h-40 ml-3 ${
+                    selectedItems.includes(item.id) ? "border-4 border-green-500" : ""
+                  }`}
+                />
+                <div className="flex-grow ml-3">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h2 className="text-xl font-bold">{item.title}</h2>
+                      <p className="text-gray-500">{item.price}</p>
+                      <p className="text-gray-500">Quantity: {item.quantity || 1}</p>
+                    </div>
 
-              <div className="flex flex-col space-y-2 mr-3">
-                <div>
-                  <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-full mr-2"
-                    onClick={() => {
-                      handleIncrease(item.id);
-                    }}
-                  >
-                    +
-                  </button>
-                  <button
-                    className="bg-gray-500 text-white px-4 py-2 rounded-full"
-                    onClick={() => handleDecrease(item.id)}
-                  >
-                    -
-                  </button>
+                    <div className="flex flex-col space-y-2 mr-3">
+                      <div>
+                        <button
+                          className="bg-blue-500 text-white px-4 py-2 rounded-full mr-2"
+                          onClick={() => {
+                            handleIncrease(item.id);
+                          }}
+                        >
+                          +
+                        </button>
+                        <button
+                          className="bg-gray-500 text-white px-4 py-2 rounded-full"
+                          onClick={() => handleDecrease(item.id)}
+                        >
+                          -
+                        </button>
+                      </div>
+                      <button
+                        className="bg-red-600 text-white rounded-xl p-1"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <button
-                  className="bg-red-600 text-white rounded-xl p-1"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  Clear
-                </button>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
-      ))}
+        </>
+      )}
+
       <div className="flex justify-end mb-5 text-xl font-semibold mt-5 space-y-5">
         <div className="flex-col  space-x-3">
           Total Price: {total} {"រៀល"}
-          <button className="flex bg-blue-500 px-3 py-2 text-white rounded-lg shadow-lg border-2 hover:bg-blue-600">
-            <CiCreditCard1 className="flex mt-[5px]" /> Pay now
+          <button className="flex bg-blue-500 px-5 py-2 text-white rounded-lg shadow-lg border-2 hover:bg-blue-600">
+            <CiCreditCard1 className="flex mt-[5px] mr-5" /> Pay now
           </button>
         </div>
       </div>
@@ -189,7 +195,6 @@ const CartPage = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };
