@@ -54,7 +54,7 @@ const HomePage = () => {
         <>
           {/* Banner */}
           <section id="Banner ">
-            <main className="z-10 flex w-full h-[900px] bg-gray-100">
+            <main className="z-20 flex w-full h-[900px] bg-gray-100">
               {/* desktop mode */}
               {Banner.map((data, i) => (
                 <div

@@ -129,7 +129,7 @@ const BodyHomepage = ({ selectedBook }) => {
         </div>
 
         <div className="bg-gray-100 z-10">
-          <div className="flex items-center justify-between relative px-7 h-[400px]">
+          <div className="flex items-center justify-between relative px-7 h-[400px] md:w-full">
             <button
               onClick={() => slidePrev()}
               className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${
@@ -137,16 +137,16 @@ const BodyHomepage = ({ selectedBook }) => {
               }`}
               disabled={currentData === 0}
             >
-              <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1 ml-10" />
+              <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1" />
             </button>
 
-            <div className="flex gap-x-20 xl:gap-x-10">
+            <div className="flex lg:gap-x-20 xl:gap-x-20 max-lg:gap-x-2 md:gap-x-5 max-sm:gap-x-8">
               {BookData.slice(
                 currentData,
-                currentData + (window.innerWidth < 450 ? 1 : window.innerWidth < 900 ? 2 : 4)
+                currentData + (window.innerWidth < 500 ? 2 : window.innerWidth < 900 ? 3 : 4)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl w-full">
-                  <div className="flex flex-col bg-white items-center shadow-lg h-[250px] w-[200px]">
+                  <div className="flex flex-col bg-white items-center shadow-lg h-[250px] w-[200px] md:w-[150px] max-sm:w-[120px]">
                     {data.img && (
                       <img
                         onClick={(e) => {
@@ -154,7 +154,7 @@ const BodyHomepage = ({ selectedBook }) => {
                         }}
                         src={data.img}
                         alt="image-book"
-                        className="w-[200px] h-[250px] hover:scale-110 duration-300"
+                        className="w-[200px] h-[250px] max-lg:w-[150px] max-sm:w-[120px] hover:scale-110 duration-300"
                       />
                     )}
 
