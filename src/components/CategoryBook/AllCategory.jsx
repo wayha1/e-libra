@@ -40,7 +40,7 @@ const AllCategory = () => {
       const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
 
       setAllBooks(sortedBooks);
-      setFilteredBooks(sortedBooks); // Initialize filteredBooks with all books
+      setFilteredBooks(sortedBooks);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -114,7 +114,7 @@ const AllCategory = () => {
         <button className="p-2 bg-blue-500 text-white rounded-md" onClick={handleSearch}>
           Search
         </button>
-        <button className="p-2 bg-gray-500 text-white rounded-md ml-2" onClick={handleClearSearch}>
+        <button className="p-2 bg-red-500 text-white rounded-md ml-2" onClick={handleClearSearch}>
           Clear
         </button>
       </div>
@@ -127,14 +127,14 @@ const AllCategory = () => {
         <button
           onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 mx-2 text-sm font-semibold text-white bg-blue-500 rounded disabled:opacity-50"
+          className="px-4 py-2 mx-2 text-sm font-semibold text-white bg-gray-700 rounded disabled:opacity-50"
         >
           Prev
         </button>
         <button
           onClick={() => paginate(currentPage + 1)}
           disabled={indexOfLastBook >= allBooks.length}
-          className="px-4 py-2 mx-2 text-sm font-semibold text-white bg-blue-500 rounded disabled:opacity-50"
+          className="px-4 py-2 mx-2 text-sm font-semibold text-white bg-gray-700 rounded disabled:opacity-50"
         >
           Next
         </button>
