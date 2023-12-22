@@ -145,7 +145,7 @@ const BodyHomepage = ({ selectedBook }) => {
                 currentData,
                 currentData + (window.innerWidth < 500 ? 2 : window.innerWidth < 900 ? 3 : 4)
               ).map((data, i) => (
-                <div key={i} className="hover:shadow-xl w-full">
+                <div key={i} className="hover:shadow-xl w-full overflow-hidden">
                   <div className="flex flex-col bg-white items-center shadow-lg h-[250px] w-[200px] md:w-[150px] max-sm:w-[120px]">
                     {data.img && (
                       <img
@@ -154,12 +154,12 @@ const BodyHomepage = ({ selectedBook }) => {
                         }}
                         src={data.img}
                         alt="image-book"
-                        className="w-[200px] h-[250px] max-lg:w-[150px] max-sm:w-[120px] hover:scale-110 duration-300"
+                        className="w-[200px] h-[250px] md:w-[150px] max-sm:w-[120px] hover:scale-110 duration-300"
                       />
                     )}
 
                     {data.title && (
-                      <h1 className="book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 ">
+                      <h1 className="book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 overflow-hidden">
                         {data.title}
                       </h1>
                     )}
