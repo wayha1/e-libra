@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,7 @@ const AllCategory = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("title");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const booksPerPage = 8;
@@ -17,13 +18,15 @@ const AllCategory = () => {
       // Fetch the data for all categories
       const bacIIQuery = query(collection(db, "Books", "All_Genre", "bacII"));
       const comicQuery = query(collection(db, "Books", "All_Genre", "Comics"));
+      const comdyQuery = query(collection(db, "Books", "All_Genre", "Comdy"));
       const GeneralQuery = query(collection(db, "Books", "All_Genre", "GeneralBook"));
       const NovelQuery = query(collection(db, "Books", "All_Genre", "NovelBook"));
       const KhmerQuery = query(collection(db, "Books", "All_Genre", "KhmerBook"));
 
-      const [bacIIDocs, comicDocs, GeneralDocs, NovelDocs, KhmerDocs] = await Promise.all([
+      const [bacIIDocs, comicDocs, GeneralDocs, NovelDocs, KhmerDocs, comdyDocs] = await Promise.all([
         getDocs(bacIIQuery),
         getDocs(comicQuery),
+        getDocs(comdyQuery),
         getDocs(GeneralQuery),
         getDocs(NovelQuery),
         getDocs(KhmerQuery),
@@ -31,11 +34,19 @@ const AllCategory = () => {
 
       const bacIIBooks = bacIIDocs.docs.map((doc) => ({ ...doc.data(), category: "bacII" }));
       const comicBooks = comicDocs.docs.map((doc) => ({ ...doc.data(), category: "Comics" }));
+      const comdyBook = comdyDocs.docs.map((doc) => ({ ...doc.data(), category: "Comdy" }));
       const GeneralBook = GeneralDocs.docs.map((doc) => ({ ...doc.data(), category: "GeneralBook" }));
       const NovelBook = NovelDocs.docs.map((doc) => ({ ...doc.data(), category: "NovelBook" }));
       const KhmerBook = KhmerDocs.docs.map((doc) => ({ ...doc.data(), category: "KhmerBook" }));
 
-      const combinedBooks = [...bacIIBooks, ...comicBooks, ...GeneralBook, ...NovelBook, ...KhmerBook];
+      const combinedBooks = [
+        ...bacIIBooks,
+        ...comicBooks,
+        ...comdyBook,
+        ...GeneralBook,
+        ...NovelBook,
+        ...KhmerBook,
+      ];
 
       const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
 
@@ -73,13 +84,14 @@ const AllCategory = () => {
       <div className="text-center">
         <p className="text-xl font-title font-bold whitespace-nowrap overflow-hidden">{book.title}</p>
         <p className="text-md">{book.price}</p>
+        {filterType === "author" && <p className="text-md">{book.authorId}</p>}
       </div>
     </button>
   ));
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleSearch = async () => {
+  const searchByTitle = () => {
     try {
       const searchResult = allBooks.filter((book) =>
         book.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -88,10 +100,35 @@ const AllCategory = () => {
       setFilteredBooks(searchResult);
       setCurrentPage(1);
     } catch (error) {
-      console.error("Error searching for books:", error.message);
+      console.error("Error searching by title:", error.message);
     }
   };
 
+  // Function to search by author
+  const searchByAuthor = () => {
+    try {
+      const searchResult = allBooks.filter((book) =>
+        book.authorId.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setFilteredBooks(searchResult);
+      setCurrentPage(1);
+    } catch (error) {
+      console.error("Error searching by author:", error.message);
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      if (filterType === "title") {
+        searchByTitle();
+      } else if (filterType === "author") {
+        searchByAuthor();
+      }
+    } catch (error) {
+      console.error("Error searching for books:", error.message);
+    }
+  };
   const handleClearSearch = () => {
     setSearchTerm("");
     setFilteredBooks(allBooks);
@@ -106,11 +143,19 @@ const AllCategory = () => {
       <div className="flex mb-4 pr-4 w-full justify-end">
         <input
           type="text"
-          placeholder="Search Book"
+          placeholder={filterType === "title" ? "Search Title" : "Search Author"}
           className="p-2 border rounded-md mr-2"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <select
+          value={filterType}
+          onChange={(e) => setFilterType(e.target.value)}
+          className="p-2 border rounded-md mr-2"
+        >
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+        </select>
         <button className="p-2 bg-blue-500 text-white rounded-md" onClick={handleSearch}>
           Search
         </button>
