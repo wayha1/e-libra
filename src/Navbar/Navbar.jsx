@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
@@ -30,6 +30,19 @@ const Navbar = () => {
       behavior: "smooth",
     });
   };
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+  // function clickToTop() {
+  //   const { pathname } = useLocation();
+  //   useEffect(() => {
+  //     window.scrollTo({ top: 0 });
+  //   }, [pathname]);
+  // }
   return (
     <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-100 shadow-sm">
       <div className="container mx-auto flex">
@@ -85,6 +98,7 @@ const Navbar = () => {
                 <BsCartPlus className="mt-1 -translate-x-2" />
                 Cart
               </Link>
+
               {/* Integrated Account component */}
               <div className="relative">
                 <img
@@ -139,6 +153,7 @@ const Navbar = () => {
                 ? "hidden fixed left-[-100%]"
                 : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 absolute"
             }`}
+            onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
               <Link to="/" className="hover:shadow-full flex flex-col" onClick={handleNav}>
@@ -156,7 +171,7 @@ const Navbar = () => {
                   <li className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
                     <Link
                       to={"/allgen"}
-                      onClick={scrollToTop}
+                      onClick={handleNav}
                       className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
                     >
                       Category Book

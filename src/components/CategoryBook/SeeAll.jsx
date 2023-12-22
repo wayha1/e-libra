@@ -96,6 +96,7 @@ function SeeAll() {
               <p className="text-gray-600 mb-3">អ្នកនិពន្ធ: </p>
               <p className="text-gray-600 mb-3">ប្រភេទ:</p>
               <p className="text-gray-600 mb-3">ថ្ងៃខែឆ្នាំកំណើត:</p>
+              <p className="text-gray-600 mb-3">Rating</p>
             </div>
 
             <div className="text-right">
@@ -103,7 +104,7 @@ function SeeAll() {
               <p className="text-gray-600 mb-3">{selectedBook.authorId}</p>
               <p className="text-gray-600 mb-3">{selectedBook.type}</p>
               <p className="text-gray-600 mb-3">{selectedBook.date}</p>
-              <Rating />
+              <p className="text-gray-600 mb-3"><Rating /></p>
             </div>
           </div>
         </div>
