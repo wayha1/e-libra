@@ -103,9 +103,10 @@ const CartPage = () => {
     fetchCartItems();
   }, [showConfirmationModal]);
 
-  const total = cartItems.reduce((acc, item) => acc + parseInt(item.price, 10) * (item.quantity || 1), 0);
-
-  
+  const total = cartItems.reduce(
+    (acc, item) => acc + parseFloat(item.price) * (item.quantity || 1),
+    0
+  );
 
   return (
     <div className="container mx-auto mt-10 z-20 overflow-y-auto h-[1000px]">
