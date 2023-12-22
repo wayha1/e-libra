@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
-import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
-import { BiBookReader, BiSolidCartAdd } from "react-icons/bi";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { collection, getDocs, addDoc } from "firebase/firestore";
+import { BiBookReader } from "react-icons/bi";
 import { db } from "../../firebase";
 
 const BookDetail = ({ bookData, closeBook, setReadBook }) => {
   const { bookId } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const [selectedBook, setSelectedBook] = useState(null);
-  //const [addedToCart, setAddedToCart] = useState([]);
 
   useEffect(() => {
     if (location.state && location.state.selectedBook) {
@@ -22,6 +22,7 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
         setSelectedBook(null);
       }
     }
+    console.log(selectedBook);
   }, [bookData, bookId, location.state]);
 
   if (!selectedBook) {
@@ -31,8 +32,6 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
   const handleAddToCart = async (selectedBook) => {
     try {
       const cartsCollectionRef = collection(db, "addtoCart");
-
-      // Check if the item is already in the cart
       const querySnapshot = await getDocs(cartsCollectionRef);
       const isItemInCart = querySnapshot.docs.some((doc) => {
         const cartItem = doc.data();
@@ -40,17 +39,18 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
       });
 
       if (!isItemInCart) {
-        // If not in the cart, add it
         await addDoc(cartsCollectionRef, selectedBook);
-
-        alert('Item added to cart!');
+        alert("Item added to cart!");
       } else {
-        // If already in the cart, show a message or handle as needed
-        alert('Item already added to cart!');
+        alert("Item already added to cart!");
       }
     } catch (error) {
-      console.error('Error adding item to cart:', error);
+      console.error("Error adding item to cart:", error);
     }
+  };
+
+  const handleReadNow = () => {
+    navigate("/bookview", { state: { pages: selectedBook.pages } });
   };
 
   return (
@@ -72,13 +72,13 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
                   className="flex rounded-md w-[300px] h-[400px] object-cover"
                 />
                 <div className="grid items-center ml-7">
-                <button
-                  className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
+                  <button
+                    className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
                   font-bold py-2 mb-7 px-4 rounded-lg shadow-lg"
-                  onClick={() => handleAddToCart(selectedBook)}
-                >
-                  Add to Cart
-                </button>
+                    onClick={() => handleAddToCart(selectedBook)}
+                  >
+                    Add to Cart
+                  </button>
 
                   {selectedBook.price && (
                     <div className="flex mt-3 mb-5 space-x-20">
@@ -118,9 +118,7 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
             <div className="flex flex-col">
               <div className="lg:gap-x-2 flex lg:mt-3 md:gap-x-5 max-md:gap-x-5 max-sm:gap-x-1 text-xl justify-center max-sm:text-md">
                 <button
-                  onClick={() => {
-                    setReadBook(true);
-                  }}
+                  onClick={handleReadNow}
                   className="gap-x-1 p-1 lg:w-52 max-sm:w-32 rounded-xl bg-gray-500 flex items-center justify-center text-white text-xl whitespace-nowrap hover:bg-gray-800"
                 >
                   <BiBookReader className="lg:text-2xl md:text-3xl" />
