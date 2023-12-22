@@ -146,7 +146,7 @@ const BodyHomepage = ({ selectedBook }) => {
                 currentData + (window.innerWidth < 500 ? 2 : window.innerWidth < 900 ? 3 : 4)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl w-full overflow-hidden">
-                  <div className="flex flex-col bg-white items-center shadow-lg h-[250px] w-[200px] md:w-[150px] max-sm:w-[120px]">
+                  <div className="flex flex-col bg-white items-center shadow-lg h-[270px] w-[200px] md:w-[150px] max-sm:w-[120px]">
                     {data.img && (
                       <img
                         onClick={(e) => {
