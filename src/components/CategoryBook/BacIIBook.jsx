@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const BacIIBook = () => {
   const [bacData, setBacData] = useState([]);
   const [bacBooks, setBacBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [selectedBook, setSelectedBook] = useState(null);
 
   const itemsPerPage = 8;
@@ -68,26 +68,24 @@ const BacIIBook = () => {
   };
 
   const handleReadNowClick = (item) => {
-
     setSelectedBook(item);
     navigate("/allgen/bacll/see-all", { state: { selectedBook: item } }); // Change this line
   };
 
-  
-
   return (
-    <section className="container mx-auto mt-8 mb-10">
-      <div className="ml-10 mb-8">
-        <h1 className="text-4xl uppercase font-bold hover:text-cyan-800 rounded-xl">BacII</h1>
-      </div>
+    <section className="z-20 container mx-auto mt-8 mb-10">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+        សៀវភៅ បាក់ឌុប
+      </h2>
+
       <div className="grid grid-cols-4 grid-rows-2 justify-items-center justify-center gap-4">
         {currentItems.map((item, index) => (
           <div key={index} className="mb-4 bg-gray-100">
-            <img 
-            src={item.img} 
-            alt={`Bacll-${index}`} 
-            className="w-[200px] h-[250px] hover:scale-95 " 
-            onClick={() => handleReadNowClick(item)}
+            <img
+              src={item.img}
+              alt={`Bacll-${index}`}
+              className="w-[200px] h-[250px] hover:scale-95 "
+              onClick={() => handleReadNowClick(item)}
             />
             <div className="text-center">
               <h3 className="text-xl font-title font-bold whitespace-nowrap overflow-hidden">{item.title}</h3>

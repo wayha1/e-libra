@@ -82,7 +82,7 @@ const AllCategory = () => {
         onClick={() => handleReadNowClick(book)}
       />
       <div className="text-center">
-        <p className="text-xl font-title font-bold overflow-hidden">{book.title}</p>
+        <p className="text-xl font-title font-bold overflow-hidden whitespace-nowrap">{book.title}</p>
         <p className="text-md">{book.price}</p>
         {filterType === "author" && <p className="text-md">{book.authorId}</p>}
       </div>

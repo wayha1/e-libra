@@ -143,7 +143,7 @@ const BodyHomepage = ({ selectedBook }) => {
             <div className="flex lg:gap-x-20 xl:gap-x-20 max-lg:gap-x-2 md:gap-x-5 max-sm:gap-x-8">
               {BookData.slice(
                 currentData,
-                currentData + (window.innerWidth < 500 ? 2 : window.innerWidth < 900 ? 3 : 4)
+                currentData + (window.innerWidth < 450 ? 2 : window.innerWidth < 900 ? 3 : 4)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl w-full overflow-hidden">
                   <div className="flex flex-col bg-white items-center shadow-lg h-[270px] w-[200px] md:w-[150px] max-sm:w-[120px]">

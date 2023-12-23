@@ -77,18 +77,18 @@ const StudyBook = () => {
   };
 
   return (
-    <section className="container mx-auto mt-8 mb-10">
-      <div className="ml-10 mb-8">
-        <h1 className="text-4xl uppercase font-bold hover:text-cyan-800 rounded-xl"> Study Books </h1>
-      </div>
+    <section className="z-20 container mx-auto ">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+        សៀវភៅ ចំណេះដឹងទូទៅ
+      </h2>
       <div className="grid grid-cols-4 grid-rows-2 justify-items-center justify-center">
         {currentItems.map((item, index) => (
           <div key={index} className="mb-4 bg-gray-100 w-[200px]">
-            <img 
-            src={item.img} 
-            alt={`Bacll-${index}`} 
-            className="w-[200px] h-[250px] hover:scale-95" 
-            onClick={() => handleReadNowClick(item)}
+            <img
+              src={item.img}
+              alt={`Bacll-${index}`}
+              className="w-[200px] h-[250px] hover:scale-95"
+              onClick={() => handleReadNowClick(item)}
             />
             <div className="text-center">
               <h3 className="text-xl font-title font-bold">{item.title}</h3>

@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import React from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Rating } from "../content/Rating/Rating";
 
 function SeeAll() {
-  const { bookId } = useParams();
   const location = useLocation();
   const selectedBook = location.state?.selectedBook;
   const navigate = useNavigate();
@@ -55,11 +54,21 @@ function SeeAll() {
 
   return (
     <div className="mt-8 mx-auto h-[940px] overflow-y-auto">
+      <div className="justify-center m-3">
+        <button
+          className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+          onClick={() => navigate("/allGen")}
+        >
+          Back
+        </button>
+      </div>
       <div className="flex mb-6">
         <p className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5 text-center">
           {selectedBook.title}
         </p>
       </div>
+      {/* Back button */}
+
       <div className="flex bg-gray-200 p-4 rounded-md items-center justify-center w-full h-[400px]">
         <img
           src={selectedBook.img}
@@ -96,6 +105,7 @@ function SeeAll() {
               <p className="text-gray-600 mb-3">អ្នកនិពន្ធ: </p>
               <p className="text-gray-600 mb-3">ប្រភេទ:</p>
               <p className="text-gray-600 mb-3">ថ្ងៃខែឆ្នាំកំណើត:</p>
+              <p className="text-gray-600 mb-3">Rating</p>
             </div>
 
             <div className="text-right">
@@ -103,7 +113,9 @@ function SeeAll() {
               <p className="text-gray-600 mb-3">{selectedBook.authorId}</p>
               <p className="text-gray-600 mb-3">{selectedBook.type}</p>
               <p className="text-gray-600 mb-3">{selectedBook.date}</p>
-              <Rating />
+              <p className="text-gray-600 mb-3">
+                <Rating />
+              </p>
             </div>
           </div>
         </div>

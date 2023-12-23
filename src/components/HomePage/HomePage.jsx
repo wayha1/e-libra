@@ -70,7 +70,7 @@ const HomePage = () => {
                       isBannerHovered ? "opacity-150" : "opacity-0"
                     } transition-opacity duration-300 h-full w-[80%]`}
                   >
-                    <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[40%]">
+                    <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[30%]">
                       <div className="text-cyan-600 text-center bg-shadow-sm px-5">
                         {data.title && (
                           <h1 className="mt-10 font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
