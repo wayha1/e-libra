@@ -13,6 +13,7 @@ import BookDetail from "./components/HomePage/BookDetail";
 import SeeAll from "./components/CategoryBook/SeeAll";
 import AuthorInfo from "./components/Author/AuthorInfo";
 import BookPage from "./components/HomePage/BookPage";
+import Payment from "./components/Cartt/Payment";
 
 const App = ({ children }) => {
   return (
@@ -35,6 +36,7 @@ const App = ({ children }) => {
         <Route path="/authorInfo" element={<AuthorInfo />}></Route>
         <Route path="/bookview" element={<BookPage />}></Route>
         <Route path="/book-detail/:bookId/" element={<BookDetail />}></Route>
+        <Route path="/payment" element={<Payment />}></Route>
       </Routes>
     </>
   );
