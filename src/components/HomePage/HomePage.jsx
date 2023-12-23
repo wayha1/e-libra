@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import HeadCategory from "./HeadCategory";
 import BodyHomepage from "./BodyHomepage";
 import LoadingPage from "../LoadingPage";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [Banner, setBanner] = useState([]);
   const [Promotion, setPromotion] = useState([]);
+  const [allBooks, setAllBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [isBannerHovered, setIsBannerHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,8 +44,54 @@ const HomePage = () => {
       setIsLoading(false); // Set loading to false when data fetching is complete
     }
   };
+  const fetchData = async () => {
+    try {
+      // Fetch the data for all categories
+      const bacIIQuery = query(collection(db, "Books", "All_Genre", "bacII"));
+      const comicQuery = query(collection(db, "Books", "All_Genre", "Comics"));
+      const comdyQuery = query(collection(db, "Books", "All_Genre", "Comdy"));
+      const GeneralQuery = query(collection(db, "Books", "All_Genre", "GeneralBook"));
+      const NovelQuery = query(collection(db, "Books", "All_Genre", "NovelBook"));
+      const KhmerQuery = query(collection(db, "Books", "All_Genre", "KhmerBook"));
+
+      const [bacIIDocs, comicDocs, GeneralDocs, NovelDocs, KhmerDocs, comdyDocs] = await Promise.all([
+        getDocs(bacIIQuery),
+        getDocs(comicQuery),
+        getDocs(comdyQuery),
+        getDocs(GeneralQuery),
+        getDocs(NovelQuery),
+        getDocs(KhmerQuery),
+      ]);
+
+      const bacIIBooks = bacIIDocs.docs.map((doc) => ({ ...doc.data(), category: "bacII" }));
+      const comicBooks = comicDocs.docs.map((doc) => ({ ...doc.data(), category: "Comics" }));
+      const comdyBook = comdyDocs.docs.map((doc) => ({ ...doc.data(), category: "Comdy" }));
+      const GeneralBook = GeneralDocs.docs.map((doc) => ({ ...doc.data(), category: "GeneralBook" }));
+      const NovelBook = NovelDocs.docs.map((doc) => ({ ...doc.data(), category: "NovelBook" }));
+      const KhmerBook = KhmerDocs.docs.map((doc) => ({ ...doc.data(), category: "KhmerBook" }));
+
+      const combinedBooks = [
+        ...bacIIBooks,
+        ...comicBooks,
+        ...comdyBook,
+        ...GeneralBook,
+        ...NovelBook,
+        ...KhmerBook,
+      ];
+
+      const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
+
+      setAllBooks(sortedBooks);
+      setFilteredBooks(sortedBooks);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  console.log(allBooks);
+  console.log(filteredBooks);
   useEffect(() => {
     getBanner();
+    fetchData();
   }, []);
 
   return (
@@ -130,6 +178,16 @@ const HomePage = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <section id="category">
+            <div className="h-[500px] w-full">
+              {allBooks.map((books, index) => {
+                <div key={index}>
+                  <p>{books.index}</p>
+                </div>;
+              })}
             </div>
           </section>
         </>
