@@ -51,7 +51,7 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
   const handleReadNow = () => {
     const pdfPages = selectedBook.BookPdf || [];
     navigate("/bookview", { state: { pages: { BookPdf: pdfPages } } });
-    console.log(pdfPages);
+    
   };
 
   return (
