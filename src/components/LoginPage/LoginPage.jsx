@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="z-40 h-[980px] bg-gray-100">
+    <div className="z-40 h-[980px] bg-cyan-200">
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center ">
           <img
@@ -55,12 +55,13 @@ const LoginPage = () => {
         </div>
 
         <form onSubmit={handleLogin}>
-          <main className="flex-col items-center justify-center bg-white rounded-3xl h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[550px]">
-            <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">LogIn</h1>
+          <main className="flex-col items-center justify-center bg-white rounded-3xl 
+          h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[650px]">
+            <h1 className="text-center text-4xl pt-8 font-bold text-blue-700 book-title ">LogIn</h1>
 
-            <div className="username mt-10 mx-[10%]">
+            <div className="username mt-10 mx-auto flex flex-col max-w-sm">
               <input
-                className="username border border-gray-600 rounded-lg text-gray-500 bg-gray-100 py-1 pl-5 w-full"
+                className="username border border-gray-600 text-gray-500 bg-gray-100 py-1 pl-5 w-full"
                 type="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -68,7 +69,7 @@ const LoginPage = () => {
               />
 
               <input
-                className="mt-5 password border border-gray-600 rounded-lg text-gray-500 bg-gray-100 pl-5 py-1 w-full"
+                className="mt-5 password border border-gray-600 text-gray-500 bg-gray-100 pl-5 py-1 w-full"
                 type="password"
                 value={password}
                 onChange={(e) => setpassword(e.target.value)}
@@ -76,13 +77,15 @@ const LoginPage = () => {
               />
             </div>
 
+
             <div className="mt-8 justify-center w-full flex items-center flex-col">
               {error && <span className="text-sm text-red-600 ">Wrong username or passowrd ! </span>}
               <button
                 type="submit"
-                className=" bg-blue-700 rounded-xl hover:bg-blue-800 py-2 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg sm:w-[80%] w-[50%]"
+                className=" bg-blue-700 rounded-xl hover:bg-blue-800 py-2 text-white text-2xl 
+                font-bold shadow-xl hover:shadow-lg sm:w-[30%] w-[50%] "
               >
-                LogIn
+                LOGIN
               </button>
             </div>
 
@@ -97,21 +100,25 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <ul className="justify-center items-center flex flex-col my-5">
+            
+            <ul className="flex justify-center items-center space-x-2">
               {data.map((value) => (
-                <div className="justify-between px-4 mt-5 flex bg-gray-400 rounded-xl hover:bg-gray-500 text-white shadow-xl hover:shadow-lg w-[80%] sm:px-1">
-                  <h1 className="mt-1.5 whitespace-nowrap "> {value.txtVal} </h1>
+                <div className="justify-between mt-5 flex border-blue-100 cursor-pointer border-2 rounded-lg
+                 hover:bg-gray-200 text-black shadow-xl hover:shadow-lg w-[80%] mb-3
+                 sm:px-1">
                   <img
                     src={value.imgUrl}
                     alt="my image"
                     width={40}
                     height={40}
                     onClick={this}
-                    className="hover:shadow-full hover:scale-90 "
+                    className="hover:shadow-full hover:scale-90 m-1 ml-5"
                   />
+                  <h1 className="mt-1.5 text-center flex-grow p-1"> {value.txtVal} </h1>
                 </div>
               ))}
             </ul>
+            
           </main>
         </form>
       </div>
