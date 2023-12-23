@@ -44,6 +44,7 @@ function SeeAll() {
 
   const handleReadNow = () => {
     const pdfPages = selectedBook.BookPdf || [];
+
     if (pdfPages.length > 0) {
       navigate("/bookview", { state: { pages: { BookPdf: pdfPages } } });
       console.log(pdfPages);
@@ -74,8 +75,7 @@ function SeeAll() {
                   ? "bg-green-300 text-gray-600 font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
                   : "bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
               }`}
-              onClick={() => handleReadNow}
-              disabled={selectedBook.price === "free"}
+              onClick={handleReadNow}
             >
               Read Now (Free)
             </button>
@@ -84,6 +84,7 @@ function SeeAll() {
               className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
                 font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
               onClick={() => handleAddToCart(selectedBook)}
+              disabled={selectedBook.price === "free"}
             >
               Add to Cart
             </button>
