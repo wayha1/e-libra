@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import {
-  doc,
-  deleteDoc,
-} from 'firebase/firestore';
+import { doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 function Payment() {
@@ -13,10 +10,10 @@ function Payment() {
   const [cvc, setCVC] = useState('');
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const [isPaymentInitiated, setIsPaymentInitiated] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
-
 
   const handlePayment = () => {
     // Basic validation
@@ -48,6 +45,9 @@ function Payment() {
         setCVC('');
 
         setIsPaymentInitiated(false);
+
+        // Open the modal
+        setIsModalOpen(true);
       } catch (error) {
         console.error('Error deleting items from the cart:', error.message);
       }
@@ -55,6 +55,9 @@ function Payment() {
   };
 
   const handleDone = () => {
+    // Close the modal
+    setIsModalOpen(false);
+
     // Reset the success state when "Done" is clicked
     setIsPaymentSuccessful(false);
   };
@@ -107,26 +110,28 @@ function Payment() {
         </div>
       </div>
 
-      {isPaymentInitiated && !isPaymentSuccessful ? (
-        <div className="mt-4">Processing payment...</div>
-      ) : isPaymentSuccessful ? (
-        <div className="mt-4 text-green-500 font-semibold">
-          Payment Successful!{' '}
-          <button
-            className="text-blue-500 hover:underline"
-            onClick={handleDone}
-          >
-            Done
-          </button>
-        </div>
-      ) : (
-        <button
-          className="bg-blue-500 text-white py-2 w-[400px] px-4 
+      <button
+        className="bg-blue-500 text-white py-2 w-[400px] px-4 
           rounded hover:bg-blue-700 active:bg-gray-500"
-          onClick={handlePayment}
-        >
-          Go to Payment
-        </button>
+        onClick={handlePayment}
+      >
+        Go to Payment
+      </button>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
+          <div className="bg-white p-8 max-w-md rounded-md">
+            <div className="text-green-500 font-semibold mb-4">
+              Payment Successful!{' '}
+            </div>
+            <button
+              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 active:bg-gray-500"
+              onClick={handleDone}
+            >
+              Done
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
