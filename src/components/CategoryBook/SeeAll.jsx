@@ -8,6 +8,7 @@ function SeeAll() {
   const location = useLocation();
   const selectedBook = location.state?.selectedBook;
   const navigate = useNavigate();
+  const allBooks = location.state?.allBooks || [];
 
   if (!selectedBook) {
     return (
@@ -51,6 +52,10 @@ function SeeAll() {
       alert("This book does not have any pages to read.");
     }
   };
+  // Filter recommended books based on the author name
+  const recommendedBooks = allBooks.filter(
+    (book) => book.authorId === selectedBook.authorId && book.title !== selectedBook.title
+  );
 
   return (
     <div className="mt-8 mx-auto h-[940px] overflow-y-auto">
@@ -123,6 +128,21 @@ function SeeAll() {
       <p className=" text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10">{selectedBook.decs}</p>
 
       {/* Add a button to go back to AllCategory */}
+
+      {/* Recomment Book */}
+      <div className="bg-gray-100 h-[359px]">
+        <h1 className="text-center book-style text-green-900 text-3xl font-bold mx-10 my-8">
+          Recommend Books by {selectedBook.authorId}
+        </h1>
+        <div className="flex gap-4 p-4 overflow-x-auto">
+          {recommendedBooks.map((book) => (
+            <div key={book.title} className="flex-shrink-0 w-48">
+              <img src={book.img} alt={book.title} className="rounded-md w-48 h-64 object-cover shadow-lg" />
+              <p className="text-sm text-gray-700 mt-2">{book.title}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

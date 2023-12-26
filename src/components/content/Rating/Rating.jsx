@@ -10,7 +10,7 @@ export const Rating = () => {
       {[...Array(5)].map((star, index) => {
         const currentRating = index + 1;
         return (
-          <label className="">
+          <label className="" key={index}>
             <input
               type="radio"
               name="rating"

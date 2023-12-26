@@ -15,7 +15,6 @@ const AllCategory = () => {
 
   const fetchData = async () => {
     try {
-      // Fetch the data for all categories
       const bacIIQuery = query(collection(db, "Books", "All_Genre", "bacII"));
       const comicQuery = query(collection(db, "Books", "All_Genre", "Comics"));
       const comdyQuery = query(collection(db, "Books", "All_Genre", "Comdy"));
@@ -32,20 +31,13 @@ const AllCategory = () => {
         getDocs(KhmerQuery),
       ]);
 
-      const bacIIBooks = bacIIDocs.docs.map((doc) => ({ ...doc.data(), category: "bacII" }));
-      const comicBooks = comicDocs.docs.map((doc) => ({ ...doc.data(), category: "Comics" }));
-      const comdyBook = comdyDocs.docs.map((doc) => ({ ...doc.data(), category: "Comdy" }));
-      const GeneralBook = GeneralDocs.docs.map((doc) => ({ ...doc.data(), category: "GeneralBook" }));
-      const NovelBook = NovelDocs.docs.map((doc) => ({ ...doc.data(), category: "NovelBook" }));
-      const KhmerBook = KhmerDocs.docs.map((doc) => ({ ...doc.data(), category: "KhmerBook" }));
-
       const combinedBooks = [
-        ...bacIIBooks,
-        ...comicBooks,
-        ...comdyBook,
-        ...GeneralBook,
-        ...NovelBook,
-        ...KhmerBook,
+        ...bacIIDocs.docs.map((doc) => ({ ...doc.data(), category: "bacII" })),
+        ...comicDocs.docs.map((doc) => ({ ...doc.data(), category: "Comics" })),
+        ...comdyDocs.docs.map((doc) => ({ ...doc.data(), category: "Comdy" })),
+        ...GeneralDocs.docs.map((doc) => ({ ...doc.data(), category: "GeneralBook" })),
+        ...NovelDocs.docs.map((doc) => ({ ...doc.data(), category: "NovelBook" })),
+        ...KhmerDocs.docs.map((doc) => ({ ...doc.data(), category: "KhmerBook" })),
       ];
 
       const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
@@ -63,7 +55,7 @@ const AllCategory = () => {
 
   const handleReadNowClick = (book) => {
     setSelectedBook(book);
-    navigate("/allgen/see-all", { state: { selectedBook: book } });
+    navigate("/allgen/see-all", { state: { selectedBook: book, allBooks: filteredBooks } });
   };
 
   const indexOfLastBook = currentPage * booksPerPage;
@@ -104,7 +96,6 @@ const AllCategory = () => {
     }
   };
 
-  // Function to search by author
   const searchByAuthor = () => {
     try {
       const searchResult = allBooks.filter((book) =>
@@ -129,6 +120,7 @@ const AllCategory = () => {
       console.error("Error searching for books:", error.message);
     }
   };
+
   const handleClearSearch = () => {
     setSearchTerm("");
     setFilteredBooks(allBooks);
