@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="z-40 h-[980px] bg-cyan-200">
+    <div className="z-40 h-[980px] bg-gray-50">
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center ">
           <img
@@ -55,8 +55,10 @@ const LoginPage = () => {
         </div>
 
         <form onSubmit={handleLogin}>
-          <main className="flex-col items-center justify-center bg-white rounded-3xl 
-          h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[650px]">
+          <main
+            className="flex-col items-center justify-center bg-white rounded-3xl 
+          h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[650px]"
+          >
             <h1 className="text-center text-4xl pt-8 font-bold text-blue-700 book-title ">LogIn</h1>
 
             <div className="username mt-10 mx-auto flex flex-col max-w-sm">
@@ -76,7 +78,6 @@ const LoginPage = () => {
                 placeholder="password"
               />
             </div>
-
 
             <div className="mt-8 justify-center w-full flex items-center flex-col">
               {error && <span className="text-sm text-red-600 ">Wrong username or passowrd ! </span>}
@@ -100,12 +101,13 @@ const LoginPage = () => {
               </div>
             </div>
 
-            
             <ul className="flex justify-center items-center space-x-2">
               {data.map((value) => (
-                <div className="justify-between mt-5 flex border-blue-100 cursor-pointer border-2 rounded-lg
+                <div
+                  className="justify-between mt-5 flex border-blue-100 cursor-pointer border-2 rounded-lg
                  hover:bg-gray-200 text-black shadow-xl hover:shadow-lg w-[80%] mb-3
-                 sm:px-1">
+                 sm:px-1"
+                >
                   <img
                     src={value.imgUrl}
                     alt="my image"
@@ -118,7 +120,6 @@ const LoginPage = () => {
                 </div>
               ))}
             </ul>
-            
           </main>
         </form>
       </div>
