@@ -61,7 +61,7 @@ const BodyHomepage = ({ selectedBook }) => {
         console.log(data)
   
         // Filter books with UserRating more than 3
-        const filteredData = data.filter((book) => book.userRating > 2);
+        const filteredData = data.filter((book) => book.userRating > 3);
   
         setBookData(filteredData);
   
