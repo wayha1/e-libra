@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -9,6 +9,12 @@ function SeeAll() {
   const selectedBook = location.state?.selectedBook;
   const navigate = useNavigate();
   const allBooks = location.state?.allBooks || [];
+  const [userRating, setUserRating] = useState(null);
+  const [reset, setReset] = useState(false);
+  useEffect(() => {
+    // Reset the userRating when the selectedBook changes
+    setUserRating(null);
+  }, [selectedBook]);
 
   if (!selectedBook) {
     return (
@@ -20,6 +26,7 @@ function SeeAll() {
       </div>
     );
   }
+  
 
   const handleAddToCart = async (selectedBook) => {
     try {
@@ -54,8 +61,42 @@ function SeeAll() {
   };
   // Filter recommended books based on the author name
   const recommendedBooks = allBooks.filter(
-    (book) => book.authorId === selectedBook.authorId && book.title !== selectedBook.title
+    (book) =>
+      book.authorId === selectedBook.authorId &&
+      book.title !== selectedBook.title
   );
+
+  const handleRatingChange = (newRating) => {
+    setUserRating(newRating);
+  };
+  const handleRatingSubmit = async () => {
+    try {
+      const popularCollectionRef = collection(db, "popular");
+      const docData = {
+        bookTitle: selectedBook.title,
+        authorId: selectedBook.authorId,
+        userRating: userRating,
+        price: selectedBook.price,
+        type: selectedBook.type,
+        date: selectedBook.date,
+        image: selectedBook.img,
+        bookPdf: selectedBook.BookPdf,
+
+        // Add other relevant data here
+      };
+
+      await addDoc(popularCollectionRef, docData);
+
+      // Update the userRating state after successfully submitting the rating
+
+      alert("Rating submitted!");
+      setUserRating(null);
+      setReset(true);
+      console.log(userRating);
+    } catch (error) {
+      console.error("Error submitting rating:", error);
+    }
+  };
 
   return (
     <div className="mt-8 mx-auto h-[940px] overflow-y-auto">
@@ -119,13 +160,23 @@ function SeeAll() {
               <p className="text-gray-600 mb-3">{selectedBook.type}</p>
               <p className="text-gray-600 mb-3">{selectedBook.date}</p>
               <p className="text-gray-600 mb-3">
-                <Rating />
+                <Rating onRatingChange={handleRatingChange} reset={reset} />
               </p>
+              <div>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 active:bg-gray-500 text-white font-bold py-2 px-4 rounded"
+                  onClick={handleRatingSubmit}
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <p className=" text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10">{selectedBook.decs}</p>
+      <p className=" text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10">
+        {selectedBook.decs}
+      </p>
 
       {/* Add a button to go back to AllCategory */}
 
@@ -137,7 +188,11 @@ function SeeAll() {
         <div className="flex gap-4 p-4 overflow-x-auto">
           {recommendedBooks.map((book) => (
             <div key={book.title} className="flex-shrink-0 w-48">
-              <img src={book.img} alt={book.title} className="rounded-md w-48 h-64 object-cover shadow-lg" />
+              <img
+                src={book.img}
+                alt={book.title}
+                className="rounded-md w-48 h-64 object-cover shadow-lg"
+              />
               <p className="text-sm text-gray-700 mt-2">{book.title}</p>
             </div>
           ))}
