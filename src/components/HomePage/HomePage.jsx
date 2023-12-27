@@ -7,31 +7,29 @@ import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const [Banner, setBanner] = useState([]);
-  const [Promotion, setPromotion] = useState([]);
+  const [banner, setBanner] = useState([]);
+  const [promotion, setPromotion] = useState([]);
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [selectedType, setSelectedType] = useState("All");
   const [isBannerHovered, setIsBannerHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const getBanner = async () => {
     try {
-      const Banner = collection(db, "HomePage");
-      const dataBanner = await getDocs(Banner);
-      const allBanner = dataBanner.docs.map((val) => ({ ...val.data(), id: val.id }));
-      setBanner(allBanner);
+      const bannerCollection = collection(db, "HomePage");
+      const bannerSnapshot = await getDocs(bannerCollection);
+      const banners = bannerSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setBanner(banners);
 
-      const promotionDataPromises = allBanner.map(async (elem) => {
+      const promotionDataPromises = banners.map(async (bannerItem) => {
         try {
-          const BookPop = collection(db, `HomePage/${elem.id}/BodyPromo`);
-          const DataBooks = await getDocs(BookPop);
-          const BookData = DataBooks.docs.map((bookDoc) => ({
-            ...bookDoc.data(),
-            id: bookDoc.id,
-          }));
-          return BookData;
+          const bookPopCollection = collection(db, `HomePage/${bannerItem.id}/BodyPromo`);
+          const bookPopSnapshot = await getDocs(bookPopCollection);
+          const bookData = bookPopSnapshot.docs.map((bookDoc) => ({ ...bookDoc.data(), id: bookDoc.id }));
+          return bookData;
         } catch (error) {
-          console.error(`Error fetching book data for ${elem.id}:`, error);
+          console.error(`Error fetching book data for ${bannerItem.id}:`, error);
           return null;
         }
       });
@@ -41,58 +39,43 @@ const HomePage = () => {
     } catch (error) {
       console.error("Error fetching banner data:", error);
     } finally {
-      setIsLoading(false); // Set loading to false when data fetching is complete
+      setIsLoading(false);
     }
   };
+
   const fetchData = async () => {
     try {
-      // Fetch the data for all categories
-      const bacIIQuery = query(collection(db, "Books", "All_Genre", "bacII"));
-      const comicQuery = query(collection(db, "Books", "All_Genre", "Comics"));
-      const comdyQuery = query(collection(db, "Books", "All_Genre", "Comdy"));
-      const GeneralQuery = query(collection(db, "Books", "All_Genre", "GeneralBook"));
-      const NovelQuery = query(collection(db, "Books", "All_Genre", "NovelBook"));
-      const KhmerQuery = query(collection(db, "Books", "All_Genre", "KhmerBook"));
+      const genreQueries = ["bacII", "Comics", "Comdy", "GeneralBook", "NovelBook", "KhmerBook"];
 
-      const [bacIIDocs, comicDocs, GeneralDocs, NovelDocs, KhmerDocs, comdyDocs] = await Promise.all([
-        getDocs(bacIIQuery),
-        getDocs(comicQuery),
-        getDocs(comdyQuery),
-        getDocs(GeneralQuery),
-        getDocs(NovelQuery),
-        getDocs(KhmerQuery),
-      ]);
+      const categoryQueries = genreQueries.map((genre) => query(collection(db, "Books", "All_Genre", genre)));
 
-      const bacIIBooks = bacIIDocs.docs.map((doc) => ({ ...doc.data(), category: "bacII" }));
-      const comicBooks = comicDocs.docs.map((doc) => ({ ...doc.data(), category: "Comics" }));
-      const comdyBook = comdyDocs.docs.map((doc) => ({ ...doc.data(), category: "Comdy" }));
-      const GeneralBook = GeneralDocs.docs.map((doc) => ({ ...doc.data(), category: "GeneralBook" }));
-      const NovelBook = NovelDocs.docs.map((doc) => ({ ...doc.data(), category: "NovelBook" }));
-      const KhmerBook = KhmerDocs.docs.map((doc) => ({ ...doc.data(), category: "KhmerBook" }));
+      const results = await Promise.all(categoryQueries.map((q) => getDocs(q)));
+      const categoriesData = results.map((querySnapshot) =>
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), category: doc.id }))
+      );
 
-      const combinedBooks = [
-        ...bacIIBooks,
-        ...comicBooks,
-        ...comdyBook,
-        ...GeneralBook,
-        ...NovelBook,
-        ...KhmerBook,
-      ];
-
+      const combinedBooks = categoriesData.flat();
       const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
 
       setAllBooks(sortedBooks);
-      setFilteredBooks(sortedBooks);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  console.log(allBooks);
-  console.log(filteredBooks);
+
+  const filterBooksByType = (books) => {
+    setSelectedType(books);
+
+    // Filter books based on the specified type
+    const filtered = books === "All" ? allBooks : allBooks.filter((book) => book.type === book);
+    setFilteredBooks(filtered);
+  };
+
   useEffect(() => {
+    // Fetch data when the component mounts
     getBanner();
     fetchData();
-  }, []);
+  }, []); // Empty dependency array means it will run only once when the component mounts
 
   return (
     <>
@@ -101,10 +84,9 @@ const HomePage = () => {
       ) : (
         <>
           {/* Banner */}
-          <section id="Banner ">
+          <section id="Banner">
             <main className="z-20 flex w-full h-[900px] bg-gray-100">
-              {/* desktop mode */}
-              {Banner.map((data, i) => (
+              {banner.map((data, i) => (
                 <div
                   key={i}
                   className="flex relative items-center justify-center w-[100%]"
@@ -130,7 +112,7 @@ const HomePage = () => {
                     </div>
                     <button className="m-2 h-12 w-18 px-4 py-2 bg-cyan-600 rounded-md lg:translate-y-52 md:translate-y-52 max-md:translate-y-52 max-sm:translate-y-52">
                       <h1 className="whitespace-nowrap text-gray-200 text-md">
-                        <Link to={"/allgen"}>All Category</Link>
+                        <Link to="/allgen">All Category</Link>
                       </h1>
                     </button>
                   </div>
@@ -147,15 +129,17 @@ const HomePage = () => {
             <HeadCategory />
           </section>
 
+          {/* Body Header */}
           <section id="body-header">
             <div className="Header">
               <BodyHomepage className="z-30" />
             </div>
           </section>
 
+          {/* Body Popular */}
           <section id="body-popular">
             <div className="my-2 mt-10">
-              {Promotion.map((data, i) => (
+              {promotion.map((data, i) => (
                 <div key={i} className="bg-rose-100 w-full h-[350px] flex">
                   <div className="text-left w-[50%] backdrop-blur-sm">
                     {data.title && (
@@ -181,13 +165,21 @@ const HomePage = () => {
             </div>
           </section>
 
+          {/* Category */}
           <section id="category">
             <div className="h-[500px] w-full">
-              {allBooks.map((books, index) => {
+              {/* Display filter buttons */}
+              <button onClick={() => filterBooksByType("All")}>Show All</button>
+              <button onClick={() => filterBooksByType("bacII")}>Filter by bacII</button>
+              <button onClick={() => filterBooksByType("Comics")}>Filter by Comics</button>
+              {/* Add more buttons for other types as needed */}
+
+              {filteredBooks.map((book, index) => (
                 <div key={index}>
-                  <p>{books.index}</p>
-                </div>;
-              })}
+                  <p>{book.title}</p>
+                  {/* Render other book details as needed */}
+                </div>
+              ))}
             </div>
           </section>
         </>

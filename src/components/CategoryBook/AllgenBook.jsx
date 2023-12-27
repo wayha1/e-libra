@@ -23,10 +23,11 @@ const categories = [
 const Sidebar = ({ handleGoBack, activeComponent }) => (
   <div className="flex flex-col mt-5 w-[20%] book-title">
     <button
-      className="ml-4 rounded-l-3xl flex w-20 bg-blue-600 text-white text-center space-x-2 px-2 "
+      className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
       onClick={handleGoBack}
     >
-      <MdKeyboardBackspace className="flex mt-1" /> <h1 className="flex">Back</h1>
+      {/* <MdKeyboardBackspace className="flex mt-1" />  */}
+      Back
     </button>
     <p className="mt-10 bg-white shadow-sm p-4 text-gray-600 whitespace-nowrap md:text-2xl lg:text-3xl text-center">
       {MAIN_CATEGORY_TITLE}

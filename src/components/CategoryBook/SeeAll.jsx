@@ -62,7 +62,7 @@ function SeeAll() {
       <div className="justify-center m-3">
         <button
           className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
-          onClick={() => navigate("/allGen")}
+          onClick={() => navigate(-1)}
         >
           Back
         </button>
