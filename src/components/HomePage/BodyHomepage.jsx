@@ -58,14 +58,16 @@ const BodyHomepage = ({ selectedBook }) => {
         const contain = collection(db, "popular");
         const snapshot = await getDocs(contain);
         const data = snapshot.docs.map((val) => ({ ...val.data(), id: val.id }));
-        console.log(data)
-  
+
         // Filter books with UserRating more than 3
         const filteredData = data.filter((book) => book.userRating > 3);
-  
-        setBookData(filteredData);
-  
-        const bookDataPromises = filteredData.map(async (elem) => {
+
+        // Sort the filtered data by the 'userRating' property in ascending order
+        const sortedData = filteredData.sort((a, b) => a.userRating - b.userRating);
+
+        setBookData(sortedData);
+
+        const bookDataPromises = sortedData.map(async (elem) => {
           try {
             // Fetch additional data for each book if needed
           } catch (error) {
@@ -73,15 +75,15 @@ const BodyHomepage = ({ selectedBook }) => {
             return null;
           }
         });
+        await Promise.all(bookDataPromises);
       } catch (error) {
         console.error("Error fetching popular section data:", error);
       }
     };
-  
+
+    // Call the getBooks function
     getBooks();
   }, []);
-  
-  
 
   const handleAddToCartClick = (data) => {
     addToCart(data);
@@ -149,9 +151,9 @@ const BodyHomepage = ({ selectedBook }) => {
                       />
                     )}
 
-                    {data. bookTitle && (
+                    {data.bookTitle && (
                       <h1 className="book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 overflow-hidden">
-                        {data. bookTitle}
+                        {data.bookTitle}
                       </h1>
                     )}
                     {data.userRating && (
