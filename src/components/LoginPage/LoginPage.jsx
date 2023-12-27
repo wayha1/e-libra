@@ -23,21 +23,22 @@ const LoginPage = () => {
 
   console.log(data, "datadata");
 
-  const navitage = useNavigate();
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, username, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        localStorage.setItem("authenticated", true);
-        navitage("/");
-      })
-      .catch((error) => {
-        setError(true);
-      });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, username, password);
+      // Signed in
+      const user = userCredential.user;
+      localStorage.setItem("authenticated", true);
+      navigate("/");
+    } catch (error) {
+      console.error("Error signing in:", error.code, error.message);
+      // Handle specific error cases if needed
+      setError(true);
+    }
   };
 
   return (
