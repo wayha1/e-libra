@@ -68,7 +68,6 @@ function SeeAll() {
 
   const handleRatingChange = (newRating) => {
     setUserRating(newRating);
-    setUserRating(null);
   };
   const handleRatingSubmit = async () => {
     try {

@@ -55,42 +55,33 @@ const BodyHomepage = ({ selectedBook }) => {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const contain = collection(db, "Books");
+        const contain = collection(db, "popular");
         const snapshot = await getDocs(contain);
         const data = snapshot.docs.map((val) => ({ ...val.data(), id: val.id }));
-        setBook(data);
-
-        const bookDataPromises = data.map(async (elem) => {
+        console.log(data)
+  
+        // Filter books with UserRating more than 3
+        const filteredData = data.filter((book) => book.userRating > 2);
+  
+        setBookData(filteredData);
+  
+        const bookDataPromises = filteredData.map(async (elem) => {
           try {
-            const KhmerBook = collection(db, `Books/${elem.id}/KhmerBook`);
-            const KhmerBookData = await getDocs(KhmerBook);
-            const KhmerBooks = KhmerBookData.docs.map((bookDoc) => ({
-              ...bookDoc.data(),
-              id: bookDoc.id,
-            }));
-            const BookPop = collection(db, `Books/${elem.id}/KhmerBook`);
-            const DataBooks = await getDocs(BookPop);
-            const BookData = DataBooks.docs.map((bookDoc) => ({
-              ...bookDoc.data(),
-              id: bookDoc.id,
-            }));
-
-            return KhmerBooks;
+            // Fetch additional data for each book if needed
           } catch (error) {
             console.error(`Error fetching book data for ${elem.id}:`, error);
             return null;
           }
         });
-
-        const bookData = await Promise.all(bookDataPromises);
-        setBookData(bookData.flat());
       } catch (error) {
         console.error("Error fetching popular section data:", error);
       }
     };
-
+  
     getBooks();
   }, []);
+  
+  
 
   const handleAddToCartClick = (data) => {
     addToCart(data);
@@ -146,21 +137,26 @@ const BodyHomepage = ({ selectedBook }) => {
                 currentData + (window.innerWidth < 450 ? 2 : window.innerWidth < 900 ? 3 : 4)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl w-full overflow-hidden">
-                  <div className="flex flex-col bg-white items-center shadow-lg h-[270px] w-[200px] md:w-[150px] max-sm:w-[120px]">
-                    {data.img && (
+                  <div className="flex flex-col bg-white items-center shadow-lg h-[350px] w-[200px] md:w-[150px] max-sm:w-[120px]">
+                    {data.image && (
                       <img
                         onClick={(e) => {
                           handleSeeMoreClick(currentData + i);
                         }}
-                        src={data.img}
+                        src={data.image}
                         alt="image-book"
                         className="w-[200px] h-[250px] md:w-[150px] max-sm:w-[120px] hover:scale-110 duration-300"
                       />
                     )}
 
-                    {data.title && (
+                    {data. bookTitle && (
                       <h1 className="book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 overflow-hidden">
-                        {data.title}
+                        {data. bookTitle}
+                      </h1>
+                    )}
+                    {data.userRating && (
+                      <h1 className="book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 overflow-hidden">
+                        Rating: {data.userRating}
                       </h1>
                     )}
                   </div>
