@@ -139,7 +139,7 @@ const BodyHomepage = ({ selectedBook }) => {
                 currentData + (window.innerWidth < 450 ? 2 : window.innerWidth < 900 ? 3 : 4)
               ).map((data, i) => (
                 <div key={i} className="hover:shadow-xl w-full overflow-hidden">
-                  <div className="flex flex-col bg-white items-center shadow-lg h-[350px] w-[200px] md:w-[150px] max-sm:w-[120px]">
+                  <div className="flex flex-col bg-white items-center shadow-lg h-[350px] w-[300px] md:w-[150px] max-sm:w-[120px]">
                     {data.image && (
                       <img
                         onClick={(e) => {
@@ -147,7 +147,7 @@ const BodyHomepage = ({ selectedBook }) => {
                         }}
                         src={data.image}
                         alt="image-book"
-                        className="w-[200px] h-[250px] md:w-[150px] max-sm:w-[120px] hover:scale-110 duration-300"
+                        className="w-[300px] h-[250px] md:w-[150px] max-sm:w-[120px] hover:scale-110 duration-300"
                       />
                     )}
 
