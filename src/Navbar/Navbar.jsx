@@ -1,15 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 import { BiUserCircle } from "react-icons/bi";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
   const [open, setOpen] = useState(false);
-  const Menus = ["Setting", "Logout"];
+  const Menus = ["Profile", "Logout"];
   const menuRef = useRef();
   const imgRef = useRef();
+  const navigate = useNavigate();
 
   const handleNav = () => {
     setNav(!nav);
@@ -31,18 +34,18 @@ const Navbar = () => {
     });
   };
 
-  const handleScrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  const handleLogout = async () => {
+    try {
+      // Sign out the user using Firebase authentication
+      await signOut(auth);
+
+      // Use the 'useNavigate' hook to navigate to the login page
+      navigate("/login"); // Update this to the correct path for your login page
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   };
-  // function clickToTop() {
-  //   const { pathname } = useLocation();
-  //   useEffect(() => {
-  //     window.scrollTo({ top: 0 });
-  //   }, [pathname]);
-  // }
+
   return (
     <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-100 shadow-sm">
       <div className="container mx-auto flex">
@@ -112,20 +115,23 @@ const Navbar = () => {
                   <div ref={menuRef} className="bg-gray-200 p-4 w-52 shadow-lg absolute -left-14 top-20">
                     <ul>
                       {Menus.map((menu) => (
-                        <Link
+                        <div
                           key={menu}
                           onClick={() => {
                             handleMenuItemClick();
                             scrollToTop();
-                            if (menu === "Setting") {
-                              // Navigate to the AccountPage when "Setting" is clicked
-                              window.location.href = "/account";
+                            if (menu === "Logout") {
+                              // Call the logout function
+                              handleLogout();
+                            } else if (menu === "Profile") {
+                              // Navigate to the AccountPage when "Profile" is clicked
+                              navigate("/account");
                             }
                           }}
                           className="flex flex-col p-2 text-lg cursor-pointer rounded hover:bg-blue-100"
                         >
                           {menu}
-                        </Link>
+                        </div>
                       ))}
                     </ul>
                   </div>
