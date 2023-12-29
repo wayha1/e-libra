@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { signOut } from "firebase/auth";
-import { BiUserCircle } from "react-icons/bi";
+import React, { useState, useRef } from "react";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
   const [open, setOpen] = useState(false);
-  const Menus = ["Profile", "Logout"];
+  const [dropdownState, setDropdownState] = useState("login");
+  const Menus = ["Setting", "Logout"];
   const menuRef = useRef();
   const imgRef = useRef();
   const navigate = useNavigate();
@@ -23,8 +23,24 @@ const Navbar = () => {
     setOpen(!open);
   };
 
-  const handleMenuItemClick = () => {
+  const handleMenuItemClick = (menuItem) => {
     setOpen(false);
+
+    if (menuItem === "Setting") {
+      setDropdownState("profile");
+    } else if (menuItem === "Logout") {
+      // Perform logout action
+      setDropdownState("login");
+    }
+  };
+
+  const handleButtonClick = () => {
+    if (dropdownState === "login") {
+      // If the dropdown state is "login", navigate to the "/login" path
+      navigate("/login");
+    } else {
+      setDropdownState("profile");
+    }
   };
 
   const scrollToTop = () => {
@@ -103,36 +119,53 @@ const Navbar = () => {
               </Link>
 
               {/* Integrated Account component */}
-              <div className="relative">
-                <img
-                  ref={imgRef}
-                  onClick={handleImageClick}
-                  src="https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
-                  alt="user"
-                  className="h-14 w-18 object-cover border-4 border-gray-400 cursor-pointer rounded-full"
-                />
+              <div className="relative" ref={menuRef}>
+                <button
+                  onClick={handleButtonClick}
+                  className="focus:outline-none"
+                >
+                  <img
+                    ref={imgRef}
+                    onClick={handleImageClick}
+                    src="https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
+                    alt="user"
+                    className="h-12 w-15 object-cover border-4 border-gray-400 cursor-pointer rounded-full"
+                  />
+                </button>
                 {open && (
-                  <div ref={menuRef} className="bg-gray-200 p-4 w-52 shadow-lg absolute -left-14 top-20">
-                    <ul>
-                      {Menus.map((menu) => (
-                        <div
-                          key={menu}
-                          onClick={() => {
-                            handleMenuItemClick();
-                            scrollToTop();
-                            if (menu === "Logout") {
-                              // Call the logout function
-                              handleLogout();
-                            } else if (menu === "Profile") {
-                              // Navigate to the AccountPage when "Profile" is clicked
-                              navigate("/account");
-                            }
-                          }}
-                          className="flex flex-col p-2 text-lg cursor-pointer rounded hover:bg-blue-100"
-                        >
-                          {menu}
+                  <div className="bg-gray-400 shadow-lg absolute mt-5 w-[200px] h-[200px] duration-300 ease-in-out -translate-x-20">
+                    <ul className="flex flex-col items-center">
+                      {dropdownState === "login" ? (
+                        <div>
+                          <p className="text-red-600 mb-3">No Account</p>
+                          <button
+                            onClick={handleButtonClick}
+                            className="whitespace-nowrap px-4 py-2 border border-blue-500 rounded-md bg-blue-500 text-white hover:bg-blue-600 hover:border-blue-600"
+                          >
+                            Login
+                          </button>
                         </div>
-                      ))}
+                      ) : (
+                        Menus.map((menu) => (
+                          <Link
+                            key={menu}
+                            onClick={() => {
+                              handleMenuItemClick(menu);
+                              scrollToTop();
+                              if (menu === "Logout") {
+                                // Call the logout function
+                                handleLogout();
+                              } else if (menu === "Profile") {
+                                // Navigate to the AccountPage when "Profile" is clicked
+                                navigate("/account");
+                              }
+                            }}
+                            className="flex flex-col p-2 text-lg cursor-pointer rounded hover:bg-blue-100"
+                          >
+                            {menu}
+                          </Link>
+                        ))
+                      )}
                     </ul>
                   </div>
                 )}
@@ -145,7 +178,7 @@ const Navbar = () => {
         <div className="z-50 flex">
           <div
             onClick={handleNav}
-            className="flex block lg:hidden justify-center items-center -translate-x-8"
+            className="flex lg:hidden justify-center items-center -translate-x-8"
           >
             {nav ? (
               <AiOutlineMenu size={40} className="bg-white rounded-md" />
@@ -157,12 +190,16 @@ const Navbar = () => {
             className={`${
               nav
                 ? "hidden fixed left-[-100%]"
-                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 absolute"
+                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
             }`}
             onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
-              <Link to="/" className="hover:shadow-full flex flex-col" onClick={handleNav}>
+              <Link
+                to="/"
+                className="hover:shadow-full flex flex-col"
+                onClick={handleNav}
+              >
                 <img
                   src={require("./Logo.png")}
                   alt="Logo"
@@ -170,7 +207,9 @@ const Navbar = () => {
                   height={50}
                   className="ml-4 hover:scale-110"
                 />
-                <span className="text-2xl whitespace-nowrap text-gray-600 hover:scale-110">E-Libra</span>
+                <span className="text-2xl whitespace-nowrap text-gray-600 hover:scale-110">
+                  E-Libra
+                </span>
               </Link>
               <div className="text-center mt-10">
                 <ul className="uppercase p-4">
@@ -201,15 +240,6 @@ const Navbar = () => {
                       Author
                     </Link>
                   </li>
-                  {/* <li className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
-                    <Link
-                      to={"/account"}
-                      className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
-                      onClick={handleNav}
-                    >
-                      Account
-                    </Link>
-                  </li> */}
                   <li className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
                     <Link
                       to={"/cart"}

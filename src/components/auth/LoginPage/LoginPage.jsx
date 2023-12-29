@@ -60,7 +60,7 @@ const LoginPage = () => {
             className="flex-col items-center justify-center bg-white rounded-3xl 
           h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[650px]"
           >
-            <h1 className="text-center text-4xl pt-8 font-bold text-blue-700 book-title ">LogIn</h1>
+            <h1 className="text-center text-4xl pt-8 active:bg-blue-200 font-bold text-blue-700 book-title ">LogIn</h1>
 
             <div className="username mt-10 mx-auto flex flex-col max-w-sm">
               <input
