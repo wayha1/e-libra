@@ -1,90 +1,92 @@
-import React from "react";
-const RegisterPage = () => {
-  return (
-    <form onSubmit="Register">
-      <div className="flex item-center justify-center h-screen bg-sky-600 sm:h-screen md:h-screen xs:h-screen w-screen">
-        <main className="flex flex-col item-center justify-center h-full lg:px-96 md:px-8 sm:px-12 xs:px-8 ">
-          <div className="justify-center items-center flex">
-            <div className="bg-white rounded-3xl ">
-              <div className="mx-12">
-                <h1 className="text-center text-4xl pt-8 font-bold text-blue-700">Register</h1>
-                <div className="username mt-10 ">
-                  <div className="flex pl-1">
-                    <div className="pl-1">
-                      <input
-                        className="first-name border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
-                        type="first-name"
-                        placeholder="first-name"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="last-name mt-10 ">
-                  <div className="flex pl-1">
-                    <div className="pl-1">
-                      <input
-                        className="last-name border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
-                        type="last-name"
-                        placeholder="last-name"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="username mt-10 ">
-                  <div className="flex pl-1">
-                    <div className="pl-1">
-                      <input
-                        className="username border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
-                        type="username"
-                        placeholder="username or email"
-                      />
-                    </div>
-                  </div>
-                </div>
+import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
-                <div className="password mt-10 ">
-                  <div className="flex pl-1">
-                    <div className="pl-1">
-                      <input
-                        className="password border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
-                        type="password"
-                        placeholder="password"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="cureent-password mt-10 ">
-                  <div className="flex pl-1">
-                    <div className="pl-1">
-                      <input
-                        className="cureent-password border border-gray-600 rounded-lg pl-2 text-gray-200 bg-gray-100 py-1"
-                        type="cureent-password"
-                        placeholder="cureent-password"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-6 text-center justify-center bg-blue-700 rounded-xl mx-10 hover:bg-blue-800">
-                <button
-                  type="submit"
-                  className="py-1.5 text-white text-2xl font-bold shadow-xl shadow-inner hover:shadow-lg ">
-                  Register
+const RegisterPage = () => {
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPassRef = useRef();
+  const { signup } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const confirmPassword = confirmPassRef.current.value;
+
+    if (password !== confirmPassword) {
+      return setError("Passwords do not match");
+    }
+
+    try {
+      setError("");
+      setLoading(true);
+      await signup(name, email, password);
+    } catch (error) {
+      setError("Failed to create account");
+      console.error("Error creating account:", error);
+    }
+    setLoading(false);
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Confirm Password:", confirmPassword);
+  };
+
+  return (
+    <form onSubmit={handleRegister}>
+      <div className="flex h-screen bg-gray-50 items-center justify-center">
+        <main className="flex flex-col w-[70%]">
+          <div className="bg-white shadow-xl rounded-xl items-center flex flex-col space-y-10">
+            <h1 className="text-3xl font-bold text-gray-700 mt-4">Sign Up</h1>
+
+            <div className="flex flex-col space-y-5">
+              <input
+                ref={nameRef}
+                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                type="text"
+                placeholder="Name"
+              />
+              <input
+                ref={emailRef}
+                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                type="email"
+                placeholder="Email"
+              />
+              <input
+                ref={passwordRef}
+                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                type="password"
+                placeholder="Password"
+              />
+              <input
+                ref={confirmPassRef}
+                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                type="password"
+                placeholder="Confirm Password"
+              />
+            </div>
+            {error && <div className="text-red-600 text-md mt-2">{error}</div>}
+            <button
+              type="submit"
+              className="bg-blue-600 w-[40%] text-center py-2 rounded-xl hover:bg-blue-800"
+              disabled={loading}
+            >
+              <div className="text-white text-xl">Sign Up</div>
+            </button>
+
+            <div className="flex text-center py-3">
+              <h1 className="">You already have an account! &#10072;</h1>
+              <Link to={"/login"}>
+                <button className="text-blue-700 hover:text-blue-900" type="submit">
+                  &#160;Log In
                 </button>
-              </div>
-              <div>
-              {/* <ul className="flex justify-between px-3 py-3">
-                <button className="">
-                  <img src={IMAGES.imgFb} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
-                </button>
-                <button className="">
-                  <img src={IMAGES.imgGoogle} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
-                </button>
-                <button className=" ">
-                  <img src={IMAGES.imgPhone} alt="my image" width={50} height={50} onClick={this} className=" shadow-inner hover:shadow-full hover:scale-125 " />
-                </button>
-              </ul> */}
-              </div>
-              </div>
+              </Link>
             </div>
           </div>
         </main>
