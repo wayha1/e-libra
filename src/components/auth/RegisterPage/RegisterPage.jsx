@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
 const RegisterPage = () => {
@@ -10,6 +10,7 @@ const RegisterPage = () => {
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -23,17 +24,20 @@ const RegisterPage = () => {
       return setError("Passwords do not match");
     }
 
+    setError("");
+    setLoading(true);
+
     try {
-      setError("");
-      setLoading(true);
-      await signup(email, password);
-      // If successful, you can redirect or perform other actions here
+      await signup(email, password, name);
+      navigate("/");
     } catch (error) {
       setError("Failed to create account");
-      console.error("Error creating account:", error);
+      console.error("Error creating account:", error.message);
     }
+
     setLoading(false);
   };
+
   return (
     <form onSubmit={handleRegister}>
       <div className="flex h-screen bg-gray-50 items-center justify-center">
@@ -45,32 +49,28 @@ const RegisterPage = () => {
               <input
                 ref={nameRef}
                 className={`border border-gray-300 rounded-md py-2 px-4 
-                ${nameRef ? "text-gray-600" : "text-gray-200"
-                  }`}
+                ${nameRef ? "text-gray-600" : "text-gray-200"}`}
                 type="text"
                 placeholder="Name"
               />
               <input
                 ref={emailRef}
                 className={`border border-gray-300 rounded-md py-2 px-4 
-                ${emailRef ? "text-gray-600" : "text-gray-200"
-                  }`}
+                ${emailRef ? "text-gray-600" : "text-gray-200"}`}
                 type="email"
                 placeholder="Email"
               />
               <input
                 ref={passwordRef}
                 className={`border border-gray-300 rounded-md py-2 px-4 
-                ${passwordRef ? "text-gray-600" : "text-gray-200"
-                  }`}
+                ${passwordRef ? "text-gray-600" : "text-gray-200"}`}
                 type="password"
                 placeholder="Password"
               />
               <input
                 ref={confirmPassRef}
                 className={`border border-gray-300 rounded-md py-2 px-4 
-                ${confirmPassRef ? "text-gray-600" : "text-gray-200"
-                  }`}
+                ${confirmPassRef ? "text-gray-600" : "text-gray-200"}`}
                 type="password"
                 placeholder="Confirm Password"
               />
