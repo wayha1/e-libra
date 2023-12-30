@@ -10,10 +10,14 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdownState, setDropdownState] = useState("login");
   const Menus = ["Setting", "Logout"];
+  const [accordionState, setAccordionState] = useState({
+    login: false,
+    profile: false,
+  });
   const menuRef = useRef();
   const imgRef = useRef();
   const navigate = useNavigate();
-
+  const user = auth.currentUser;
   const handleNav = () => {
     setNav(!nav);
   };
@@ -25,11 +29,15 @@ const Navbar = () => {
 
   const handleMenuItemClick = (menuItem) => {
     setOpen(false);
+    setAccordionState((prevState) => ({
+      ...Object.fromEntries(Menus.map((menu) => [menu, false])), // Close all other items
+      [menuItem]: !prevState[menuItem], // Toggle the clicked item
+    }));
 
     if (menuItem === "Setting") {
       setDropdownState("profile");
     } else if (menuItem === "Logout") {
-      // Perform logout action
+      handleLogout();
       setDropdownState("login");
     }
   };
@@ -119,47 +127,42 @@ const Navbar = () => {
               </Link>
 
               {/* Integrated Account component */}
-              <div className="relative" ref={menuRef}>
+              <div className="relative flex" ref={menuRef}>
                 <button onClick={handleButtonClick} className="focus:outline-none">
                   <img
                     ref={imgRef}
                     onClick={handleImageClick}
-                    src="https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
+                    src={user ? user.photoURL : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"}
                     alt="user"
-                    className="h-12 w-15 object-cover border-4 border-gray-400 cursor-pointer rounded-full"
+                    className="h-15 w-12 object-cover border-4 border-gray-400 cursor-pointer rounded-full"
                   />
                 </button>
                 {open && (
-                  <div className="bg-gray-400 shadow-lg absolute mt-5 w-[200px] h-[200px] duration-300 ease-in-out -translate-x-20">
+                  <div className="bg-gray-400 shadow-lg absolute mt-20 w-[200px] duration-300 ease-in-out -translate-x-20">
                     <ul className="flex flex-col items-center">
-                      {dropdownState === "login" ? (
+                      {user ? (
+                        <div>
+                          <p className="text-green-600 mb-3">Logged in as {user.displayName}</p>
+                          <button
+                            onClick={handleLogout}
+                            className="whitespace-nowrap px-4 py-2 border border-red-500 rounded-md bg-red-500 text-white hover:bg-red-600 hover:border-red-600"
+                          >
+                            Logout
+                          </button>
+                        </div>
+                      ) : (
                         <div>
                           <p className="text-red-600 mb-3">No Account</p>
                           <button
-                            onClick={handleButtonClick}
+                            onClick={() => {
+                              handleButtonClick();
+                              navigate("/login");
+                            }}
                             className="whitespace-nowrap px-4 py-2 border border-blue-500 rounded-md bg-blue-500 text-white hover:bg-blue-600 hover:border-blue-600"
                           >
                             Login
                           </button>
                         </div>
-                      ) : (
-                        Menus.map((menu) => (
-                          <Link
-                            key={menu}
-                            onClick={() => {
-                              handleMenuItemClick(menu);
-                              scrollToTop();
-                              if (menu === "Logout") {
-                                handleLogout();
-                              } else if (menu === "Profile") {
-                                navigate("/account");
-                              }
-                            }}
-                            className="flex flex-col p-2 text-lg cursor-pointer rounded hover:bg-blue-100"
-                          >
-                            {menu}
-                          </Link>
-                        ))
                       )}
                     </ul>
                   </div>
@@ -179,11 +182,10 @@ const Navbar = () => {
             )}
           </div>
           <div
-            className={`${
-              nav
-                ? "hidden fixed left-[-100%]"
-                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
-            }`}
+            className={`${nav
+              ? "hidden fixed left-[-100%]"
+              : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
+              }`}
             onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
