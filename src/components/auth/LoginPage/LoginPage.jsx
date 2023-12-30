@@ -95,8 +95,9 @@ const LoginPage = () => {
               </div>
 
               <ul className="flex justify-center items-center space-x-2">
-                {data.map((value) => (
+                {data.map((value, index) => (
                   <div
+                    key={index}
                     className="justify-between mt-5 flex border-blue-100 cursor-pointer border-2 rounded-lg
                  hover:bg-gray-200 text-black shadow-xl hover:shadow-lg w-[80%] mb-3
                  sm:px-1"
