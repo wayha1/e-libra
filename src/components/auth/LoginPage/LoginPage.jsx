@@ -49,12 +49,12 @@ const LoginPage = () => {
           <img src={require("./Logo.png")} alt="logo" width={50} height={50} className=" hover:scale-75 " />
           <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
 
-          <form onSubmit={handleLogin}>
-            <main
-              className="flex-col items-center justify-center bg-white rounded-3xl 
-          h-full md:px-8 sm:px-12 xs:px-8"
-            >
-              <h1 className="text-center text-4xl pt-8 font-bold text-gray-700 book-title ">Log In</h1>
+        <form onSubmit={handleLogin}>
+          <main
+            className="flex-col items-center justify-center bg-white rounded-3xl 
+          h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[650px]"
+          >
+            <h1 className="text-center text-4xl pt-8 font-bold text-blue-700 book-title ">LogIn</h1>
 
               <div className="mt-8 px-5 flex flex-col max-w-sm space-y-5">
                 <input
