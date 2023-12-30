@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { auth, createUserWithEmailAndPassword } from "../../firebase"; // Adjust the path accordingly
+import { auth } from "../../firebase"; // Adjust the path accordingly
 
 const AuthContext = createContext();
 
