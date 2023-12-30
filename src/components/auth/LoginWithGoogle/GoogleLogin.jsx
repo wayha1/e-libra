@@ -1,9 +1,9 @@
 // GoogleLogin.js
 
 import React, { useEffect, useState } from 'react';
-import { auth, provider } from '../firebase';
+import { auth, provider } from '../../../firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
-import HomePage from './HomePage/HomePage';
+import HomePage from '../../HomePage/HomePage';
 
 function GoogleLogin() {
 
