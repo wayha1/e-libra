@@ -5,6 +5,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { auth, txtDB } from "../../../firebase";
 import google from "./../../../asset/google.png"
 import GoogleLogin from "../../GoogleLogin";
+import phone from "./../../../asset/Phone1.png";
+import PhoneLogin from "../../PhoneLogin";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -97,10 +99,10 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <ul className="flex justify-center items-center space-x-2">
+              <ul className="flex justify-center items-center space-x-5">
                   <div
                     className="my-6 flex border-blue-100 border-2 rounded-lg
-                  hover:bg-gray-200  shadow-xl hover:shadow-lg w-[100%] max-sm:justify-center
+                  hover:bg-gray-200  shadow-xl hover:shadow-lg w-[200%] max-sm:justify-center
                     sm:px-1"
                   >
                     <img
@@ -115,6 +117,23 @@ const LoginPage = () => {
                       <GoogleLogin />
                     </h1>
                   </div>
+                  <div
+                    className="my-6 flex border-blue-100 border-2 rounded-lg
+                  hover:bg-gray-200  shadow-xl hover:shadow-lg w-[250%] max-sm:justify-center
+                    sm:px-1"
+                  >
+                  <img
+                      src={phone}
+                      alt="my image"
+                      width={50}
+                      height={40}
+                      onClick={this}
+                      className="hover:shadow-full hover:scale-110 mx-2 my-1 "
+                    />
+                    <h1 className="flex whitespace-nowrap max-sm:hidden px-2 items-center text-gray-600">
+                      <PhoneLogin />
+                    </h1>  
+                  </div> 
               </ul>
             </main>
           </form>

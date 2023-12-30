@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPhoneNumber } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
@@ -19,6 +19,5 @@ const db = getFirestore(app);
 const imgDB = getStorage(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-const phone = new signInWithPhoneNumber();
 
-export { imgDB, txtDB, db, auth, provider, phone };
+export { imgDB, txtDB, db, auth, provider };

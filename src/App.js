@@ -15,6 +15,7 @@ import AuthorInfo from "./components/Author/AuthorInfo";
 import BookPage from "./components/HomePage/BookPage";
 import Payment from "./components/Cartt/Payment";
 import GoogleLogin from "./components/GoogleLogin";
+import PhoneLogin from "./components/PhoneLogin";
 
 const App = ({ children }) => {
   return (
@@ -39,6 +40,7 @@ const App = ({ children }) => {
         <Route path="/book-detail/:bookId/" element={<BookDetail />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
         <Route path="/google" element={<GoogleLogin />}/>
+        <Route path="/phoneLogin" element={<PhoneLogin />}/>
       </Routes>
     </>
   );
