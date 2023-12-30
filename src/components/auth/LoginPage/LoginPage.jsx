@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
-import { auth, txtDB } from "../../../firebase";
+import { auth } from "../../../firebase";
 import google from "./../../../asset/google.png"
 import GoogleLogin from "../LoginWithGoogle/GoogleLogin";
 import phone from "./../../../asset/Phone1.png";
 import PhoneLogin from "../LoginWithPhone/PhoneLogin";
+import { Image } from "react-bootstrap";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setpassword] = useState("");
-  const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -103,7 +102,7 @@ const LoginPage = () => {
                   hover:bg-gray-200  shadow-xl hover:shadow-lg w-[200%] max-sm:justify-center
                     sm:px-1"
                 >
-                  <img
+                  <Image
                     src={google}
                     alt="my image"
                     width={50}
@@ -120,7 +119,7 @@ const LoginPage = () => {
                   hover:bg-gray-200  shadow-xl hover:shadow-lg w-[250%] max-sm:justify-center
                     sm:px-1"
                 >
-                  <img
+                  <Image
                     src={phone}
                     alt="my image"
                     width={50}

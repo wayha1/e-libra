@@ -12,11 +12,10 @@ const AboutUs = () => {
   const [OurGoal, setGoal] = useState([]);
   const [author, setAuthor] = useState([]);
   const [isHovering, setIsHovering] = useState(false);
-  const [expandedAuthors, setExpandedAuthors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [expandedDetails, setExpandedDetails] = useState([]);
-  // Add state variable for expanded author details
   const [expandedAuthorDetails, setExpandedAuthorDetails] = useState([]);
+  const [visibleAuthors] = useState(6);
 
   const toggleExpansion = (index) => {
     setExpandedDetails((prevExpandedDetails) => {
@@ -31,6 +30,7 @@ const AboutUs = () => {
       return newExpandedAuthorDetails;
     });
   };
+  console.log(expandedAuthorDetails)
 
   const handleMouseOver = () => {
     setIsHovering(false);
@@ -76,20 +76,9 @@ const AboutUs = () => {
     setExpandedDetails(Array(author.length).fill(false));
     getAuthor();
     fetchData();
-  }, []);
+  }, [author.length]);
 
-  // State to track the number of authors to display initially
-  const [visibleAuthors, setVisibleAuthors] = useState(6); // Adjust the number as needed
 
-  // Function to load all authors
-  const loadAllAuthors = () => {
-    setVisibleAuthors(author.length);
-  };
-
-  // Function to go back to the initial view
-  const goBack = () => {
-    setVisibleAuthors(6); // Adjust the number as needed
-  };
 
   return (
     <>
@@ -118,7 +107,6 @@ const AboutUs = () => {
                       width={1000}
                       height={1200}
                       preload="auto"
-                      playbackRate={0.5} // Adjust the value to your desired playback rate (0.5 means half-speed)
                     />
                   )}
                 </div>
@@ -136,10 +124,11 @@ const AboutUs = () => {
 
           <section id="Our_Vision">
             {Container.map((data, i) => (
-              <div className="flex ">
+              <div className="flex " key={i}>
                 {data.youtubeLink && (
-                  <div key={i} className="w-full  md:hidden min-lg:hidden lg:hidden xl:hidden ">
+                  <div className="w-full  md:hidden min-lg:hidden lg:hidden xl:hidden ">
                     <iframe
+                      title={`UniqueTitle_${i}`}
                       src={data.youtubeLink}
                       alt="youtubeVideo"
                       className="flex max-lg:w-full max-lg:h-[350px] sm:w-full sm:h-[250px] max-sm:w-full max-sm:h-[200px] max-lg:px-10 max-lg:m-2 "
@@ -151,9 +140,8 @@ const AboutUs = () => {
             <div className="flex flex-col w-screen h-auto">
               <div className="w-full justify-between">
                 {Container.map((data, i) => (
-                  <div className="lg:py-4 lg:px-10 justify-between flex px-3 ">
+                  <div key={i} className="lg:py-4 lg:px-10 justify-between flex px-3 ">
                     <div
-                      key={i}
                       className="md:m-2 sm:m-5 max-sm:m-5 bg-gray-300 rounded-2xl shadow-xl p-2 flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full"
                     >
                       {data.title && (
@@ -175,6 +163,7 @@ const AboutUs = () => {
                         className="w-fit flex h-100% justify-center items-center max-sm:hidden max-md:hidden"
                       >
                         <iframe
+                          title={`UniqueTitle_${i}`}
                           src={data.youtubeLink}
                           alt="youtubeVideo"
                           className="flex translate-y-36 xl:w-[500px] lg:w-[450px] lg:h-[400px] md:w-[400px] md:h-[300px]  xl:-translate-x-24"
@@ -189,12 +178,12 @@ const AboutUs = () => {
 
           <section id="OurGoal">
             <div className="w-full bg-gray-50 lg:h-[700px] max-lg:h-[500px] max-sm:h-[700px] flex items-center justify-center">
-              {OurGoal.map((data) => (
-                <div class="">
-                  <div class="relative w-full max-sm:w-60% max-w-lg">
-                    <div class="absolute top-0 -left-4 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-                    <div class="absolute top-0 -right-4 max-sm:-right-1 max-sm:-translate-x-3 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-                    <div class="absolute -bottom-8 left-20 max-sm:left-2 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+              {OurGoal.map((data, index) => (
+                <div className="" key={index}>
+                  <div className="relative w-full max-sm:w-60% max-w-lg" key={`goal-${index}`}>
+                    <div className="absolute top-0 -left-4 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                    <div className="absolute top-0 -right-4 max-sm:-right-1 max-sm:-translate-x-3 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                    <div className="absolute -bottom-8 left-20 max-sm:left-2 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
                     <div className="text-gray-500 ">
                       <h1 className="lg:mb-10 text-center text-4xl whitespace-nowrap max-sm:text-xl m-2 font-bold font-serif">
                         {data.title}
@@ -207,13 +196,13 @@ const AboutUs = () => {
                       <div className="flex-col m-1">
                         {data.decs && (
                           <ul className="list-disc text-xl justify-between">
-                            <li className="">
+                            <li key={`goal-desc-${index}-0`} className="">
                               <h2 className=" ">{data.decs[0]}</h2>
                             </li>
-                            <li className="">
+                            <li key={`goal-desc-${index}-1`} className="">
                               <h2 className="">{data.decs[1]}</h2>
                             </li>
-                            <li className="">
+                            <li key={`goal-desc-${index}-2`} className="">
                               <h2 className="">{data.decs[2]}</h2>
                             </li>
                           </ul>
@@ -225,6 +214,8 @@ const AboutUs = () => {
               ))}
             </div>
           </section>
+
+
           <div>
             <h1 className="whitespace-nowrap link link-underline link-underline-black m-5 text-center hover:decoration lg:text-4xl max-lg:text-2xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-110 hover:text-cyan-700 sm:text-3xl xs:text-3xl">
               អ្នកនិពន្ធ កម្ពុជា
@@ -242,7 +233,7 @@ const AboutUs = () => {
                     {data.imgAuth && (
                       <img
                         src={data.imgAuth}
-                        alt="Author Image"
+                        alt=""
                         onClick={(e) => e.stopPropagation()}
                         className="w-[300px] h-[250px] mb-3 "
                       />
