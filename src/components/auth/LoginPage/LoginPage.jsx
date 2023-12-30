@@ -27,25 +27,19 @@ const LoginPage = () => {
         navigate("/");
       }
     });
-
-    // Cleanup function for the subscription
     return () => unsubscribe();
-  }, [navigate]);
+  }, [navigate, user]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       await signInWithEmailAndPassword(auth, username, password);
-      navigate("/");
     } catch (error) {
       console.error("Error signing in:", error.code, error.message);
       setError(true);
     }
   };
-  if (user) {
-    navigate("/");
-  }
   return (
     <div className="flex h-screen bg-gray-50 items-center justify-center">
       <div className="flex flex-col w-[70%]">

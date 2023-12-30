@@ -37,6 +37,7 @@ const Navbar = () => {
   const handleButtonClick = () => {
     if (dropdownState === "login") {
       navigate("/login");
+      console.log(dropdownState);
     } else {
       setDropdownState("profile");
     }
@@ -149,10 +150,8 @@ const Navbar = () => {
                               handleMenuItemClick(menu);
                               scrollToTop();
                               if (menu === "Logout") {
-                                // Call the logout function
                                 handleLogout();
                               } else if (menu === "Profile") {
-                                // Navigate to the AccountPage when "Profile" is clicked
                                 navigate("/account");
                               }
                             }}

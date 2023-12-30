@@ -26,18 +26,14 @@ const RegisterPage = () => {
     try {
       setError("");
       setLoading(true);
-      await signup(name, email, password);
+      await signup(email, password);
+      // If successful, you can redirect or perform other actions here
     } catch (error) {
       setError("Failed to create account");
       console.error("Error creating account:", error);
     }
     setLoading(false);
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
   };
-
   return (
     <form onSubmit={handleRegister}>
       <div className="flex h-screen bg-gray-50 items-center justify-center">
