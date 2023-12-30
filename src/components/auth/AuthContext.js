@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { auth } from "../../firebase"; // Adjust the path accordingly
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const AuthContext = createContext();
 
@@ -10,10 +11,10 @@ export function useAuth() {
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
 
-  function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
-      return userCredential.user.updateProfile({
-        displayName: email,
+  function signup(email, password, displayName) {
+    return createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      return updateProfile(userCredential.user, {
+        displayName: displayName,
       });
     });
   }

@@ -128,7 +128,8 @@ const Navbar = () => {
               <div className="inline-block text-left z-50" ref={menuRef}>
                 <button
                   onClick={handleButtonClick}
-                  className="mr-4 focus:border-gray-600 focus:border-2 rounded-full flex"
+                  className="mr-4 focus:border-gray-600 focus:border-2 
+                  rounded-full flex"
                 >
                   <img
                     ref={imgRef}
@@ -144,13 +145,17 @@ const Navbar = () => {
                 </button>
                 {open && (
                   <div className="flex flex-col justify-center items-center lg:items-end lg:mr-[2%] w-screen absolute right-0 z-50">
-                    <ul className=" mt-2 p-8 lg:p-12 rounded-md shadow-lg bg-gray-500">
+                    <ul className=" mt-2 p-8 lg:p-12 rounded-md shadow-lg bg-gray-500 -translate-x-12">
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
-                          <p className="text-white uppercase font-semibold">
-                            Username: {user.name}
+
+                          <p className="text-white text-xl font-semibold">
+                            <Link to={'/account'}>
+                              Profile
+                            </Link>
                           </p>
                           <h1 className="text-white">{user.email}</h1>
+                          <h1 className="text-white">{user.displayName}</h1>
                           <button
                             onClick={handleLogout}
                             className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
@@ -191,8 +196,8 @@ const Navbar = () => {
           </div>
           <div
             className={`${nav
-                ? "hidden fixed left-[-100%]"
-                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
+              ? "hidden fixed left-[-100%]"
+              : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
               }`}
             onClick={scrollToTop}
           >
