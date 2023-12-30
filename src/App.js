@@ -14,6 +14,7 @@ import SeeAll from "./components/CategoryBook/SeeAll";
 import AuthorInfo from "./components/Author/AuthorInfo";
 import BookPage from "./components/HomePage/BookPage";
 import Payment from "./components/Cartt/Payment";
+import GoogleLogin from "./components/GoogleLogin";
 
 const App = ({ children }) => {
   return (
@@ -37,6 +38,7 @@ const App = ({ children }) => {
         <Route path="/bookview" element={<BookPage />}></Route>
         <Route path="/book-detail/:bookId/" element={<BookDetail />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
+        <Route path="/google" element={<GoogleLogin />}/>
       </Routes>
     </>
   );
