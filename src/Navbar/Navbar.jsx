@@ -36,7 +36,6 @@ const Navbar = () => {
 
   const handleButtonClick = () => {
     if (dropdownState === "login") {
-      // If the dropdown state is "login", navigate to the "/login" path
       navigate("/login");
     } else {
       setDropdownState("profile");
@@ -120,10 +119,7 @@ const Navbar = () => {
 
               {/* Integrated Account component */}
               <div className="relative" ref={menuRef}>
-                <button
-                  onClick={handleButtonClick}
-                  className="focus:outline-none"
-                >
+                <button onClick={handleButtonClick} className="focus:outline-none">
                   <img
                     ref={imgRef}
                     onClick={handleImageClick}
@@ -176,10 +172,7 @@ const Navbar = () => {
 
         {/* Mobile Mode */}
         <div className="z-50 flex">
-          <div
-            onClick={handleNav}
-            className="flex lg:hidden justify-center items-center -translate-x-8"
-          >
+          <div onClick={handleNav} className="flex lg:hidden justify-center items-center -translate-x-8">
             {nav ? (
               <AiOutlineMenu size={40} className="bg-white rounded-md" />
             ) : (
@@ -195,11 +188,7 @@ const Navbar = () => {
             onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
-              <Link
-                to="/"
-                className="hover:shadow-full flex flex-col"
-                onClick={handleNav}
-              >
+              <Link to="/" className="hover:shadow-full flex flex-col" onClick={handleNav}>
                 <img
                   src={require("./Logo.png")}
                   alt="Logo"
@@ -207,9 +196,7 @@ const Navbar = () => {
                   height={50}
                   className="ml-4 hover:scale-110"
                 />
-                <span className="text-2xl whitespace-nowrap text-gray-600 hover:scale-110">
-                  E-Libra
-                </span>
+                <span className="text-2xl whitespace-nowrap text-gray-600 hover:scale-110">E-Libra</span>
               </Link>
               <div className="text-center mt-10">
                 <ul className="uppercase p-4">

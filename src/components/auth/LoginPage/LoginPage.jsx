@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [user, setUser] = useState(null); // New state to store user information
+  const navigate = useNavigate();
 
   const getData = async () => {
     const valRef = collection(txtDB, `LogoData`);
@@ -22,11 +23,14 @@ const LoginPage = () => {
     getData();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
+      if (user) {
+        navigate("/");
+      }
     });
-    return () => unsubscribe();
-  }, []);
 
-  const navigate = useNavigate();
+    // Cleanup function for the subscription
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,12 +53,12 @@ const LoginPage = () => {
           <img src={require("./Logo.png")} alt="logo" width={50} height={50} className=" hover:scale-75 " />
           <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
 
-        <form onSubmit={handleLogin}>
-          <main
-            className="flex-col items-center justify-center bg-white rounded-3xl 
+          <form onSubmit={handleLogin}>
+            <main
+              className="flex-col items-center justify-center bg-white rounded-3xl 
           h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[650px]"
-          >
-            <h1 className="text-center text-4xl pt-8 font-bold text-blue-700 book-title ">LogIn</h1>
+            >
+              <h1 className="text-center text-4xl pt-8 font-bold text-blue-700 book-title ">LogIn</h1>
 
               <div className="mt-8 px-5 flex flex-col max-w-sm space-y-5">
                 <input
