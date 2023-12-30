@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [password, setpassword] = useState("");
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
-  const [user, setUser] = useState(null); // New state to store user information
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -43,20 +43,15 @@ const LoginPage = () => {
   return (
     <div className="flex h-screen bg-gray-50 items-center justify-center">
       <div className="flex flex-col w-[70%]">
-        <div className="bg-white shadow-xl rounded-xl items-center flex flex-col">
-          <img src={require("./Logo.png")} alt="logo" width={50} height={50} className=" hover:scale-75 " />
-          <h1 className="font-bold font-sans hover:font-serif">E-Libra</h1>
+        <div className="bg-white shadow-xl rounded-xl items-center flex flex-col py-10">
 
           <form onSubmit={handleLogin}>
-            <main
-              className="flex-col items-center justify-center bg-white rounded-3xl 
-          h-full md:px-8 sm:px-12 xs:px-8 w-[350px] sm:w-[500px] lg:w-[650px]"
-            >
-              <h1 className="text-center text-4xl pt-8 font-bold text-blue-700 book-title ">LogIn</h1>
-
-              <div className="mt-8 px-5 flex flex-col max-w-sm space-y-5">
+            <main className="w-full space-y-10">
+              <h1 className="text-center text-4xl pt-8 font-bold text-gray-700 ">Sign In</h1>
+              <div className="flex flex-col px-3 py-2 space-y-5">
                 <input
-                  className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                  className={`border border-gray-300 rounded-md py-2 px-4 ${username ? "text-gray-600" : "text-gray-200"
+                    }`}
                   type="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -64,7 +59,8 @@ const LoginPage = () => {
                 />
 
                 <input
-                  className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                  className={`border border-gray-300 rounded-md py-2 px-4 ${password ? "text-gray-600" : "text-gray-200"
+                    }`}
                   type="password"
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
@@ -79,7 +75,7 @@ const LoginPage = () => {
                   className="bg-blue-600 w-[40%] text-center py-2 rounded-xl hover:bg-blue-800 
                           shadow-xl text-white "
                 >
-                  LOGIN
+                  Sign In
                 </button>
               </div>
 
@@ -88,7 +84,7 @@ const LoginPage = () => {
                   <button className="py-3 hover:text-blue-900"> Forgot Password &#10072; </button>
                   <Link to={"/register"}>
                     <button className="py-3 text-blue-700 hover:text-blue-900" type="Register">
-                      &#160;Register
+                      &#160;Sign Up
                     </button>
                   </Link>
                 </div>
@@ -98,19 +94,19 @@ const LoginPage = () => {
                 {data.map((value, index) => (
                   <div
                     key={index}
-                    className="justify-between mt-5 flex border-blue-100 cursor-pointer border-2 rounded-lg
-                 hover:bg-gray-200 text-black shadow-xl hover:shadow-lg w-[80%] mb-3
+                    className="my-6 flex border-blue-100 border-2 rounded-lg
+                 hover:bg-gray-200  shadow-xl hover:shadow-lg w-[80%] max-sm:justify-center
                  sm:px-1"
                   >
                     <img
                       src={value.imgUrl}
                       alt="my image"
-                      width={40}
+                      width={50}
                       height={40}
                       onClick={this}
-                      className="hover:shadow-full hover:scale-90 m-1 ml-5"
+                      className="hover:shadow-full hover:scale-110 mx-2 my-1 "
                     />
-                    <h1 className="mt-1.5 text-center flex-grow p-1"> {value.txtVal} </h1>
+                    <h1 className="flex whitespace-nowrap max-sm:hidden px-2 items-center text-gray-600"> {value.txtVal} </h1>
                   </div>
                 ))}
               </ul>

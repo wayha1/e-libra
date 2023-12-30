@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { auth } from "../firebase";
@@ -28,26 +28,18 @@ const Navbar = () => {
     setOpen(!open);
   };
 
-  const handleMenuItemClick = (menuItem) => {
-    setOpen(false);
-    setAccordionState((prevState) => ({
-      ...Object.fromEntries(Menus.map((menu) => [menu, false])),
-      [menuItem]: !prevState[menuItem],
-    }));
-
-    if (menuItem === "Setting") {
-      setDropdownState("profile");
-    } else if (menuItem === "Logout") {
-      handleLogout();
-      setDropdownState("login");
-    }
-  };
-
   const handleButtonClick = () => {
-    if (dropdownState === "login") {
+    setOpen(false);
+    if (accordionState === "login") {
       navigate("/login");
     } else {
       setDropdownState("profile");
+    }
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setOpen(false);
     }
   };
 
@@ -60,15 +52,23 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      // Sign out the user using Firebase authentication
       await signOut(auth);
-
-      // Use the 'useNavigate' hook to navigate to the login page
-      navigate("/login"); // Update this to the correct path for your login page
+      navigate("/login");
     } catch (error) {
       console.error("Error signing out:", error);
     }
   };
+
+  useEffect(() => {
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
   return (
     <nav className="nav-bar w-full sticky top-0 z-50 bg-gray-100 shadow-sm">
@@ -125,32 +125,42 @@ const Navbar = () => {
                 Cart
               </Link>
 
-              <div className="" ref={menuRef}>
-                <button onClick={handleButtonClick} className="focus:outline-none">
+              <div className="inline-block text-left z-50" ref={menuRef}>
+                <button
+                  onClick={handleButtonClick}
+                  className="mr-4 focus:border-gray-600 focus:border-2 rounded-full flex"
+                >
                   <img
                     ref={imgRef}
                     onClick={handleImageClick}
-                    src={user ? user.photoURL : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"}
+                    src={
+                      user
+                        ? user.photoURL
+                        : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
+                    }
                     alt="user"
-                    className="h-15 w-12 object-cover border-2 border-gray-400 cursor-pointer rounded-full"
+                    className=" w-[35px] h-[35px] object-cover focus:border-gray-600 focus:border-2 rounded-full"
                   />
                 </button>
                 {open && (
-                  <div className="absolute w-[200px] bg-gray-400 ">
-                    <ul className="duration-300 ease-in-out m-12">
+                  <div className="flex flex-col justify-center items-center lg:items-end lg:mr-[2%] w-screen absolute right-0 z-50">
+                    <ul className=" mt-2 p-8 lg:p-12 rounded-md shadow-lg bg-gray-500">
                       {user ? (
-                        <div>
-                          <p className="text-green-600 p-5">User : {user.email}</p>
+                        <div className="flex flex-col justify-center items-center space-y-4">
+                          <p className="text-white uppercase font-semibold">
+                            Username: {user.name}
+                          </p>
+                          <h1 className="text-white">{user.email}</h1>
                           <button
                             onClick={handleLogout}
-                            className="whitespace-nowrap px-4 py-2 border border-red-500 rounded-md bg-red-500 text-white hover:bg-red-600 hover:border-red-600"
+                            className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
                           >
                             Logout
                           </button>
                         </div>
                       ) : (
-                        <div>
-                          <p className="text-red-600 mb-3">No Account</p>
+                        <div className="flex flex-col justify-center items-center space-y-4">
+                          <p className="text-white uppercase font-semibold">No Account</p>
                           <button
                             onClick={() => {
                               handleButtonClick();
@@ -181,8 +191,8 @@ const Navbar = () => {
           </div>
           <div
             className={`${nav
-              ? "hidden fixed left-[-100%]"
-              : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
+                ? "hidden fixed left-[-100%]"
+                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
               }`}
             onClick={scrollToTop}
           >

@@ -44,25 +44,33 @@ const RegisterPage = () => {
             <div className="flex flex-col space-y-5">
               <input
                 ref={nameRef}
-                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                className={`border border-gray-300 rounded-md py-2 px-4 
+                ${nameRef ? "text-gray-600" : "text-gray-200"
+                  }`}
                 type="text"
                 placeholder="Name"
               />
               <input
                 ref={emailRef}
-                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                className={`border border-gray-300 rounded-md py-2 px-4 
+                ${emailRef ? "text-gray-600" : "text-gray-200"
+                  }`}
                 type="email"
                 placeholder="Email"
               />
               <input
                 ref={passwordRef}
-                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                className={`border border-gray-300 rounded-md py-2 px-4 
+                ${passwordRef ? "text-gray-600" : "text-gray-200"
+                  }`}
                 type="password"
                 placeholder="Password"
               />
               <input
                 ref={confirmPassRef}
-                className="border border-gray-300 rounded-md text-gray-200 py-2 px-4"
+                className={`border border-gray-300 rounded-md py-2 px-4 
+                ${confirmPassRef ? "text-gray-600" : "text-gray-200"
+                  }`}
                 type="password"
                 placeholder="Confirm Password"
               />
@@ -70,17 +78,18 @@ const RegisterPage = () => {
             {error && <div className="text-red-600 text-md mt-2">{error}</div>}
             <button
               type="submit"
-              className="bg-blue-600 w-[40%] text-center py-2 rounded-xl hover:bg-blue-800"
+              className="bg-blue-600 w-[30%] text-center py-2 rounded-xl hover:bg-blue-800 
+              shadow-xl text-white "
               disabled={loading}
             >
-              <div className="text-white text-xl">Sign Up</div>
+              Sign Up
             </button>
 
             <div className="flex text-center py-3">
               <h1 className="">You already have an account! &#10072;</h1>
               <Link to={"/login"}>
                 <button className="text-blue-700 hover:text-blue-900" type="submit">
-                  &#160;Log In
+                  &#160;Sign In
                 </button>
               </Link>
             </div>
