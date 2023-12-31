@@ -164,12 +164,10 @@ const HomePage = () => {
 
           {/* Category */}
           <section id="category">
-            <div className="h-[500px] w-full">
-              {/* Display filter buttons */}
+            <div className="h-[500px] w-full justify-center ">
               <button onClick={() => filterBooksByType("All")}>Show All</button>
               <button onClick={() => filterBooksByType("bacII")}>Filter by bacII</button>
               <button onClick={() => filterBooksByType("Comics")}>Filter by Comics</button>
-              {/* Add more buttons for other types as needed */}
 
               {filteredBooks.map((book, index) => (
                 <div key={index}>
