@@ -137,6 +137,8 @@ const Navbar = () => {
                     src={
                       user
                         ? user.photoURL
+                          ? user.photoURL
+                          : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
                         : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
                     }
                     alt="user"
@@ -148,11 +150,8 @@ const Navbar = () => {
                     <ul className=" mt-2 p-8 lg:p-12 rounded-md shadow-lg bg-gray-500 -translate-x-12">
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
-
                           <p className="text-white text-xl font-semibold">
-                            <Link to={'/account'}>
-                              Profile
-                            </Link>
+                            <Link to={"/account"}>Profile</Link>
                           </p>
                           <h1 className="text-white">{user.email}</h1>
                           <h1 className="text-white">{user.displayName}</h1>
@@ -195,10 +194,11 @@ const Navbar = () => {
             )}
           </div>
           <div
-            className={`${nav
-              ? "hidden fixed left-[-100%]"
-              : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
-              }`}
+            className={`${
+              nav
+                ? "hidden fixed left-[-100%]"
+                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
+            }`}
             onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
