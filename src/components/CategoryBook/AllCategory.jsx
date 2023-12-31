@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom";
 const AllCategory = () => {
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [setSelectedBook] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("title");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  const booksPerPage = 8;
 
   const fetchData = async () => {
     try {
@@ -51,6 +50,16 @@ const AllCategory = () => {
 
   useEffect(() => {
     fetchData();
+    const handleResize = () => {
+      setBooksPerPageState(booksPerPage());
+      setCurrentPage(1);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleReadNowClick = (book) => {
@@ -58,23 +67,39 @@ const AllCategory = () => {
     navigate("/allgen/see-all", { state: { selectedBook: book, allBooks: filteredBooks } });
   };
 
-  const indexOfLastBook = currentPage * booksPerPage;
-  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const booksPerPage = () => {
+    if (window.innerWidth >= 1024) {
+      // Large screen (lg)
+      return 8;
+    } else if (window.innerWidth >= 768) {
+      // Medium screen (md)
+      return 9;
+    } else {
+      // Small screen (sm)
+      return 6;
+    }
+  };
+  const [booksPerPageState, setBooksPerPageState] = useState(booksPerPage());
+
+  const indexOfLastBook = currentPage * booksPerPageState;
+  const indexOfFirstBook = indexOfLastBook - booksPerPageState;
   const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
 
   const renderBooks = currentBooks.map((book, index) => (
     <button
       key={index}
-      className="text-gray-700 bg-gray-100 shadow-sm rounded-md w-[200px] h-[300px] mx-4 my-2"
+      className="text-gray-700 bg-gray-100 shadow-sm rounded-md w-[200px] h-[300px] max-sm:w-[100px] max-sm:h-[150px] mx-4 my-2 max-sm:my-4 mt-5"
     >
       <img
         src={book.img}
         alt={book.title}
-        className="w-[200px] h-[250px] hover:scale-95"
+        className="w-[200px] h-[250px] max-sm:w-[100px] max-sm:h-[150px] hover:scale-95"
         onClick={() => handleReadNowClick(book)}
       />
-      <div className="text-center">
-        <p className="text-xl font-title font-bold overflow-hidden whitespace-nowrap">{book.title}</p>
+      <div className="text-center mt-2">
+        <p className="text-xl max-sm:text-[10px] font-title font-bold overflow-hidden whitespace-nowrap">
+          {book.title}
+        </p>
         <p className="text-md">{book.price}</p>
         {filterType === "author" && <p className="text-md">{book.authorId}</p>}
       </div>
@@ -126,17 +151,26 @@ const AllCategory = () => {
     setFilteredBooks(allBooks);
     setCurrentPage(1);
   };
+  const handleGoBack = () => {
+    window.location.href = "/";
+  };
 
   return (
     <div className="z-20 overflow-y-auto">
+      <button
+        className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg mx-5 my-2 max-lg:hidden lg:hidden"
+        onClick={handleGoBack}
+      >
+        Back
+      </button>
       <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
         មាតិកា ទាំងអស់
       </h2>
-      <div className="flex mb-4 pr-4 w-full justify-end">
+      <div className="flex mb-4 pr-4 max-sm:pr-3 w-full justify-end ">
         <input
           type="text"
           placeholder={filterType === "title" ? "Search Title" : "Search Author"}
-          className="p-2 border rounded-md mr-2"
+          className=" border rounded-md mr-2 max-sm:w-[150px] "
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -156,7 +190,7 @@ const AllCategory = () => {
         </button>
       </div>
 
-      <div className="h-[700px] gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 mx-20 my-5">
+      <div className="h-[700px] md:h-[1010px] max-sm:h-[570px] gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 max-sm:grid-cols-3 lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-1 ">
         {renderBooks}
       </div>
 
