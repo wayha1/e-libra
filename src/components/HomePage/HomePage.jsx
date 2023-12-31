@@ -65,17 +65,14 @@ const HomePage = () => {
 
   const filterBooksByType = (books) => {
     setSelectedType(books);
-
-    // Filter books based on the specified type
     const filtered = books === "All" ? allBooks : allBooks.filter((book) => book.type === book);
     setFilteredBooks(filtered);
   };
 
   useEffect(() => {
-    // Fetch data when the component mounts
     getBanner();
     fetchData();
-  }, []); // Empty dependency array means it will run only once when the component mounts
+  }, []);
 
   return (
     <>
@@ -85,7 +82,7 @@ const HomePage = () => {
         <>
           {/* Banner */}
           <section id="Banner">
-            <main className="z-20 flex w-full h-[900px] bg-gray-100">
+            <main className="z-20 flex w-full h-[900px] max-sm:h-[600px] bg-gray-100">
               {banner.map((data, i) => (
                 <div
                   key={i}
