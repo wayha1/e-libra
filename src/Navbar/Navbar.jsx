@@ -177,7 +177,10 @@ const Navbar = () => {
 
         {/* Mobile Mode */}
         <div className="z-50 flex">
-          <div onClick={handleNav} className="flex lg:hidden justify-center items-center -translate-x-8">
+          <div
+            onClick={handleNav}
+            className="flex lg:hidden justify-center items-center -translate-x-8 transition-transform duration-300"
+          >
             {nav ? (
               <AiOutlineMenu size={40} className="bg-white rounded-md" />
             ) : (
@@ -187,21 +190,26 @@ const Navbar = () => {
           <div
             className={`${
               nav
-                ? "hidden fixed left-[-100%]"
-                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500"
+                ? "hidden fixed left-[-100%] transition-transform duration-300"
+                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 transition-transform"
             }`}
             onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
-              <Link to="/" className="hover:shadow-full flex flex-col" onClick={handleNav}>
+              <Link to="/account" className="hover:shadow-full flex flex-col mt-10" onClick={handleNav}>
                 <img
-                  src={require("./Logo.png")}
-                  alt="Logo"
-                  width={50}
-                  height={50}
-                  className="ml-4 hover:scale-110"
+                  ref={imgRef}
+                  onClick={handleImageClick}
+                  src={
+                    user
+                      ? user.photoURL
+                        ? user.photoURL
+                        : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
+                      : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
+                  }
+                  alt="user"
+                  className=" w-[50px] h-[50px] object-cover focus:border-gray-600 focus:border-2 rounded-full"
                 />
-                <span className="text-2xl whitespace-nowrap text-gray-600 hover:scale-110">E-Libra</span>
               </Link>
               <div className="text-center mt-10">
                 <ul className="uppercase p-4">
