@@ -9,19 +9,13 @@ const Navbar = () => {
   const [nav, setNav] = useState(true);
   const [open, setOpen] = useState(false);
   const [dropdownState, setDropdownState] = useState("login");
-  const Menus = ["Setting", "Logout"];
-  const [accordionState, setAccordionState] = useState({
-    login: false,
-    profile: false,
-  });
+  const [accordionState, setAccordionState] = useState({ login: false, profile: false });
   const menuRef = useRef();
   const imgRef = useRef();
   const navigate = useNavigate();
   const user = auth.currentUser;
 
-  const handleNav = () => {
-    setNav(!nav);
-  };
+  const handleNav = () => setNav(!nav);
 
   const handleImageClick = (e) => {
     e.stopPropagation();
@@ -44,10 +38,7 @@ const Navbar = () => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleLogout = async () => {

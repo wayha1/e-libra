@@ -30,8 +30,6 @@ const AboutUs = () => {
       return newExpandedAuthorDetails;
     });
   };
-  console.log(expandedAuthorDetails)
-
   const handleMouseOver = () => {
     setIsHovering(false);
   };

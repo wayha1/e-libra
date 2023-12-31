@@ -46,8 +46,12 @@ export const AuthorPage = () => {
           <h1 className="text-center text-5xl py-16 font-bold text-green-800 underline book-title">
             មាតិកា អ្នកនិពន្ធ
           </h1>
-          <div className="px-40 py-5">
-            <div className="grid grid-cols-3 space-y-5 items-center justify-center ">
+          <div className="px-40 py-5 max-sm:px-8 py-5">
+            <div
+              className="grid grid-cols-3 space-y-5 items-center justify-center
+                            max-sm:grid grid-cols-3 
+            "
+            >
               {authorList.length > 0 && (
                 <>
                   {authorList.map((author) => (
@@ -63,7 +67,9 @@ export const AuthorPage = () => {
                         <img
                           src={author.imgAuth}
                           alt={author.authName}
-                          className="w-[200px] h-[200px] rounded-full"
+                          className="w-[200px] h-[200px] rounded-full
+                          max-sm:w-[100px] max-sm:h-[100px] round-full
+                          "
                           onClick={() => handleReadNowClick(author)}
                         />
                         <p className="py-2 text-xl font-bold book-decs">{author.authName}</p>
