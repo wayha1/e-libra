@@ -114,9 +114,11 @@ const LoginPage = () => {
                     <GoogleLogin />
                   </h1>
                 </div>
-                <div
+                
+              </ul>
+              <div
                   className="my-6 flex border-blue-100 border-2 rounded-lg
-                  hover:bg-gray-200  shadow-xl hover:shadow-lg w-[250%] max-sm:justify-center
+                  hover:bg-gray-200  shadow-xl hover:shadow-lg w-[100%] max-sm:justify-center
                     sm:px-1"
                 >
                   <Image
@@ -131,7 +133,6 @@ const LoginPage = () => {
                     <PhoneLogin />
                   </h1>
                 </div>
-              </ul>
             </main>
           </form>
         </div>

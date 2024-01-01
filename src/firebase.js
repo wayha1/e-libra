@@ -20,4 +20,4 @@ const imgDB = getStorage(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export { imgDB, txtDB, db, auth, provider };
+export { imgDB, txtDB, db, auth, provider,app };
