@@ -69,13 +69,10 @@ const AllCategory = () => {
 
   const booksPerPage = () => {
     if (window.innerWidth >= 1024) {
-      // Large screen (lg)
       return 8;
     } else if (window.innerWidth >= 768) {
-      // Medium screen (md)
       return 9;
     } else {
-      // Small screen (sm)
       return 6;
     }
   };
@@ -190,11 +187,11 @@ const AllCategory = () => {
         </button>
       </div>
 
-      <div className="h-[700px] md:h-[1010px] max-sm:h-[570px] gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 max-sm:grid-cols-3 lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-1 ">
+      <div className="h-[600px] md:h-[1010px] max-sm:h-[570px] gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 max-sm:grid-cols-3 lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-1 ">
         {renderBooks}
       </div>
 
-      <div className="flex justify-center my-4">
+      <div className="flex justify-center my-4 md:my-16">
         <button
           onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}

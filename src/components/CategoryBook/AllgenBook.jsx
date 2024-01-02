@@ -44,9 +44,8 @@ const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChan
           <li key={category.id} className="flex text-center">
             <NavLink
               to={category.path}
-              className={`${
-                activeComponent === category.name ? "bg-gray-600 text-white" : "bg-gray-300"
-              } w-full h-[50px] text-lg cursor-pointer duration-300 border p-2`}
+              className={`${activeComponent === category.name ? "bg-gray-600 text-white" : "bg-gray-300"
+                } w-full h-[50px] text-lg cursor-pointer duration-300 border p-2`}
             >
               {category.name}
             </NavLink>
@@ -75,7 +74,7 @@ const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChan
 const ContentSection = () => (
   <div
     id="contentSection"
-    className="overflow-y-auto h-[980px] max-lg:h-[1050px] lg:h-[1300px] w-full bg-gray-50"
+    className="overflow-y-auto h-[980px] md:h-[1300px] w-full bg-gray-50"
   >
     <Routes>
       <Route path="/bacII" element={<BacIIBook />} />
