@@ -93,9 +93,8 @@ const HomePage = () => {
                   onTouchEnd={() => setIsBannerHovered(false)}
                 >
                   <div
-                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
-                      isBannerHovered ? "opacity-150" : "opacity-0"
-                    } transition-opacity duration-300 h-full w-[80%]`}
+                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${isBannerHovered ? "opacity-150" : "opacity-0"
+                      } transition-opacity duration-300 h-full w-[80%]`}
                   >
                     <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[30%]">
                       <div className="text-cyan-600 text-center bg-shadow-sm px-5">
@@ -163,7 +162,7 @@ const HomePage = () => {
           </section>
 
           {/* Category */}
-          <section id="category">
+          {/* <section id="category">
             <div className="h-[500px] w-full justify-center ">
               <button onClick={() => filterBooksByType("All")}>Show All</button>
               <button onClick={() => filterBooksByType("bacII")}>Filter by bacII</button>
@@ -172,11 +171,10 @@ const HomePage = () => {
               {filteredBooks.map((book, index) => (
                 <div key={index}>
                   <p>{book.title}</p>
-                  {/* Render other book details as needed */}
                 </div>
               ))}
             </div>
-          </section>
+          </section> */}
         </>
       )}
     </>

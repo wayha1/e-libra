@@ -177,9 +177,6 @@ function SeeAll() {
         {selectedBook.decs}
       </p>
 
-      {/* Add a button to go back to AllCategory */}
-
-      {/* Recomment Book */}
       <div className="bg-gray-100 h-[359px]">
         <h1 className="text-center book-style text-green-900 text-3xl font-bold mx-10 my-8">
           Recommend Books by {selectedBook.authorId}

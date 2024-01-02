@@ -46,22 +46,18 @@ const NovelBook = () => {
     getBacData();
   }, []);
 
-  // Calculate the indexes for the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = bacBooks.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Go to the previous page
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  // Go to the next page
   const goToNextPage = () => {
     if (currentPage < Math.ceil(bacBooks.length / itemsPerPage)) {
       setCurrentPage(currentPage + 1);
@@ -69,7 +65,6 @@ const NovelBook = () => {
   };
 
   const handleReadNowClick = (item) => {
-    // Store the selected book information in the state
     setSelectedBook(item);
 
     // Navigate to the SeeAll component when "Read Now" is clicked
