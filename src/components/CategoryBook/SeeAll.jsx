@@ -202,7 +202,8 @@ function SeeAll() {
       </div>
 
       {/* Modal for login */}
-      {isModalOpen && <ModalToLogin closeModal={closeModal} />}
+      {isModalOpen && <ModalToLogin closeModal={closeModal} />
+      }
     </div>
   );
 }
