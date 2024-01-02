@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import LoadingPage from "../LoadingPage";
+import LoadingPage from "../content/LoadingPage/LoadingPage";
 
 export const AuthorPage = () => {
   const [authorList, setAuthorList] = useState([]);

@@ -5,7 +5,8 @@ import AllCategory from "./AllCategory";
 import ComicBook from "./ComicBook";
 import StudyBook from "./StudyBook";
 import NovelBook from "./NovelBook";
-import LoadingPage from "../LoadingPage";
+import LoadingPage from "../content/LoadingPage/LoadingPage";
+import { DefaultPage } from "../content/DefualPage/DefualPage";
 
 const MAIN_CATEGORY_TITLE = "មាតិកាទាំងអស់";
 
@@ -82,8 +83,7 @@ const ContentSection = () => (
       <Route path="/study" element={<StudyBook />} />
       <Route path="/novel" element={<NovelBook />} />
       <Route path="/" element={<AllCategory />} />
-      {/* Add a default route for pages that are not matched */}
-      <Route path="*" element={<div className="text-center text-2xl font-medium">Page is working on</div>} />
+      <Route path="*" element={<div className="text-center text-2xl font-medium"><DefaultPage /></div>} />
     </Routes>
   </div>
 );
@@ -110,7 +110,6 @@ const AllgenBook = () => {
 
   const handleCategoryChange = (category) => {
     setActiveComponent(category);
-    // Navigate to the selected category path
     const selectedCategory = categories.find((c) => c.name === category);
     if (selectedCategory) {
       window.location.href = selectedCategory.path;

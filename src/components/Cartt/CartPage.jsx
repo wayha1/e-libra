@@ -9,7 +9,7 @@ import {
 import { db } from "../../firebase";
 import { CiCreditCard1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import LoadingPage from "../LoadingPage";
+import LoadingPage from "../content/LoadingPage/LoadingPage";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);

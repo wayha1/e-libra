@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HeadCategory from "./HeadCategory";
 import BodyHomepage from "./BodyHomepage";
-import LoadingPage from "../LoadingPage";
+import LoadingPage from "../content/LoadingPage/LoadingPage";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";

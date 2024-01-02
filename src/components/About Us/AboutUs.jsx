@@ -3,7 +3,7 @@ import "./Aboutus.css";
 import HoverVideoPlayer from "react-hover-video-player";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
-import LoadingPage from "../LoadingPage";
+import LoadingPage from "../content/LoadingPage/LoadingPage";
 import { Link } from "react-router-dom";
 
 const AboutUs = () => {
