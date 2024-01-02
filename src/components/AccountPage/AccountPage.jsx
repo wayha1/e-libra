@@ -1,4 +1,6 @@
 import React from "react";
+import { auth } from "../../firebase";
+
 
 const FormField = ({ id, type, label, placeholder, mb, value, onChange }) => (
   <div className={`mb-${mb}`}>
@@ -13,10 +15,13 @@ const FormField = ({ id, type, label, placeholder, mb, value, onChange }) => (
     />
   </div>
 );
+
 const AccountPage = () => {
+
+  const user = auth.currentUser;
+
   return (
     <div>
-      {/* <Navbar /> */}
       <div className="max-w-7xl mx-auto mt-10 md:mt-10 h-full">
         <div className="font-semibold text-black text-2xl md:text-4xl pb-10 pl-4 xl:pl-0">
           Account Setting
@@ -24,19 +29,22 @@ const AccountPage = () => {
         <div className="flex flex-col md:flex-row gap-4 justify-between p-4 xl:p-0">
           <div className="w-full md:w-2/5 text-black">
             <h1 className="font-semibold mb-4 text-xl">Profile information</h1>
-            <p>Update your account's profile information and email address.</p>
           </div>
-          <div className="w-full md:w-3/5 flex flex-col md:flex-row shadow-lg rounded">
-            <div className="w-full md:w-3/5">
-              <form className="p-4">
-                <FormField id="username" type="text" label="Username" placeholder="Enter username" mb="4" />
-                <FormField id="email" type="email" label="Email" placeholder="Enter your email" mb="10" />
-              </form>
+          <div className="w-full md:w-3/5 shadow-lg rounded ">
+            <div className="flex flex-col w-full md:w-3/5 items-center">
+              <img src={user.photoURL}
+                width={100}
+                height={100}
+                className="outline outline-offset-2 outline-2 rounded-full"
+              />
+              <h1>{user.displayName}</h1>
+              <h1>{user.email}</h1>
+
             </div>
             <div className="w-full md:w-2/5 p-4 flex justify-end items-end">
-              <button className="bg-gray-200 text-black font-bold py-2 px-4 rounded-md" type="button">
-                Save Changes
-              </button>
+              {/* <button className="bg-gray-200 text-black font-bold py-2 px-4 rounded-md" type="button">
+                Update
+              </button> */}
             </div>
           </div>
         </div>
