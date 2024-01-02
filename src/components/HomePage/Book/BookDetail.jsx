@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BiBookReader } from "react-icons/bi";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 
 const BookDetail = ({ bookData, closeBook, setReadBook }) => {
   const { bookId } = useParams();

@@ -12,7 +12,6 @@ function SeeAll() {
   const [userRating, setUserRating] = useState(null);
   const [reset, setReset] = useState(false);
   useEffect(() => {
-    // Reset the userRating when the selectedBook changes
     setUserRating(null);
   }, [selectedBook]);
 

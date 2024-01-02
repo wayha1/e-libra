@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const AllCategory = () => {
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [setSelectedBook] = useState(null);
+  const [selectBook ,setSelectedBook] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("title");
   const [currentPage, setCurrentPage] = useState(1);
