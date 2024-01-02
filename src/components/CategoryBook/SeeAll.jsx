@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, auth } from "../../firebase";
 import { Rating } from "../content/Rating/Rating";
+import { ModalToLogin } from "../content/requirement/ModalToLogin";
 
 function SeeAll() {
   const location = useLocation();
@@ -11,63 +12,69 @@ function SeeAll() {
   const allBooks = location.state?.allBooks || [];
   const [userRating, setUserRating] = useState(null);
   const [reset, setReset] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     setUserRating(null);
   }, [selectedBook]);
 
-  if (!selectedBook) {
-    return (
-      <div>
-        <p>No book selected.</p>
-        <Link to="/allGen" className="text-blue-500 hover:underline">
-          Back to All Categories
-        </Link>
-      </div>
-    );
-  }
-  
-
   const handleAddToCart = async (selectedBook) => {
-    try {
-      const cartsCollectionRef = collection(db, "addtoCart");
-      const querySnapshot = await getDocs(cartsCollectionRef);
-      const isItemInCart = querySnapshot.docs.some((doc) => {
-        const cartItem = doc.data();
-        return cartItem.title === selectedBook.title;
-      });
+    if (userIsLoggedIn()) {
+      try {
+        const cartsCollectionRef = collection(db, "addtoCart");
+        const querySnapshot = await getDocs(cartsCollectionRef);
+        const isItemInCart = querySnapshot.docs.some((doc) => {
+          const cartItem = doc.data();
+          return cartItem.title === selectedBook.title;
+        });
 
-      if (!isItemInCart) {
-        await addDoc(cartsCollectionRef, selectedBook);
-
-        alert("Item added to cart!");
-      } else {
-        alert("Item already added to cart!");
+        if (!isItemInCart) {
+          await addDoc(cartsCollectionRef, selectedBook);
+          alert("Item added to cart!");
+        } else {
+          alert("Item already added to cart!");
+        }
+      } catch (error) {
+        console.error("Error adding item to cart:", error);
       }
-    } catch (error) {
-      console.error("Error adding item to cart:", error);
+    } else {
+
+      openModal();
     }
   };
 
   const handleReadNow = () => {
-    const pdfPages = selectedBook.BookPdf || [];
-
-    if (pdfPages.length > 0) {
-      navigate("/bookview", { state: { pages: { BookPdf: pdfPages } } });
-      console.log(pdfPages);
+    if (userIsLoggedIn()) {
+      const pdfPages = selectedBook.BookPdf || [];
+      if (pdfPages.length > 0) {
+        navigate("/bookview", { state: { pages: { BookPdf: pdfPages } } });
+        console.log(pdfPages);
+      } else {
+        alert("This book does not have any pages to read.");
+      }
     } else {
-      alert("This book does not have any pages to read.");
+
+      openModal();
     }
   };
-  // Filter recommended books based on the author name
-  const recommendedBooks = allBooks.filter(
-    (book) =>
-      book.authorId === selectedBook.authorId &&
-      book.title !== selectedBook.title
-  );
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const userIsLoggedIn = () => {
+    return auth.currentUser !== null;
+
+  };
 
   const handleRatingChange = (newRating) => {
     setUserRating(newRating);
   };
+
   const handleRatingSubmit = async () => {
     try {
       const popularCollectionRef = collection(db, "popular");
@@ -76,17 +83,14 @@ function SeeAll() {
         authorId: selectedBook.authorId,
         userRating: userRating,
         price: selectedBook.price,
+        decs: selectedBook.decs,
         type: selectedBook.type,
         date: selectedBook.date,
         image: selectedBook.img,
-        bookPdf: selectedBook.BookPdf,
-
-        // Add other relevant data here
+        BookPdf: selectedBook.BookPdf,
       };
 
       await addDoc(popularCollectionRef, docData);
-
-      // Update the userRating state after successfully submitting the rating
 
       alert("Rating submitted!");
       setUserRating(null);
@@ -96,7 +100,11 @@ function SeeAll() {
       console.error("Error submitting rating:", error);
     }
   };
-
+  const recommendedBooks = allBooks.filter(
+    (book) =>
+      book.authorId === selectedBook.authorId &&
+      book.title !== selectedBook.title
+  );
   return (
     <div className="mt-8 mx-auto h-[940px] overflow-y-auto">
       <div className="justify-center m-3">
@@ -112,7 +120,6 @@ function SeeAll() {
           {selectedBook.title}
         </p>
       </div>
-      {/* Back button */}
 
       <div className="flex bg-gray-200 p-4 rounded-md items-center justify-center w-full h-[400px]">
         <img
@@ -124,11 +131,10 @@ function SeeAll() {
         <div className="grid items-center">
           {selectedBook.price === "free" ? (
             <button
-              className={`${
-                selectedBook.price === "free"
-                  ? "bg-green-300 text-gray-600 font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
-                  : "bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
-              }`}
+              className={`${selectedBook.price === "free"
+                ? "bg-green-300 text-gray-600 font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
+                : "bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
+                }`}
               onClick={handleReadNow}
             >
               Read Now (Free)
@@ -136,7 +142,7 @@ function SeeAll() {
           ) : (
             <button
               className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
-                font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
+              font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
               onClick={() => handleAddToCart(selectedBook)}
               disabled={selectedBook.price === "free"}
             >
@@ -194,6 +200,9 @@ function SeeAll() {
           ))}
         </div>
       </div>
+
+      {/* Modal for login */}
+      {isModalOpen && <ModalToLogin closeModal={closeModal} />}
     </div>
   );
 }

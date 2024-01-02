@@ -65,16 +65,16 @@ const BookDetail = ({ bookData, closeBook, setReadBook }) => {
       </div>
       <div key={selectedBook.id}>
         <div className="overflow-hidden">
-          {selectedBook.title && (
+          {selectedBook.bookTitle && (
             <h1 className="m-10 flex book-title font-bold text-green-900 lg:text-5xl md:text-5xl max-sm:text-3xl whitespace-nowrap justify-center">
               {"រឿង : "}
-              {selectedBook.title}
+              {selectedBook.bookTitle}
             </h1>
           )}
-          {selectedBook.img && (
+          {selectedBook.image && (
             <div className="flex bg-gray-200 p-4 justify-center rounded-lg items-center h-[500px]">
               <img
-                src={selectedBook.img}
+                src={selectedBook.image}
                 alt="img-book"
                 className="flex rounded-md w-[300px] h-[400px] object-cover"
               />

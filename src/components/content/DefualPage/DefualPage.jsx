@@ -6,9 +6,8 @@ import './DefualPage.css';
 export const DefaultPage = () => {
     return (
         <div>
-
             <div className="flex items-center justify-center h-screen">
-                <div className="animate-spin text-blue-500">
+                <div className="animate-spin text-gray-500">
                     <FaCog size={100} />
                 </div>
                 <div className='ml-10'>This Page We are Working On</div>

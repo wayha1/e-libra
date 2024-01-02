@@ -10,10 +10,9 @@ import {
   BiBookReader,
   BiSolidCartAdd,
 } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BodyHomepage = ({ selectedBook }) => {
-  const [Book, setBook] = useState([]);
   const [BookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
   const [detailIndex, setDetailIndex] = useState(0);
@@ -44,7 +43,10 @@ const BodyHomepage = ({ selectedBook }) => {
     setDetailIndex(index);
     const selectedBook = BookData[index];
     navigate(`/book-detail/${selectedBook.id}`, { state: { selectedBook } });
+
+    console.log(selectedBook)
   };
+  console.log(BookData)
 
   const recommendationBook = (index) => {
     const lastIndex = BookData.length - 1;
@@ -58,15 +60,9 @@ const BodyHomepage = ({ selectedBook }) => {
         const contain = collection(db, "popular");
         const snapshot = await getDocs(contain);
         const data = snapshot.docs.map((val) => ({ ...val.data(), id: val.id }));
-
-        // Filter books with UserRating more than 3
         const filteredData = data.filter((book) => book.userRating > 3);
-
-        // Sort the filtered data by the 'userRating' property in ascending order
-        const sortedData = filteredData.sort((a, b) => a.userRating - b.userRating);
-
+        const sortedData = filteredData.sort((a, b) => b.userRating - a.userRating);
         setBookData(sortedData);
-
         const bookDataPromises = sortedData.map(async (elem) => {
           try {
             // Fetch additional data for each book if needed
@@ -80,8 +76,6 @@ const BodyHomepage = ({ selectedBook }) => {
         console.error("Error fetching popular section data:", error);
       }
     };
-
-    // Call the getBooks function
     getBooks();
   }, []);
 
@@ -104,7 +98,6 @@ const BodyHomepage = ({ selectedBook }) => {
 
         alert("Item added to cart!");
       } else {
-        // If already in the cart, show a message or handle as needed
         alert("Item already added to cart!");
       }
     } catch (error) {
@@ -125,9 +118,8 @@ const BodyHomepage = ({ selectedBook }) => {
           <div className="flex items-center justify-between relative px-7 h-[400px] md:w-full">
             <button
               onClick={() => slidePrev()}
-              className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${
-                currentData === 0 ? "cursor-not-allowed opacity-50" : ""
-              }`}
+              className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${currentData === 0 ? "cursor-not-allowed opacity-50" : ""
+                }`}
               disabled={currentData === 0}
             >
               <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1" />
@@ -157,8 +149,8 @@ const BodyHomepage = ({ selectedBook }) => {
                       </h1>
                     )}
                     {data.userRating && (
-                      <h1 className="book-title font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 overflow-hidden">
-                        Rating: {data.userRating}
+                      <h1 className="font-bold lg:text-xl max-sm:text-sm whitespace-nowrap justify-center m-2 overflow-hidden">
+                        Rating: {data.userRating} Star
                       </h1>
                     )}
                   </div>
@@ -167,9 +159,8 @@ const BodyHomepage = ({ selectedBook }) => {
             </div>
             <button
               onClick={() => slideNext()}
-              className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${
-                currentData === BookData.length - 4 ? "cursor-not-allowed opacity-50" : ""
-              }`}
+              className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${currentData === BookData.length - 4 ? "cursor-not-allowed opacity-50" : ""
+                }`}
               disabled={currentData === BookData.length - 4}
             >
               <BiChevronRightCircle className="text-cyan-700 text-3xl lg:m-1 " />

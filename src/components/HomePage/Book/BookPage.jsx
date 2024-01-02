@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Document, Page, pdfjs } from "react-pdf";
 import "./BookPage.css"; // Import the CSS file for your styles
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -13,6 +13,7 @@ const BookPage = () => {
   const { state } = useLocation();
   const { pages } = state || {};
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const handleNextPage = () => {
     if (currentPage < (pages?.BookPdf?.length ?? 0)) {
@@ -39,6 +40,7 @@ const BookPage = () => {
 
     return (
       <div className="flex h-[980px] justify-center items-center relative">
+
         <Document file={pages.BookPdf} onLoadSuccess={() => setCurrentPage(1)} className="flex">
           {/* Display the current page and the next page */}
           <Page pageNumber={currentPage} className="flex mr-2 w-[500px]" />
@@ -65,6 +67,20 @@ const BookPage = () => {
     );
   };
 
-  return <div className="flex h-[970px] justify-center items-center bg-gray-600">{renderPdf()}</div>;
+  return (
+    <>
+      <div className="absolute m-3">
+        <button
+          className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </button>
+      </div>
+      <div className="flex h-[970px] justify-center items-center bg-gray-600">
+        {renderPdf()}</div>
+
+    </>
+  );
 };
 export default BookPage;
