@@ -1,5 +1,5 @@
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
+import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth';
 import { app } from '../../../firebase';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -63,25 +63,30 @@ function PhoneLogin() {
   }, [isPinModalOpen]);
 
   return (
-    <div>
-      <button onClick={openModal}>Open Modal</button>
+    <div className="relative">
+      <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={openModal}>
+        Open Modal
+      </button>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Phone Login Modal"
+        className="modal absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-md"
+        overlayClassName="overlay fixed inset-0 bg-black bg-opacity-50 z-50"
       >
         {!isOtp ? (
-          <div>
-            <h1>Login with OTP</h1>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Login with OTP</h1>
             <input
               onChange={(e) => { setPhone(e.target.value) }}
               placeholder='Phone Number'
+              className="border border-gray-300 rounded-md py-2 px-4 mb-4"
             />
             <div id='abc'></div>
             <button
               type='button'
               onClick={sendOTP}
-              className='bg-blue-100 rounded-lg ml-5 p-2'
+              className='bg-blue-500 text-white px-4 py-2 rounded'
             >Send OTP</button>
           </div>
         ) : null}
@@ -91,18 +96,20 @@ function PhoneLogin() {
         isOpen={isPinModalOpen}
         onRequestClose={closePinModal}
         contentLabel="PIN Code Modal"
+        className="modal absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-md"
+        overlayClassName="overlay fixed inset-0 bg-black bg-opacity-50 z-50"
       >
         {isOtp ? (
-          <div>
-            <h3>Confirm PIN Code</h3>
+          <div className="text-center">
+            <h3 className="text-xl font-bold mb-4">Confirm PIN Code</h3>
             <p>{`Time remaining: ${timer} seconds`}</p>
-            <input type='text' onChange={(e) => { setCode(e.target.value) }} />
-            <button type='button' onClick={confirmOtp} disabled={timer === 0}>
+            <input type='text' onChange={(e) => { setCode(e.target.value) }} className="border border-gray-300 rounded-md py-2 px-4 mb-4" />
+            <button type='button' onClick={confirmOtp} disabled={timer === 0} className='bg-blue-500 text-white px-4 py-2 rounded'>
               Submit PIN
             </button>
           </div>
         ) : null}
-        <button onClick={closePinModal}>Close PIN Modal</button>
+        <button onClick={closePinModal} className='bg-gray-500 text-white px-4 py-2 rounded mt-4'>Close PIN Modal</button>
       </Modal>
     </div>
   );
