@@ -27,11 +27,11 @@ const AccountPage = () => {
           Account Setting
         </div>
         <div className="flex flex-col md:flex-row gap-4 justify-between p-4 xl:p-0">
-          <div className="w-full md:w-2/5 text-black">
-            <h1 className="font-semibold mb-4 text-xl">Profile information</h1>
+          <div className="w-full text-black">
+            <h1 className="w-[50%] font-semibold mb-4 text-xl">Profile information</h1>
           </div>
-          <div className="w-full md:w-3/5 shadow-lg rounded ">
-            <div className="flex flex-col w-full md:w-3/5 items-center">
+          <div className="w-full shadow-lg rounded ">
+            <div className="flex flex-col w-full items-center">
               <img src={user.photoURL}
                 width={100}
                 height={100}
@@ -42,9 +42,6 @@ const AccountPage = () => {
 
             </div>
             <div className="w-full md:w-2/5 p-4 flex justify-end items-end">
-              {/* <button className="bg-gray-200 text-black font-bold py-2 px-4 rounded-md" type="button">
-                Update
-              </button> */}
             </div>
           </div>
         </div>
