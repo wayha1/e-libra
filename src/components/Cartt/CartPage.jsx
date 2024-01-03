@@ -5,11 +5,13 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  where, query
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { CiCreditCard1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
+import DefaultCartPage from "./DefualtCartPage";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -33,7 +35,6 @@ const CartPage = () => {
       (updatedCart.find((item) => item.id === itemId)?.quantity || 1) + 1;
 
     try {
-      // Update Firestore with the new quantity
       const itemDoc = doc(db, "addtoCart", itemId);
       await updateDoc(itemDoc, { quantity: newQuantity });
     } catch (error) {
@@ -56,7 +57,6 @@ const CartPage = () => {
     );
 
     try {
-      // Update Firestore with the new quantity
       const itemDoc = doc(db, "addtoCart", itemId);
       await updateDoc(itemDoc, { quantity: newQuantity });
     } catch (error) {
@@ -68,6 +68,19 @@ const CartPage = () => {
     if (loading) return;
     setSelectedItemId(itemId);
     setShowConfirmationModal(true);
+    try {
+      setLoading(true);
+      const itemRef = doc(db, "addtoCart", selectedItemId);
+      await deleteDoc(itemRef);
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item.id !== selectedItemId)
+      );
+    } catch (error) {
+      console.error("Error Deleting Document", error.message);
+    } finally {
+      setLoading(false);
+      setShowConfirmationModal(false);
+    }
   };
 
   const confirmDelete = async () => {
@@ -99,32 +112,37 @@ const CartPage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const currentUser = auth.currentUser;
-        if (currentUser) {
-          const displayName = currentUser.displayName;
+  const fetchCartItems = async () => {
+    try {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        const uid = currentUser.uid;
+        console.log("Current User UID:", uid);
 
-          const sample = collection(db, "addtoCart");
-          const querySnapshot = await getDocs(sample.where("displayName", "==", displayName));
+        const cartCollection = collection(db, "addtoCart");
+        const q = query(cartCollection, where("uid", "==", uid));
+        const querySnapshot = await getDocs(q);
 
-          setCartItems(
-            querySnapshot.docs.map((doc) => ({
-              ...doc.data(),
-              id: doc.id,
-            }))
-          );
-        } else {
-          console.error("No user found");
-        }
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      } finally {
-        setLoading(false);
+        console.log("Fetched Cart Items:", querySnapshot.docs.map((doc) => doc.data()));
+
+        setCartItems(
+          querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))
+        );
+      } else {
+        console.error("No user found");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+
+  useEffect(() => {
     fetchCartItems();
   }, [showConfirmationModal]);
 
@@ -141,10 +159,10 @@ const CartPage = () => {
   return (
     <div className="overflow-y-auto z-20 ">
       {loading && <LoadingPage />}
-      <div className="mx-auto mt-10 px-10 py-4 h-[400px]">
+      <div className="mx-auto mt-10 px-10 py-4 h-[1100px]">
         {cartItems.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-5xl book-title text-red-600">Your cart is empty.</p>
+          <div className="flex items-center justify-center ">
+            <p className="text-5xl book-title text-gray-600"><DefaultCartPage /></p>
           </div>
         ) : (
           <>
