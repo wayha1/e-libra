@@ -79,14 +79,14 @@ function SeeAll() {
     try {
       const popularCollectionRef = collection(db, "popular");
       const docData = {
-        bookTitle: selectedBook.title,
+        title: selectedBook.title,
         authorId: selectedBook.authorId,
         userRating: userRating,
         price: selectedBook.price,
         decs: selectedBook.decs,
         type: selectedBook.type,
         date: selectedBook.date,
-        image: selectedBook.img,
+        img: selectedBook.img,
         BookPdf: selectedBook.BookPdf,
       };
 

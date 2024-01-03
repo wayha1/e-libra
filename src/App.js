@@ -9,7 +9,7 @@ import RegisterPage from "./components/auth/RegisterPage/RegisterPage";
 import AboutUs from "./components/About Us/AboutUs";
 import AllgenBook from "./components/CategoryBook/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
-import BookDetail from "./components/HomePage/Book/BookDetail";
+// import BookDetail from "./components/HomePage/Book/BookDetail";
 import SeeAll from "./components/CategoryBook/SeeAll";
 import AuthorInfo from "./components/Author/AuthorInfo";
 import BookPage from "./components/HomePage/Book/BookPage";
@@ -36,7 +36,7 @@ const App = ({ children }) => {
         <Route path="/allgen/novel/see-all" element={<SeeAll />}></Route>
         <Route path="/allgen/study/see-all" element={<SeeAll />}></Route>
         <Route path="/authorInfo" element={<AuthorInfo />}></Route>
-        <Route path="/book-detail/:bookId/" element={<BookDetail />}></Route>
+        {/* <Route path="/book-detail/:bookId/" element={<BookDetail />}></Route> */}
         <Route path="/payment" element={<Payment />}></Route>
         <Route path="/google" element={<GoogleLogin />} />
         <Route path="/phoneLogin" element={<PhoneLogin />} />

@@ -102,7 +102,7 @@ const CartPage = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        setLoading(true);
+
         const sample = collection(db, "addtoCart");
         const snapshot = await getDocs(sample);
         setCartItems(
@@ -113,7 +113,7 @@ const CartPage = () => {
         );
       } catch (error) {
         console.error("Error fetching cart items:", error);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
@@ -144,21 +144,19 @@ const CartPage = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
-                  selectedItems.includes(item.id)
+                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${selectedItems.includes(item.id)
                     ? "bg-blue-200 text-white"
                     : "bg-gray-100"
-                }`}
+                  }`}
                 onClick={(event) => handleImageClick(item, event)}
               >
                 <img
                   src={item.img}
                   alt="Book"
-                  className={`w-30 h-40 ml-3 ${
-                    selectedItems.includes(item.id)
+                  className={`w-30 h-40 ml-3 ${selectedItems.includes(item.id)
                       ? "border-4 border-green-500"
                       : ""
-                  }`}
+                    }`}
                 />
                 <div className="flex-grow ml-3">
                   <div className="flex justify-between items-center">
