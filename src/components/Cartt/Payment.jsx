@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc, collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 function Payment() {
@@ -13,7 +13,7 @@ function Payment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
-  const cartItems = location.state?.cartItems || [];
+  const { selectedBook, cartItems } = location.state || [];
 
   const handlePayment = () => {
     // Basic validation
@@ -21,7 +21,7 @@ function Payment() {
       alert('Please fill in all the required fields.');
       return;
     }
-
+    console.log(cartItems)
     // Set the payment initiation flag
     setIsPaymentInitiated(true);
 
@@ -54,13 +54,37 @@ function Payment() {
     }, 2000);
   };
 
-  const handleDone = () => {
+  const handleDone = async () => {
     // Close the modal
     setIsModalOpen(false);
-
+  
     // Reset the success state when "Done" is clicked
     setIsPaymentSuccessful(false);
+  
+    try {
+      // Create a reference to the 'userBook' collection
+      const userBookCollection = collection(db, 'userBook');
+  
+      // Add each item to the 'userBook' collection
+      for (const item of cartItems) {
+        // Use the existing properties in your item structure
+        await addDoc(userBookCollection, {
+          BookPdf: item.BookPdf,
+          date: item.date,
+          img: item.img,
+          title: item.title,
+          decs: item.decs,
+        });
+      }
+  
+      // Optionally, you can perform additional actions or logging here
+  
+    } catch (error) {
+      console.error('Error adding items to userBook collection:', error.message);
+    }
   };
+  
+  
 
   return (
     <div className="max-w-md mx-auto mt-8 p-8 bg-gray-100 shadow-md mb-9">

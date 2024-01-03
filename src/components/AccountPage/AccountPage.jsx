@@ -1,13 +1,19 @@
 import React from "react";
 import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
   const user = auth.currentUser;
   const [imageError, setImageError] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleImageError = () => {
     setImageError(true);
   };
+
+  const handleBookClicked = () => {
+    navigate("/yourbook");
+  }
 
   return (
     <div>
@@ -48,7 +54,11 @@ const AccountPage = () => {
             </div>
           </div>
         </div>
+        <button 
+        className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+        onClick={handleBookClicked}>Your Book</button>
         <hr className="h-[500px] my-8"></hr>
+       
       </div>
     </div>
   );

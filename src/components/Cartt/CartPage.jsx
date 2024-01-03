@@ -153,7 +153,7 @@ const CartPage = () => {
 
   const handleReadNowClick = (selectedBook) => {
     setSelectedBook(selectedBook);
-    navigate("/payment", { state: { cartItems, selectedBook: selectedBook } });
+    navigate("/payment", { state: { selectedBook, cartItems } });
   };
 
   return (
