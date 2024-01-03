@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase";
-import google from "./../../../asset/google.png"
-import GoogleLogin from "../LoginWithGoogle/GoogleLogin";
-import phone from "./../../../asset/Phone1.png";
+
+
 import PhoneLogin from "../LoginWithPhone/PhoneLogin";
-import { Image } from "react-bootstrap";
+
+import GoogleLogin from "../LoginWithGoogle/GoogleLogin";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -35,6 +35,11 @@ const LoginPage = () => {
       setError(true);
     }
   };
+
+
+  const handleGoogleLogin = (user) => {
+    console.log('google login', user)
+  }
   return (
     <div className="flex h-screen bg-gray-50 items-center justify-center">
       <div className="flex flex-col w-[70%]">
@@ -96,43 +101,14 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <ul className="flex justify-center items-center space-x-5">
-                <div
-                  className="my-6 flex border-blue-100 border-2 rounded-lg
-                  hover:bg-gray-200  shadow-xl hover:shadow-lg w-[200%] max-sm:justify-center
-                    sm:px-1"
-                >
-                  <Image
-                    src={google}
-                    alt="my image"
-                    width={50}
-                    height={40}
-                    onClick={this}
-                    className="hover:shadow-full hover:scale-110 mx-2 my-1 "
-                  />
-                  <h1 className="flex whitespace-nowrap max-sm:hidden px-2 items-center text-gray-600">
-                    <GoogleLogin />
-                  </h1>
+              <ul className="flex justify-center items-center space-x-5 w-full">
+                <div className=" flex">
+                  <GoogleLogin />
                 </div>
-                
+                <div className="flex ">
+                  <PhoneLogin />
+                </div>
               </ul>
-              <div
-                  className="my-6 flex border-blue-100 border-2 rounded-lg
-                  hover:bg-gray-200  shadow-xl hover:shadow-lg w-[100%] max-sm:justify-center
-                    sm:px-1"
-                >
-                  <Image
-                    src={phone}
-                    alt="my image"
-                    width={50}
-                    height={40}
-                    onClick={this}
-                    className="hover:shadow-full hover:scale-110 mx-2 my-1 "
-                  />
-                  <h1 className="flex whitespace-nowrap max-sm:hidden px-2 items-center text-gray-600">
-                    <PhoneLogin />
-                  </h1>
-                </div>
             </main>
           </form>
         </div>

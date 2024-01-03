@@ -1,9 +1,8 @@
-// GoogleLogin.js
-
 import React, { useEffect, useState } from 'react';
 import { auth, provider } from '../../../firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import HomePage from '../../HomePage/HomePage';
+import google from "../../../asset/google.png";
 
 function GoogleLogin() {
 
@@ -12,6 +11,7 @@ function GoogleLogin() {
   const handleLogin = () => {
     signInWithPopup(auth, provider).then((data) => {
       setUser(data.user);
+
     });
   }
 
@@ -38,7 +38,26 @@ function GoogleLogin() {
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
-        <button onClick={handleLogin}>Login With Google</button>
+        <button
+          onClick={handleLogin}
+        >
+          <div
+            className="my-6 flex border-blue-100 border-2 rounded-lg
+            hover:bg-gray-200  shadow-xl hover:shadow-lg w-fit max-sm:justify-center
+              sm:px-1"
+          >
+            <img
+              src={google}
+              alt="my image"
+              width={50}
+              height={40}
+              className="hover:shadow-full hover:scale-110 mx-2 my-1 "
+            />
+            <h1 className="flex whitespace-nowrap max-sm:hidden px-2 items-center text-gray-600">
+              Login With Google
+            </h1>
+          </div>
+        </button>
       )}
     </div>
   );

@@ -16,6 +16,7 @@ import BookPage from "./components/HomePage/Book/BookPage";
 import Payment from "./components/Cartt/Payment";
 import GoogleLogin from "./components/auth/LoginWithGoogle/GoogleLogin";
 import PhoneLogin from "./components/auth/LoginWithPhone/PhoneLogin";
+import { ModalToLogin } from "./components/content/requirement/ModalToLogin";
 
 const App = ({ children }) => {
   return (
@@ -39,6 +40,7 @@ const App = ({ children }) => {
         {/* <Route path="/book-detail/:bookId/" element={<BookDetail />}></Route> */}
         <Route path="/payment" element={<Payment />}></Route>
         <Route path="/google" element={<GoogleLogin />} />
+        <Route path="/login-modal" element={<ModalToLogin />}></Route>
         <Route path="/phoneLogin" element={<PhoneLogin />} />
         <Route path="/bookview" element={<BookPage />}></Route>
       </Routes>
