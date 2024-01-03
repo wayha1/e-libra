@@ -13,6 +13,7 @@ function SeeAll() {
   const [userRating, setUserRating] = useState(null);
   const [reset, setReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     setUserRating(null);
@@ -100,17 +101,48 @@ function SeeAll() {
       console.error("Error submitting rating:", error);
     }
   };
+
   const recommendedBooks = allBooks.filter(
     (book) =>
       book.authorId === selectedBook.authorId &&
       book.title !== selectedBook.title
   );
+
+  const handleReadNowClick = (book) => {
+    setSelectedBook(book);
+    navigate("/allgen/see-all", { state: { selectedBook: book, allBooks } }); // Change this line
+  };
+
+  const handleBackButton = () => {
+    navigate(-1);
+  };
+
+  const renderRecommendedBooks = () => (
+    <>
+      <h1 className="text-center book-style text-green-900 text-3xl font-bold mx-10 my-8">
+        Recommend Books by {selectedBook.authorId}
+      </h1>
+      {recommendedBooks.map((book) => (
+        <div key={book.title} className="flex-shrink-0 w-48">
+          <img
+            src={book.img}
+            alt={book.title}
+            className="rounded-md w-48 h-64 object-cover shadow-lg cursor-pointer"
+            onClick={() => handleReadNowClick(book)}
+          />
+          <p className="text-sm text-gray-700 mt-2">{book.title}</p>
+        </div>
+      ))}
+    </>
+  );
+  
+
   return (
     <div className="mt-8 mx-auto h-[940px] overflow-y-auto">
       <div className="justify-center m-3">
         <button
           className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
-          onClick={() => navigate(-1)}
+          onClick={handleBackButton}
         >
           Back
         </button>
@@ -125,7 +157,7 @@ function SeeAll() {
         <img
           src={selectedBook.img}
           alt={selectedBook.title}
-          className="rounded-md w-60 h-70 object-cover mr-8 shadow-lg"
+          className="rounded-md w-60 h-70 object-cover mr-8 shadow-lg cursor-pointer"
         />
 
         <div className="grid items-center">
@@ -184,20 +216,8 @@ function SeeAll() {
       </p>
 
       <div className="bg-gray-100 h-[359px]">
-        <h1 className="text-center book-style text-green-900 text-3xl font-bold mx-10 my-8">
-          Recommend Books by {selectedBook.authorId}
-        </h1>
         <div className="flex gap-4 p-4 overflow-x-auto">
-          {recommendedBooks.map((book) => (
-            <div key={book.title} className="flex-shrink-0 w-48">
-              <img
-                src={book.img}
-                alt={book.title}
-                className="rounded-md w-48 h-64 object-cover shadow-lg"
-              />
-              <p className="text-sm text-gray-700 mt-2">{book.title}</p>
-            </div>
-          ))}
+        {renderRecommendedBooks()}
         </div>
       </div>
 
