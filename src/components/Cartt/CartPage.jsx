@@ -6,7 +6,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, auth } from "../../firebase";
 import { CiCreditCard1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
@@ -102,15 +102,22 @@ const CartPage = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          const displayName = currentUser.displayName;
 
-        const sample = collection(db, "addtoCart");
-        const snapshot = await getDocs(sample);
-        setCartItems(
-          snapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }))
-        );
+          const sample = collection(db, "addtoCart");
+          const querySnapshot = await getDocs(sample.where("displayName", "==", displayName));
+
+          setCartItems(
+            querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }))
+          );
+        } else {
+          console.error("No user found");
+        }
       } catch (error) {
         console.error("Error fetching cart items:", error);
       } finally {
@@ -145,8 +152,8 @@ const CartPage = () => {
               <div
                 key={item.id}
                 className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${selectedItems.includes(item.id)
-                    ? "bg-blue-200 text-white"
-                    : "bg-gray-100"
+                  ? "bg-blue-200 text-white"
+                  : "bg-gray-100"
                   }`}
                 onClick={(event) => handleImageClick(item, event)}
               >
@@ -154,8 +161,8 @@ const CartPage = () => {
                   src={item.img}
                   alt="Book"
                   className={`w-30 h-40 ml-3 ${selectedItems.includes(item.id)
-                      ? "border-4 border-green-500"
-                      : ""
+                    ? "border-4 border-green-500"
+                    : ""
                     }`}
                 />
                 <div className="flex-grow ml-3">
