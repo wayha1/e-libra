@@ -116,6 +116,7 @@ function SeeAll() {
       openModal();
     }
   };
+  const handleAddToFav = () => { }
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -205,16 +206,21 @@ function SeeAll() {
             />
 
             <div className="grid items-center">
-              {selectedBook.price === "free" ? (
-                <button
-                  className={`${selectedBook.price === "free"
-                    ? "bg-green-300 text-gray-600 font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
-                    : "bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
-                    }`}
-                  onClick={handleReadNow}
-                >
-                  Read Now (Free)
-                </button>
+              {selectedBook.price === "Free" ? (
+                <div className="flex space-x-4">
+                  <button
+                    className="bg-green-300 hover:bg-green-500 text-gray-600 font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
+                    onClick={handleReadNow}
+                  >
+                    Read Now (Free)
+                  </button>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 active:bg-gray-500 text-white font-bold mb-4 px-4 rounded-lg shadow-lg"
+                    onClick={handleAddToFav}
+                  >
+                    Add to Favorites
+                  </button>
+                </div>
               ) : (
                 <button
                   className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 

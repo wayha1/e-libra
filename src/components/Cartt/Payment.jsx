@@ -16,22 +16,16 @@ function Payment() {
   const { selectedBook, cartItems } = location.state || [];
 
   const handlePayment = () => {
-    // Basic validation
     if (!paymentMethod || !email || !expiryDate || !cvc) {
       alert('Please fill in all the required fields.');
       return;
     }
     console.log(cartItems)
-    // Set the payment initiation flag
     setIsPaymentInitiated(true);
-
-    // Add your payment processing logic here
-    // For simplicity, I'm just simulating a successful payment after a short delay
     setTimeout(async () => {
       setIsPaymentSuccessful(true);
 
       try {
-        // Delete items from the cart in Firestore
         const deletePromises = cartItems.map(async (item) => {
           const itemRef = doc(db, 'addtoCart', item.id);
           await deleteDoc(itemRef);
@@ -45,8 +39,6 @@ function Payment() {
         setCVC('');
 
         setIsPaymentInitiated(false);
-
-        // Open the modal
         setIsModalOpen(true);
       } catch (error) {
         console.error('Error deleting items from the cart:', error.message);
@@ -55,30 +47,21 @@ function Payment() {
   };
 
   const handleDone = async () => {
-    // Close the modal
     setIsModalOpen(false);
-  
-    // Reset the success state when "Done" is clicked
-    setIsPaymentSuccessful(false);
+      setIsPaymentSuccessful(false);
   
     try {
-      // Create a reference to the 'userBook' collection
       const userBookCollection = collection(db, 'userBook');
-  
-      // Add each item to the 'userBook' collection
-      for (const item of cartItems) {
-        // Use the existing properties in your item structure
+        for (const item of cartItems) {
         await addDoc(userBookCollection, {
           BookPdf: item.BookPdf,
-          date: item.date,
-          img: item.img,
           title: item.title,
           decs: item.decs,
+          img: item.img,
+          date: item.date,
         });
       }
-  
-      // Optionally, you can perform additional actions or logging here
-  
+    
     } catch (error) {
       console.error('Error adding items to userBook collection:', error.message);
     }

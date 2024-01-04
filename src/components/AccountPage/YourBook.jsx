@@ -12,22 +12,14 @@ export default function YourBook() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch user books when the component mounts
         fetchUserBooks();
-    }, []); // Empty dependency array means it will run only once on mount
+    }, []); 
     console.log(userBooks)
     const fetchUserBooks = async () => {
         try {
-            // Create a reference to the 'userBook' collection
             const userBookCollection = collection(db, 'userBook');
-
-            // Get all documents in the 'userBook' collection
             const querySnapshot = await getDocs(userBookCollection);
-
-            // Map the documents to an array of data
             const userBooksData = querySnapshot.docs.map(doc => doc.data());
-
-            // Set the state with the fetched user books
             setUserBooks(userBooksData);
         } catch (error) {
             console.error('Error fetching user books:', error.message);
