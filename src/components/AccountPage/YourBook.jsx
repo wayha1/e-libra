@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, where, query } from 'firebase/firestore';
+import { collection, getDocs, where, query, deleteDoc,doc } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 import LoadingPage from '../content/LoadingPage/LoadingPage';
 
@@ -51,6 +51,19 @@ export default function YourBook() {
         }
     };
 
+    const deleteBook = async (bookId) => {
+        try {
+            // Delete the document with the specified ID from the 'userBook' collection
+            await deleteDoc(doc(db, 'userBook', bookId));
+            // Optionally, you can update the state to reflect the deletion
+            setUserBooks((prevUserBooks) =>
+                prevUserBooks.filter((book) => book.id !== bookId)
+            );
+        } catch (error) {
+            console.error('Error deleting book:', error.message);
+        }
+    };
+
     return (
         <div className='h-[1100px] w-full z-20 overflow-y-auto px-10  '>
             {loading ? (
@@ -76,11 +89,14 @@ export default function YourBook() {
                                     <div className="p-4">
                                         <h3 className="text-xl font-bold mb-2">{book.title}</h3>
                                         <button
-                                            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+                                            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg mr-20"
                                             onClick={() => readBook(book)}
                                         >
                                             Read Book
                                         </button>
+                                        <button
+                                         onClick={() => deleteBook(book.id)}
+                                        className="bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg">Delete</button>
                                     </div>
                                 </div>
                             </li>
