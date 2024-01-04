@@ -15,7 +15,7 @@ function SeeAll() {
   const [reset, setReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add isLoading state
-  const [selectBook, setSelectedBook] = useState(null);
+  const [, setSelectedBook] = useState(null);
 
 
   useEffect(() => {
@@ -112,16 +112,16 @@ function SeeAll() {
       openModal();
     }
   };
+
   const handleAddToFav = async () => {
     setIsModalOpen(false);
-  
     try {
       if (userIsLoggedIn()) {
         const user = auth.currentUser;
-  
+
         if (user) {
           const userBookCollection = collection(db, 'userBook');
-  
+
           // Add the selectedBook to userBook collection
           await addDoc(userBookCollection, {
             title: selectedBook.title,
@@ -134,7 +134,7 @@ function SeeAll() {
             userId: user.uid,
             type: selectedBook.type
           });
-  
+
           alert("Item added to Favorites!");
         } else {
           console.error("User is not available.");
@@ -146,7 +146,7 @@ function SeeAll() {
       console.error('Error adding item to userBook collection:', error.message);
     }
   };
-  
+
 
   const openModal = () => {
     setIsModalOpen(true);

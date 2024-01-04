@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 import LoadingPage from '../content/LoadingPage/LoadingPage';
 
 export default function YourBook() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { cartItems } = location.state || {};
     const [userBooks, setUserBooks] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchUserBooks();
-    }, []);
-
-    const fetchUserBooks = async () => {
+    const fetchUserBooks = useCallback(async () => {
         try {
             const user = auth.currentUser;
             if (!user) {
@@ -38,43 +32,63 @@ export default function YourBook() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [navigate]);
+
+    useEffect(() => {
+        fetchUserBooks();
+    }, [fetchUserBooks]);
 
     const goBack = () => {
         navigate('/account');
     };
 
+    const readBook = (book) => {
+        const pdfPages = book.BookPdf || [];
+        if (pdfPages && pdfPages.length > 0) {
+            navigate('/bookview', { state: { pages: { BookPdf: pdfPages } } });
+        } else {
+            alert("This book does not have any pages to read.");
+        }
+    };
+
     return (
-        <div>
-            <button
-                className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
-                onClick={goBack}
-            >
-                Back
-            </button>
-            <div>
-                <h2>Your Books:</h2>
-                {loading ? (
-                    <LoadingPage />
-                ) : (
-                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className='h-[1100px] w-full z-20 overflow-y-auto px-10  '>
+            {loading ? (
+                <LoadingPage />
+            ) : (
+                <>
+                    <button
+                        className="bg-gray-700 text-white font-bold mt-10 py-2 px-4 rounded-lg shadow-lg"
+                        onClick={goBack}
+                    >
+                        Back
+                    </button>
+                    <h2 className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5 text-center">Your Books:</h2>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10">
                         {userBooks.map((book, index) => (
                             <li key={index}>
-                                <div className="max-w-xs bg-white rounded-lg overflow-hidden shadow-lg">
+                                <div className=" max-w-xs bg-white rounded-lg overflow-hidden shadow-lg ">
                                     <img
                                         src={book.img}
                                         alt={`Book ${index + 1}`}
-                                        className="w-30 h-40"
+                                        className="w-80 h-80"
                                     />
                                     <div className="p-4">
                                         <h3 className="text-xl font-bold mb-2">{book.title}</h3>
+                                        <button
+                                            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+                                            onClick={() => readBook(book)}
+                                        >
+                                            Read Book
+                                        </button>
                                     </div>
                                 </div>
                             </li>
                         ))}
                     </ul>
-                )}
-            </div>
+                </>
+            )}
+
         </div>
     );
 }
