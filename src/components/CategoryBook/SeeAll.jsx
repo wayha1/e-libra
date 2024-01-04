@@ -29,8 +29,6 @@ function SeeAll() {
 
         const currentUser = auth.currentUser;
         const cartsCollectionRef = collection(db, "addtoCart");
-
-        // Check if the selected book is already in the cart for the current user
         const querySnapshot = await getDocs(
           query(cartsCollectionRef, where("uid", "==", currentUser.uid))
         );
@@ -41,7 +39,6 @@ function SeeAll() {
         });
 
         if (!isItemInCart) {
-          // Add the UID to the selectedBook before storing it in the cart
           const cartItemToAdd = {
             ...selectedBook,
             uid: currentUser.uid,
@@ -101,7 +98,6 @@ function SeeAll() {
     }
   };
 
-
   const handleReadNow = () => {
     if (userIsLoggedIn()) {
       const pdfPages = selectedBook.BookPdf || [];
@@ -116,7 +112,41 @@ function SeeAll() {
       openModal();
     }
   };
-  const handleAddToFav = () => { }
+  const handleAddToFav = async () => {
+    setIsModalOpen(false);
+  
+    try {
+      if (userIsLoggedIn()) {
+        const user = auth.currentUser;
+  
+        if (user) {
+          const userBookCollection = collection(db, 'userBook');
+  
+          // Add the selectedBook to userBook collection
+          await addDoc(userBookCollection, {
+            title: selectedBook.title,
+            decs: selectedBook.decs,
+            img: selectedBook.img,
+            BookPdf: selectedBook.BookPdf,
+            date: selectedBook.date,
+            authorId: selectedBook.authorId,
+            price: selectedBook.price,
+            userId: user.uid,
+            type: selectedBook.type
+          });
+  
+          alert("Item added to Favorites!");
+        } else {
+          console.error("User is not available.");
+        }
+      } else {
+        openModal();
+      }
+    } catch (error) {
+      console.error('Error adding item to userBook collection:', error.message);
+    }
+  };
+  
 
   const openModal = () => {
     setIsModalOpen(true);

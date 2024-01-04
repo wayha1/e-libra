@@ -54,11 +54,15 @@ function Payment() {
       const userBookCollection = collection(db, 'userBook');
         for (const item of cartItems) {
         await addDoc(userBookCollection, {
-          BookPdf: item.BookPdf,
           title: item.title,
           decs: item.decs,
           img: item.img,
+          BookPdf: item.BookPdf,
           date: item.date,
+          authorId: item.authorId,
+          price: item.price,
+          userId: item.uid,
+          type: item.type
         });
       }
     
