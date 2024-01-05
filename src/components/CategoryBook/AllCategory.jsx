@@ -3,14 +3,16 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
+
 const AllCategory = () => {
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [selectBook ,setSelectedBook] = useState(null);
+  const [selectBook, setSelectedBook] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("title");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+
 
   const fetchData = async () => {
     try {
@@ -76,6 +78,7 @@ const AllCategory = () => {
       return 6;
     }
   };
+
   const [booksPerPageState, setBooksPerPageState] = useState(booksPerPage());
 
   const indexOfLastBook = currentPage * booksPerPageState;
@@ -152,6 +155,8 @@ const AllCategory = () => {
     window.location.href = "/";
   };
 
+
+
   return (
     <div className="z-20 overflow-y-auto">
       <button
@@ -179,6 +184,7 @@ const AllCategory = () => {
           <option value="title">Title</option>
           <option value="author">Author</option>
         </select>
+
         <button className="p-2 bg-blue-500 text-white rounded-md" onClick={handleSearch}>
           Search
         </button>

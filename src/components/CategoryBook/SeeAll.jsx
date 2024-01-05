@@ -228,14 +228,14 @@ function SeeAll() {
             </p>
           </div>
 
-          <div className="flex bg-gray-200 p-4 rounded-md items-center justify-center w-full h-[400px]">
+          <div className="flex max-sm:flex-col bg-gray-200 max-sm:h-[650px] p-4 rounded-md items-center justify-center w-full h-[400px]">
             <img
               src={selectedBook.img}
               alt={selectedBook.title}
               className="rounded-md w-60 h-70 object-cover mr-8 shadow-lg cursor-pointer"
             />
 
-            <div className="grid items-center">
+            <div className="grid items-center max-sm:justify-center max-sm:hidden" >
               {selectedBook.price === "Free" ? (
                 <div className="flex space-x-4">
                   <button
@@ -262,7 +262,63 @@ function SeeAll() {
                 </button>
               )}
 
-              <div className="flex space-x-20">
+              <div className="flex space-x-20 ">
+                <div className="text-left">
+                  <p className="text-gray-600 mb-3">តម្លៃ:</p>
+                  <p className="text-gray-600 mb-3">អ្នកនិពន្ធ: </p>
+                  <p className="text-gray-600 mb-3">ប្រភេទ:</p>
+                  <p className="text-gray-600 mb-3">ថ្ងៃខែឆ្នាំកំណើត:</p>
+                  <p className="text-gray-600 mb-3">Rating</p>
+                </div>
+
+                <div className="text-right">
+                  <p className="text-gray-600 mb-3">{selectedBook.price} KHR</p>
+                  <p className="text-gray-600 mb-3">{selectedBook.authorId}</p>
+                  <p className="text-gray-600 mb-3">{selectedBook.type}</p>
+                  <p className="text-gray-600 mb-3">{selectedBook.date}</p>
+                  <p className="text-gray-600 mb-3">
+                    <Rating onRatingChange={handleRatingChange} reset={reset} />
+                  </p>
+                  <div>
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 active:bg-gray-500 text-white font-bold py-2 px-4 rounded"
+                      onClick={handleRatingSubmit}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid mt-5 items-center max-sm:justify-center lg:hidden md:hidden " >
+              {selectedBook.price === "Free" ? (
+                <div className="flex  space-x-4 mt-5">
+                  <button
+                    className=" bg-green-300 hover:bg-green-500 text-gray-600 font-bold active:bg-gray-500 py-2 mb-4 px-4 rounded-lg shadow-lg"
+                    onClick={handleReadNow}
+                  >
+                    Read Now (Free)
+                  </button>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 active:bg-gray-500 text-white font-bold mb-4 px-4 rounded-lg shadow-lg"
+                    onClick={handleAddToFav}
+                  >
+                    Add to Favorites
+                  </button>
+                </div>
+              ) : (
+                <button
+                  className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
+              font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
+                  onClick={() => handleAddToCart(selectedBook)}
+                  disabled={selectedBook.price === "free"}
+                >
+                  Add to Cart
+                </button>
+              )}
+
+              <div className="flex space-x-20 ">
                 <div className="text-left">
                   <p className="text-gray-600 mb-3">តម្លៃ:</p>
                   <p className="text-gray-600 mb-3">អ្នកនិពន្ធ: </p>

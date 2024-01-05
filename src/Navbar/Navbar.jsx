@@ -144,10 +144,16 @@ const Navbar = () => {
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
                           <p className="text-white text-xl font-semibold">
-                            <Link to={"/account"}>Profile</Link>
+                            <Link to={"/account"}>
+                              <button
+
+                                className="whitespace-nowrap px-4 py-2 text-white hover:underline"
+                              >
+                                Profile
+                              </button>
+
+                            </Link>
                           </p>
-                          <h1 className="text-white">{user.email}</h1>
-                          <h1 className="text-white">{user.displayName}</h1>
                           <button
                             onClick={handleLogout}
                             className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
@@ -214,6 +220,15 @@ const Navbar = () => {
               ) : null}
               <div className="text-center mt-10">
                 <ul className="uppercase p-4">
+                  <li className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
+                    <Link
+                      to={"/"}
+                      onClick={handleNav}
+                      className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
+                    >
+                      Home
+                    </Link>
+                  </li>
                   <li className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
                     <Link
                       to={"/allgen"}

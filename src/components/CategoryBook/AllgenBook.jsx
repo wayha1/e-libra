@@ -7,6 +7,8 @@ import StudyBook from "./StudyBook";
 import NovelBook from "./NovelBook";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
 import { DefaultPage } from "../content/DefualPage/DefualPage";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
+
 
 const MAIN_CATEGORY_TITLE = "មាតិកាទាំងអស់";
 
@@ -21,7 +23,8 @@ const categories = [
   { id: 8, name: "គណិតវិទ្យា", path: "/allgen/math" },
 ];
 
-const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChange }) => {
+
+export const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChange }) => {
   const renderCategories = () => {
     if (isSmScreen) {
       return (
@@ -57,17 +60,20 @@ const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChan
   };
 
   return (
-    <div className="flex flex-col mt-5 w-[20%] book-title max-sm:hidden">
+    <div className="flex flex-col mt-5 w-[50%] bg-white h-screen book-title absolute z-40">
       <button
-        className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+        className="max-sm:mt-10 bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
         onClick={handleGoBack}
       >
         Back
       </button>
+
       <p className="mt-10 bg-white shadow-sm p-4 text-gray-600 whitespace-nowrap md:text-2xl lg:text-3xl text-center">
         {MAIN_CATEGORY_TITLE}
       </p>
-      {renderCategories()}
+      <div className="relative z-30">
+        {renderCategories()}
+      </div>
     </div>
   );
 };
@@ -93,6 +99,11 @@ const AllgenBook = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeComponent, setActiveComponent] = useState(MAIN_CATEGORY_TITLE);
   const [isSmScreen, setIsSmScreen] = useState(window.innerWidth < 768);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     const path = location.pathname.split("/")[2];
@@ -135,12 +146,30 @@ const AllgenBook = () => {
         <LoadingPage />
       ) : (
         <>
-          <Sidebar
-            handleGoBack={handleGoBack}
-            activeComponent={activeComponent}
-            isSmScreen={isSmScreen}
-            handleCategoryChange={handleCategoryChange}
-          />
+          {isSmScreen && (
+            <button
+              onClick={toggleSidebar}
+              className="absolute"
+            >
+              {isSidebarOpen ?
+                <div className="text-xl absolute ">
+                  <FaArrowAltCircleRight />
+                </div>
+                :
+                <div className="text-xl absolute ">
+                  <FaArrowAltCircleLeft />
+                </div>
+              }
+            </button>
+          )}
+          {!isSidebarOpen && (
+            <Sidebar
+              handleGoBack={handleGoBack}
+              activeComponent={activeComponent}
+              isSmScreen={isSmScreen}
+              handleCategoryChange={handleCategoryChange}
+            />
+          )}
           <ContentSection />
         </>
       )}
