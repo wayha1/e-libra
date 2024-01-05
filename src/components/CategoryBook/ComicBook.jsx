@@ -75,7 +75,9 @@ const ComicBook = () => {
         សៀវភៅ បាក់ឌុប
       </h2>
 
-      <div className="grid grid-cols-4 grid-rows-2 justify-items-center justify-center gap-4">
+      <div className="grid grid-cols-4 grid-rows-2 justify-items-center 
+      justify-center gap-4 md:grid-cols-2 max-sm:grid-cols-2 
+      lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-5">
         {currentItems.map((item, index) => (
           <div key={index} className="mb-4 bg-gray-100">
             <img
@@ -88,13 +90,7 @@ const ComicBook = () => {
               <h3 className="text-xl font-title font-bold whitespace-nowrap overflow-hidden">{item.title}</h3>
               <p className="text-md">{item.price}</p>
             </div>
-            {/* Add your other Bacll-related content here
-            <button
-              onClick={() => handleReadNowClick(item)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Read now
-            </button> */}
+            
           </div>
         ))}
       </div>

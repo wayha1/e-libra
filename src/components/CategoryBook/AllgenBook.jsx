@@ -7,7 +7,7 @@ import StudyBook from "./StudyBook";
 import NovelBook from "./NovelBook";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
 import { DefaultPage } from "../content/DefualPage/DefualPage";
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
+import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 
 
 const MAIN_CATEGORY_TITLE = "មាតិកាទាំងអស់";
@@ -60,7 +60,7 @@ export const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCateg
   };
 
   return (
-    <div className="flex flex-col mt-5 w-[50%] bg-white h-screen book-title absolute z-40">
+    <div className="flex flex-col mt-5 w-[20%] max-sm:w-[50%] bg-white h-screen book-title max-sm:absolute z-40">
       <button
         className="max-sm:mt-10 bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
         onClick={handleGoBack}
@@ -149,20 +149,15 @@ const AllgenBook = () => {
           {isSmScreen && (
             <button
               onClick={toggleSidebar}
-              className="absolute"
+              className="text-xl max-sm:absolute "
             >
-              {isSidebarOpen ?
-                <div className="text-xl absolute ">
-                  <FaArrowAltCircleRight />
-                </div>
-                :
-                <div className="text-xl absolute ">
-                  <FaArrowAltCircleLeft />
-                </div>
+              {!isSidebarOpen ?
+                <FaArrowAltCircleRight />
+                : <FaArrowCircleLeft />
               }
             </button>
           )}
-          {!isSidebarOpen && (
+          {isSidebarOpen && (
             <Sidebar
               handleGoBack={handleGoBack}
               activeComponent={activeComponent}
