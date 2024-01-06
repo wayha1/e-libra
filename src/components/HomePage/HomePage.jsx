@@ -144,7 +144,7 @@ const HomePage = () => {
                       </h1>
                     )}
                     {data.decs && (
-                      <h2 className="lg:text-xl max-sm:text-md mt-2 font-mono font-bold text-center text-gray-700 font-sans hover:text-cyan-800 hover:duration-200">
+                      <h2 className="lg:text-xl max-sm:text-md mt-2 font-mono font-bold text-center text-gray-700 font-sans hover:text-cyan-800 hover:duration-200 max-sm:text-sm">
                         {data.decs}
                       </h2>
                     )}

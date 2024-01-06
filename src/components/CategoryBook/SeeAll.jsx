@@ -15,12 +15,15 @@ function SeeAll() {
   const [reset, setReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add isLoading state
-  const [, setSelectedBook] = useState(null);
+  const [selectBook, setSelectedBook] = useState(null);
 
 
   useEffect(() => {
-    setUserRating(null);
-  }, [selectedBook]);
+    if (reset) {
+      setUserRating(null);
+      setReset(false);
+    }
+  }, [reset]);
 
   const handleAddToCart = async (selectedBook) => {
     if (userIsLoggedIn()) {
@@ -66,7 +69,7 @@ function SeeAll() {
       if (userIsLoggedIn()) {
         const user = auth.currentUser;
 
-        if (user) {
+        if (user && selectedBook) {
           const popularCollectionRef = collection(db, "popular");
           const docData = {
             title: selectedBook.title,
@@ -74,7 +77,7 @@ function SeeAll() {
             userRating: userRating,
             price: selectedBook.price,
             decs: selectedBook.decs,
-            type: selectedBook.type,
+            type: selectedBook.type || "",
             date: selectedBook.date,
             img: selectedBook.img,
             BookPdf: selectedBook.BookPdf,
@@ -82,9 +85,6 @@ function SeeAll() {
           };
 
           await addDoc(popularCollectionRef, docData);
-          setUserRating(null);
-          setReset(true);
-          console.log(userRating);
         } else {
           console.error("User is not available.");
         }
@@ -97,6 +97,7 @@ function SeeAll() {
       setIsLoading(false);
     }
   };
+
 
   const handleReadNow = () => {
     if (userIsLoggedIn()) {
@@ -121,8 +122,6 @@ function SeeAll() {
 
         if (user) {
           const userBookCollection = collection(db, 'userBook');
-
-          // Add the selectedBook to userBook collection
           await addDoc(userBookCollection, {
             title: selectedBook.title,
             decs: selectedBook.decs,
