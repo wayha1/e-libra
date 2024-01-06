@@ -9,3 +9,7 @@
 .react-pdf__Page__annotations {
   display: none !important;
 }
+.react-pdf__Page__canvas{
+  max-width: 370px;
+  margin: 10px;
+}

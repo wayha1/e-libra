@@ -116,7 +116,9 @@ const Navbar = () => {
                 Cart
               </Link>
 
-              <div className="inline-block text-left z-50" ref={menuRef}>
+              <div className="inline-block text-left z-50" ref={menuRef}
+
+              >
                 <button
                   onClick={handleButtonClick}
                   className="mr-4 focus:border-gray-600 focus:border-2 
@@ -142,10 +144,16 @@ const Navbar = () => {
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
                           <p className="text-white text-xl font-semibold">
-                            <Link to={"/account"}>Profile</Link>
+                            <Link to={"/account"}>
+                              <button
+
+                                className="whitespace-nowrap px-4 py-2 text-white hover:underline"
+                              >
+                                Profile
+                              </button>
+
+                            </Link>
                           </p>
-                          <h1 className="text-white">{user.email}</h1>
-                          <h1 className="text-white">{user.displayName}</h1>
                           <button
                             onClick={handleLogout}
                             className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
@@ -188,31 +196,39 @@ const Navbar = () => {
             )}
           </div>
           <div
-            className={`${
-              nav
-                ? "hidden fixed left-[-100%] transition-transform duration-300"
-                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 transition-transform"
-            }`}
+            className={`${nav
+              ? "hidden fixed left-[-100%] transition-transform duration-300"
+              : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 transition-transform"
+              }`}
             onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
-              <Link to="/account" className="hover:shadow-full flex flex-col mt-10" onClick={handleNav}>
-                <img
-                  ref={imgRef}
-                  onClick={handleImageClick}
-                  src={
-                    user
-                      ? user.photoURL
+              {user ? (
+                <Link to="/account" className="hover:shadow-full flex flex-col mt-10" onClick={handleNav}>
+                  <img
+                    ref={imgRef}
+                    onClick={handleImageClick}
+                    src={
+                      user.photoURL
                         ? user.photoURL
                         : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
-                      : "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw&r=0"
-                  }
-                  alt="user"
-                  className=" w-[50px] h-[50px] object-cover focus:border-gray-600 focus:border-2 rounded-full"
-                />
-              </Link>
+                    }
+                    alt="user"
+                    className=" w-[50px] h-[50px] object-cover focus:border-gray-600 focus:border-2 rounded-full"
+                  />
+                </Link>
+              ) : null}
               <div className="text-center mt-10">
                 <ul className="uppercase p-4">
+                  <li className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
+                    <Link
+                      to={"/"}
+                      onClick={handleNav}
+                      className="whitespace-nowrap px-4 py-2 hover:shadow-full hover:scale-110"
+                    >
+                      Home
+                    </Link>
+                  </li>
                   <li className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110">
                     <Link
                       to={"/allgen"}
@@ -250,6 +266,31 @@ const Navbar = () => {
                     </Link>
                   </li>
                 </ul>
+                {user ? (
+                  <div
+                    onClick={scrollToTop}
+                    className="flex flex-col justify-center items-center space-y-4">
+                    <button
+                      onClick={handleLogout}
+                      className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col justify-center items-center space-y-4">
+                    <p className="text-white uppercase font-semibold">No Account</p>
+                    <button
+                      onClick={() => {
+                        handleButtonClick();
+                        navigate("/login");
+                      }}
+                      className="whitespace-nowrap px-4 py-2 border border-blue-500 rounded-md bg-blue-500 text-white hover:bg-blue-600 hover:border-blue-600"
+                    >
+                      Login
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

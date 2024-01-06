@@ -3,6 +3,7 @@ import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth
 import { app } from '../../../firebase';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import mobile from "../../../asset/Phone1.png";
 
 Modal.setAppElement('#root');
 
@@ -64,8 +65,24 @@ function PhoneLogin() {
 
   return (
     <div className="relative">
-      <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={openModal}>
-        Open Modal
+      <button onClick={openModal}>
+        <div
+          className="my-6 flex border-blue-100 border-2 rounded-lg
+          hover:bg-gray-200 shadow-xl hover:shadow-lg w-fit max-sm:justify-center
+            sm:px-1"
+        >
+          <image
+            src={mobile}
+            alt="my image"
+            width={50}
+            height={40}
+            onClick={this}
+            className="hover:shadow-full hover:scale-110 mx-2 my-1 "
+          />
+          <h1 className="flex whitespace-nowrap max-sm:hidden px-2 items-center text-gray-600">
+            Login with phone
+          </h1>
+        </div>
       </button>
       <Modal
         isOpen={isModalOpen}
@@ -76,7 +93,7 @@ function PhoneLogin() {
       >
         {!isOtp ? (
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Login with OTP</h1>
+            <h1 className="text-2xl font-bold mb-4">Login with phoneNumber</h1>
             <input
               onChange={(e) => { setPhone(e.target.value) }}
               placeholder='Phone Number'

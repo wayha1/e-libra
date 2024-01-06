@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc, collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 function Payment() {
@@ -13,25 +13,19 @@ function Payment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
-  const cartItems = location.state?.cartItems || [];
+  const { selectedBook, cartItems } = location.state || [];
 
   const handlePayment = () => {
-    // Basic validation
     if (!paymentMethod || !email || !expiryDate || !cvc) {
       alert('Please fill in all the required fields.');
       return;
     }
-
-    // Set the payment initiation flag
+    console.log(cartItems)
     setIsPaymentInitiated(true);
-
-    // Add your payment processing logic here
-    // For simplicity, I'm just simulating a successful payment after a short delay
     setTimeout(async () => {
       setIsPaymentSuccessful(true);
 
       try {
-        // Delete items from the cart in Firestore
         const deletePromises = cartItems.map(async (item) => {
           const itemRef = doc(db, 'addtoCart', item.id);
           await deleteDoc(itemRef);
@@ -45,8 +39,6 @@ function Payment() {
         setCVC('');
 
         setIsPaymentInitiated(false);
-
-        // Open the modal
         setIsModalOpen(true);
       } catch (error) {
         console.error('Error deleting items from the cart:', error.message);
@@ -54,13 +46,32 @@ function Payment() {
     }, 2000);
   };
 
-  const handleDone = () => {
-    // Close the modal
+  const handleDone = async () => {
     setIsModalOpen(false);
-
-    // Reset the success state when "Done" is clicked
-    setIsPaymentSuccessful(false);
+      setIsPaymentSuccessful(false);
+  
+    try {
+      const userBookCollection = collection(db, 'userBook');
+        for (const item of cartItems) {
+        await addDoc(userBookCollection, {
+          title: item.title,
+          decs: item.decs,
+          img: item.img,
+          BookPdf: item.BookPdf,
+          date: item.date,
+          authorId: item.authorId,
+          price: item.price,
+          userId: item.uid,
+          type: item.type
+        });
+      }
+    
+    } catch (error) {
+      console.error('Error adding items to userBook collection:', error.message);
+    }
   };
+  
+  
 
   return (
     <div className="max-w-md mx-auto mt-8 p-8 bg-gray-100 shadow-md mb-9">

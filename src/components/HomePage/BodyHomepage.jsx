@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { BiChevronLeftCircle, BiChevronRightCircle, BiXCircle, BiBookmarkPlus, BiBookReader, BiSolidCartAdd } from "react-icons/bi";
+import { BiChevronLeftCircle, BiChevronRightCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import "../../App.css";
-import BookDetail from "./Book/BookDetail";
 
 const BookCard = ({ data, handleSeeMoreClick, handleAddToCartClick }) => (
   <div className="hover:shadow-xl w-full overflow-hidden">
@@ -33,35 +32,22 @@ const BookCard = ({ data, handleSeeMoreClick, handleAddToCartClick }) => (
   </div>
 );
 
-const BodyHomepage = ({ selectedBook }) => {
+const BodyHomepage = () => {
   const [bookData, setBookData] = useState([]);
   const [currentData, setCurrentData] = useState(0);
-  const [detailIndex, setDetailIndex] = useState(0);
-  const [recommendedBooks, setRecommendedBooks] = useState([]);
-  const [addedItems, setAddedItems] = useState([]);
   const navigate = useNavigate();
 
   const slideNext = () => {
-    const lastIndex = bookData.length - 1;
-    setCurrentData((prevIndex) => (prevIndex === lastIndex ? prevIndex : (prevIndex + 1) % bookData.length));
+    setCurrentData((prevIndex) => (prevIndex + 1) % bookData.length);
   };
 
   const slidePrev = () => {
-    setCurrentData((prevIndex) =>
-      prevIndex === 0 ? prevIndex : (prevIndex - 1 + bookData.length) % bookData.length
-    );
+    setCurrentData((prevIndex) => (prevIndex - 1 + bookData.length) % bookData.length);
   };
 
   const handleSeeMoreClick = (index) => {
-    setDetailIndex(index);
     const selectedBook = bookData[index];
     navigate(`/allgen/see-all`, { state: { selectedBook } });
-  };
-
-  const recommendationBook = (index) => {
-    const lastIndex = bookData.length - 1;
-    const recommendedBooks = index === lastIndex ? [] : bookData.slice(index + 1, lastIndex + 1);
-    setRecommendedBooks(recommendedBooks);
   };
 
   const handleAddToCartClick = (data) => {
@@ -76,7 +62,6 @@ const BodyHomepage = ({ selectedBook }) => {
 
       if (!isItemInCart) {
         await addDoc(cartsCollectionRef, book);
-        setAddedItems((prevItems) => [...prevItems, book.id]);
         alert("Item added to cart!");
       } else {
         alert("Item already added to cart!");
@@ -85,41 +70,38 @@ const BodyHomepage = ({ selectedBook }) => {
       console.error("Error adding item to cart:", error);
     }
   };
+
+  const getBooks = async () => {
+    try {
+      const contain = collection(db, "popular");
+      const snapshot = await getDocs(contain);
+      const data = snapshot.docs.map((val, index) => ({ ...val.data(), id: val.id, index }));
+      const filteredData = data.filter((book) =>
+        book.userRating > 3 && book.userId >= 10);
+
+      const sortedData = filteredData.sort((a, b) => b.userRating - a.userRating);
+      setBookData(sortedData);
+    } catch (error) {
+      console.error("Error fetching popular section data:", error);
+    }
+  };
+
   useEffect(() => {
-    const getBooks = async () => {
-      try {
-        const contain = collection(db, "popular");
-        const snapshot = await getDocs(contain);
-        const data = snapshot.docs.map((val, index) => ({ ...val.data(), id: val.id, index }));
-        const filteredData = data.filter((book) => book.userRating > 3);
-        const sortedData = filteredData.sort((a, b) => b.userRating - a.userRating);
-        setBookData(sortedData);
-        const bookDataPromises = sortedData.map(async (elem) => {
-          try {
-            // Fetch additional data for each book if needed
-          } catch (error) {
-            console.error(`Error fetching book data for ${elem.id}:`, error);
-            return null;
-          }
-        });
-        await Promise.all(bookDataPromises);
-      } catch (error) {
-        console.error("Error fetching popular section data:", error);
-      }
-    };
     getBooks();
   }, []);
 
   return (
-    <>
-      <section>
-        <div className="w-full py-2">
-          <h1 className="p-5 w-full text-center underline text-3xl uppercase font-bold hover:text-cyan-800 book-style">
-            {"ពេញនិយម ឥឡូវ​នេះ"}
-          </h1>
-        </div>
+    <section>
+      <div className="w-full py-2">
+        <h1 className="p-5 w-full text-center underline text-3xl uppercase font-bold hover:text-cyan-800 book-style">
+          {"ពេញនិយម ឥឡូវ​នេះ"}
+        </h1>
+      </div>
 
-        <div className="bg-gray-100 z-10">
+      <div className="bg-gray-100 z-10">
+        {bookData.length === 0 ? (
+          <p className="text-center text-gray-700 py-8">No popular books available</p>
+        ) : (
           <div className="flex items-center justify-between relative px-7 h-[400px] md:w-full">
             <button
               onClick={slidePrev}
@@ -152,9 +134,9 @@ const BodyHomepage = ({ selectedBook }) => {
               <BiChevronRightCircle className="text-cyan-700 text-3xl lg:m-1 " />
             </button>
           </div>
-        </div>
-      </section>
-    </>
+        )}
+      </div>
+    </section>
   );
 };
 

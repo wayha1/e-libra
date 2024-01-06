@@ -5,11 +5,14 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  where,
+  query,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { CiCreditCard1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
+import DefaultCartPage from "./DefualtCartPage";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -33,7 +36,6 @@ const CartPage = () => {
       (updatedCart.find((item) => item.id === itemId)?.quantity || 1) + 1;
 
     try {
-      // Update Firestore with the new quantity
       const itemDoc = doc(db, "addtoCart", itemId);
       await updateDoc(itemDoc, { quantity: newQuantity });
     } catch (error) {
@@ -56,7 +58,6 @@ const CartPage = () => {
     );
 
     try {
-      // Update Firestore with the new quantity
       const itemDoc = doc(db, "addtoCart", itemId);
       await updateDoc(itemDoc, { quantity: newQuantity });
     } catch (error) {
@@ -65,7 +66,6 @@ const CartPage = () => {
   };
 
   const handleDelete = async (itemId) => {
-    if (loading) return;
     setSelectedItemId(itemId);
     setShowConfirmationModal(true);
   };
@@ -74,7 +74,6 @@ const CartPage = () => {
     try {
       setLoading(true);
       const itemRef = doc(db, "addtoCart", selectedItemId);
-      console.log("Deleting:", selectedItemId);
       await deleteDoc(itemRef);
       setCartItems((prevItems) =>
         prevItems.filter((item) => item.id !== selectedItemId)
@@ -99,32 +98,39 @@ const CartPage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const currentUser = auth.currentUser;
-        if (currentUser) {
-          const displayName = currentUser.displayName;
+  const fetchCartItems = async () => {
+    try {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        const uid = currentUser.uid;
+        console.log("Current User UID:", uid);
 
-          const sample = collection(db, "addtoCart");
-          const querySnapshot = await getDocs(sample.where("displayName", "==", displayName));
+        const cartCollection = collection(db, "addtoCart");
+        const q = query(cartCollection, where("uid", "==", uid));
+        const querySnapshot = await getDocs(q);
 
-          setCartItems(
-            querySnapshot.docs.map((doc) => ({
-              ...doc.data(),
-              id: doc.id,
-            }))
-          );
-        } else {
-          console.error("No user found");
-        }
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      } finally {
-        setLoading(false);
+        console.log(
+          "Fetched Cart Items:",
+          querySnapshot.docs.map((doc) => doc.data())
+        );
+
+        setCartItems(
+          querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))
+        );
+      } else {
+        console.error("No user found");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchCartItems();
   }, [showConfirmationModal]);
 
@@ -135,23 +141,27 @@ const CartPage = () => {
 
   const handleReadNowClick = (selectedBook) => {
     setSelectedBook(selectedBook);
-    navigate("/payment", { state: { cartItems, selectedBook: selectedBook } });
+    navigate("/payment", { state: { selectedBook, cartItems } });
   };
 
   return (
     <div className="overflow-y-auto z-20 ">
       {loading && <LoadingPage />}
-      <div className="mx-auto mt-10 px-10 py-4 h-[400px]">
+      <div className="mx-auto mt-10 px-10 py-4 h-[1100px]">
         {cartItems.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-5xl book-title text-red-600">Your cart is empty.</p>
+          <div className="flex items-center justify-center ">
+            <p className="text-5xl book-title text-gray-600">
+              <DefaultCartPage />
+            </p>
           </div>
         ) : (
           <>
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${selectedItems.includes(item.id)
+                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${selectedItems.includes(
+                  item.id
+                )
                   ? "bg-blue-200 text-white"
                   : "bg-gray-100"
                   }`}
@@ -229,18 +239,24 @@ const CartPage = () => {
               Are you sure you want to delete this item?
             </p>
             <div className="flex justify-end">
-              <button
-                className="bg-red-500 text-white active:bg-blue-400 px-4 py-2 rounded-full"
-                onClick={confirmDelete}
-              >
-                Yes, delete
-              </button>
-              <button
-                className="bg-gray-500 text-white active:bg-blue-400 ml-3 px-4 py-2 rounded-full"
-                onClick={() => setShowConfirmationModal(false)}
-              >
-                Cancel
-              </button>
+              {loading ? (
+                <LoadingPage />
+              ) : (
+                <>
+                  <button
+                    className="bg-red-500 text-white active:bg-blue-400 px-4 py-2 rounded-full"
+                    onClick={confirmDelete}
+                  >
+                    Yes, delete
+                  </button>
+                  <button
+                    className="bg-gray-500 text-white active:bg-blue-400 ml-3 px-4 py-2 rounded-full"
+                    onClick={() => setShowConfirmationModal(false)}
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
