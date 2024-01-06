@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChange, categories }) => {
     const renderCategories = () => {
@@ -23,13 +23,13 @@ const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChan
             <ul className="mt-10">
                 {categories.map((category) => (
                     <li key={category.id} className="flex text-center">
-                        <NavLink
+                        <Link
                             to={category.path}
                             className={`${activeComponent === category.name ? "bg-gray-600 text-white" : "bg-gray-300"
                                 } w-full h-[50px] text-lg cursor-pointer duration-300 border p-2`}
                         >
                             {category.name}
-                        </NavLink>
+                        </Link>
                     </li>
                 ))}
             </ul>

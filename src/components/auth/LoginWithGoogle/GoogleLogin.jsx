@@ -46,7 +46,7 @@ function GoogleLogin() {
             hover:bg-gray-200  shadow-xl hover:shadow-lg w-fit max-sm:justify-center
               sm:px-1"
           >
-            <img
+            <image
               src={google}
               alt="my image"
               width={50}

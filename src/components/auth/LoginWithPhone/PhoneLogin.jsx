@@ -65,13 +65,13 @@ function PhoneLogin() {
 
   return (
     <div className="relative">
-      <button  onClick={openModal}>
+      <button onClick={openModal}>
         <div
           className="my-6 flex border-blue-100 border-2 rounded-lg
           hover:bg-gray-200 shadow-xl hover:shadow-lg w-fit max-sm:justify-center
             sm:px-1"
         >
-          <img
+          <image
             src={mobile}
             alt="my image"
             width={50}

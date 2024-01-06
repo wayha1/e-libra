@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, NavLink, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
 import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 import Sidebar from "./Sidebar";
@@ -23,8 +23,9 @@ const AllgenBook = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeComponent, setActiveComponent] = useState(MAIN_CATEGORY_TITLE);
   const [isSmScreen, setIsSmScreen] = useState(window.innerWidth < 768);
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const navigate = useNavigate();
+
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
@@ -40,7 +41,7 @@ const AllgenBook = () => {
   }, [location]);
 
   const handleGoBack = () => {
-    window.location.href = "/";
+    navigate(-1);
   };
 
   const handleCategoryChange = (category) => {
@@ -52,7 +53,6 @@ const AllgenBook = () => {
   };
 
   useEffect(() => {
-    // Update isSmScreen state on window resize
     const handleResize = () => {
       setIsSmScreen(window.innerWidth < 768);
     };

@@ -152,7 +152,7 @@ const AllCategory = () => {
     setCurrentPage(1);
   };
   const handleGoBack = () => {
-    window.location.href = "/";
+    navigate(-1);
   };
 
 
