@@ -54,12 +54,18 @@ const AboutUs = () => {
       for (const elem of bannerData.docs) {
         const contain = collection(db, `Aboutus/${elem.id}/container`);
         const Containers = await getDocs(contain);
-        const ContainerData = Containers.docs.map((val) => ({ ...val.data(), id: val.id }));
+        const ContainerData = Containers.docs.map((val) => ({
+          ...val.data(),
+          id: val.id,
+        }));
         setContainer(ContainerData);
 
         const OurGoal = collection(db, `Aboutus/${elem.id}/Goal`);
         const Goals = await getDocs(OurGoal);
-        const GoalData = Goals.docs.map((val) => ({ ...val.data(), id: val.id }));
+        const GoalData = Goals.docs.map((val) => ({
+          ...val.data(),
+          id: val.id,
+        }));
         setGoal(GoalData);
       }
 
@@ -76,8 +82,6 @@ const AboutUs = () => {
     fetchData();
   }, [author.length]);
 
-
-
   return (
     <>
       {isLoading ? (
@@ -87,7 +91,10 @@ const AboutUs = () => {
         <main className="w-screen bg-gray-50">
           <section id="banner ">
             {Banner.map((data) => (
-              <div key={data.id} className="flex items-center justify-center relative">
+              <div
+                key={data.id}
+                className="flex items-center justify-center relative"
+              >
                 <div
                   className="aspect-video "
                   onMouseOver={() => setTimeout(() => handleMouseOver(), 500)}
@@ -113,7 +120,9 @@ const AboutUs = () => {
                     <h1 className="font-bold h-full  uppercase lg:text-8xl md:text-6xl sm:text-6xl xs:text=4xl 2xs:text-4xl">
                       {data.txtBanner}
                     </h1>
-                    <span className="font-bold lg:text-xl max-lg:text-xs">{data.decs}</span>
+                    <span className="font-bold lg:text-xl max-lg:text-xs">
+                      {data.decs}
+                    </span>
                   </div>
                 )}
               </div>
@@ -138,10 +147,11 @@ const AboutUs = () => {
             <div className="flex flex-col w-screen h-auto">
               <div className="w-full justify-between">
                 {Container.map((data, i) => (
-                  <div key={i} className="lg:py-4 lg:px-10 justify-between flex px-3 ">
-                    <div
-                      className="md:m-2 sm:m-5 max-sm:m-5 bg-gray-300 rounded-2xl shadow-xl p-2 flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full"
-                    >
+                  <div
+                    key={i}
+                    className="lg:py-4 lg:px-10 justify-between flex px-3 "
+                  >
+                    <div className="md:m-2 sm:m-5 max-sm:m-5 bg-gray-300 rounded-2xl shadow-xl p-2 flex flex-col max-lg:w-3/4 md:w-2/4 max-sm:w-full max-md:w-full">
                       {data.title && (
                         <h1 className="whitespace-nowrap link link-underline link-underline-black text-center hover:decoration lg:text-4xl max-md:text-4xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-125 hover:text-cyan-700 lg:text-6xl md:text-4xl sm:text-4xl xs:text-3xl">
                           {data.title}
@@ -178,7 +188,10 @@ const AboutUs = () => {
             <div className="w-full bg-gray-50 lg:h-[700px] max-lg:h-[500px] max-sm:h-[700px] flex items-center justify-center">
               {OurGoal.map((data, index) => (
                 <div className="" key={index}>
-                  <div className="relative w-full max-sm:w-60% max-w-lg" key={`goal-${index}`}>
+                  <div
+                    className="relative w-full max-sm:w-60% max-w-lg"
+                    key={`goal-${index}`}
+                  >
                     <div className="absolute top-0 -left-4 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
                     <div className="absolute top-0 -right-4 max-sm:-right-1 max-sm:-translate-x-3 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
                     <div className="absolute -bottom-8 left-20 max-sm:left-2 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
@@ -213,15 +226,14 @@ const AboutUs = () => {
             </div>
           </section>
 
-
           <div>
             <h1 className="whitespace-nowrap link link-underline link-underline-black m-5 text-center hover:decoration lg:text-4xl max-lg:text-2xl uppercase font-bold not-italic text-gray-500 hover:decoration-solid duration-200 hover:scale-110 hover:text-cyan-700 sm:text-3xl xs:text-3xl">
               អ្នកនិពន្ធ កម្ពុជា
             </h1>
           </div>
 
-          <section id="author" className="w-full max-auto">
-            <div className="lg:p-2 max-lg:p-5 grid grid-cols-3 mx-20">
+          <section id="author" className="w-full flex py-5 mx-auto overflow-x-auto">
+            <div className="flex justify-center">
               {author.slice(0, visibleAuthors).map((data, i) => (
                 <div key={i} className="px-24 py-5">
                   <div
@@ -237,14 +249,26 @@ const AboutUs = () => {
                       />
                     )}
                     {data.authName && (
-                      <h2 className="font-bold text-xl mb-3 m-1 auth-name">{data.authName}</h2>
+                      <h2 className="font-bold text-xl mb-3 m-1 auth-name">
+                        {data.authName}
+                      </h2>
                     )}
-                    {data.Gender && <p className="font-bold text-md m-1 auth-name mb-3">{data.Gender}</p>}
-                    {data.DOB && <p className="auth-name m-1 mb-3">{data.DOB}</p>}
+                    {data.Gender && (
+                      <p className="font-bold text-md m-1 auth-name mb-3">
+                        {data.Gender}
+                      </p>
+                    )}
+                    {data.DOB && (
+                      <p className="auth-name m-1 mb-3">{data.DOB}</p>
+                    )}
                     {expandedDetails[i] ? (
-                      <p className="text-sm text-gray-600 auth-name ">{data.Decs}</p>
+                      <p className="text-sm text-gray-600 auth-name ">
+                        {data.Decs}
+                      </p>
                     ) : (
-                      <p className="text-sm text-gray-600 auth-name line-clamp-3">{data.Decs}</p>
+                      <p className="text-sm text-gray-600 auth-name line-clamp-3">
+                        {data.Decs}
+                      </p>
                     )}
                     <div className="m-2">
                       <button

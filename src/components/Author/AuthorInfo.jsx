@@ -47,14 +47,6 @@ function AuthorInfo() {
           >
             Personality
           </button>
-
-          <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-full focus:outline-none mb-2 transition-all duration-300 ease-in-out
-        transform hover:scale-105 active:bg-blue-600"
-            onClick={togglePersonalityVisibility}
-          >
-            Work Detail
-          </button>
         </div>
 
         {showPersonality && (
