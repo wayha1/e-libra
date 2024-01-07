@@ -3,7 +3,6 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
-
 const AllCategory = () => {
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
@@ -12,7 +11,6 @@ const AllCategory = () => {
   const [filterType, setFilterType] = useState("title");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-
 
   const fetchData = async () => {
     try {
@@ -155,8 +153,6 @@ const AllCategory = () => {
     navigate(-1);
   };
 
-
-
   return (
     <div className="z-20 overflow-y-auto">
       <button
@@ -172,7 +168,7 @@ const AllCategory = () => {
         <input
           type="text"
           placeholder={filterType === "title" ? "Search Title" : "Search Author"}
-          className=" border rounded-md mr-2 max-sm:w-[150px] "
+          className=" border rounded-md mr-2 max-sm:w-[130px] max-sm:p-1 "
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
