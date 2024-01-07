@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { auth, provider } from '../../../firebase';
-import { signInWithPopup, signOut } from 'firebase/auth';
-import HomePage from '../../HomePage/HomePage';
+import React, { useEffect, useState } from "react";
+import { auth, provider } from "../../../firebase";
+import { signInWithPopup, signOut } from "firebase/auth";
+import HomePage from "../../HomePage/HomePage";
 import google from "../../../asset/google.png";
 
 function GoogleLogin() {
-
   const [user, setUser] = useState(null);
 
   const handleLogin = () => {
     signInWithPopup(auth, provider).then((data) => {
       setUser(data.user);
-
     });
-  }
+  };
 
   const handleLogout = async () => {
     try {
@@ -24,7 +22,7 @@ function GoogleLogin() {
   };
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
+    const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setUser({ email: storedEmail });
     }
@@ -38,15 +36,13 @@ function GoogleLogin() {
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
-        <button
-          onClick={handleLogin}
-        >
+        <button onClick={handleLogin}>
           <div
             className="my-6 flex border-blue-100 border-2 rounded-lg
-            hover:bg-gray-200  shadow-xl hover:shadow-lg w-fit max-sm:justify-center
+            hover:bg-gray-200 shadow-xl hover:shadow-lg w-fit max-sm:justify-center
               sm:px-1"
           >
-            <image
+            <img
               src={google}
               alt="my image"
               width={50}

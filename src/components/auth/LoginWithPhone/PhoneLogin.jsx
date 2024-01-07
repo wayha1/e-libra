@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth';
-import { app } from '../../../firebase';
-import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
+import React, { useState, useEffect } from "react";
+import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from "firebase/auth";
+import { app } from "../../../firebase";
+import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
 import mobile from "../../../asset/Phone1.png";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 function PhoneLogin() {
   const [phone, setPhone] = useState(null);
   const [isOtp, setIsOtp] = useState(false);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
   const [timer, setTimer] = useState(60); // Timer in seconds
@@ -21,39 +21,38 @@ function PhoneLogin() {
 
   const openPinModal = () => {
     setIsPinModalOpen(true);
-    setTimer(60); // Reset the timer when the PIN modal is opened
+    setTimer(60);
   };
 
   const closePinModal = () => setIsPinModalOpen(false);
 
   const sendOTP = () => {
     const auth = getAuth(app);
-    const appVerifier = new RecaptchaVerifier(auth, 'abc', { 'size': 'invisible' });
+    const appVerifier = new RecaptchaVerifier(auth, "abc", { size: "invisible" });
     signInWithPhoneNumber(auth, phone, appVerifier)
-      .then(res => {
+      .then((res) => {
         window.confirmationResult = res;
         setIsOtp(true);
-        closeModal(); // Close the phone number modal after sending OTP
-        openPinModal(); // Open the PIN modal
+        closeModal();
+        openPinModal();
       })
-      .catch(err => {
-      });
+      .catch((err) => {});
   };
 
   const confirmOtp = () => {
-    window.confirmationResult.confirm(code)
-      .then(res => {
-        navigate('/');
+    window.confirmationResult
+      .confirm(code)
+      .then((res) => {
+        navigate("/");
       })
-      .catch(err => {
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
     let interval;
     if (isPinModalOpen) {
       interval = setInterval(() => {
-        setTimer(prevTimer => (prevTimer > 0 ? prevTimer - 1 : 0));
+        setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
       }, 1000);
     }
 
@@ -68,7 +67,7 @@ function PhoneLogin() {
           hover:bg-gray-200 shadow-xl hover:shadow-lg w-fit max-sm:justify-center
             sm:px-1"
         >
-          <image
+          <img
             src={mobile}
             alt="my image"
             width={50}
@@ -92,16 +91,16 @@ function PhoneLogin() {
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">Login with phoneNumber</h1>
             <input
-              onChange={(e) => { setPhone(e.target.value) }}
-              placeholder='Phone Number'
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+              placeholder="Phone Number"
               className="border border-gray-300 rounded-md py-2 px-4 mb-4"
             />
-            <div id='abc'></div>
-            <button
-              type='button'
-              onClick={sendOTP}
-              className='bg-blue-500 text-white px-4 py-2 rounded'
-            >Send OTP</button>
+            <div id="abc"></div>
+            <button type="button" onClick={sendOTP} className="bg-blue-500 text-white px-4 py-2 rounded">
+              Send OTP
+            </button>
           </div>
         ) : null}
       </Modal>
@@ -117,13 +116,26 @@ function PhoneLogin() {
           <div className="text-center">
             <h3 className="text-xl font-bold mb-4">Confirm PIN Code</h3>
             <p>{`Time remaining: ${timer} seconds`}</p>
-            <input type='text' onChange={(e) => { setCode(e.target.value) }} className="border border-gray-300 rounded-md py-2 px-4 mb-4" />
-            <button type='button' onClick={confirmOtp} disabled={timer === 0} className='bg-blue-500 text-white px-4 py-2 rounded'>
+            <input
+              type="text"
+              onChange={(e) => {
+                setCode(e.target.value);
+              }}
+              className="border border-gray-300 rounded-md py-2 px-4 mb-4"
+            />
+            <button
+              type="button"
+              onClick={confirmOtp}
+              disabled={timer === 0}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
               Submit PIN
             </button>
           </div>
         ) : null}
-        <button onClick={closePinModal} className='bg-gray-500 text-white px-4 py-2 rounded mt-4'>Close PIN Modal</button>
+        <button onClick={closePinModal} className="bg-gray-500 text-white px-4 py-2 rounded mt-4">
+          Close PIN Modal
+        </button>
       </Modal>
     </div>
   );
