@@ -74,14 +74,16 @@ const BacIIBook = () => {
 
   return (
     <section className="z-20 container mx-auto mt-8 mb-10">
-      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase max-sm:text-3xl">
         សៀវភៅ បាក់ឌុប
       </h2>
 
-      <div className="grid grid-cols-4 grid-rows-2 justify-items-center 
+      <div
+        className="grid grid-cols-4 grid-rows-2 justify-items-center 
       justify-center gap-4 md:grid-cols-2 max-sm:grid-cols-2 
       lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-5
-      ">
+      "
+      >
         {currentItems.map((item, index) => (
           <div key={index} className="mb-4 bg-gray-100">
             <img
@@ -94,7 +96,6 @@ const BacIIBook = () => {
               <h3 className="text-xl font-title font-bold whitespace-nowrap overflow-hidden">{item.title}</h3>
               <p className="text-md">{item.price}</p>
             </div>
-
           </div>
         ))}
       </div>

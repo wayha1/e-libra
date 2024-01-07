@@ -161,14 +161,14 @@ const AllCategory = () => {
       >
         Back
       </button>
-      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase max-sm:text-3xl">
         មាតិកា ទាំងអស់
       </h2>
       <div className="flex mb-4 pr-4 max-sm:pr-3 w-full justify-end ">
         <input
           type="text"
           placeholder={filterType === "title" ? "Search Title" : "Search Author"}
-          className=" border rounded-md mr-2 max-sm:w-[130px] max-sm:p-1 "
+          className=" border rounded-md mr-2 max-sm:w-[130px] max-sm:p-1"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

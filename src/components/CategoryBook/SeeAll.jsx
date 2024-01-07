@@ -4,7 +4,7 @@ import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { Rating } from "../content/Rating/Rating";
 import { ModalToLogin } from "../content/requirement/ModalToLogin";
-import LoadingPage from '../content/LoadingPage/LoadingPage'
+import LoadingPage from "../content/LoadingPage/LoadingPage";
 
 function SeeAll() {
   const location = useLocation();
@@ -16,7 +16,6 @@ function SeeAll() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add isLoading state
   const [selectBook, setSelectedBook] = useState(null);
-
 
   useEffect(() => {
     if (reset) {
@@ -32,9 +31,7 @@ function SeeAll() {
 
         const currentUser = auth.currentUser;
         const cartsCollectionRef = collection(db, "addtoCart");
-        const querySnapshot = await getDocs(
-          query(cartsCollectionRef, where("uid", "==", currentUser.uid))
-        );
+        const querySnapshot = await getDocs(query(cartsCollectionRef, where("uid", "==", currentUser.uid)));
 
         const isItemInCart = querySnapshot.docs.some((doc) => {
           const cartItem = doc.data();
@@ -61,7 +58,6 @@ function SeeAll() {
       openModal();
     }
   };
-
 
   const handleRatingSubmit = async () => {
     try {
@@ -98,7 +94,6 @@ function SeeAll() {
     }
   };
 
-
   const handleReadNow = () => {
     if (userIsLoggedIn()) {
       const pdfPages = selectedBook.BookPdf || [];
@@ -109,7 +104,6 @@ function SeeAll() {
         alert("This book does not have any pages to read.");
       }
     } else {
-
       openModal();
     }
   };
@@ -121,7 +115,7 @@ function SeeAll() {
         const user = auth.currentUser;
 
         if (user) {
-          const userBookCollection = collection(db, 'userBook');
+          const userBookCollection = collection(db, "userBook");
           await addDoc(userBookCollection, {
             title: selectedBook.title,
             decs: selectedBook.decs,
@@ -131,7 +125,7 @@ function SeeAll() {
             authorId: selectedBook.authorId,
             price: selectedBook.price,
             userId: user.uid,
-            type: selectedBook.type
+            type: selectedBook.type,
           });
 
           alert("Item added to Favorites!");
@@ -142,10 +136,9 @@ function SeeAll() {
         openModal();
       }
     } catch (error) {
-      console.error('Error adding item to userBook collection:', error.message);
+      console.error("Error adding item to userBook collection:", error.message);
     }
   };
-
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -157,19 +150,14 @@ function SeeAll() {
 
   const userIsLoggedIn = () => {
     return auth.currentUser !== null;
-
   };
 
   const handleRatingChange = (newRating) => {
     setUserRating(newRating);
   };
 
-
-
   const recommendedBooks = allBooks.filter(
-    (book) =>
-      book.authorId === selectedBook.authorId &&
-      book.title !== selectedBook.title
+    (book) => book.authorId === selectedBook.authorId && book.title !== selectedBook.title
   );
 
   const handleReadNowClick = (book) => {
@@ -204,7 +192,6 @@ function SeeAll() {
     </>
   );
 
-
   return (
     <div className="mt-8 mx-auto h-full overflow-y-auto">
       {isLoading ? (
@@ -222,19 +209,19 @@ function SeeAll() {
             </button>
           </div>
           <div className="flex mb-6">
-            <p className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5 text-center">
+            <p className="text-4xl mx-auto font-semibold pr-5 text-green-900 mb-5 text-center max-sm:text-3xl">
               {selectedBook.title}
             </p>
           </div>
 
-          <div className="flex max-sm:flex-col bg-gray-200 max-sm:h-[650px] p-4 rounded-md items-center justify-center w-full h-[400px]">
+          <div className="flex max-sm:flex-col bg-gray-200 max-sm:h-[750px] p-4 rounded-md items-center justify-center w-full h-[400px]">
             <img
               src={selectedBook.img}
               alt={selectedBook.title}
               className="rounded-md w-60 h-70 object-cover mr-8 shadow-lg cursor-pointer"
             />
 
-            <div className="grid items-center max-sm:justify-center max-sm:hidden" >
+            <div className="grid items-center max-sm:justify-center max-sm:hidden">
               {selectedBook.price === "Free" ? (
                 <div className="flex space-x-4">
                   <button
@@ -290,7 +277,7 @@ function SeeAll() {
               </div>
             </div>
 
-            <div className="grid mt-5 items-center max-sm:justify-center lg:hidden md:hidden " >
+            <div className="grid mt-5 items-center max-sm:justify-center lg:hidden md:hidden ">
               {selectedBook.price === "Free" ? (
                 <div className="flex  space-x-4 mt-5">
                   <button
@@ -346,19 +333,14 @@ function SeeAll() {
               </div>
             </div>
           </div>
-          <p className=" text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10">
-            {selectedBook.decs}
-          </p>
+          <p className=" text-lg text-gray-700 leading-relaxed mt-4 mb-4 px-8 py-10">{selectedBook.decs}</p>
 
           <div className="bg-gray-100 h-[500px]">
-            <div className="flex gap-4 p-5 overflow-x-auto">
-              {renderRecommendedBooks()}
-            </div>
+            <div className="flex gap-4 p-5 overflow-x-auto">{renderRecommendedBooks()}</div>
           </div>
 
           {/* Modal for login */}
-          {isModalOpen && <ModalToLogin closeModal={closeModal} />
-          }
+          {isModalOpen && <ModalToLogin closeModal={closeModal} />}
         </>
       )}
     </div>

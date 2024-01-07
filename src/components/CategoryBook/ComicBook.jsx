@@ -71,7 +71,7 @@ const ComicBook = () => {
 
   return (
     <section className="z-20 container mx-auto mt-8 mb-10">
-      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase max-sm:text-3xl">
         សៀវភៅ បាក់ឌុប
       </h2>
 

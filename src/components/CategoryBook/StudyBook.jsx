@@ -78,12 +78,14 @@ const StudyBook = () => {
 
   return (
     <section className="z-20 container mx-auto ">
-      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase">
+      <h2 className="text-center book-style underline text-green-900 text-5xl font-bold mx-10 my-8 uppercase max-sm:text-3xl">
         សៀវភៅ ចំណេះដឹងទូទៅ
       </h2>
-      <div className="grid grid-cols-4 grid-rows-2 justify-items-center 
+      <div
+        className="grid grid-cols-4 grid-rows-2 justify-items-center 
       justify-center gap-4 md:grid-cols-2 max-sm:grid-cols-2 
-      lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-5">
+      lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-5"
+      >
         {currentItems.map((item, index) => (
           <div key={index} className="mb-4 bg-gray-100 w-[200px]">
             <img
