@@ -23,7 +23,7 @@ const AllgenBook = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeComponent, setActiveComponent] = useState(MAIN_CATEGORY_TITLE);
   const [isSmScreen, setIsSmScreen] = useState(window.innerWidth < 768);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Set the initial state to false
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -38,6 +38,9 @@ const AllgenBook = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
+
+    // Close the sidebar when the component mounts
+    setIsSidebarOpen(false);
   }, [location]);
 
   const handleGoBack = () => {
@@ -71,14 +74,8 @@ const AllgenBook = () => {
       ) : (
         <>
           {isSmScreen && (
-            <button
-              onClick={toggleSidebar}
-              className="text-xl max-sm:absolute "
-            >
-              {!isSidebarOpen ?
-                <FaArrowAltCircleRight />
-                : <FaArrowCircleLeft />
-              }
+            <button onClick={toggleSidebar} className="text-xl max-sm:absolute ">
+              {!isSidebarOpen ? <FaArrowAltCircleRight /> : <FaArrowCircleLeft />}
             </button>
           )}
           {isSidebarOpen && (
