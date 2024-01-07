@@ -99,7 +99,6 @@ function SeeAll() {
       const pdfPages = selectedBook.BookPdf || [];
       if (pdfPages.length > 0) {
         navigate("/bookview", { state: { pages: { BookPdf: pdfPages } } });
-        console.log(pdfPages);
       } else {
         alert("This book does not have any pages to read.");
       }

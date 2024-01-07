@@ -35,7 +35,6 @@ const LoginPage = () => {
 
 
   const handleGoogleLogin = (user) => {
-    console.log('google login', user)
   }
   return (
     <div className="flex h-screen bg-gray-50 items-center justify-center">

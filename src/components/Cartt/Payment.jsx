@@ -20,7 +20,6 @@ function Payment() {
       alert('Please fill in all the required fields.');
       return;
     }
-    console.log(cartItems)
     setIsPaymentInitiated(true);
     setTimeout(async () => {
       setIsPaymentSuccessful(true);

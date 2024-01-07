@@ -20,7 +20,6 @@ const NovelBook = () => {
         const snapshot = await getDocs(contain);
         const data = snapshot.docs.map((val) => ({ ...val.data(), id: val.id }));
         setBacData(data);
-        console.log(data);
         const bookDataPromises = data.map(async (elem) => {
           try {
             const BookPop = collection(db, `Books/${elem.id}/NovelBook`);
@@ -38,7 +37,6 @@ const NovelBook = () => {
 
         const bookData = (await Promise.all(bookDataPromises)).flatMap((data) => data || []);
         setBacBooks(bookData);
-        console.log(bookData);
       } catch (error) {
         console.error("Error fetching popular section data:", error);
       }

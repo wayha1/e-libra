@@ -37,18 +37,15 @@ function PhoneLogin() {
         openPinModal(); // Open the PIN modal
       })
       .catch(err => {
-        console.log(err);
       });
   };
 
   const confirmOtp = () => {
     window.confirmationResult.confirm(code)
       .then(res => {
-        console.log(res);
         navigate('/');
       })
       .catch(err => {
-        console.log(err);
       });
   };
 

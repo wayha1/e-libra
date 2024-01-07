@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
-  const user = auth.currentUser;
-  const [imageError, setImageError] = React.useState(false);
+  const [user, setUser] = useState(null);
+  const [imageError, setImageError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          setUser(currentUser);
+        } else {
+          console.error("No user found");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleImageError = () => {
     setImageError(true);
@@ -13,7 +34,7 @@ const AccountPage = () => {
 
   const handleBookClicked = () => {
     navigate("/yourbook");
-  }
+  };
 
   return (
     <div>
@@ -30,23 +51,26 @@ const AccountPage = () => {
               <div className="flex flex-col items-center">
                 {user && !imageError ? (
                   <img
-                    src={user?.photoURL || "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw"}
+                    src={
+                      user?.photoURL ||
+                      "https://th.bing.com/th/id/R.0f176a0452d52cf716b2391db3ceb7e9?rik=yQN6JCCMB7a4QQ&pid=ImgRaw"
+                    }
                     width={100}
                     height={100}
                     className="rounded-full mb-3 outline outline-offset-2 outline-2 outline-blue-500 cursor-pointer"
                     alt="Profile"
                     onError={handleImageError}
+                    loading="lazy"
                   />
                 ) : (
-                  <div className="rounded-full mb-3 outline outline-offset-2 outline-2 outline-blue-500 cursor-pointer bg-gray-300">
-
-                  </div>
+                  <div className="rounded-full mb-3 outline outline-offset-2 outline-2 outline-blue-500 cursor-pointer bg-gray-300"></div>
                 )}
 
-                <h1 className="mb-3 text-lg hover:text-blue-500 cursor-pointer">
-                  {user?.displayName || ''}
+                <h1 className="mb-3 text-lg hover:text-blue-500 cursor-pointer">{user?.displayName || ""}</h1>
+                <h1 className="text-sm hover:text-blue-500 cursor-pointer">
+                  {"User ID : "}
+                  {user?.uid}
                 </h1>
-                <h1 className="text-sm hover:text-blue-500 cursor-pointer">{"User ID : "}{user?.uid}</h1>
                 <h1 className="text-sm hover:text-blue-500 cursor-pointer">{user?.email}</h1>
                 <h1 className="text-sm hover:text-blue-500 cursor-pointer">{user?.phoneNumber}</h1>
               </div>
@@ -54,15 +78,17 @@ const AccountPage = () => {
             </div>
           </div>
         </div>
-        <button 
-        className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
-        onClick={handleBookClicked}>Your Book</button>
+        <button
+          className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+          onClick={handleBookClicked}
+        >
+          Your Book
+        </button>
+        {isLoading && <p>Loading...</p>}
         <hr className="h-[500px] my-8"></hr>
-       
       </div>
     </div>
   );
 };
 
 export default AccountPage;
-

@@ -88,12 +88,6 @@ const CartPage = () => {
         const cartCollection = collection(db, "addtoCart");
         const q = query(cartCollection, where("uid", "==", uid));
         const querySnapshot = await getDocs(q);
-
-        console.log(
-          "Fetched Cart Items:",
-          querySnapshot.docs.map((doc) => doc.data())
-        );
-
         setCartItems(
           querySnapshot.docs.map((doc) => ({
             ...doc.data(),
@@ -114,7 +108,6 @@ const CartPage = () => {
     const checkUserAndFetchCart = async () => {
       const currentUser = auth.currentUser;
       if (!currentUser) {
-        console.log("No user found. Redirecting to login page...");
         navigate("/login");
         return;
       }
