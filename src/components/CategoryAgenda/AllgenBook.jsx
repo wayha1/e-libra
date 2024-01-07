@@ -9,9 +9,14 @@ const MAIN_CATEGORY_TITLE = "មាតិកាទាំងអស់";
 
 const categories = [
   { id: 1, name: "មាតិកាទាំងអស់", path: "/allgen" },
-  // ... (your other categories)
+  { id: 2, name: "បាក់ឌុប", path: "/allgen/bacII" },
+  { id: 3, name: "កំប្លែង", path: "/allgen/comdy" },
+  { id: 4, name: "គំនូរជីវចល", path: "/allgen/comic" },
+  { id: 5, name: "ប្រលោមលោក", path: "/allgen/novel" },
+  { id: 6, name: "ចំណេះដឹងទូទៅ", path: "/allgen/study" },
+  { id: 7, name: "វិទ្យាសាស្រ្ត", path: "/allgen/science" },
+  { id: 8, name: "គណិតវិទ្យា", path: "/allgen/math" },
 ];
-
 const AllgenBook = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
@@ -45,7 +50,7 @@ const AllgenBook = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isSmScreen]);
+  }, []);
 
   return (
     <div className="flex bg-gray-50 overflow-y-auto">
