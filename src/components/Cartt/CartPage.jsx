@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  collection,
-  getDocs,
-  doc,
-  updateDoc,
-  deleteDoc,
-  where,
-  query,
-} from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, deleteDoc, where, query } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { CiCreditCard1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
@@ -25,15 +17,12 @@ const CartPage = () => {
 
   const handleIncrease = async (itemId) => {
     const updatedCart = cartItems.map((item) =>
-      item.id === itemId
-        ? { ...item, quantity: (item.quantity || 1) + 1 }
-        : item
+      item.id === itemId ? { ...item, quantity: (item.quantity || 1) + 1 } : item
     );
 
     setCartItems(updatedCart);
 
-    const newQuantity =
-      (updatedCart.find((item) => item.id === itemId)?.quantity || 1) + 1;
+    const newQuantity = (updatedCart.find((item) => item.id === itemId)?.quantity || 1) + 1;
 
     try {
       const itemDoc = doc(db, "addtoCart", itemId);
@@ -45,17 +34,12 @@ const CartPage = () => {
 
   const handleDecrease = async (itemId) => {
     const updatedCart = cartItems.map((item) =>
-      item.id === itemId && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
+      item.id === itemId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
     );
 
     setCartItems(updatedCart);
 
-    const newQuantity = Math.max(
-      1,
-      (updatedCart.find((item) => item.id === itemId)?.quantity || 1) - 1
-    );
+    const newQuantity = Math.max(1, (updatedCart.find((item) => item.id === itemId)?.quantity || 1) - 1);
 
     try {
       const itemDoc = doc(db, "addtoCart", itemId);
@@ -75,9 +59,7 @@ const CartPage = () => {
       setLoading(true);
       const itemRef = doc(db, "addtoCart", selectedItemId);
       await deleteDoc(itemRef);
-      setCartItems((prevItems) =>
-        prevItems.filter((item) => item.id !== selectedItemId)
-      );
+      setCartItems((prevItems) => prevItems.filter((item) => item.id !== selectedItemId));
       alert("Delete success items!");
     } catch (error) {
       console.error("Error Deleting Document", error.message);
@@ -103,8 +85,6 @@ const CartPage = () => {
       const currentUser = auth.currentUser;
       if (currentUser) {
         const uid = currentUser.uid;
-        console.log("Current User UID:", uid);
-
         const cartCollection = collection(db, "addtoCart");
         const q = query(cartCollection, where("uid", "==", uid));
         const querySnapshot = await getDocs(q);
@@ -131,13 +111,20 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    fetchCartItems();
+    const checkUserAndFetchCart = async () => {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        console.log("No user found. Redirecting to login page...");
+        navigate("/login");
+        return;
+      }
+      fetchCartItems();
+    };
+
+    checkUserAndFetchCart();
   }, [showConfirmationModal]);
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + parseFloat(item.price) * (item.quantity || 1),
-    0
-  );
+  const total = cartItems.reduce((acc, item) => acc + parseFloat(item.price) * (item.quantity || 1), 0);
 
   const handleReadNowClick = (selectedBook) => {
     setSelectedBook(selectedBook);
@@ -159,30 +146,24 @@ const CartPage = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${selectedItems.includes(
-                  item.id
-                )
-                  ? "bg-blue-200 text-white"
-                  : "bg-gray-100"
-                  }`}
+                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
+                  selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
+                }`}
                 onClick={(event) => handleImageClick(item, event)}
               >
                 <img
                   src={item.img}
                   alt="Book"
-                  className={`w-30 h-40 ml-3 ${selectedItems.includes(item.id)
-                    ? "border-4 border-green-500"
-                    : ""
-                    }`}
+                  className={`w-30 h-40 ml-3 ${
+                    selectedItems.includes(item.id) ? "border-4 border-green-500" : ""
+                  }`}
                 />
                 <div className="flex-grow ml-3">
                   <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-xl font-bold">{item.title}</h2>
                       <p className="text-gray-500">{item.price}</p>
-                      <p className="text-gray-500">
-                        Quantity: {item.quantity || 1}
-                      </p>
+                      <p className="text-gray-500">Quantity: {item.quantity || 1}</p>
                     </div>
 
                     <div className="flex flex-col space-y-2 mr-3">
@@ -235,9 +216,7 @@ const CartPage = () => {
       {showConfirmationModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
           <div className="bg-white p-4 rounded-md">
-            <p className="text-xl font-semibold mb-4">
-              Are you sure you want to delete this item?
-            </p>
+            <p className="text-xl font-semibold mb-4">Are you sure you want to delete this item?</p>
             <div className="flex justify-end">
               {loading ? (
                 <LoadingPage />

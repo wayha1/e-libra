@@ -116,9 +116,7 @@ const Navbar = () => {
                 Cart
               </Link>
 
-              <div className="inline-block text-left z-50" ref={menuRef}
-
-              >
+              <div className="inline-block text-left z-50" ref={menuRef}>
                 <button
                   onClick={handleButtonClick}
                   className="mr-4 focus:border-gray-600 focus:border-2 
@@ -145,13 +143,9 @@ const Navbar = () => {
                         <div className="flex flex-col justify-center items-center space-y-4">
                           <p className="text-white text-xl font-semibold">
                             <Link to={"/account"}>
-                              <button
-
-                                className="whitespace-nowrap px-4 py-2 text-white hover:underline"
-                              >
+                              <button className="whitespace-nowrap px-4 py-2 text-white hover:underline">
                                 Profile
                               </button>
-
                             </Link>
                           </p>
                           <button
@@ -196,10 +190,11 @@ const Navbar = () => {
             )}
           </div>
           <div
-            className={`${nav
-              ? "hidden fixed left-[-100%] transition-transform duration-300"
-              : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 transition-transform"
-              }`}
+            className={`${
+              nav
+                ? "hidden fixed left-[-100%] transition-transform duration-300"
+                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 transition-transform"
+            }`}
             onClick={scrollToTop}
           >
             <div className="z-50 bg-white h-screen flex flex-col items-center lg:hidden">
@@ -265,32 +260,38 @@ const Navbar = () => {
                       Cart
                     </Link>
                   </li>
+                  <li
+                    className="border-b border-b-slate-200 p-5 hover:shadow-full hover:scale-110"
+                    onClick={handleNav}
+                  >
+                    {user ? (
+                      <div
+                        onClick={scrollToTop}
+                        className="flex flex-col justify-center items-center space-y-4"
+                      >
+                        <button
+                          onClick={handleLogout}
+                          className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col justify-center items-center space-y-4">
+                        <p className="text-white uppercase font-semibold">No Account</p>
+                        <button
+                          onClick={() => {
+                            handleButtonClick();
+                            navigate("/login");
+                          }}
+                          className="whitespace-nowrap px-4 py-2 border border-blue-500 rounded-md bg-blue-500 text-white hover:bg-blue-600 hover:border-blue-600"
+                        >
+                          Login
+                        </button>
+                      </div>
+                    )}
+                  </li>
                 </ul>
-                {user ? (
-                  <div
-                    onClick={scrollToTop}
-                    className="flex flex-col justify-center items-center space-y-4">
-                    <button
-                      onClick={handleLogout}
-                      className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex flex-col justify-center items-center space-y-4">
-                    <p className="text-white uppercase font-semibold">No Account</p>
-                    <button
-                      onClick={() => {
-                        handleButtonClick();
-                        navigate("/login");
-                      }}
-                      className="whitespace-nowrap px-4 py-2 border border-blue-500 rounded-md bg-blue-500 text-white hover:bg-blue-600 hover:border-blue-600"
-                    >
-                      Login
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           </div>
