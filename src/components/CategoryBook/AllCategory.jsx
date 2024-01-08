@@ -15,8 +15,8 @@ const AllCategory = () => {
   const fetchData = async () => {
     try {
       const bacIIQuery = query(collection(db, "Books", "All_Genre", "bacII"));
-      const comicQuery = query(collection(db, "Books", "All_Genre", "Comics"));
-      const comdyQuery = query(collection(db, "Books", "All_Genre", "Comdy"));
+      const comicQuery = query(collection(db, "Books", "All_Genre", "comic"));
+      const comdyQuery = query(collection(db, "Books", "All_Genre", "exercise"));
       const GeneralQuery = query(collection(db, "Books", "All_Genre", "GeneralBook"));
       const NovelQuery = query(collection(db, "Books", "All_Genre", "NovelBook"));
       const KhmerQuery = query(collection(db, "Books", "All_Genre", "KhmerBook"));
