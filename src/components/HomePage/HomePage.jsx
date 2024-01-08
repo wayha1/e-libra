@@ -140,7 +140,7 @@ const HomePage = () => {
                 <div key={i} className="bg-rose-100 w-full h-[350px] flex">
                   <div className="text-left w-[50%] backdrop-blur-sm">
                     {data.title && (
-                      <h1 className="lg:text-6xl md:text-3xl sm:text-2xl max-sm:text-2xl  font-mono font-bold text-end mt-20 text-gray-500 hover:text-gray-700">
+                      <h1 className="lg:text-6xl md:text-3xl sm:text-2xl max-sm:text-2xl font-mono font-bold text-end mt-20 text-gray-500 hover:text-gray-700">
                         {data.title}
                       </h1>
                     )}

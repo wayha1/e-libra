@@ -117,8 +117,10 @@ const CartPage = () => {
     checkUserAndFetchCart();
   }, [showConfirmationModal]);
 
-  const total = cartItems.reduce((acc, item) => acc + parseFloat(item.price) * (item.quantity || 1), 0);
-
+  const total = cartItems.reduce((acc, item) => {
+    const cleanPrice = item.price.replace(/[^\d.]/g, "");
+    return acc + parseFloat(cleanPrice) * (item.quantity || 1);
+  }, 0);
   const handleReadNowClick = (selectedBook) => {
     setSelectedBook(selectedBook);
     navigate("/payment", { state: { selectedBook, cartItems } });
@@ -127,7 +129,7 @@ const CartPage = () => {
   return (
     <div className="overflow-y-auto z-20 ">
       {loading && <LoadingPage />}
-      <div className="mx-auto mt-10 px-10 py-4 h-[1100px]">
+      <div className="mx-auto mt-10 px-10 py-4 h-[900px]">
         {cartItems.length === 0 ? (
           <div className="flex items-center justify-center ">
             <p className="text-5xl book-title text-gray-600">

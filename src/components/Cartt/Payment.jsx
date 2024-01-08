@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { doc, deleteDoc, collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { doc, deleteDoc, collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 function Payment() {
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const [email, setEmail] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvc, setCVC] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvc, setCVC] = useState("");
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const [isPaymentInitiated, setIsPaymentInitiated] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,8 +16,8 @@ function Payment() {
   const { selectedBook, cartItems } = location.state || [];
 
   const handlePayment = () => {
-    if (!paymentMethod || !email || !expiryDate || !cvc) {
-      alert('Please fill in all the required fields.');
+    if (!paymentMethod || !cardNumber || !expiryDate || !cvc) {
+      alert("Please fill in all the required fields.");
       return;
     }
     setIsPaymentInitiated(true);
@@ -26,32 +26,32 @@ function Payment() {
 
       try {
         const deletePromises = cartItems.map(async (item) => {
-          const itemRef = doc(db, 'addtoCart', item.id);
+          const itemRef = doc(db, "addtoCart", item.id);
           await deleteDoc(itemRef);
         });
 
         await Promise.all(deletePromises);
 
-        setPaymentMethod('');
-        setEmail('');
-        setExpiryDate('');
-        setCVC('');
+        setPaymentMethod("");
+        setCardNumber(0);
+        setExpiryDate("");
+        setCVC("");
 
         setIsPaymentInitiated(false);
         setIsModalOpen(true);
       } catch (error) {
-        console.error('Error deleting items from the cart:', error.message);
+        console.error("Error deleting items from the cart:", error.message);
       }
     }, 2000);
   };
 
   const handleDone = async () => {
     setIsModalOpen(false);
-      setIsPaymentSuccessful(false);
-  
+    setIsPaymentSuccessful(false);
+
     try {
-      const userBookCollection = collection(db, 'userBook');
-        for (const item of cartItems) {
+      const userBookCollection = collection(db, "userBook");
+      for (const item of cartItems) {
         await addDoc(userBookCollection, {
           title: item.title,
           decs: item.decs,
@@ -61,16 +61,13 @@ function Payment() {
           authorId: item.authorId,
           price: item.price,
           userId: item.uid,
-          type: item.type
+          type: item.type,
         });
       }
-    
     } catch (error) {
-      console.error('Error adding items to userBook collection:', error.message);
+      console.error("Error adding items to userBook collection:", error.message);
     }
   };
-  
-  
 
   return (
     <div className="max-w-md mx-auto mt-8 p-8 bg-gray-100 shadow-md mb-9">
@@ -90,12 +87,12 @@ function Payment() {
       </div>
 
       <div className="mb-4">
-        <label className="block text-sm font-semibold mb-1">Email:</label>
+        <label className="block text-sm font-semibold mb-1">Card Number:</label>
         <input
-          type="email"
+          type="tel" // Change type to "tel" for inputting numbers
           className="w-full p-2 border rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={cardNumber}
+          onChange={(e) => setCardNumber(e.target.value)}
         />
       </div>
 
@@ -131,9 +128,7 @@ function Payment() {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
           <div className="bg-white p-8 max-w-md rounded-md">
-            <div className="text-green-500 font-semibold mb-4">
-              Payment Successful!{' '}
-            </div>
+            <div className="text-green-500 font-semibold mb-4">Payment Successful! </div>
             <button
               className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 active:bg-gray-500"
               onClick={handleDone}
