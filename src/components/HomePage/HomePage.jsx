@@ -98,7 +98,7 @@ const HomePage = () => {
                     } transition-opacity duration-300 h-full w-[80%]`}
                   >
                     <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[30%]">
-                      <div className="text-cyan-600 text-center bg-shadow-sm px-5">
+                      <div className="text-gray-600 text-center bg-shadow-sm px-5">
                         {data.title && (
                           <h1 className="mt-10 font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
                             {data.title}
@@ -107,7 +107,7 @@ const HomePage = () => {
                         {data.decs && <h2 className="lg:text-xl max-lg:text-xs ">{data.decs}</h2>}
                       </div>
                     </div>
-                    <button className="m-2 h-12 w-18 px-4 py-2 bg-cyan-600 rounded-md lg:translate-y-52 md:translate-y-52 max-md:translate-y-52 max-sm:translate-y-52">
+                    <button className="m-2 h-12 w-18 px-4 py-2 bg-gray-600 rounded-md lg:translate-y-52 md:translate-y-52 max-md:translate-y-52 max-sm:translate-y-52">
                       <h1 className="whitespace-nowrap text-gray-200 text-md">
                         <Link to="/allgen">All Category</Link>
                       </h1>
@@ -140,12 +140,12 @@ const HomePage = () => {
                 <div key={i} className="bg-rose-100 w-full h-[350px] flex">
                   <div className="text-left w-[50%] backdrop-blur-sm">
                     {data.title && (
-                      <h1 className="lg:text-6xl md:text-3xl sm:text-2xl max-sm:text-2xl  font-mono font-bold text-end mt-20 text-gray-500 hover:text-cyan-700">
+                      <h1 className="lg:text-6xl md:text-3xl sm:text-2xl max-sm:text-2xl  font-mono font-bold text-end mt-20 text-gray-500 hover:text-gray-700">
                         {data.title}
                       </h1>
                     )}
                     {data.decs && (
-                      <h2 className="lg:text-xl max-sm:text-md mt-2 font-mono font-bold text-center text-gray-700 font-sans hover:text-cyan-800 hover:duration-200 max-sm:text-sm">
+                      <h2 className="lg:text-xl max-sm:text-md mt-2 font-mono font-bold text-center text-gray-700 font-sans hover:text-gray-800 hover:duration-200 max-sm:text-sm">
                         {data.decs}
                       </h2>
                     )}
