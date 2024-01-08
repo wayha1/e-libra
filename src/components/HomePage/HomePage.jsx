@@ -93,8 +93,9 @@ const HomePage = () => {
                   onTouchEnd={() => setIsBannerHovered(false)}
                 >
                   <div
-                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${isBannerHovered ? "opacity-150" : "opacity-0"
-                      } transition-opacity duration-300 h-full w-[80%]`}
+                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
+                      isBannerHovered ? "opacity-150" : "opacity-0"
+                    } transition-opacity duration-300 h-full w-[80%]`}
                   >
                     <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[30%]">
                       <div className="text-cyan-600 text-center bg-shadow-sm px-5">
@@ -153,7 +154,7 @@ const HomePage = () => {
                   <div className="flex w-[50%] items-center justify-center p-4">
                     <img
                       src={data.imagePromo}
-                      className="flex w-[90%] h-[100%] max-sm:w-[80%] max-sm:h-[60%] hover:scale-105 duration-200 bg-cover"
+                      className="flex w-[90%] h-[100%] max-sm:w-[80%] max-sm:h-[60%] hover:scale-105 duration-200 bg-cover rounded-lg duration-300"
                     />
                   </div>
                 </div>
