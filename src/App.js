@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "./components/HomePage/HomePage";
 import AccountPage from "./components/AccountPage/AccountPage";
 import CartPage from "./components/Cartt/CartPage";
@@ -11,13 +10,15 @@ import AllgenBook from "./components/CategoryAgenda/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
 import SeeAll from "./components/CategoryBook/SeeAll";
 import AuthorInfo from "./components/Author/AuthorInfo";
-import BookPage from "./components/HomePage/Book/BookPage";
 import Payment from "./components/Cartt/Payment";
 import GoogleLogin from "./components/auth/LoginWithGoogle/GoogleLogin";
 import PhoneLogin from "./components/auth/LoginWithPhone/PhoneLogin";
 import { ModalToLogin } from "./components/content/requirement/ModalToLogin";
+import BookPage from "./components/HomePage/Book/BookPage";
 import YourBook from "./components/AccountPage/YourBook";
 import { Admin } from "./admin/Admin";
+import ProtectedRoute from "./ProtectedRoute";
+import { Dashboard } from "./admin/dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -40,8 +41,10 @@ const App = () => {
       <Route path="/google" element={<GoogleLogin />} />
       <Route path="/login-modal" element={<ModalToLogin />} />
       <Route path="/phoneLogin" element={<PhoneLogin />} />
-
+      <Route path="/bookview" element={<BookPage />} />
+      <Route path="/yourbook" element={<YourBook />} />
       <Route path="/admin" element={<Admin />} role="admin" />
+      <Route path="/dashboard" element={<Dashboard />} />
       {/* Other routes */}
     </Routes>
   );

@@ -25,7 +25,7 @@ const ProtectedRoute = ({ element: Component, role, ...rest }) => {
             if (userData.role === role) {
               setUser(currentUser);
             } else {
-              navigate("/");
+              console.error("No user found");
             }
           } else {
             console.error("No user found");
