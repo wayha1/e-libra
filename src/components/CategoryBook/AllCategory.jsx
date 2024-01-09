@@ -168,7 +168,7 @@ const AllCategory = () => {
         <input
           type="text"
           placeholder={filterType === "title" ? "Search Title" : "Search Author"}
-          className=" border rounded-md mr-2 max-sm:w-[130px] max-sm:p-1"
+          className=" border rounded-md mr-2 max-sm:w-[130px] lg:w-[200px] p-2 max-sm:p-1"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
