@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../../firebase";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import {
+  getDoc,
+  doc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { auth, db } from "../../../firebase";
 import PhoneLogin from "../LoginWithPhone/PhoneLogin";
 import GoogleLogin from "../LoginWithGoogle/GoogleLogin";
 
@@ -13,29 +24,73 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      if (user) {
-        navigate("/");
+    const fetchData = async () => {
+      try {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          const uid = currentUser.uid;
+          const cartCollection = collection(db, "user");
+          const q = query(cartCollection, where("uid", "==", uid));
+          const querySnapshot = await getDocs(q);
+          const userDataFromFirestore = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))[0];
+
+          if (userDataFromFirestore) {
+            if (userDataFromFirestore.role === "admin") {
+              navigate("/admin");
+            } else if (userDataFromFirestore.role === "author") {
+              navigate("/authrole");
+            } else {
+              navigate("/");
+            }
+          } else {
+            console.error("No user found");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        fetchData();
       }
     });
+
     return () => unsubscribe();
-  }, [navigate, user]);
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, username, password);
+      const { user } = await signInWithEmailAndPassword(auth, username, password);
+
+      const userDocRef = doc(db, "user", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        console.log("User data from Firestore:", userData);
+
+        if (userData.role === "admin") {
+          navigate("/admin");
+        } else if (userData.role === "author") {
+          navigate("/authrole");
+        } else {
+          navigate("/");
+        }
+      }
     } catch (error) {
       console.error("Error signing in:", error.code, error.message);
       setError(true);
     }
   };
 
-
-  const handleGoogleLogin = (user) => {
-  }
   return (
     <div className="flex h-screen bg-gray-50 items-center justify-center">
       <div className="flex flex-col w-[70%]">
@@ -68,7 +123,7 @@ const LoginPage = () => {
               <div className="mt-5 justify-center w-full flex items-center flex-col">
                 {error && (
                   <span className="text-sm text-red-600 ">
-                    Wrong username or passowrd !{" "}
+                    Wrong username or password!{" "}
                   </span>
                 )}
                 <button

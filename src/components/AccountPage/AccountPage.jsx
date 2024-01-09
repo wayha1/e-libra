@@ -1,20 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { collection, getDocs, where, query } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import LoadingPage from "../content/LoadingPage/LoadingPage";
 
 const AccountPage = () => {
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
         const currentUser = auth.currentUser;
         if (currentUser) {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          setUser(currentUser);
+          const uid = currentUser.uid;
+          const cartCollection = collection(db, "user");
+          const q = query(cartCollection, where("uid", "==", uid));
+          const querySnapshot = await getDocs(q);
+          const userDataFromFirestore = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))[0];
+  
+          setUserData(userDataFromFirestore);
+  
+          if (userDataFromFirestore && userDataFromFirestore.role === "admin") {
+            navigate('/admin');
+          } else {
+            navigate('/account');
+          }
         } else {
           console.error("No user found");
         }
@@ -24,9 +41,21 @@ const AccountPage = () => {
         setIsLoading(false);
       }
     };
-
-    fetchUserData();
-  }, []);
+  
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        fetchData();
+      } else {
+        setUser(null);
+        setIsLoading(false);
+        console.error("No user found");
+      }
+    });
+  
+    return () => unsubscribe();
+  }, [navigate]);
+  
 
   const handleImageError = () => {
     setImageError(true);
@@ -35,6 +64,10 @@ const AccountPage = () => {
   const handleBookClicked = () => {
     navigate("/yourbook");
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div>
@@ -66,10 +99,16 @@ const AccountPage = () => {
                   <div className="rounded-full mb-3 outline outline-offset-2 outline-2 outline-blue-500 cursor-pointer bg-gray-300"></div>
                 )}
 
-                <h1 className="mb-3 text-lg hover:text-blue-500 cursor-pointer">{user?.displayName || ""}</h1>
+                {userData && (
+                  <div>
+                    <h1>{userData.displayName}</h1>
+                    <p>Role: {userData.role}</p>
+                    <p>Email: {userData.email}</p>
+                  </div>
+                )}
                 <h1 className="text-sm hover:text-blue-500 cursor-pointer">
-                  {"User ID : "}
-                  {user?.uid}
+                  {"Join : "}
+                  {user?.metadata?.creationTime}
                 </h1>
                 <h1 className="text-sm hover:text-blue-500 cursor-pointer">{user?.email}</h1>
                 <h1 className="text-sm hover:text-blue-500 cursor-pointer">{user?.phoneNumber}</h1>
@@ -84,7 +123,7 @@ const AccountPage = () => {
         >
           Your Book
         </button>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <LoadingPage />}
         <hr className="h-[500px] my-8"></hr>
       </div>
     </div>

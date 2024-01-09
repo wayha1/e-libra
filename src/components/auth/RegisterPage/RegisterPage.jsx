@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { collection, addDoc } from "firebase/firestore";
+import { db, auth } from "../../../firebase";
 
 const RegisterPage = () => {
   const nameRef = useRef();
@@ -14,7 +16,6 @@ const RegisterPage = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -29,6 +30,19 @@ const RegisterPage = () => {
 
     try {
       await signup(email, password, name);
+      const currentUser = auth.currentUser;
+
+      if (!currentUser) {
+        throw new Error("User object not found after signup");
+      }
+      const signUpCollection = collection(db, "user");
+      await addDoc(signUpCollection, {
+        uid: currentUser.uid,
+        name,
+        email,
+        password,
+      });
+
       navigate("/");
     } catch (error) {
       setError("Failed to create account");
@@ -36,6 +50,7 @@ const RegisterPage = () => {
     }
 
     setLoading(false);
+    
   };
 
   return (

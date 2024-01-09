@@ -1,6 +1,6 @@
-import * as React from "react";
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "./components/HomePage/HomePage";
 import AccountPage from "./components/AccountPage/AccountPage";
 import CartPage from "./components/Cartt/CartPage";
@@ -17,34 +17,33 @@ import GoogleLogin from "./components/auth/LoginWithGoogle/GoogleLogin";
 import PhoneLogin from "./components/auth/LoginWithPhone/PhoneLogin";
 import { ModalToLogin } from "./components/content/requirement/ModalToLogin";
 import YourBook from "./components/AccountPage/YourBook";
+import { Admin } from "./admin/Admin";
 
-const App = ({ children }) => {
+const App = () => {
   return (
-    <>
-      <Routes>
-        {children}
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/aboutus" element={<AboutUs />}></Route>
-        <Route path="/author" element={<AuthorPage />}></Route>
-        <Route path="/account" element={<AccountPage />}></Route>
-        <Route path="/cart" element={<CartPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/allgen/*" element={<AllgenBook />} />
-        <Route path="/allgen/see-all" element={<SeeAll />}></Route>
-        <Route path="/allgen/bacll/see-all" element={<SeeAll />}></Route>
-        <Route path="/allgen/comic/see-all" element={<SeeAll />}></Route>
-        <Route path="/allgen/novel/see-all" element={<SeeAll />}></Route>
-        <Route path="/allgen/study/see-all" element={<SeeAll />}></Route>
-        <Route path="/authorInfo" element={<AuthorInfo />}></Route>
-        <Route path="/payment" element={<Payment />}></Route>
-        <Route path="/google" element={<GoogleLogin />} />
-        <Route path="/login-modal" element={<ModalToLogin />}></Route>
-        <Route path="/phoneLogin" element={<PhoneLogin />} />
-        <Route path="/bookview" element={<BookPage />}></Route>
-        <Route path="/yourbook" element={<YourBook />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/author" element={<AuthorPage />} />
+      <Route path="/account" element={<AccountPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/allgen/*" element={<AllgenBook />} />
+      <Route path="/allgen/see-all" element={<SeeAll />} />
+      <Route path="/allgen/bacll/see-all" element={<SeeAll />} />
+      <Route path="/allgen/comic/see-all" element={<SeeAll />} />
+      <Route path="/allgen/novel/see-all" element={<SeeAll />} />
+      <Route path="/allgen/study/see-all" element={<SeeAll />} />
+      <Route path="/authorInfo" element={<AuthorInfo />} />
+      <Route path="/payment" element={<Payment />} />
+      <Route path="/google" element={<GoogleLogin />} />
+      <Route path="/login-modal" element={<ModalToLogin />} />
+      <Route path="/phoneLogin" element={<PhoneLogin />} />
+
+      <Route path="/admin" element={<Admin />} role="admin" />
+      {/* Other routes */}
+    </Routes>
   );
 };
 
