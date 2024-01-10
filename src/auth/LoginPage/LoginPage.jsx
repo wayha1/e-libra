@@ -29,7 +29,7 @@ const LoginPage = () => {
 
           if (userDataFromFirestore) {
             if (userDataFromFirestore.role === "admin") {
-              navigate("/admin");
+              navigate("/");
             } else if (userDataFromFirestore.role === "author") {
               navigate("/authrole");
             } else {

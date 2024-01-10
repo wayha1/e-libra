@@ -4,9 +4,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, query, where, collection } from "firebase/firestore";
 import { auth, db } from "./firebase";
 import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage";
+import LoadingPage from "./components/content/LoadingPage/LoadingPage";
 
-const ProtectedRoute = ({ element: Component, ...rest }) => {
+const ProtectedRoute = ({ element }) => {
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -22,8 +24,8 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
       }))[0];
 
       setUser(currentUser);
+      setUserData(userDataFromFirestore);
       setIsLoading(false);
-      console.log(userDataFromFirestore);
     } catch (error) {
       console.error("Error fetching user data:", error);
     } finally {
@@ -31,10 +33,10 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
     }
   };
 
-  // Subscribe to auth state changes
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
       setUser(currentUser);
+      fetchData(currentUser);
     } else {
       setUser(null);
       setIsLoading(false);
@@ -42,37 +44,46 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
   });
 
   useEffect(() => {
+    return () => unsubscribe();
+  }, [user, userData]);
+
+  useEffect(() => {
     const navigateUser = async () => {
-      await fetchData(user);
-      if (user && user.role === "admin") {
-        navigate("/admin");
+      if (user && userData && user.uid === userData.uid) {
+        // Check user data role and navigate accordingly
+        if (userData.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/unauthorized");
+        }
       } else {
-        navigate("/account");
+        navigate("/unauthorized");
       }
     };
 
-    if (user) {
+    if (!isLoading) {
       navigateUser();
     }
-  }, [user, navigate]);
+    console.log(user);
+    console.log(userData);
+  }, [isLoading, navigate]);
 
-  useEffect(() => {
-    return () => unsubscribe();
-  }, []);
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingPage />
+      </div>
+    );
+  }
 
-  return (
-    <React.Fragment>
-      {user ? (
-        user.role === "admin" ? (
-          <Route {...rest} element={<Component />} />
-        ) : (
-          <UnauthorizedPage />
-        )
-      ) : (
-        <Navigate to="/" />
-      )}
-    </React.Fragment>
-  );
+  if (user && userData && user.uid === userData.uid) {
+    if (userData.role === "admin") {
+      return <Navigate to="/admin" />;
+    }
+  } else {
+    return <Navigate to="/unauthorized" />;
+  }
+  return element;
 };
 
 export default ProtectedRoute;

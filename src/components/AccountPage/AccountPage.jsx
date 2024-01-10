@@ -42,15 +42,15 @@ const AccountPage = () => {
       }
     };
 
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        fetchData();
-      } else {
-        setUser(null);
-        setIsLoading(false);
-      }
-    });
+     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+    if (currentUser) {
+      setUser(currentUser);
+      fetchData();
+    } else {
+      setUser(null);
+      setIsLoading(false);
+    }
+  });
 
     return () => unsubscribe();
   }, [navigate]);

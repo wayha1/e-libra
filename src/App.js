@@ -16,11 +16,11 @@ import PhoneLogin from "./auth/LoginWithPhone/PhoneLogin";
 import { ModalToLogin } from "./components/content/requirement/ModalToLogin";
 import BookPage from "./components/HomePage/Book/BookPage";
 import YourBook from "./components/AccountPage/YourBook";
-import { Admin } from "./admin/Admin";
 import ProtectedRoute from "./ProtectedRoute";
+import { Admin } from "./admin/Admin";
 import { Dashboard } from "./admin/dashboard/Dashboard.jsx";
 import { Generalbook } from "./admin/GeneralBook/Generalbook.jsx";
-
+import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage.jsx";
 const App = () => {
   return (
     <Routes>
@@ -44,23 +44,11 @@ const App = () => {
       <Route path="/phoneLogin" element={<PhoneLogin />} />
       <Route path="/bookview" element={<BookPage />} />
       <Route path="/yourbook" element={<YourBook />} />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <Admin />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/dashboard/*"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
+      {/* Use `*` wildcard for dynamic segments */}
+      <Route path="/admin/*" element={<ProtectedRoute element={<Admin />} />} />
+      <Route path="/dashboard/*" element={<ProtectedRoute element={<Dashboard />} />} />
     </Routes>
   );
 };

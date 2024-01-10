@@ -141,14 +141,14 @@ const Navbar = () => {
                     <ul className=" mt-2 p-8 lg:p-12 rounded-md shadow-lg bg-gray-500 -translate-x-12">
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
-                          <p className="text-white text-xl font-semibold">
+                          <div className="text-white text-xl font-semibold">
                             <h1 className="mx-2">{user.displayName}</h1>
                             <Link to={"/account"}>
                               <button className="whitespace-nowrap px-4 py-2 text-white hover:underline">
                                 Profile
                               </button>
                             </Link>
-                          </p>
+                          </div>
                           <button
                             onClick={handleLogout}
                             className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
@@ -192,8 +192,8 @@ const Navbar = () => {
           </div>
           <div
             className={`${nav
-                ? "hidden fixed left-[-100%] transition-transform duration-300"
-                : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 transition-transform"
+              ? "hidden fixed left-[-100%] transition-transform duration-300"
+              : "fixed left-0 top-0 w-[70%] shadow-xl ease-in-out duration-500 transition-transform"
               }`}
             onClick={scrollToTop}
           >
