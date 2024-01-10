@@ -21,6 +21,7 @@ import { Admin } from "./admin/Admin";
 import { Dashboard } from "./admin/dashboard/Dashboard.jsx";
 import { Generalbook } from "./admin/GeneralBook/Generalbook.jsx";
 import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage.jsx";
+
 const App = () => {
   return (
     <Routes>
@@ -47,8 +48,22 @@ const App = () => {
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
       {/* Use `*` wildcard for dynamic segments */}
-      <Route path="/admin/*" element={<ProtectedRoute element={<Admin />} />} />
-      <Route path="/dashboard/*" element={<ProtectedRoute element={<Dashboard />} />} />
+      <Route
+        path="/admin/*"
+        element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/*"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };

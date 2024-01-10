@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Route, Navigate, useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, query, where, collection } from "firebase/firestore";
@@ -7,9 +7,9 @@ import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage";
 import LoadingPage from "./components/content/LoadingPage/LoadingPage";
 import { Admin } from "./admin/Admin";
 
-const ProtectedRoute = ({ element }) => {
+const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ const ProtectedRoute = ({ element }) => {
 
       setUser(currentUser);
       setUserData(userDataFromFirestore);
-      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching user data:", error);
     } finally {
@@ -34,40 +33,38 @@ const ProtectedRoute = ({ element }) => {
     }
   };
 
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      setUser(currentUser);
-      fetchData(currentUser);
-    } else {
-      setUser(null);
-      setIsLoading(false);
-    }
-  });
-
-  useEffect(() => {
-    return () => unsubscribe();
-  }, [user, userData]);
-
-  useEffect(() => {
-    const navigateUser = async () => {
-      if (user && userData && user.uid === userData.uid) {
-        // Check user data role and navigate accordingly
-        if (userData.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/unauthorized");
-        }
+  const navigateUser = useCallback(() => {
+    if (user && userData && user.uid === userData.uid) {
+      if (userData.role === "admin") {
+        navigate("/admin");
+        return <Admin />;
       } else {
         navigate("/unauthorized");
       }
-    };
+    } else {
+      navigate("/unauthorized");
+    }
+  }, [user, userData, navigate]);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        fetchData(currentUser);
+      } else {
+        setUser(null);
+        setUserData(null);
+        setIsLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     if (!isLoading) {
       navigateUser();
     }
-    console.log(user);
-    console.log(userData);
-  }, [isLoading, navigate]);
+  }, [isLoading, navigateUser]);
 
   if (isLoading) {
     return (
@@ -77,14 +74,14 @@ const ProtectedRoute = ({ element }) => {
     );
   }
 
-  if (user && userData && user.uid === userData.uid) {
-    if (userData.role === "admin") {
-      return <Navigate to="/admin"/>;
-    }
-  } else {
+  if (!userData) {
     return <Navigate to="/unauthorized" />;
   }
-  return element;
-};
 
+  if (userData.role === "admin") {
+    return <Navigate to="/admin"></Navigate>;
+  }
+
+  return children;
+};
 export default ProtectedRoute;
