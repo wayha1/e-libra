@@ -30,7 +30,7 @@ const AccountPage = () => {
           if (userDataFromFirestore && userDataFromFirestore.role === "admin") {
             navigate('/admin');
           } else {
-            navigate('/account');
+
           }
         } else {
           console.error("No user found");
@@ -42,15 +42,15 @@ const AccountPage = () => {
       }
     };
 
-     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-    if (currentUser) {
-      setUser(currentUser);
-      fetchData();
-    } else {
-      setUser(null);
-      setIsLoading(false);
-    }
-  });
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        fetchData();
+      } else {
+        setUser(null);
+        setIsLoading(false);
+      }
+    });
 
     return () => unsubscribe();
   }, [navigate]);

@@ -5,6 +5,7 @@ import { getDocs, query, where, collection } from "firebase/firestore";
 import { auth, db } from "./firebase";
 import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage";
 import LoadingPage from "./components/content/LoadingPage/LoadingPage";
+import { Admin } from "./admin/Admin";
 
 const ProtectedRoute = ({ element }) => {
   const [user, setUser] = useState(null);
@@ -78,7 +79,7 @@ const ProtectedRoute = ({ element }) => {
 
   if (user && userData && user.uid === userData.uid) {
     if (userData.role === "admin") {
-      return <Navigate to="/admin" />;
+      return <Navigate to="/admin"/>;
     }
   } else {
     return <Navigate to="/unauthorized" />;
