@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChange, categories }) => {
@@ -45,10 +44,6 @@ const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChan
       >
         Back
       </button>
-
-      <p className="mt-10 bg-white shadow-sm p-4 text-gray-600 whitespace-nowrap md:text-2xl lg:text-3xl text-center">
-        មាតិកាទាំងអស់
-      </p>
       <div className="relative z-20">{renderCategories()}</div>
     </div>
   );
