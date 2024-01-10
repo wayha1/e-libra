@@ -18,7 +18,7 @@ import BookPage from "./components/HomePage/Book/BookPage";
 import YourBook from "./components/AccountPage/YourBook";
 import { Admin } from "./admin/Admin";
 import ProtectedRoute from "./ProtectedRoute";
-import { Dashboard } from "./admin/dashboard/dashboard.jsx";
+import { Dashboard } from "./admin/dashboard/Dashboard.jsx";
 
 const App = () => {
   return (
@@ -43,7 +43,15 @@ const App = () => {
       <Route path="/phoneLogin" element={<PhoneLogin />} />
       <Route path="/bookview" element={<BookPage />} />
       <Route path="/yourbook" element={<YourBook />} />
-      <Route path="/admin" element={<Admin />} role="admin" />
+      {/* <Route path="/admin" element={<Admin />} role="admin" /> */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/dashboard" element={<Dashboard />} />
       {/* Other routes */}
     </Routes>
