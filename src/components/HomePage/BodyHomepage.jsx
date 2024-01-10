@@ -23,7 +23,7 @@ const BodyHomepage = () => {
 
   const handleSeeMoreClick = (index) => {
     const selectedBookEntry = Object.values(bookData)[currentData];
-  
+
     if (selectedBookEntry && selectedBookEntry.books && selectedBookEntry.books.length > 0) {
       const selectedBook = selectedBookEntry.books[0];
       if (selectedBook) {
@@ -36,7 +36,6 @@ const BodyHomepage = () => {
       console.error(`Book entry not found at index ${currentData}`);
     }
   };
-  
 
   const handleAddToCartClick = (data) => {
     addToCart(data);
@@ -80,14 +79,13 @@ const BodyHomepage = () => {
         return accumulator;
       }, {});
 
-      const filteredData = Object.values(titleUserRatingSet)
-        .filter((entry) => entry.userCount >= 5);
+      const filteredData = Object.values(titleUserRatingSet).filter((entry) => entry.userCount >= 5);
 
       const sortedData = filteredData.sort((a, b) => b.books[0].userRating - a.books[0].userRating);
       setBookData(sortedData);
       setTitleUserRatingSet(titleUserRatingSet);
-      console.log(sortedData)
-      console.log(titleUserRatingSet)
+      console.log(sortedData);
+      console.log(titleUserRatingSet);
     } catch (error) {
       console.error("Error fetching popular section data:", error);
     }
@@ -105,15 +103,16 @@ const BodyHomepage = () => {
         </h1>
       </div>
 
-      <div className="bg-gray-100 z-10">
+      <div className="bg-white z-10 shadow-sm">
         {bookData.length === 0 ? (
           <p className="text-center text-gray-700 py-8">No popular books available</p>
         ) : (
           <div className="flex items-center justify-between relative px-7 h-[400px] md:w-full">
             <button
               onClick={slidePrev}
-              className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${currentData === 0 ? "cursor-not-allowed opacity-50" : ""
-                }`}
+              className={`flex rounded-2xl items-center hover:shadow-xl border-2 border-[#626262] ${
+                currentData === 0 ? "cursor-not-allowed opacity-50" : ""
+              }`}
               disabled={currentData === 0}
             >
               <BiChevronLeftCircle className="text-cyan-700 text-3xl lg:m-1" />
@@ -121,7 +120,10 @@ const BodyHomepage = () => {
 
             <div className="flex lg:gap-x-20 xl:gap-x-20 max-lg:gap-x-2 md:gap-x-5 max-sm:gap-x-8">
               {Object.values(bookData).map((entry, i) => (
-                <div key={i} className="flex lg:gap-x-20 xl:gap-x-20 max-lg:gap-x-2 md:gap-x-5 max-sm:gap-x-8">
+                <div
+                  key={i}
+                  className="flex lg:gap-x-20 xl:gap-x-20 max-lg:gap-x-2 md:gap-x-5 max-sm:gap-x-8"
+                >
                   {entry.books
                     .slice(currentData, currentData + 1) // Show only one book from the first array at a time
                     .map((data, j) => (
@@ -137,8 +139,9 @@ const BodyHomepage = () => {
             </div>
             <button
               onClick={slideNext}
-              className={`flex rounded-2xl items-center bg-white hover:shadow-xl border-2 border-[#626262] ${currentData === bookData.length - 1 ? "cursor-not-allowed opacity-50" : ""
-                }`}
+              className={`flex rounded-2xl items-center hover:shadow-xl border-2 border-[#626262] ${
+                currentData === bookData.length - 1 ? "cursor-not-allowed opacity-50" : ""
+              }`}
               disabled={currentData === bookData.length - 1}
             >
               <BiChevronRightCircle className="text-cyan-700 text-3xl lg:m-1 " />

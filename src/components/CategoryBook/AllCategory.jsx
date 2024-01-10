@@ -86,7 +86,7 @@ const AllCategory = () => {
   const renderBooks = currentBooks.map((book, index) => (
     <button
       key={index}
-      className="text-gray-700 bg-gray-100 shadow-sm rounded-md w-[200px] h-[300px] max-sm:w-[100px] max-sm:h-[150px] mx-4 my-2 max-sm:my-4 mt-5"
+      className="text-gray-700 rounded-md w-[200px] h-[300px] max-sm:w-[100px] max-sm:h-[150px] mx-4 my-2 max-sm:my-4 mt-5"
     >
       <img
         src={book.img}
@@ -189,7 +189,7 @@ const AllCategory = () => {
         </button>
       </div>
 
-      <div className="h-[600px] md:h-[1010px] max-sm:h-[570px] gap-x-5 gap-y-10 grid grid-cols-4 md:grid-cols-3 max-sm:grid-cols-3 lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-1 ">
+      <div className="h-[600px] md:h-[1000px] max-sm:h-[570px] gap-x-5 grid grid-cols-4 md:grid-cols-3 max-sm:grid-cols-3 lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-1 ">
         {renderBooks}
       </div>
 

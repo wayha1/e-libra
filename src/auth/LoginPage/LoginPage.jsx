@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import {
-  getDoc,
-  doc,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
-import { auth, db } from "../../../firebase";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getDoc, doc, collection, query, where, getDocs } from "firebase/firestore";
+import { auth, db } from "../../firebase";
 import PhoneLogin from "../LoginWithPhone/PhoneLogin";
 import GoogleLogin from "../LoginWithGoogle/GoogleLogin";
 
@@ -97,13 +87,12 @@ const LoginPage = () => {
         <div className="bg-white shadow-xl rounded-xl items-center flex flex-col py-10">
           <form onSubmit={handleLogin}>
             <main className="w-full space-y-10">
-              <h1 className="text-center text-4xl pt-8 font-bold text-gray-700 ">
-                Sign In
-              </h1>
+              <h1 className="text-center text-4xl pt-8 font-bold text-gray-700 ">Sign In</h1>
               <div className="flex flex-col px-3 py-2 space-y-5">
                 <input
-                  className={`border border-gray-300 rounded-md py-2 px-4 ${username ? "text-gray-600" : "text-gray-200"
-                    }`}
+                  className={`border border-gray-300 rounded-md py-2 px-4 ${
+                    username ? "text-gray-600" : "text-gray-200"
+                  }`}
                   type="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -111,8 +100,9 @@ const LoginPage = () => {
                 />
 
                 <input
-                  className={`border border-gray-300 rounded-md py-2 px-4 ${password ? "text-gray-600" : "text-gray-200"
-                    }`}
+                  className={`border border-gray-300 rounded-md py-2 px-4 ${
+                    password ? "text-gray-600" : "text-gray-200"
+                  }`}
                   type="password"
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
@@ -121,11 +111,7 @@ const LoginPage = () => {
               </div>
 
               <div className="mt-5 justify-center w-full flex items-center flex-col">
-                {error && (
-                  <span className="text-sm text-red-600 ">
-                    Wrong username or password!{" "}
-                  </span>
-                )}
+                {error && <span className="text-sm text-red-600 ">Wrong username or password! </span>}
                 <button
                   type="submit"
                   className="bg-blue-600 w-[40%] text-center py-2 rounded-xl hover:bg-blue-800 
@@ -137,15 +123,9 @@ const LoginPage = () => {
 
               <div className="mt-8 text-center flex justify-center w-full">
                 <div className="flex">
-                  <button className="py-3 hover:text-blue-900">
-                    {" "}
-                    Forgot Password &#10072;{" "}
-                  </button>
+                  <button className="py-3 hover:text-blue-900"> Forgot Password &#10072; </button>
                   <Link to={"/register"}>
-                    <button
-                      className="py-3 text-blue-700 hover:text-blue-900"
-                      type="Register"
-                    >
+                    <button className="py-3 text-blue-700 hover:text-blue-900" type="Register">
                       &#160;Sign Up
                     </button>
                   </Link>

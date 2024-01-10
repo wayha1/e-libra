@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import { collection, addDoc } from "firebase/firestore";
-import { db, auth } from "../../../firebase";
+import { db, auth } from "../../firebase";
 
 const RegisterPage = () => {
   const nameRef = useRef();
@@ -50,7 +50,6 @@ const RegisterPage = () => {
     }
 
     setLoading(false);
-    
   };
 
   return (

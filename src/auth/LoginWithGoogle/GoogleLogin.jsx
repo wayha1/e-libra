@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { auth, provider } from "../../../firebase";
+import { auth, provider } from "../../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
-import HomePage from "../../HomePage/HomePage";
-import google from "../../../asset/google.png";
+import HomePage from "../../components/HomePage/HomePage";
+import google from "../../asset/google.png";
 
 function GoogleLogin() {
   const [user, setUser] = useState(null);

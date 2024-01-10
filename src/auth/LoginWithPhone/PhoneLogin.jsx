@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from "firebase/auth";
-import { app } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
+import { app } from "../../firebase";
 import Modal from "react-modal";
-import mobile from "../../../asset/Phone1.png";
+import mobile from "../../asset/Phone1.png";
 
 Modal.setAppElement("#root");
 

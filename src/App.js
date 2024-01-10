@@ -3,22 +3,22 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./components/HomePage/HomePage";
 import AccountPage from "./components/AccountPage/AccountPage";
 import CartPage from "./components/Cartt/CartPage";
-import LoginPage from "./components/auth/LoginPage/LoginPage";
-import RegisterPage from "./components/auth/RegisterPage/RegisterPage";
+import LoginPage from "./auth/LoginPage/LoginPage";
+import RegisterPage from "./auth/RegisterPage/RegisterPage";
 import AboutUs from "./components/About Us/AboutUs";
 import AllgenBook from "./components/CategoryAgenda/AllgenBook";
 import { AuthorPage } from "./components/Author/AuthorPage";
 import SeeAll from "./components/CategoryBook/SeeAll";
 import AuthorInfo from "./components/Author/AuthorInfo";
 import Payment from "./components/Cartt/Payment";
-import GoogleLogin from "./components/auth/LoginWithGoogle/GoogleLogin";
-import PhoneLogin from "./components/auth/LoginWithPhone/PhoneLogin";
+import GoogleLogin from "./auth/LoginWithGoogle/GoogleLogin";
+import PhoneLogin from "./auth/LoginWithPhone/PhoneLogin";
 import { ModalToLogin } from "./components/content/requirement/ModalToLogin";
 import BookPage from "./components/HomePage/Book/BookPage";
 import YourBook from "./components/AccountPage/YourBook";
 import { Admin } from "./admin/Admin";
 import ProtectedRoute from "./ProtectedRoute";
-import { Dashboard } from "./admin/dashboard/Dashboard";
+import { Dashboard } from "./admin/dashboard/dashboard.jsx";
 
 const App = () => {
   return (

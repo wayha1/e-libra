@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./components/auth/AuthContext.js";
+import { AuthProvider } from "./auth/AuthContext.js";
 import "firebase/compat/database";
 import App from "./App";
 import "./index.css";
