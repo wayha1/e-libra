@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage/HomePage";
 import AccountPage from "./components/AccountPage/AccountPage";
 import CartPage from "./components/Cartt/CartPage";
