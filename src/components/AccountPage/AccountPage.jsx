@@ -24,9 +24,9 @@ const AccountPage = () => {
             ...doc.data(),
             id: doc.id,
           }))[0];
-  
+
           setUserData(userDataFromFirestore);
-  
+
           if (userDataFromFirestore && userDataFromFirestore.role === "admin") {
             navigate('/admin');
           } else {
@@ -41,7 +41,7 @@ const AccountPage = () => {
         setIsLoading(false);
       }
     };
-  
+
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         setUser(currentUser);
@@ -49,13 +49,12 @@ const AccountPage = () => {
       } else {
         setUser(null);
         setIsLoading(false);
-        console.error("No user found");
       }
     });
-  
+
     return () => unsubscribe();
   }, [navigate]);
-  
+
 
   const handleImageError = () => {
     setImageError(true);

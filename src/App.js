@@ -19,6 +19,7 @@ import YourBook from "./components/AccountPage/YourBook";
 import { Admin } from "./admin/Admin";
 import ProtectedRoute from "./ProtectedRoute";
 import { Dashboard } from "./admin/dashboard/Dashboard.jsx";
+import { Generalbook } from "./admin/GeneralBook/Generalbook.jsx";
 
 const App = () => {
   return (
@@ -43,7 +44,6 @@ const App = () => {
       <Route path="/phoneLogin" element={<PhoneLogin />} />
       <Route path="/bookview" element={<BookPage />} />
       <Route path="/yourbook" element={<YourBook />} />
-      {/* <Route path="/admin" element={<Admin />} role="admin" /> */}
       <Route
         path="/admin"
         element={
@@ -52,8 +52,15 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/dashboard" element={<Dashboard />} />
-      {/* Other routes */}
+      <Route
+        path="/dashboard/*"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
     </Routes>
   );
 };
