@@ -109,7 +109,6 @@ const AccountPage = () => {
                   {"Join : "}
                   {user?.metadata?.creationTime}
                 </h1>
-                <h1 className="text-sm hover:text-blue-500 cursor-pointer">{user?.email}</h1>
                 <h1 className="text-sm hover:text-blue-500 cursor-pointer">{user?.phoneNumber}</h1>
               </div>
               <div className="w-full md:w-2/5 p-4 flex justify-end items-end"></div>

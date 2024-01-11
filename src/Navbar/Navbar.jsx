@@ -142,7 +142,6 @@ const Navbar = () => {
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
                           <div className="text-white text-xl font-semibold">
-                            <h1 className="mx-2">{user.displayName}</h1>
                             <Link to={"/account"}>
                               <button className="whitespace-nowrap px-4 py-2 text-white hover:underline">
                                 Profile
