@@ -65,7 +65,7 @@ export const BookManage = () => {
             <div className="fixed inset-0 transition-opacity" onClick={handleCloseModal}>
               <div className="absolute inset-0 opacity-50"></div>
             </div>
-            <div className="bg-white rounded-md p-8 max-w-md w-full">
+            <div className="bg-white rounded-md p-8 max-w-md w-full ">
               <h2 className="text-2xl font-bold mb-4 text-center">User List</h2>
               {/* Render user data in the modal */}
               <ul>
@@ -73,7 +73,7 @@ export const BookManage = () => {
                   <li key={index} className="border-b-2 p-2">
                     <div className="mb-2">
                       <strong className="mr-2">Name:</strong>
-                      {user.name}
+                      {user.displayName}
                     </div>
                     <div className="mb-2">
                       <strong className="mr-2">Email:</strong>
