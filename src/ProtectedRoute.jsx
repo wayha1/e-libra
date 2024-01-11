@@ -42,6 +42,9 @@ const ProtectedRoute = ({ children }) => {
       navigate("/unauthorized");
     }
   }, [user, userData, navigate]);
+  console.log(user);
+
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
