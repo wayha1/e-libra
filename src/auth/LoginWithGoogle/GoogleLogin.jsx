@@ -16,7 +16,7 @@ function GoogleLogin() {
       const result = await signInWithPopup(auth, provider);
       const userData = {
         uid: result.user.uid,
-        displayName: result.user.displayName,
+        name: result.user.name,
         email: result.user.email,
       };
 
