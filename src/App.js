@@ -46,8 +46,6 @@ const App = () => {
       <Route path="/bookview" element={<BookPage />} />
       <Route path="/yourbook" element={<YourBook />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
-
-      {/* Use `*` wildcard for dynamic segments */}
       <Route
         path="/admin"
         element={
@@ -61,6 +59,14 @@ const App = () => {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/book"
+        element={
+          <ProtectedRoute>
+            <Generalbook />
           </ProtectedRoute>
         }
       />

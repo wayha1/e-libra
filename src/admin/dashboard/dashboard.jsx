@@ -6,7 +6,7 @@ export const Dashboard = () => {
 
     const renderContent = () => {
         switch (window.location.pathname) {
-            case "/dashboard/generalbook":
+            case "/dashboard/book":
                 return <Generalbook />;
             default:
                 return (
