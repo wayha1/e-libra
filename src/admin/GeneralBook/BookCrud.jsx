@@ -64,13 +64,12 @@ function BookCrud() {
 
         alert("Book data & Image Upload");
 
-        // Reset form fields after successful upload
         setBooktitle("");
         setBookdesc("");
         setBookPrice("");
         setBookDate("");
         setStock(0);
-        setType(""); // Reset category field
+        setType(""); 
         setBookCover(null);
         setBookPdf(null);
 

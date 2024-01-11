@@ -152,6 +152,30 @@ const AllCategory = () => {
   const handleGoBack = () => {
     navigate(-1);
   };
+  useEffect(() => {
+    const handleSearch = async () => {
+      try {
+        let searchResult = [];
+
+        if (filterType === "title") {
+          searchResult = allBooks.filter((book) =>
+            book.title.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        } else if (filterType === "author") {
+          searchResult = allBooks.filter((book) =>
+            book.authorId.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        }
+
+        setFilteredBooks(searchResult);
+        setCurrentPage(1);
+      } catch (error) {
+        console.error("Error searching for books:", error.message);
+      }
+    };
+
+    handleSearch();
+  }, [searchTerm, filterType, allBooks]);
 
   return (
     <div className="z-20 overflow-y-auto">
