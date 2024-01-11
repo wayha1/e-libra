@@ -69,11 +69,6 @@ const ProtectedRoute = ({ children }) => {
       </div>
     );
   }
-
-  if (!userData) {
-    return <Navigate to="/unauthorized" />;
-  }
-
   return userData.role === "admin" ? children : <Navigate to="/unauthorized" />;
 };
 export default ProtectedRoute;

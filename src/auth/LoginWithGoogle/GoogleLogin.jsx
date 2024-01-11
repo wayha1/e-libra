@@ -1,38 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { auth, provider } from "../../firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged, signOut } from "firebase/auth";
 import HomePage from "../../components/HomePage/HomePage";
 import google from "../../asset/google.png";
+import { Navigate } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 function GoogleLogin() {
+
   const [user, setUser] = useState(null);
 
-  const handleLogin = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      setUser(data.user);
-    });
+  const handleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const userData = {
+        uid: result.user.uid,
+        displayName: result.user.displayName,
+        email: result.user.email,
+      };
+
+      // Add user data to Firestore
+      const userCollection = collection(db, "user");
+      await addDoc(userCollection, userData);
+
+      setUser(result.user);
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
   };
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      setUser(null);
     } catch (error) {
       console.error("Error signing out:", error);
     }
   };
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
-    if (storedEmail) {
-      setUser({ email: storedEmail });
-    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
     <div>
       {user ? (
         <>
-          <HomePage />
+          <Navigate to="/" />
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (

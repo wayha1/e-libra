@@ -7,27 +7,26 @@ const LoadingPage = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 6000);
+    }, 5000);
   }, []);
 
   return (
     <div className="w-screen h-screen bg-gray-100">
       <div className="flex w-full h-full justify-center items-center">
         {isLoading ? (
-          <div className="flex flex-col lg:text-5xl text-gray-600 font-semibold tracking-wide font-mono ml-4 animate-pulse">
+          <div className="flex flex-col lg:text-5xl text-gray-800 font-semibold tracking-wide font-mono ml-4 animate-pulse">
             <img
               src={require("./Logo.png")}
               alt="logo"
-              width={120}
-              height={120}
+              width={80}
+              height={80}
               className="items-center"
             />
-            <p className="loader"></p>
+            <div class="loader"></div>
           </div>
         ) : (
           <div className="flex lg:text-5xl text-gray-600 font-semibold tracking-wide font-mono ml-4">
-            <h1 className="flex mt-10">E-libra</h1>
-            <img src={require("./Logo.png")} alt="logo" width={100} height={100} />
+            <div class="loader"></div>
           </div>
         )}
       </div>

@@ -94,7 +94,8 @@ const ComicBook = () => {
           </div>
         ))}
       </div>
-      {/* Pagination controls */}
+
+      {/* Pagination controls
       <div className="flex justify-center mt-4">
         <button
           onClick={goToPreviousPage}
@@ -120,6 +121,23 @@ const ComicBook = () => {
           disabled={currentPage === Math.ceil(bacBooks.length / itemsPerPage)}
         >
           {">"}
+        </button>
+      </div> */}
+
+      <div className="flex justify-center my-4 md:my-16">
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 mx-2 text-sm font-semibold text-white bg-gray-700 rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === Math.ceil(bacBooks.length / itemsPerPage)}
+          className="px-4 py-2 mx-2 text-sm font-semibold text-white bg-gray-700 rounded disabled:opacity-50"
+        >
+          Next
         </button>
       </div>
     </section>

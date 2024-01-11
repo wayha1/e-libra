@@ -131,7 +131,7 @@ const CartPage = () => {
   return (
     <div className="overflow-y-auto z-20 ">
       {loading && <LoadingPage />}
-      <div className="mx-auto mt-10 px-10 py-4 h-[900px]">
+      <div className="mx-auto mt-10 px-10 py-4 h-[450px]">
         {cartItems.length === 0 ? (
           <div className="flex items-center justify-center ">
             <p className="text-5xl book-title text-gray-600">
@@ -196,7 +196,7 @@ const CartPage = () => {
       </div>
 
       {cartItems.length > 0 && (
-        <div className="flex justify-end text-xl font-semibold mt-5 space-y-5">
+        <div className="flex justify-end text-xl font-semibold mt-5 space-y-5 mr-8 h-[600px]">
           <div className="flex-col space-x-3 mb-8">
             Total Price: {total} {"រៀល"}
             <button

@@ -1,6 +1,6 @@
 .loader {
-    height: 60px;
-    width: 120px;
+    height: 50px;
+    width: 80px;
     aspect-ratio: 5;
     --_g: no-repeat radial-gradient(farthest-side, #000 90%, #0000);
     background: var(--_g), var(--_g), var(--_g), var(--_g);

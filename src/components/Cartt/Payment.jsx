@@ -10,6 +10,7 @@ function Payment() {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvc, setCVC] = useState("");
+  const [name, setName] = useState("");
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const [isPaymentInitiated, setIsPaymentInitiated] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,7 @@ function Payment() {
   const { selectedBook, cartItems } = location.state || [];
 
   const handlePayment = () => {
-    if (!paymentMethod || !cardNumber || !expiryDate || !cvc) {
+    if (!paymentMethod || !cardNumber || !expiryDate || !cvc || !name) {
       errorToast("Please fill in all the required fields.");
       return;
     }
@@ -38,6 +39,7 @@ function Payment() {
         setCardNumber(0);
         setExpiryDate("");
         setCVC("");
+        setName("");
 
         setIsPaymentInitiated(false);
         setIsModalOpen(true);
@@ -95,6 +97,16 @@ function Payment() {
           type="tel" // Change type to "tel" for inputting numbers
           className="w-full p-2 border rounded"
           value={cardNumber}
+          onChange={(e) => setCardNumber(e.target.value)}
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-semibold mb-1">Name:</label>
+        <input
+          type="tel" // Change type to "tel" for inputting numbers
+          className="w-full p-2 border rounded"
+          value={name}
           onChange={(e) => setCardNumber(e.target.value)}
         />
       </div>

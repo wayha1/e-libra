@@ -217,6 +217,7 @@ const AllCategory = () => {
         {renderBooks}
       </div>
 
+
       <div className="flex justify-center my-4 md:my-16">
         <button
           onClick={() => paginate(currentPage - 1)}

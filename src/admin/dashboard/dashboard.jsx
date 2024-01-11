@@ -1,12 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Generalbook } from '../GeneralBook/Generalbook';
+import { BookManage } from '../book/BookManage';
+import { signOut } from 'firebase/auth'; // Import signOut from Firebase Authentication
+import { auth } from '../../firebase'; // Import your Firebase authentication instance
 
 export const Dashboard = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            navigate('/login'); // Redirect to the login page after logout
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+    };
 
     const renderContent = () => {
         switch (window.location.pathname) {
-            case "/dashboard/book":
+            case '/dashboard/mangment':
+                return <BookManage />;
+            case '/dashboard/book':
                 return <Generalbook />;
             default:
                 return (
@@ -21,35 +36,41 @@ export const Dashboard = () => {
         <div className="w-full h-screen flex">
             <div className="bg-gray-800 text-white w-[15%] p-10">
                 <ul className='space-y-5'>
-                    <h2 className="text-2xl font-bold my-10">Dashboard</h2>
+                    <li className="flex items-center justify-center mt-10">
+                        <Link
+                            to="/dashboard/mangment"
+                            onClick={() => navigate('/dashboard/mangment')}
+                            className={`${window.location.pathname === "/dashboard/mangment"} text-xl hover:text-gray-300 `}
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
                     <li className="flex items-center justify-center">
                         <Link
-                            to="/dashboard/generalbook"
-                            className={`${window.location.pathname === "/dashboard/generalbook"
-                                }  className="hover:text-gray-300"`}
+                            to="/dashboard/book"
+                            onClick={() => navigate('/dashboard/book')}
+                            className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
                         >
                             Book
                         </Link>
                     </li>
-
                     <li className="flex items-center justify-center">
                         <Link
                             to="/dashboard/author"
-                            className={`${window.location.pathname === "/dashboard/generalbook"
-                                }  className="hover:text-gray-300"`}
+                            onClick={() => navigate('/dashboard/author')}
+                            className={`${window.location.pathname === "/dashboard/author"} text-xl hover:text-gray-300`}
                         >
                             AuthorList
                         </Link>
                     </li>
-
-                    <li className="flex items-center justify-center">
-
-                        LogOut
-
-                    </li>
                 </ul>
+                <li className="flex h-fit items-end justify-center mt-40">
+                    <button className="bg-red-600 p-3 rounded-md" onClick={handleLogout}>
+                        Log Out
+                    </button>
+                </li>
             </div>
-            <div className="flex-grow overflow-y-auto bg-neutral-200 w-[75%] ">{renderContent()}</div>
+            <div className="flex-grow overflow-y-auto bg-neutral-200 w-[85%] ">{renderContent()}</div>
         </div>
     );
 };

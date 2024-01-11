@@ -63,7 +63,7 @@ const App = () => {
         }
       />
       <Route
-        path="/dashboard/book"
+        path="/dashboard/*/book"
         element={
           <ProtectedRoute>
             <Generalbook />

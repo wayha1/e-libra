@@ -87,11 +87,11 @@ function SeeAll() {
               BookPdf: selectedBook.BookPdf,
               userId: user.uid,
             };
-   
+
             await setDoc(doc(popularCollectionRef, docId), docData);
             successToast("Thank You For Your Submit!");
           }
-        } 
+        }
       } else {
         openModal();
       }
@@ -245,15 +245,20 @@ function SeeAll() {
                   </button>
                 </div>
               ) : (
-                <button
-                  className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
-              font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
-                  onClick={() => handleAddToCart(selectedBook)}
-                  disabled={selectedBook.price === "free"}
-                >
-                  Add to Cart
-                </button>
+                selectedBook.stock > 0 ? (
+                  <button
+                    className="bg-white hover:bg-green-300 active:bg-gray-600 text-green-700 
+                    font-bold py-2 mb-4 px-4 rounded-lg shadow-lg"
+                    onClick={() => handleAddToCart(selectedBook)}
+                  >
+                    Add to Cart
+                  </button>
+                  
+                ) : (
+                  <p className="text-red-500 font-bold">Out of Stock</p>
+                )
               )}
+
 
               <div className="flex space-x-20 ">
                 <div className="text-left">

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc, collection, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../../firebase";
-import PhoneLogin from "../LoginWithPhone/PhoneLogin";
+// import PhoneLogin from "../LoginWithPhone/PhoneLogin";
 import GoogleLogin from "../LoginWithGoogle/GoogleLogin";
 
 const LoginPage = () => {
@@ -30,14 +30,12 @@ const LoginPage = () => {
           if (userDataFromFirestore) {
             if (userDataFromFirestore.role === "admin") {
               navigate("/");
-            } else if (userDataFromFirestore.role === "author") {
+            } if (userDataFromFirestore.role === "author") {
               navigate("/authrole");
-            } else {
+            }if(userDataFromFirestore.role === "user"){
               navigate("/");
             }
-          } else {
-            console.error("No user found");
-          }
+          } 
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -65,13 +63,12 @@ const LoginPage = () => {
 
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
-        console.log("User data from Firestore:", userData);
 
         if (userData.role === "admin") {
           navigate("/admin");
         } else if (userData.role === "author") {
           navigate("/authrole");
-        } else {
+        } else if (userData.role === "user") {
           navigate("/");
         }
       }
@@ -132,13 +129,13 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <ul className="flex justify-center items-center space-x-5 w-full">
+              <ul className="justify-center items-center space-x-5 w-full">
                 <div className=" flex">
                   <GoogleLogin />
                 </div>
-                <div className="flex ">
+                {/* <div className="flex ">
                   <PhoneLogin />
-                </div>
+                </div> */}
               </ul>
             </main>
           </form>
