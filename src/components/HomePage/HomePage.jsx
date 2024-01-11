@@ -82,7 +82,7 @@ const HomePage = () => {
         <>
           {/* Banner */}
           <section id="Banner">
-            <main className="z-20 flex w-full h-[900px] max-sm:h-[600px] bg-gray-100">
+            <main className="z-20 flex w-full h-[500px] max-sm:h-[600px] bg-gray-100">
               {banner.map((data, i) => (
                 <div
                   key={i}
