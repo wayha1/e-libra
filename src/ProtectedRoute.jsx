@@ -36,8 +36,7 @@ const ProtectedRoute = ({ children }) => {
   const navigateUser = useCallback(() => {
     if (user && userData && user.uid === userData.uid) {
       if (userData.role === "admin") {
-        navigate("/admin");
-        return <Admin />;
+        return "/admin";
       } else {
         navigate("/unauthorized");
       }
@@ -45,7 +44,6 @@ const ProtectedRoute = ({ children }) => {
       navigate("/unauthorized");
     }
   }, [user, userData, navigate]);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -78,10 +76,6 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/unauthorized" />;
   }
 
-  if (userData.role === "admin") {
-    return <Navigate to="/admin"></Navigate>;
-  }
-
-  return children;
+  return userData.role === "admin" ? children : <Navigate to="/unauthorized" />;
 };
 export default ProtectedRoute;
