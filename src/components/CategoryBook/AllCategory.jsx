@@ -52,7 +52,6 @@ const AllCategory = () => {
     fetchData();
     const handleResize = () => {
       setBooksPerPageState(booksPerPage());
-      setCurrentPage(1);
     };
 
     window.addEventListener("resize", handleResize);
@@ -144,11 +143,6 @@ const AllCategory = () => {
     }
   };
 
-  const handleClearSearch = () => {
-    setSearchTerm("");
-    setFilteredBooks(allBooks);
-    setCurrentPage(1);
-  };
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -207,9 +201,6 @@ const AllCategory = () => {
 
         <button className="p-2 bg-blue-500 text-white rounded-md" onClick={handleSearch}>
           Search
-        </button>
-        <button className="p-2 bg-red-500 text-white rounded-md ml-2" onClick={handleClearSearch}>
-          Clear
         </button>
       </div>
 
