@@ -18,7 +18,7 @@ import BookPage from "./components/HomePage/Book/BookPage";
 import YourBook from "./components/AccountPage/YourBook";
 import ProtectedRoute from "./ProtectedRoute";
 import { Admin } from "./admin/Admin";
-import { Dashboard } from "./admin/dashboard/Dashboard.jsx";
+import { Dashboard } from "./admin/dashboard/dashboard.jsx";
 import { Generalbook } from "./admin/GeneralBook/Generalbook.jsx";
 import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage.jsx";
 
@@ -49,7 +49,7 @@ const App = () => {
 
       {/* Use `*` wildcard for dynamic segments */}
       <Route
-        path="/admin/*"
+        path="/admin"
         element={
           <ProtectedRoute>
             <Admin />
