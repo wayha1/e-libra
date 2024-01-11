@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, where, query, deleteDoc,doc } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 import LoadingPage from '../content/LoadingPage/LoadingPage';
+import { successToast } from '../CategoryBook/Toaster';
+import { ToastContainer } from 'react-toastify';
 
 export default function YourBook() {
     const navigate = useNavigate();
@@ -55,6 +57,7 @@ export default function YourBook() {
         try {
             // Delete the document with the specified ID from the 'userBook' collection
             await deleteDoc(doc(db, 'userBook', bookId));
+            successToast("You delete your book!")
             // Optionally, you can update the state to reflect the deletion
             setUserBooks((prevUserBooks) =>
                 prevUserBooks.filter((book) => book.id !== bookId)
@@ -104,7 +107,7 @@ export default function YourBook() {
                     </ul>
                 </>
             )}
-
+            <ToastContainer />
         </div>
     );
 }

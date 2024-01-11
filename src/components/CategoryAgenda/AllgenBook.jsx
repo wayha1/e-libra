@@ -36,7 +36,7 @@ const AllgenBook = () => {
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 1000);
   }, [location]);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ const AllgenBook = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
 
   return (
     <div className="flex bg-gray-50 overflow-y-auto">

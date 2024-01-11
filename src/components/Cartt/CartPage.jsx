@@ -5,6 +5,8 @@ import { CiCreditCard1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
 import DefaultCartPage from "./DefualtCartPage";
+import { successToast } from "../CategoryBook/Toaster";
+import { ToastContainer } from "react-toastify";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -60,7 +62,7 @@ const CartPage = () => {
       const itemRef = doc(db, "addtoCart", selectedItemId);
       await deleteDoc(itemRef);
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== selectedItemId));
-      alert("Delete success items!");
+      successToast("Delete success items!");
     } catch (error) {
       console.error("Error Deleting Document", error.message);
     } finally {
@@ -235,6 +237,7 @@ const CartPage = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

@@ -59,7 +59,7 @@ function BookCrud() {
             img: imageUrl,
             BookPdf: pdfUrl,
             authorId: selectedAuthor,
-            type: type, // Add category field
+            type: type, 
         });
 
         alert("Book data & Image Upload");

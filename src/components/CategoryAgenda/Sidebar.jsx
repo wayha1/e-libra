@@ -35,6 +35,7 @@ const Sidebar = ({ handleGoBack, activeComponent, isSmScreen, handleCategoryChan
       </ul>
     );
   };
+  
 
   return (
     <div className="flex flex-col mt-5 w-[20%] max-sm:w-[50%] bg-white h-full book-title max-sm:absolute z-40">

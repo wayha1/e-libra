@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import { collection, getDocs, addDoc, query, where, doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { Rating } from "../content/Rating/Rating";
 import { ModalToLogin } from "../content/requirement/ModalToLogin";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
+import { successToast, errorToast } from "./Toaster";
+import { ToastContainer } from "react-toastify";
 
 function SeeAll() {
   const location = useLocation();
@@ -45,9 +47,9 @@ function SeeAll() {
           };
 
           await addDoc(cartsCollectionRef, cartItemToAdd);
-          alert("Item added to cart!");
+          successToast("Item added to cart!");
         } else {
-          alert("Item already added to cart!");
+          errorToast("Item already added to cart!");
         }
       } catch (error) {
         console.error("Error adding item to cart:", error);
@@ -67,23 +69,29 @@ function SeeAll() {
 
         if (user && selectedBook) {
           const popularCollectionRef = collection(db, "popular");
-          const docData = {
-            title: selectedBook.title,
-            authorId: selectedBook.authorId,
-            userRating: userRating,
-            price: selectedBook.price,
-            decs: selectedBook.decs,
-            type: selectedBook.type || "",
-            date: selectedBook.date,
-            img: selectedBook.img,
-            BookPdf: selectedBook.BookPdf,
-            userId: user.uid,
-          };
+          const docId = `${user.uid}-${selectedBook.title}`;
+          const docSnapshot = await getDoc(doc(popularCollectionRef, docId));
 
-          await addDoc(popularCollectionRef, docData);
-        } else {
-          console.error("User is not available.");
-        }
+          if (docSnapshot.exists()) {
+            errorToast("You have already submitted a rating for this book!");
+          } else {
+            const docData = {
+              title: selectedBook.title,
+              authorId: selectedBook.authorId,
+              userRating: userRating,
+              price: selectedBook.price,
+              decs: selectedBook.decs,
+              type: selectedBook.type || "",
+              date: selectedBook.date,
+              img: selectedBook.img,
+              BookPdf: selectedBook.BookPdf,
+              userId: user.uid,
+            };
+   
+            await setDoc(doc(popularCollectionRef, docId), docData);
+            successToast("Thank You For Your Submit!");
+          }
+        } 
       } else {
         openModal();
       }
@@ -127,7 +135,7 @@ function SeeAll() {
             type: selectedBook.type,
           });
 
-          alert("Item added to Favorites!");
+          successToast("Item added to Favorites!");
         } else {
           console.error("User is not available.");
         }
@@ -342,6 +350,7 @@ function SeeAll() {
           {isModalOpen && <ModalToLogin closeModal={closeModal} />}
         </>
       )}
+      <ToastContainer />
     </div>
   );
 }

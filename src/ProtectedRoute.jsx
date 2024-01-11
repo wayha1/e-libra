@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Route, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, query, where, collection } from "firebase/firestore";
 import { auth, db } from "./firebase";
-import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage";
 import LoadingPage from "./components/content/LoadingPage/LoadingPage";
-import { Admin } from "./admin/Admin";
 
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);

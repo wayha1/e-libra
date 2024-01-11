@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { doc, deleteDoc, collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { errorToast, successToast } from "../CategoryBook/Toaster";
+import { ToastContainer } from "react-toastify";
 
 function Payment() {
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -17,7 +19,7 @@ function Payment() {
 
   const handlePayment = () => {
     if (!paymentMethod || !cardNumber || !expiryDate || !cvc) {
-      alert("Please fill in all the required fields.");
+      errorToast("Please fill in all the required fields.");
       return;
     }
     setIsPaymentInitiated(true);
@@ -48,6 +50,7 @@ function Payment() {
   const handleDone = async () => {
     setIsModalOpen(false);
     setIsPaymentSuccessful(false);
+    successToast("Thank your for buying our book!")
 
     try {
       const userBookCollection = collection(db, "userBook");
@@ -138,6 +141,7 @@ function Payment() {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 }
