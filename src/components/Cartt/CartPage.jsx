@@ -5,7 +5,7 @@ import { CiCreditCard1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
 import DefaultCartPage from "./DefualtCartPage";
-import { successToast } from "../CategoryBook/Toaster";
+import { errorToast, successToast } from "../CategoryBook/Toaster";
 import { ToastContainer } from "react-toastify";
 
 const CartPage = () => {
@@ -62,7 +62,7 @@ const CartPage = () => {
       const itemRef = doc(db, "addtoCart", selectedItemId);
       await deleteDoc(itemRef);
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== selectedItemId));
-      successToast("Delete success items!");
+      errorToast("Delete success items!");
     } catch (error) {
       console.error("Error Deleting Document", error.message);
     } finally {
@@ -143,17 +143,15 @@ const CartPage = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${
-                  selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
-                }`}
+                className={`flex items-center border-b-2 py-4 mb-5 border rounded-lg border-gray-300 ${selectedItems.includes(item.id) ? "bg-blue-200 text-white" : "bg-gray-100"
+                  }`}
                 onClick={(event) => handleImageClick(item, event)}
               >
                 <img
                   src={item.img}
                   alt="Book"
-                  className={`w-30 h-40 ml-3 ${
-                    selectedItems.includes(item.id) ? "border-4 border-green-500" : ""
-                  }`}
+                  className={`w-30 h-40 ml-3 ${selectedItems.includes(item.id) ? "border-4 border-green-500" : ""
+                    }`}
                 />
                 <div className="flex-grow ml-3">
                   <div className="flex justify-between items-center">
