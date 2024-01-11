@@ -28,9 +28,8 @@ const AccountPage = () => {
           setUserData(userDataFromFirestore);
 
           if (userDataFromFirestore && userDataFromFirestore.role === "admin") {
-            navigate('/admin');
+            navigate("/admin");
           } else {
-
           }
         } else {
           console.error("No user found");
@@ -54,7 +53,6 @@ const AccountPage = () => {
 
     return () => unsubscribe();
   }, [navigate]);
-
 
   const handleImageError = () => {
     setImageError(true);
