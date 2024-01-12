@@ -61,14 +61,6 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-      {/* <Route
-        path="/dashboard/book"
-        element={
-          <ProtectedRoute>
-            <Generalbook />
-          </ProtectedRoute>
-        }
-      /> */}
     </Routes>
   );
 };
