@@ -117,7 +117,7 @@ const BookPage = () => {
             className="p-2 rounded-md mr-2"
           />
           <button
-            className="bg-white text-gray-700 px-4 py-2 rounded-md"
+            className="bg-blue-200 text-gray-700 px-4 py-2 rounded-md"
             onClick={handleSearchPage}
           >
             Page
