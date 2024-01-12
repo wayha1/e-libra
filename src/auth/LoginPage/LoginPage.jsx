@@ -28,13 +28,13 @@ const LoginPage = () => {
 
           if (userDataFromFirestore) {
             if (userDataFromFirestore.role === "admin") {
-              navigate("/");
+              navigate("/admin");
             } if (userDataFromFirestore.role === "author") {
-              navigate("/authrole");
-            }if(userDataFromFirestore.role === "user"){
+              navigate("/dashboard/author");
+            } if (userDataFromFirestore.role === "user") {
               navigate("/");
             }
-          } 
+          }
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -66,7 +66,7 @@ const LoginPage = () => {
         if (userData.role === "admin") {
           navigate("/admin");
         } else if (userData.role === "author") {
-          navigate("/authrole");
+          navigate("/dashboard/author");
         } else if (userData.role === "user") {
           navigate("/");
         }
@@ -86,9 +86,8 @@ const LoginPage = () => {
               <h1 className="text-center text-4xl pt-8 font-bold text-gray-700 ">Sign In</h1>
               <div className="flex flex-col px-3 py-2 space-y-5">
                 <input
-                  className={`border border-gray-300 rounded-md py-2 px-4 ${
-                    username ? "text-gray-600" : "text-gray-200"
-                  }`}
+                  className={`border border-gray-300 rounded-md py-2 px-4 ${username ? "text-gray-600" : "text-gray-200"
+                    }`}
                   type="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -96,9 +95,8 @@ const LoginPage = () => {
                 />
 
                 <input
-                  className={`border border-gray-300 rounded-md py-2 px-4 ${
-                    password ? "text-gray-600" : "text-gray-200"
-                  }`}
+                  className={`border border-gray-300 rounded-md py-2 px-4 ${password ? "text-gray-600" : "text-gray-200"
+                    }`}
                   type="password"
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}

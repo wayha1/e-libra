@@ -29,6 +29,9 @@ const AccountPage = () => {
 
           if (userDataFromFirestore && userDataFromFirestore.role === "admin") {
             navigate("/admin");
+          }
+          if (userDataFromFirestore && userDataFromFirestore.role === "author") {
+            navigate("/dashboard/author");
           } else {
           }
         } else {

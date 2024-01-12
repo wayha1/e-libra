@@ -35,6 +35,9 @@ const ProtectedRoute = ({ children }) => {
     if (user && userData && user.uid === userData.uid) {
       if (userData.role === "admin") {
         return "/admin";
+      }
+      if (userData.role === "author") {
+        return "/dashboard/author";
       } else {
         navigate("/unauthorized");
       }
@@ -69,6 +72,6 @@ const ProtectedRoute = ({ children }) => {
       </div>
     );
   }
-  return userData.role === "admin" ? children : <Navigate to="/unauthorized" />;
+  return userData.role === "admin" || "author" ? children : <Navigate to="/unauthorized" />;
 };
 export default ProtectedRoute;
