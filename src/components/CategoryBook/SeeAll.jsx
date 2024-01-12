@@ -178,17 +178,17 @@ function SeeAll() {
 
   const renderRecommendedBooks = () => (
     <>
-      <div className="w-full ">
-        <h1 className="text-center book-style text-green-900 text-3xl font-bold mx-10 my-8">
+      <div className="w-full">
+        <h1 className="text-left book-style text-green-900 text-3xl max-sm:text-xl whitespace-nowrap font-bold my-8">
           Recommend Books by {selectedBook.authorId}
         </h1>
-        <div className="w-full flex space-x-5">
+        <div className="w-full flex space-x-3">
           {recommendedBooks.map((book) => (
             <div key={book.title} className="flex-shrink-0 w-48">
               <img
                 src={book.img}
                 alt={book.title}
-                className="rounded-md w-48 h-64 object-cover shadow-lg cursor-pointer"
+                className="rounded-md w-48 h-64 max-sm:w-32 max-sm:h-48 object-cover shadow-lg cursor-pointer"
                 onClick={() => handleReadNowClick(book)}
               />
               <p className="text-sm text-gray-700 mt-2">{book.title}</p>
@@ -253,7 +253,7 @@ function SeeAll() {
                   >
                     Add to Cart
                   </button>
-                  
+
                 ) : (
                   <p className="text-red-500 font-bold">Out of Stock</p>
                 )

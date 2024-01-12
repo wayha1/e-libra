@@ -130,12 +130,12 @@ const HomePage = () => {
                       </h1>
                     )}
                     {data.price && (
-                      <h2 className="lg:text-xl max-sm:text-md  book-style  text-gray-800 font-sans hover:text-gray-900 hover:duration-200 max-sm:text-sm">
+                      <h2 className="lg:text-xl max-sm:text-md  book-style  text-green-800 font-sans hover:text-gray-900 hover:duration-200 max-sm:text-sm">
                         {data.price}
                       </h2>
                     )}
                     {data.decs && (
-                      <h2 className="lg:text-xl max-sm:text-md  book-style  text-gray-800 font-sans hover:text-gray-900 hover:duration-200 max-sm:text-sm">
+                      <h2 className="max-sm:line-clamp-3 lg:text-xl max-sm:text-sm book-style text-gray-800 font-sans hover:text-gray-900 hover:duration-200 ">
                         {data.decs}
                       </h2>
                     )}

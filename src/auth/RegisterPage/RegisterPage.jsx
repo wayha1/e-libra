@@ -99,7 +99,7 @@ const RegisterPage = () => {
               Sign Up
             </button>
 
-            <div className="flex text-center py-3">
+            <div className="flex text-center py-3 max-sm:text-sm">
               <h1 className="">You already have an account! &#10072;</h1>
               <Link to={"/login"}>
                 <button className="text-blue-700 hover:text-blue-900" type="submit">

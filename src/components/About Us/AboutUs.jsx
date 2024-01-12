@@ -237,7 +237,7 @@ const AboutUs = () => {
               {author.slice(0, visibleAuthors).map((data, i) => (
                 <div key={i} className="px-24 py-5">
                   <div
-                    className="lg:w-72 max-lg:w-44 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
+                    className="lg:w-72 max-lg:w-44 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl"
                     onClick={() => toggleExpansion(i)}
                   >
                     {data.imgAuth && (
@@ -245,32 +245,32 @@ const AboutUs = () => {
                         src={data.imgAuth}
                         alt=""
                         onClick={(e) => e.stopPropagation()}
-                        className="w-[300px] h-[250px] mb-3 "
+                        className="w-[300px] h-[250px] mb-3 max-sm:w-[180px] max-sm:h-[180px]"
                       />
                     )}
                     {data.authName && (
-                      <h2 className="font-bold text-xl mb-3 m-1 auth-name">
+                      <h2 className="font-bold text-xl mb-3 m-1 auth-name px-2">
                         {data.authName}
                       </h2>
                     )}
                     {data.Gender && (
-                      <p className="font-bold text-md m-1 auth-name mb-3">
+                      <p className="font-bold text-md m-1 auth-name mb-3 px-2">
                         {data.Gender}
                       </p>
                     )}
                     {data.DOB && (
-                      <p className="auth-name m-1 mb-3">{data.DOB}</p>
+                      <p className="auth-name m-1 mb-3 p-2">{data.DOB}</p>
                     )}
                     {expandedDetails[i] ? (
-                      <p className="text-sm text-gray-600 auth-name ">
+                      <p className="text-sm text-gray-600 auth-name px-4">
                         {data.Decs}
                       </p>
                     ) : (
-                      <p className="text-sm text-gray-600 auth-name line-clamp-3">
+                      <p className="text-sm text-gray-600 auth-name line-clamp-3 px-4">
                         {data.Decs}
                       </p>
                     )}
-                    <div className="m-2">
+                    <div className="m-2 p-4">
                       <button
                         className="ease-in-out decoration-300 text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700"
                         onClick={(e) => {
@@ -285,12 +285,12 @@ const AboutUs = () => {
                 </div>
               ))}
             </div>
-            <div className="text-end py-3 px-7 decoration-300">
-              <button className="ease-in-out rounded-sm text-gray-100 bg-blue-600 px-6 py-1.5 hover:bg-blue-700">
-                <Link to={"/author"}>View All Author</Link>
-              </button>
-            </div>
           </section>
+          <div className="flex justify-end m-5">
+            <button className="rounded-xl text-gray-100 px-4 py-2 bg-blue-500 hover:bg-blue-700 whitespace-nowrap">
+              <Link to={"/author"}>All Author</Link>
+            </button>
+          </div>
         </main>
       )}
     </>
