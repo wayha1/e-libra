@@ -4,6 +4,15 @@ import { Generalbook } from '../GeneralBook/Generalbook';
 import { BookManage } from '../book/BookManage';
 import { signOut } from 'firebase/auth'; // Import signOut from Firebase Authentication
 import { auth } from '../../firebase'; // Import your Firebase authentication instance
+import { UserList } from '../userManage/UserList';
+import { BaciiBook } from '../BacllBook/BaciiBook';
+import { ComicBook } from '../ComicBook/ComicBook';
+import { KhmerBook } from '../KhmerBook/KhmerBook';
+import { NovelBook } from '../NovelBook/NovelBook';
+import { PracticeBook } from '../PracticeBook/PracticeBook';
+import { AddAuthor } from '../Author/AddAuthor';
+import { Author } from '../Author/Author';
+
 
 export const Dashboard = () => {
     const navigate = useNavigate();
@@ -23,6 +32,20 @@ export const Dashboard = () => {
                 return <BookManage />;
             case '/dashboard/book':
                 return <Generalbook />;
+            case '/dashboard/bacii':
+                return <BaciiBook />
+            case '/dashboard/comic':
+                return <ComicBook />
+            case '/dashboard/khmer':
+                return <KhmerBook />
+            case '/dashboard/novel':
+                return <NovelBook />
+            case '/dashboard/practice':
+                return <PracticeBook />
+            case '/dashboard/author':
+                return <Author />
+            case '/dashboard/userlist':
+                return <UserList />
             default:
                 return (
                     <div className="text-center text-2xl font-medium">
@@ -52,6 +75,51 @@ export const Dashboard = () => {
                             className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
                         >
                             Book
+                        </Link>
+                    </li>
+                    <li className="flex items-center justify-center">
+                        <Link
+                            to="/dashboard/bacii"
+                            onClick={() => navigate('/dashboard/bacii')}
+                            className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
+                        >
+                            bacii
+                        </Link>
+                    </li>
+                    <li className="flex items-center justify-center">
+                        <Link
+                            to="/dashboard/comic"
+                            onClick={() => navigate('/dashboard/comic')}
+                            className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
+                        >
+                            comic
+                        </Link>
+                    </li>
+                    <li className="flex items-center justify-center">
+                        <Link
+                            to="/dashboard/khmer"
+                            onClick={() => navigate('/dashboard/khmer')}
+                            className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
+                        >
+                            Khmer-Book
+                        </Link>
+                    </li>
+                    <li className="flex items-center justify-center">
+                        <Link
+                            to="/dashboard/novel"
+                            onClick={() => navigate('/dashboard/novel')}
+                            className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
+                        >
+                            Novel-Book
+                        </Link>
+                    </li>
+                    <li className="flex items-center justify-center">
+                        <Link
+                            to="/dashboard/practice"
+                            onClick={() => navigate('/dashboard/practice')}
+                            className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
+                        >
+                            Practice-Book
                         </Link>
                     </li>
                     <li className="flex items-center justify-center">

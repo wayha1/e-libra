@@ -21,6 +21,7 @@ import { Admin } from "./admin/Admin";
 import { Dashboard } from "./admin/dashboard/Dashboard.jsx";
 import { Generalbook } from "./admin/GeneralBook/Generalbook.jsx";
 import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage.jsx";
+import { UserList } from "./admin/userManage/UserList.jsx";
 
 const App = () => {
   return (

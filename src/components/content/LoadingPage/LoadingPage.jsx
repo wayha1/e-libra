@@ -22,11 +22,11 @@ const LoadingPage = () => {
               height={80}
               className="items-center"
             />
-            <div class="loader"></div>
+            <div className="loader"></div>
           </div>
         ) : (
           <div className="flex lg:text-5xl text-gray-600 font-semibold tracking-wide font-mono ml-4">
-            <div class="loader"></div>
+            <div className="loader"></div>
           </div>
         )}
       </div>

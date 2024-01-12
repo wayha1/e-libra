@@ -8,16 +8,15 @@ import {
   updateDoc,
   setDoc,
 } from "firebase/firestore";
-
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import {db, imgDB} from "./../../firebase";
+import { db, imgDB } from "../../firebase";
 import { v4 as uuidv4 } from "uuid";
 import { FaRegFilePdf } from "react-icons/fa";
 import { deleteObject } from "firebase/storage";
 import { ToastContainer } from "react-toastify";
 import { successToast } from "../../components/CategoryBook/Toaster";
 
-export const GeneralBookList = () => {
+export const NovelBookList = () => {
   const [bacData, setBacData] = useState([]);
   const [NovelBook, setNovelBook] = useState([]);
   const [selectBook, setSelectBook] = useState({});
@@ -71,7 +70,7 @@ export const GeneralBookList = () => {
         db,
         "Books",
         "All_Genre",
-        "GeneralBook",
+        "NovelBook",
         selectBook.book
       );
   
@@ -123,7 +122,7 @@ export const GeneralBookList = () => {
         db,
         "Books",
         "All_Genre",
-        "GeneralBook",
+        "NovelBook",
         updatedBook.id
       );
       const newData = {
@@ -167,7 +166,7 @@ export const GeneralBookList = () => {
         setBacData(data);
         const bookDataPromises = data.map(async (elem) => {
           try {
-            const BookPop = collection(db, `Books/${elem.id}/GeneralBook`);
+            const BookPop = collection(db, `Books/${elem.id}/NovelBook`);
             const DataBooks = await getDocs(BookPop);
             const BookData = DataBooks.docs.map((bookDoc) => ({
               ...bookDoc.data(),
@@ -253,7 +252,6 @@ export const GeneralBookList = () => {
             </div>
           </div>
         ))}
-        {/* {loading && showSuccessPopup && <LoadingProcess />} */}
         {openDeleteModal && (
           <div className="fixed inset-0 flex items-center justify-center">
             <div
@@ -282,7 +280,6 @@ export const GeneralBookList = () => {
             </div>
           </div>
         )}
-
 
         {/* Update Modal */}
         <div
@@ -378,9 +375,6 @@ export const GeneralBookList = () => {
             </div>
           </div>
         </div>
-
-        {/* Loading Process during Update
-        {loading && updateModalOpen && <LoadingProcess />} */}
 
         {/* Update Success Modal */}
         {updateSuccessPopup && (

@@ -72,7 +72,7 @@ function GoogleLogin() {
               height={40}
               className="hover:shadow-full hover:scale-110 mx-2 my-1 "
             />
-            <h1 className="flex whitespace-nowrap max-sm:hidden px-2 items-center text-gray-600">
+            <h1 className="flex whitespace-nowrap px-2 items-center text-gray-600">
               Login With Google
             </h1>
           </div>

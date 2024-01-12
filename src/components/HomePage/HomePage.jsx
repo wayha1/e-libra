@@ -5,15 +5,15 @@ import LoadingPage from "../content/LoadingPage/LoadingPage";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [banner, setBanner] = useState([]);
-  const [promotion, setPromotion] = useState([]);
   const [allBooks, setAllBooks] = useState([]);
-  const [filteredBooks, setFilteredBooks] = useState([]);
-  const [selectedType, setSelectedType] = useState("All");
   const [isBannerHovered, setIsBannerHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const navigate = useNavigate();
 
   const getBanner = async () => {
     try {
@@ -21,21 +21,6 @@ const HomePage = () => {
       const bannerSnapshot = await getDocs(bannerCollection);
       const banners = bannerSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setBanner(banners);
-
-      const promotionDataPromises = banners.map(async (bannerItem) => {
-        try {
-          const bookPopCollection = collection(db, `HomePage/${bannerItem.id}/BodyPromo`);
-          const bookPopSnapshot = await getDocs(bookPopCollection);
-          const bookData = bookPopSnapshot.docs.map((bookDoc) => ({ ...bookDoc.data(), id: bookDoc.id }));
-          return bookData;
-        } catch (error) {
-          console.error(`Error fetching book data for ${bannerItem.id}:`, error);
-          return null;
-        }
-      });
-
-      const bookData = await Promise.all(promotionDataPromises);
-      setPromotion(bookData.flat());
     } catch (error) {
       console.error("Error fetching banner data:", error);
     } finally {
@@ -56,23 +41,21 @@ const HomePage = () => {
 
       const combinedBooks = categoriesData.flat();
       const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
-
       setAllBooks(sortedBooks);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const filterBooksByType = (books) => {
-    setSelectedType(books);
-    const filtered = books === "All" ? allBooks : allBooks.filter((book) => book.type === book);
-    setFilteredBooks(filtered);
-  };
-
   useEffect(() => {
     getBanner();
     fetchData();
   }, []);
+
+  const handleReadNowClick = (book) => {
+    setSelectedBook(book);
+    navigate("/allgen/see-all", { state: { selectedBook: book, allBooks } });
+  };
 
   return (
     <>
@@ -93,9 +76,8 @@ const HomePage = () => {
                   onTouchEnd={() => setIsBannerHovered(false)}
                 >
                   <div
-                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${
-                      isBannerHovered ? "opacity-150" : "opacity-0"
-                    } transition-opacity duration-300 h-full w-[80%]`}
+                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${isBannerHovered ? "opacity-150" : "opacity-0"
+                      } transition-opacity duration-300 h-full w-[80%]`}
                   >
                     <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[30%]">
                       <div className="text-gray-600 text-center bg-shadow-sm px-5">
@@ -133,49 +115,42 @@ const HomePage = () => {
             </div>
           </section>
 
-          {/* Body Popular */}
+          {/* Lasted Update */}
           <section id="body-popular">
-            <div className="my-2 mt-10">
-              {promotion.map((data, i) => (
-                <div key={i} className="bg-rose-100 w-full h-[350px] flex">
-                  <div className="text-left w-[50%] backdrop-blur-sm">
+            <div className="px-4 py-1">
+              <h1 className="p-5 w-full text-center text-3xl max-sm:text-lg font-bold hover:text-cyan-800 book-style">
+                {"Lasted Update"}
+              </h1>
+              {allBooks.slice(0, 1).map((data, i) => (
+                <div key={i} className="bg-rose-100 w-full h-[400px] max-sm:h-[200px] flex ">
+                  <div className="w-[50%] text-end items-end flex flex-col mt-10">
                     {data.title && (
-                      <h1 className="lg:text-6xl md:text-3xl sm:text-2xl max-sm:text-2xl font-mono font-bold text-end mt-20 text-gray-500 hover:text-gray-700">
+                      <h1 className="lg:text-4xl md:text-xl max-sm:text-xl book-style text-gray-700 hover:text-gray-900">
                         {data.title}
                       </h1>
                     )}
+                    {data.price && (
+                      <h2 className="lg:text-xl max-sm:text-md  book-style  text-gray-800 font-sans hover:text-gray-900 hover:duration-200 max-sm:text-sm">
+                        {data.price}
+                      </h2>
+                    )}
                     {data.decs && (
-                      <h2 className="lg:text-xl max-sm:text-md mt-2 font-mono font-bold text-center text-gray-700 font-sans hover:text-gray-800 hover:duration-200 max-sm:text-sm">
+                      <h2 className="lg:text-xl max-sm:text-md  book-style  text-gray-800 font-sans hover:text-gray-900 hover:duration-200 max-sm:text-sm">
                         {data.decs}
                       </h2>
                     )}
                   </div>
-
-                  <div className="flex w-[50%] items-center justify-center p-4">
+                  <div className="flex w-[50%] items-center justify-center p-10 object-cover">
                     <img
-                      src={data.imagePromo}
-                      className="flex w-[90%] h-[100%] max-sm:w-[80%] max-sm:h-[60%] hover:scale-105 duration-200 bg-cover rounded-lg duration-300"
+                      src={data.img}
+                      className="flex w-[250px] h-[300px] max-sm:w-[200px] max-sm:h-[150px] hover:scale-90 rounded-lg duration-300"
+                      onClick={() => handleReadNowClick(data)}
                     />
                   </div>
                 </div>
               ))}
             </div>
           </section>
-
-          {/* Category */}
-          {/* <section id="category">
-            <div className="h-[500px] w-full justify-center ">
-              <button onClick={() => filterBooksByType("All")}>Show All</button>
-              <button onClick={() => filterBooksByType("bacII")}>Filter by bacII</button>
-              <button onClick={() => filterBooksByType("Comics")}>Filter by Comics</button>
-
-              {filteredBooks.map((book, index) => (
-                <div key={index}>
-                  <p>{book.title}</p>
-                </div>
-              ))}
-            </div>
-          </section> */}
         </>
       )}
     </>

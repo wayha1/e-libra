@@ -13,3 +13,10 @@
   max-width: 370px;
   margin: 10px;
 }
+@media screen and (max-width: 500px) {
+  .react-pdf__Page__canvas {
+    max-width: 250px; 
+    max-height: 600px;
+    margin: 5px; 
+  }
+}

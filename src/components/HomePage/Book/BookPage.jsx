@@ -13,6 +13,7 @@ const BookPage = () => {
   const { state } = useLocation();
   const { pages } = state || {};
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchPage, setSearchPage] = useState(''); // State to hold the entered page number
   const navigate = useNavigate();
 
   const handleNextPage = () => {
@@ -26,6 +27,23 @@ const BookPage = () => {
     if (currentPage > 1) {
       const decrement = window.innerWidth < 500 ? 1 : 2;
       setCurrentPage(currentPage - decrement);
+    }
+  };
+
+  const handleSearchPage = async () => {
+    try {
+      const pdfDocument = await pdfjs.getDocument(pages.BookPdf).promise;
+      const totalPages = pdfDocument.numPages;
+
+      const parsedPage = parseInt(searchPage, 10);
+      if (!isNaN(parsedPage) && parsedPage >= 1 && parsedPage <= totalPages) {
+        setCurrentPage(parsedPage);
+      } else {
+        alert(`Invalid page number. Enter a number between 1 and ${totalPages}`);
+      }
+    } catch (error) {
+      console.error('Error counting pages:', error);
+      alert('Error counting pages. Please try again.');
     }
   };
 
@@ -44,7 +62,7 @@ const BookPage = () => {
     const slidesToShow = isMobile ? 1 : 2;
 
     return (
-      <div className="flex h-[980px] items-center relative">
+      <div className="flex h-[900px] items-center relative">
 
         <Document file={pages.BookPdf} onLoadSuccess={() => setCurrentPage(1)} className={`flex ${isMobile ? 'mx-5' : 'mx-5'} w-[70%] max-sm:w-[50%]`}>
           <Page pageNumber={currentPage} className="flex w-[80%]" />
@@ -61,17 +79,17 @@ const BookPage = () => {
           <button
             onClick={handlePreviousPage}
             disabled={currentPage <= 1}
-            className="bg-white text-gray-700 px-4 py-2 rounded-md"
+            className="bg-white text-gray-700 px-3 py-2 rounded-md"
           >
-            Prev Page
+            Prev
           </button>
-
+          <p className="text-white">Page {currentPage} of {totalPages}</p>
           <button
             onClick={handleNextPage}
             disabled={currentPage + 1 > totalPages}
-            className="bg-white text-gray-700 px-4 py-2 rounded-md"
+            className="bg-white text-gray-700 px-3 py-2 rounded-md"
           >
-            Next Page
+            Next
           </button>
         </div>
       </div>
@@ -89,9 +107,24 @@ const BookPage = () => {
           Back
         </button>
       </div>
-      <div className="flex h-full justify-center items-center bg-gray-600 " >
-        {renderPdf()}</div>
-
+      <div className="flex h-full justify-center items-center bg-gray-600">
+        <div className="absolute flex lg:mt-10 top-20 right-10 max-sm:top-20 max-sm:left-[100px]">
+          <input
+            type="text"
+            placeholder="Enter page number"
+            value={searchPage}
+            onChange={(e) => setSearchPage(e.target.value)}
+            className="p-2 rounded-md mr-2"
+          />
+          <button
+            className="bg-white text-gray-700 px-4 py-2 rounded-md"
+            onClick={handleSearchPage}
+          >
+            Page
+          </button>
+        </div>
+        {renderPdf()}
+      </div>
     </>
   );
 };

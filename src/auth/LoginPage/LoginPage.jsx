@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc, collection, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../../firebase";
-// import PhoneLogin from "../LoginWithPhone/PhoneLogin";
 import GoogleLogin from "../LoginWithGoogle/GoogleLogin";
 
 const LoginPage = () => {
@@ -133,9 +132,6 @@ const LoginPage = () => {
                 <div className=" flex">
                   <GoogleLogin />
                 </div>
-                {/* <div className="flex ">
-                  <PhoneLogin />
-                </div> */}
               </ul>
             </main>
           </form>
