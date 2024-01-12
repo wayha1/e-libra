@@ -18,7 +18,7 @@ import BookPage from "./components/HomePage/Book/BookPage";
 import YourBook from "./components/AccountPage/YourBook";
 import ProtectedRoute from "./ProtectedRoute";
 import { Admin } from "./admin/Admin";
-import { Dashboard } from "./admin/dashboard/Dashboard";
+import { Dashboard } from "./admin/Dashbaord/Dashboard";
 import UnauthorizedPage from "./auth/UnauthorizedPage/UnauthorizedPage";
 
 const App = () => {

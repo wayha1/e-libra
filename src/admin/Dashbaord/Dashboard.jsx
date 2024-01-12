@@ -2,15 +2,14 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Generalbook } from '../GeneralBook/Generalbook';
 import { BookManage } from '../book/BookManage';
-import { signOut } from 'firebase/auth'; // Import signOut from Firebase Authentication
-import { auth } from '../../firebase'; // Import your Firebase authentication instance
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
 import { UserList } from '../userManage/UserList';
 import { BaciiBook } from '../BacllBook/BaciiBook';
 import { ComicBook } from '../ComicBook/ComicBook';
 import { KhmerBook } from '../KhmerBook/KhmerBook';
 import { NovelBook } from '../NovelBook/NovelBook';
 import { PracticeBook } from '../PracticeBook/PracticeBook';
-import { AddAuthor } from '../Author/AddAuthor';
 import { Author } from '../Author/Author';
 
 
@@ -20,7 +19,7 @@ export const Dashboard = () => {
     const handleLogout = async () => {
         try {
             await signOut(auth);
-            navigate('/login'); // Redirect to the login page after logout
+            navigate('/login');
         } catch (error) {
             console.error('Error signing out:', error);
         }
