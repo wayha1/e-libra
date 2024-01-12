@@ -57,7 +57,7 @@ export const Dashboard = () => {
     return (
         <div className="w-full h-screen flex">
             <div className="bg-gray-800 text-white w-[15%] p-10">
-                <ul className='space-y-5'>
+                <ul className='space-y-5 whitespace-nowrap'>
                     <li className="flex items-center justify-center mt-10">
                         <Link
                             to="/dashboard/mangment"
