@@ -172,7 +172,7 @@ const AllCategory = () => {
   }, [searchTerm, filterType, allBooks]);
 
   return (
-    <div className="z-20 overflow-y-auto">
+    <div className="z-20 h-[900px]">
       <button
         className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg mx-5 my-2 max-lg:hidden lg:hidden"
         onClick={handleGoBack}
@@ -204,7 +204,7 @@ const AllCategory = () => {
         </button>
       </div>
 
-      <div className="h-[600px] md:h-[1000px] max-sm:h-[570px] gap-x-3 grid grid-cols-4 md:grid-cols-3 max-sm:grid-cols-3 lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-1 ">
+      <div className="h-[500px] md:h-[1000px] max-sm:h-[570px] gap-x-3 grid grid-cols-4 md:grid-cols-3 max-sm:grid-cols-3 lg:grid-cols-4 mx-20 my-5 md:mx-10 max-sm:mx-1 ">
         {renderBooks}
       </div>
 

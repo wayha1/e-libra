@@ -54,7 +54,7 @@ const AllgenBook = () => {
 
 
   return (
-    <div className="flex bg-gray-50 overflow-y-auto">
+    <div className="flex bg-gray-50 h-full overflow-y-auto">
       {isLoading ? (
         <LoadingPage />
       ) : (
