@@ -117,7 +117,7 @@ const LoginPage = () => {
 
               <div className="mt-8 text-center flex justify-center w-full">
                 <div className="flex">
-                  <button className="py-3 hover:text-blue-900"> Forgot Password &#10072; </button>
+                  <button className="py-3 hover:text-blue-900"> Don't have account &#10072; </button>
                   <Link to={"/register"}>
                     <button className="py-3 text-blue-700 hover:text-blue-900" type="Register">
                       &#160;Sign Up
