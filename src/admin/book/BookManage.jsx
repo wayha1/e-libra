@@ -34,7 +34,8 @@ const BookManage = () => {
       }
       if (userData.role === "author") {
         return "/dashboard/author";
-      } else {
+      }
+      else {
         return "/unauthorized";
       }
     } else {
@@ -62,6 +63,9 @@ const BookManage = () => {
   const handleAuthorList = () => {
     navigate("/dashboard/author");
   };
+  const handleUserBook = () => {
+    navigate("/dashboard/userbook")
+  }
 
   return (
     <>
@@ -71,20 +75,53 @@ const BookManage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-2">
             {/* User List */}
-            <button onClick={handleUserList}>
-              <div className="bg-blue-100 py-4 rounded-md">
-                <h3 className="text-xl font-semibold text-center text-gray-500">User List</h3>
-                {/* Render your user list here */}
-              </div>
-            </button>
+            {userData && userData.role === "admin" && (
+              <button onClick={handleUserList}>
+                <div className="bg-blue-100 py-4 rounded-md">
+                  <h3 className="text-xl font-semibold text-center text-gray-500">User List</h3>
 
-            {/* Author List */}
-            <button onClick={handleAuthorList}>
-              <div className="bg-pink-100 py-4 rounded-md">
-                <h3 className="text-xl font-semibold text-center text-gray-500">Author List</h3>
-                {/* Render your author list here */}
+                </div>
+              </button>
+            )}
+
+            {userData && userData.role === "admin" && (
+              <button onClick={handleUserBook}>
+                <div className="bg-green-100 py-4 rounded-md">
+                  <h3 className="text-xl font-semibold text-center text-gray-500">User Book</h3>
+                </div>
+              </button>
+
+            )}
+
+            {userData && userData.role === "admin" && (
+              <button onClick={handleAuthorList}>
+                <div className="bg-pink-100 py-4 rounded-md">
+                  <h3 className="text-xl font-semibold text-center text-gray-500">Author List</h3>
+                </div>
+              </button>
+
+            )}
+
+            {/* Disable User List button for authors */}
+            {userData && userData.role === "author" && (
+              <div className="bg-pink-200 py-4 rounded-md cursor-not-allowed opacity-50">
+                <h3 className="text-xl font-semibold text-center text-gray-500">User List</h3>
               </div>
-            </button>
+            )}
+            {userData && userData.role === "author" && (
+              <button onClick={handleUserBook}>
+                <div className="bg-green-200 py-4 rounded-md">
+                  <h3 className="text-xl font-semibold text-center text-gray-500">User Book</h3>
+                </div>
+              </button>
+            )}
+            {userData && userData.role === "author" && (
+              <button onClick={handleAuthorList}>
+                <div className="bg-blue-200 py-4 rounded-md">
+                  <h3 className="text-xl font-semibold text-center text-gray-500">Author list</h3>
+                </div>
+              </button>
+            )}
           </div>
         </div>
       </div>

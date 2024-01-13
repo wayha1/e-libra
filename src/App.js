@@ -14,7 +14,7 @@ import Payment from "./components/Cartt/Payment";
 import GoogleLogin from "./auth/LoginWithGoogle/GoogleLogin";
 import PhoneLogin from "./auth/LoginWithPhone/PhoneLogin";
 import { ModalToLogin } from "./components/content/requirement/ModalToLogin";
-import BookPage from "./components/HomePage/Book/BookPage";
+import BookPage from "./components/Book/BookPage";
 import YourBook from "./components/AccountPage/YourBook";
 import ProtectedRoute from "./ProtectedRoute";
 import { Admin } from "./admin/Admin";

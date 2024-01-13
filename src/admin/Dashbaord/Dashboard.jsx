@@ -11,6 +11,7 @@ import { KhmerBook } from "../KhmerBook/KhmerBook";
 import { NovelBook } from "../NovelBook/NovelBook";
 import { PracticeBook } from "../PracticeBook/PracticeBook";
 import { Author } from "../Author/Author";
+import { UserBook } from "../UserBook/UserBook";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -44,12 +45,13 @@ export const Dashboard = () => {
         return <Author />;
       case "/dashboard/userlist":
         return <UserList />;
-      default:
-        return (
-          <div className="text-center text-2xl font-medium">
-            No content available for: {window.location.pathname}
-          </div>
-        );
+      case "/dashboard/userbook":
+        return <UserBook />
+      default: return (
+        <div className="text-center text-2xl font-medium">
+          No content available for: {window.location.pathname}
+        </div>
+      );
     }
   };
 
@@ -72,7 +74,7 @@ export const Dashboard = () => {
               onClick={() => navigate("/dashboard/book")}
               className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
             >
-              Book
+              ចំណេះទូទៅ
             </Link>
           </li>
           <li className="flex items-center justify-center">
@@ -81,7 +83,7 @@ export const Dashboard = () => {
               onClick={() => navigate("/dashboard/bacii")}
               className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
             >
-              bacii
+              បាក់ឌុប
             </Link>
           </li>
           <li className="flex items-center justify-center">
@@ -90,7 +92,7 @@ export const Dashboard = () => {
               onClick={() => navigate("/dashboard/comic")}
               className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
             >
-              comic
+              ជីវចល
             </Link>
           </li>
           <li className="flex items-center justify-center">
@@ -99,7 +101,7 @@ export const Dashboard = () => {
               onClick={() => navigate("/dashboard/khmer")}
               className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
             >
-              Khmer-Book
+              អក្សរសិល្ប៍
             </Link>
           </li>
           <li className="flex items-center justify-center">
@@ -108,7 +110,7 @@ export const Dashboard = () => {
               onClick={() => navigate("/dashboard/novel")}
               className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
             >
-              Novel-Book
+              ប្រលោមលោក
             </Link>
           </li>
           <li className="flex items-center justify-center">
@@ -117,16 +119,7 @@ export const Dashboard = () => {
               onClick={() => navigate("/dashboard/practice")}
               className={`${window.location.pathname === "/dashboard/book"} text-xl hover:text-gray-300`}
             >
-              Practice-Book
-            </Link>
-          </li>
-          <li className="flex items-center justify-center">
-            <Link
-              to="/dashboard/author"
-              onClick={() => navigate("/dashboard/author")}
-              className={`${window.location.pathname === "/dashboard/author"} text-xl hover:text-gray-300`}
-            >
-              AuthorList
+              លំហាត់
             </Link>
           </li>
         </ul>
