@@ -1,8 +1,16 @@
 import React from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
+import { useNavigate } from "react-router-dom";
+import facebookLogo from "./../asset/facebook.png"
+import instragramLogo from "./../asset/ig.webp"
+import googleLogo from "./../asset/google.png"
+import youtubeLogo from "./../asset/youtube.png"
 
 export const Footer = () => {
+  const navigate = useNavigate();
+  const handleUs = () => {
+    navigate("/aboutus")
+  }
+
   return (
     <main className="flex h-full justify-evenly text-center bg-[#54743540] whitespace-nowrap py-5">
       <section className="Logo flex items-center px-3 space-y-5 max-sm:hidden">
@@ -12,42 +20,35 @@ export const Footer = () => {
       </section>
 
       <section className="flex">
-        <div className="flex flex-col space-y-5 ">
+        <div className="flex flex-col space-y-5">
           <h1 className="text-xl font-bold  hover:text-cyan-700">Contact Us</h1>
-          <span>Facebook</span>
-          <span>Instagram</span>
-          <span>Google</span>
-          <span>Youtube</span>
+          <img src={facebookLogo} onClick={handleUs} className="cursor-pointer
+          w-[30px]"/>
+          <img src={instragramLogo} onClick={handleUs} className="cursor-pointer 
+          w-[30px]"/>
+          <img src={googleLogo} onClick={handleUs} className="cursor-pointer 
+          w-[30px]"/>
+          <img src={youtubeLogo} onClick={handleUs} className="cursor-pointer 
+          w-[30px]"/>
         </div>
       </section>
       <section className="flex">
         <div className="flex flex-col space-y-5">
           <h1 className="text-xl font-bold hover:text-cyan-700"> Resource </h1>
-          <span>Return Policy</span>
-          <span>FAG</span>
-          <span>Privacy Policy</span>
+          <span onClick={handleUs} className="cursor-pointer hover:text-blue-300">Return Policy</span>
+          <span onClick={handleUs} className="cursor-pointer hover:text-blue-300">FAG</span>
+          <span onClick={handleUs} className="cursor-pointer hover:text-blue-300">Privacy Policy</span>
         </div>
       </section>
       <section className="flex ">
         <div className="flex flex-col space-y-5">
           <h1 className="text-xl font-bold hover:text-cyan-700">About Us</h1>
-          <span>Our Story</span>
-          <span>Our Vision</span>
-          <span>Press</span>
-          <span>Carrers</span>
+          <span onClick={handleUs} className="cursor-pointer hover:text-blue-300">Our Story</span>
+          <span onClick={handleUs} className="cursor-pointer hover:text-blue-300">Our Vision</span>
+          <span onClick={handleUs} className="cursor-pointer hover:text-blue-300">Press</span>
+          <span onClick={handleUs} className="cursor-pointer hover:text-blue-300">Carrers</span>
         </div>
       </section>
-      {/* <section className="flex">
-        <div className="flex flex-col px-3 ">
-        <DropdownButton id="dropdown-basic-button" title="Dropdown button" className="text-xl hover:text-cyan-700 appearance-none">
-          <div className="flex flex-col space-y-3">
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-          </div>
-        </DropdownButton>
-        </div>
-      </section> */}
     </main>
   );
 };
