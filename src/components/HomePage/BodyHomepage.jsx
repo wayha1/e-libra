@@ -22,19 +22,21 @@ const BodyHomepage = () => {
   };
 
   const handleSeeMoreClick = (index) => {
-    const selectedBookEntry = Object.values(bookData)[currentData];
-
+    const selectedBookEntry = bookData[index];
+  
     if (selectedBookEntry && selectedBookEntry.books && selectedBookEntry.books.length > 0) {
       const selectedBook = selectedBookEntry.books[0];
       if (selectedBook) {
         navigate(`/allgen/see-all`, { state: { selectedBook } });
       } else {
-        console.error(`Book not found at index ${currentData}`);
+        console.error(`Book not found at index ${index}`);
       }
     } else {
-      console.error(`Book entry not found at index ${currentData}`);
+      console.error(`Book entry not found at index ${index}`);
     }
   };
+  
+  
 
   const handleAddToCartClick = (data) => {
     addToCart(data);
@@ -126,9 +128,10 @@ const BodyHomepage = () => {
                       <BookCard
                         key={`${i}-${j}`}
                         data={data}
-                        handleSeeMoreClick={() => handleSeeMoreClick(data.index)}
+                        handleSeeMoreClick={() => handleSeeMoreClick(i)}
                         handleAddToCartClick={() => handleAddToCartClick(data)}
                       />
+
                     ))}
                 </div>
               ))}
