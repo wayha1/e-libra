@@ -76,22 +76,22 @@ const HomePage = () => {
                   onTouchEnd={() => setIsBannerHovered(false)}
                 >
                   <div
-                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${isBannerHovered ? "opacity-150" : "opacity-0"
+                    className={`absolute backdrop-blur-sm max-sm:px-2 max-sm:py-2 ${isBannerHovered ? "opacity-300" : "opacity-0"
                       } transition-opacity duration-300 h-full w-[80%]`}
                   >
                     <div className="flex max-lg:px-5 max-md:px-5 items-center mt-[30%]">
-                      <div className="text-gray-600 text-center bg-shadow-sm px-5">
+                      <div className="text-blue-800 bg-shadow-sm px-5">
                         {data.title && (
-                          <h1 className="mt-10 font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
+                          <h1 className="font-bold uppercase lg:text-6xl md:text-5xl sm:text-3xl xs:text=2xl 2xs:text-4xl">
                             {data.title}
                           </h1>
                         )}
                         {data.decs && <h2 className="lg:text-xl max-lg:text-xs ">{data.decs}</h2>}
                       </div>
                     </div>
-                    <button className="m-2 h-12 w-18 px-4 py-2 bg-gray-600 rounded-md lg:translate-y-52 md:translate-y-52 max-md:translate-y-52 max-sm:translate-y-52">
+                    <button className="m-2 h-12 w-18 px-4 py-2 bg-gray-800 rounded-md lg:translate-y-52 md:translate-y-52 max-md:translate-y-52 max-sm:translate-y-52">
                       <h1 className="whitespace-nowrap text-gray-200 text-md">
-                        <Link to="/allgen">All Category</Link>
+                        <Link to="/allgen">ALL CATEGORY</Link>
                       </h1>
                     </button>
                   </div>

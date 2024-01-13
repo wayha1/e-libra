@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { getDocs, query, where, collection } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
@@ -14,7 +16,30 @@ const Navbar = () => {
   const imgRef = useRef();
   const navigate = useNavigate();
   const user = auth.currentUser;
+  const [userData, setUserData] = useState(null);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const uid = user.uid;
+        const cartCollection = collection(db, "user");
+        const q = query(cartCollection, where("uid", "==", uid));
+        const querySnapshot = await getDocs(q);
+        const userDataFromFirestore = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }))[0];
+
+        setUserData(userDataFromFirestore);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    if (user) {
+      fetchUserData();
+    }
+  }, [user]);
   const handleNav = () => setNav(!nav);
 
   const handleImageClick = (e) => {
@@ -79,9 +104,9 @@ const Navbar = () => {
             <Link
               to={"/"}
               onClick={scrollToTop}
-              className="uppercase whitespace-nowrap hover:shadow-full hover:scale-110"
+              className="whitespace-nowrap hover:shadow-full hover:scale-110"
             >
-              E-libra
+              e-libra
             </Link>
           </div>
           <ul className="max-lg:hidden">
@@ -138,12 +163,12 @@ const Navbar = () => {
                 </button>
                 {open && (
                   <div className="flex flex-col justify-center items-center lg:items-end lg:mr-[2%] w-screen absolute right-0 z-50">
-                    <ul className=" mt-2 p-8 lg:p-12 rounded-md shadow-lg bg-gray-500 -translate-x-12">
+                    <ul className=" mt-5 p-8 lg:p-12 rounded-md shadow-lg bg-gray-400 -translate-x-28">
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
                           <div className="text-white text-xl font-semibold">
                             <Link to={"/account"}>
-                              <button className="whitespace-nowrap px-4 py-2 text-white hover:underline">
+                              <button className="whitespace-nowrap px-4 py-2 text-white hover:text-gray-300">
                                 Profile
                               </button>
                             </Link>
@@ -157,7 +182,7 @@ const Navbar = () => {
                         </div>
                       ) : (
                         <div className="flex flex-col justify-center items-center space-y-4">
-                          <p className="text-white uppercase font-semibold">No Account</p>
+
                           <button
                             onClick={() => {
                               handleButtonClick();
@@ -172,7 +197,15 @@ const Navbar = () => {
                     </ul>
                   </div>
                 )}
+
               </div>
+              {(userData && (userData.role === "admin" || userData.role === "author")) && (
+                <button className="flex bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-700">
+                  <Link to="/admin">Dashboard</Link>
+                </button>
+              )}
+
+
             </div>
           </ul>
         </div>

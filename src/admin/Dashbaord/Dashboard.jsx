@@ -63,7 +63,7 @@ export const Dashboard = () => {
             <Link
               to="/dashboard/mangment"
               onClick={() => navigate("/dashboard/mangment")}
-              className={`${window.location.pathname === "/dashboard/mangment"} text-xl hover:text-gray-300 `}
+              className={`${window.location.pathname === "/dashboard/mangment"} text-xl hover:text-gray-300 hover;bg-gray-500`}
             >
               Dashboard
             </Link>
