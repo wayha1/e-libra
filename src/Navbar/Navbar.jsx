@@ -5,7 +5,6 @@ import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { getDocs, query, where, collection } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
