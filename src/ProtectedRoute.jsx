@@ -11,6 +11,7 @@ const ProtectedRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  //fetch data from firestore
   const fetchData = async (currentUser) => {
     try {
       const uid = currentUser.uid;
@@ -31,6 +32,22 @@ const ProtectedRoute = ({ children }) => {
     }
   };
 
+  // fetch from authecation from firebase
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        fetchData(currentUser);
+      } else {
+        setUser(null);
+        setUserData(null);
+        setIsLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // function for navigate page by checking role
   const navigateUser = useCallback(() => {
     if (user && userData && user.uid === userData.uid) {
       if (userData.role === "admin") {
@@ -45,19 +62,6 @@ const ProtectedRoute = ({ children }) => {
       navigate("/unauthorized");
     }
   }, [user, userData, navigate]);
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        fetchData(currentUser);
-      } else {
-        setUser(null);
-        setUserData(null);
-        setIsLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
     if (!isLoading) {
