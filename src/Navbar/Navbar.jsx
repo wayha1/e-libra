@@ -174,7 +174,7 @@ const Navbar = () => {
                 </button>
                 {open && (
                   <div className="flex flex-col justify-center items-center lg:items-end lg:mr-[2%] w-screen absolute right-0 z-50">
-                    <ul className=" mt-5 p-8 lg:p-12 rounded-md shadow-lg bg-gray-400 -translate-x-28">
+                    <ul className=" mt-5 p-8 lg:p-12 rounded-md shadow-lg bg-gray-400 -translate-x-12">
                       {user ? (
                         <div className="flex flex-col justify-center items-center space-y-4">
                           <div className="text-white text-xl font-semibold">

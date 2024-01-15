@@ -25,7 +25,9 @@ function GoogleLogin() {
       await addDoc(userCollection, userData);
 
       setUser(result.user);
+
     } catch (error) {
+
       console.error("Error signing in with Google:", error);
     }
   };
