@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { collection, getDocs, query } from "firebase/firestore";
+import { db } from "../../firebase";
+import { Link, useNavigate } from "react-router-dom";
 import HeadCategory from "./HeadCategory";
 import BodyHomepage from "./BodyHomepage";
 import LoadingPage from "../content/LoadingPage/LoadingPage";
-import { collection, getDocs, query } from "firebase/firestore";
-import { db } from "../../firebase";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [banner, setBanner] = useState([]);
@@ -31,17 +30,15 @@ const HomePage = () => {
   const fetchData = async () => {
     try {
       const genreQueries = ["bacII", "Comics", "Comdy", "GeneralBook", "NovelBook", "KhmerBook"];
-
       const categoryQueries = genreQueries.map((genre) => query(collection(db, "Books", "All_Genre", genre)));
-
       const results = await Promise.all(categoryQueries.map((q) => getDocs(q)));
       const categoriesData = results.map((querySnapshot) =>
         querySnapshot.docs.map((doc) => ({ ...doc.data(), category: doc.id }))
       );
-
       const combinedBooks = categoriesData.flat();
       const sortedBooks = combinedBooks.sort((a, b) => a.title.localeCompare(b.title));
       setAllBooks(sortedBooks);
+      console.log(allBooks)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -119,7 +116,7 @@ const HomePage = () => {
           <section id="body-popular">
             <div className="px-4 py-1">
               <h1 className="p-5 w-full text-center text-3xl max-sm:text-lg font-bold hover:text-cyan-800 book-style">
-                {"Lasted Update"}
+                {"Lasted Release"}
               </h1>
               {allBooks.slice(0, 1).map((data, i) => (
                 <div key={i} className="bg-rose-100 w-full h-[400px] max-sm:h-[200px] flex ">
