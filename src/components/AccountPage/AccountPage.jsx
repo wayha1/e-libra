@@ -31,7 +31,7 @@ const AccountPage = () => {
             navigate("/admin");
           }
           if (userDataFromFirestore && userDataFromFirestore.role === "author") {
-            navigate("/dashboard/author");
+            navigate("/account");
           } else {
           }
         } else {
