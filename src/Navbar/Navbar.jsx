@@ -10,8 +10,7 @@ import { onAuthStateChanged } from "firebase/auth";
 const Navbar = () => {
   const [nav, setNav] = useState(true);
   const [open, setOpen] = useState(false);
-  const [dropdownState, setDropdownState] = useState("login");
-  const [accordionState, setAccordionState] = useState({ login: false, profile: false });
+  const [accordionState, setAccordionState] = useState(null);
   const menuRef = useRef();
   const imgRef = useRef();
   const navigate = useNavigate();
@@ -36,10 +35,27 @@ const Navbar = () => {
       }
     };
 
+    const handleLogoutEffect = async () => {
+      try {
+        await signOut(auth);
+        navigate("/login");
+      } catch (error) {
+        console.error("Error signing out:", error);
+      }
+    };
+
     if (user) {
       fetchUserData();
+    } else {
+      setUserData(null);
     }
-  }, [user]);
+
+    if (accordionState === "logout") {
+      handleLogoutEffect();
+      setAccordionState(null);
+    }
+  }, [user, accordionState, navigate]);
+
   const handleNav = () => setNav(!nav);
 
   const handleImageClick = (e) => {
@@ -52,7 +68,7 @@ const Navbar = () => {
     if (accordionState === "login") {
       navigate("/login");
     } else {
-      setDropdownState("profile");
+      setAccordionState("profile");
     }
   };
 
@@ -66,13 +82,8 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/login");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
+  const handleLogout = () => {
+    setAccordionState("logout");
   };
 
   useEffect(() => {
@@ -81,6 +92,7 @@ const Navbar = () => {
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -177,7 +189,7 @@ const Navbar = () => {
                             onClick={handleLogout}
                             className="whitespace-nowrap px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
                           >
-                            Logout
+                            Sign Out
                           </button>
                         </div>
                       ) : (
@@ -190,7 +202,7 @@ const Navbar = () => {
                             }}
                             className="whitespace-nowrap px-4 py-2 border border-blue-500 rounded-md bg-blue-500 text-white hover:bg-blue-600 hover:border-blue-600"
                           >
-                            Login
+                            Sign In
                           </button>
                         </div>
                       )}
